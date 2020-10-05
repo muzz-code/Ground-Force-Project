@@ -25,9 +25,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures{
+        viewBinding true
     }
 
 }
@@ -62,4 +67,10 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle_version"
+
+    //spinner for country selection
+    implementation "com.hbb20:ccp:$versions.hbb_version"
+
+    //otp
+    implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview"
 }
