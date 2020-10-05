@@ -31,7 +31,7 @@
         android:text="@string/landing_welcome"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textSize="33sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         android:paddingBottom="2dp"
         android:text="@string/landing_sub_welcome"
         android:textColor="@android:color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/landingTVWelcome"
         app:layout_constraintStart_toStartOf="@+id/landingTVWelcome"
         app:layout_constraintTop_toBottomOf="@+id/landingTVWelcome" />
@@ -67,7 +67,7 @@
         android:text="@string/landing_create_account"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/landingBTSignUp"
         app:layout_constraintEnd_toEndOf="@+id/landingBTSignUp"
         app:layout_constraintStart_toStartOf="@+id/landingBTSignUp" />
@@ -86,7 +86,7 @@
         android:text="@string/landing_sign_up"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/landingBTSignUpGoogle"
         app:layout_constraintEnd_toEndOf="@+id/landingBTSignUpGoogle"
         app:layout_constraintStart_toStartOf="@+id/landingBTSignUpGoogle" />
@@ -105,7 +105,7 @@
         android:text="@string/landing_sign_up_with_google"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="17sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/landingIVManOnStreet2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
