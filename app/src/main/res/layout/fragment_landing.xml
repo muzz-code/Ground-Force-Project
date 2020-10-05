@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image_overlay"
     tools:context=".LandingFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--Background Image-->
+    <ImageView
+        android:id="@+id/landingIVManOnStreet2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:adjustViewBounds="true"
+        android:alpha="0.6"
+        android:contentDescription="@string/landing_background_desc"
+        android:scaleType="centerCrop"
+        android:src="@drawable/man_on_street2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Welcome text-->
+    <TextView
+        android:id="@+id/landingTVWelcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37dp"
+        android:layout_marginRight="37dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:text="@string/landing_welcome"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Sub title-->
+    <TextView
+        android:id="@+id/landingTVSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/landing_sub_welcome"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/landingTVWelcome"
+        app:layout_constraintStart_toStartOf="@+id/landingTVWelcome"
+        app:layout_constraintTop_toBottomOf="@+id/landingTVWelcome" />
+    <!--Create Account Button-->
+    <Button
+        android:id="@+id/landingBTCreateAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_primary_shapes"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/landing_create_account"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@id/landingBTSignUp"
+        app:layout_constraintEnd_toEndOf="@+id/landingBTSignUp"
+        app:layout_constraintStart_toStartOf="@+id/landingBTSignUp" />
+    <!--Sign Up button-->
+    <Button
+        android:id="@+id/landingBTSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_transp_shapes"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/landing_sign_up"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@id/landingBTSignUpGoogle"
+        app:layout_constraintEnd_toEndOf="@+id/landingBTSignUpGoogle"
+        app:layout_constraintStart_toStartOf="@+id/landingBTSignUpGoogle" />
+    <!--Sign Up with google-->
+    <Button
+        android:id="@+id/landingBTSignUpGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_red_shapes"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="@string/landing_sign_up_with_google"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@id/landingIVManOnStreet2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,10 @@
     <string name="app_name">Groundforce</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="landing_background_desc">BackgroundImage</string>
+    <string name="landing_welcome">Welcome Trooper</string>
+    <string name="landing_sub_welcome">Nice meet to you!</string>
+    <string name="landing_create_account">Create Account</string>
+    <string name="landing_sign_up">I\'m Not New Here</string>
+    <string name="landing_sign_up_with_google">Sign Up With Google</string>
 </resources>
