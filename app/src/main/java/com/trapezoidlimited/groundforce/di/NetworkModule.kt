@@ -8,10 +8,18 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 
+/**
+ * Module class for Network
+ */
+
 @InstallIn(ApplicationComponent::class)
 @Module
 class NetworkModule {
 
+
+    /**
+     * Creates the api service
+     */
 
     @Singleton
     @Provides
