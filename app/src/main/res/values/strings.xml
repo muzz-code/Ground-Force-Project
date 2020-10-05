@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Groundforce</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <!--    Strings(text) for onBoarding screen 2-->
+    <string name="screen_1_text1">Earn Because You \nLive Where You Live</string>
+    <string name="screen_1_text2">Complete simple tasks on your mobile \nphone and around your location.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
