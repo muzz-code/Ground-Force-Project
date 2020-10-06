@@ -4,5 +4,6 @@ ext.versions = [
         retrofit_version       : '2.9.0',
         okhttp3_version        : '4.5.0',
         hilt_version           : '2.28-alpha',
-        lifecycle_version      : '2.2.0'
+        lifecycle_version      : '2.2.0',
+        fragment_version       : '1.2.5'
 ]

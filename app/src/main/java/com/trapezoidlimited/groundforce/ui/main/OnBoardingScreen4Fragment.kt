@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.trapezoidlimited.groundforce.R
 
+/**
+ * The Fragment for OnBoarding Screen No. 4
+ * where there is the image of female holding a phone
+ */
 class OnBoardingScreen4Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +21,7 @@ class OnBoardingScreen4Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflate the layout for Onboarding Screen 4.
         return inflater.inflate(R.layout.fragment_on_boarding_screen_4, container, false)
     }
 }
