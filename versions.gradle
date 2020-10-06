@@ -6,4 +6,5 @@ ext.versions = [
         hilt_version           : '2.28-alpha',
         lifecycle_version      : '2.2.0',
         fragment_version       : '1.2.5'
+
 ]
