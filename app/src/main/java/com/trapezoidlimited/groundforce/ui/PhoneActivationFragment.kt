@@ -64,8 +64,8 @@ class PhoneActivationFragment : Fragment() {
             }
         }
         // Set the span text
-        ssText.setSpan(clickableSpan, 47, 63, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ssText.setSpan(clickableSpan1, 79, 92, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ssText.setSpan(clickableSpan, 46, 64, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ssText.setSpan(clickableSpan1, 79, 94, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
         binding.phoneActivTermsCondition.text = ssText
         binding.phoneActivTermsCondition.movementMethod = LinkMovementMethod.getInstance()
