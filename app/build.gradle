@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+//            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,6 +30,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = 1.8
     }
 
     kotlinOptions {
@@ -77,12 +80,10 @@ dependencies {
     // spinner for country selection
     implementation "com.hbb20:ccp:$versions.hbb_version"
 
-    //otp
-    implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview"
-
     //hilt testing Instrumented testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.hilt_version"
+    
     // otp
     implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview_version"
 

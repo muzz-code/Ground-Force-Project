@@ -5,7 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorTextPrimary">#DE000000</color>
     <color name="colorTextSecondary">#ffffff</color>
-
     <color name="colorTextVerify">#363636</color>
     <color name="colorTextDidntGetText">#232323</color>
     <color name="colorTextResend">#3867B0</color>

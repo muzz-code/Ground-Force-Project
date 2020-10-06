@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/OnBoardingScreen4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2"
+    tools:context=".ui.main.OnBoardingScreen4Fragment">
+
+    <ImageView
+        android:id="@+id/onBoardingScreen4_Fragment_iv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/screen_4_iv_content_desc_str"
+        android:scaleType="centerCrop"
+        android:src="@drawable/lagos_girl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/onBoardingScreen4_Fragment_headerText_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="37dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/screen_4_title_str"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen4_Fragment_iv" />
+
+    <TextView
+        android:id="@+id/onBoardingScreen4_subTitleText_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="57dp"
+        android:text="@string/screen_4_subtitle_str"
+        android:textSize="14sp"
+        android:textColor="@color/colorTextPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen4_Fragment_headerText_tv"
+        app:layout_constraintStart_toStartOf="@+id/onBoardingScreen4_Fragment_headerText_tv"
+        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen4_Fragment_headerText_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
