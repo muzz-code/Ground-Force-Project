@@ -31,7 +31,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildFeatures{
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
         viewBinding true
     }
 
@@ -44,9 +48,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Kotlin
     //navigation controller
@@ -69,9 +73,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle_version"
 
-    //spinner for country selection
+    // spinner for country selection
     implementation "com.hbb20:ccp:$versions.hbb_version"
 
-    //otp
-    implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview"
+    // otp
+    implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview_version"
+
+    // fragment-testing
+    debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
 }

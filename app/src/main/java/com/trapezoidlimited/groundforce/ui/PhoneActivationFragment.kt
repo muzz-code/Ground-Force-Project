@@ -67,8 +67,8 @@ class PhoneActivationFragment : Fragment() {
         ssText.setSpan(clickableSpan, 46, 64, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ssText.setSpan(clickableSpan1, 79, 94, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
-        binding.phoneActivTermsCondition.text = ssText
-        binding.phoneActivTermsCondition.movementMethod = LinkMovementMethod.getInstance()
+        binding.phoneActivTermsConditionTv.text = ssText
+        binding.phoneActivTermsConditionTv.movementMethod = LinkMovementMethod.getInstance()
 
         // Inflate the layout for this fragment
         return view

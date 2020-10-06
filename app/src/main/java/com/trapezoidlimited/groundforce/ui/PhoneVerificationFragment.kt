@@ -50,8 +50,8 @@ class PhoneVerificationFragment : Fragment() {
         // Set the span text
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
-        binding.phoneVerifTvResend.text = ssText
-        binding.phoneVerifTvResend.movementMethod = LinkMovementMethod.getInstance()
+        binding.phoneVerifVerifyTv.text = ssText
+        binding.phoneVerifVerifyTv.movementMethod = LinkMovementMethod.getInstance()
 
         // Inflate the layout for this fragment
         return view
