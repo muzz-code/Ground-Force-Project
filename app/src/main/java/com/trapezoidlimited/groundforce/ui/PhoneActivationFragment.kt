@@ -36,7 +36,7 @@ class PhoneActivationFragment : Fragment() {
 //        <!--    79 - 92-->
 
         // Get Test from String Resource
-        val codeText = getText(R.string.phone_activ_t_and_c)
+        val codeText = getText(R.string.phone_activ_t_and_c_str)
         // Get an instance of SpannableString
         val ssText = SpannableString(codeText)
         // Implement ClickableSpan

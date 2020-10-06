@@ -7,7 +7,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trapezoidlimited.groundforce.R
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -26,7 +25,7 @@ class PhoneVerificationFragmentTest{
     fun testResendTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneVerificationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_verif_resend_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_verif_didnt_get_code_text)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_verif_didnt_get_code_text_str)))
     }
 
     // Test if phone image is displayed
@@ -58,7 +57,7 @@ class PhoneVerificationFragmentTest{
     fun testConfirmButtonTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneVerificationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_verif_confirm_btn))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_verif_confirm)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_verif_confirm_str)))
     }
 
     // check click on the button

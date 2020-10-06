@@ -6,7 +6,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trapezoidlimited.groundforce.R
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -33,7 +32,7 @@ class LandingFragmentTest {
     fun testWelcomeTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<LandingFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.landing_welcome_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_welcome)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_welcome_str)))
     }
 
     // Check if sub title text is visible
@@ -41,7 +40,7 @@ class LandingFragmentTest {
     fun testSubTitleTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<LandingFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.landing_sub_title_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sub_welcome)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sub_welcome_str)))
     }
 
     // Check if create account button is visible
@@ -73,7 +72,7 @@ class LandingFragmentTest {
     fun testCreateAccountButtonTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<LandingFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.landing_create_acc_btn))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_create_account)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_create_account_str)))
     }
 
     // Check if sign up button text is displayed
@@ -81,7 +80,7 @@ class LandingFragmentTest {
     fun testSignUpButtonTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<LandingFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.landing_sign_up_btn))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sign_up)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sign_up_str)))
     }
 
     // Check if sign up with google button text is displayed
@@ -89,7 +88,7 @@ class LandingFragmentTest {
     fun testSignUpWithGoogleButtonTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<LandingFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.landing_sign_up_google_btn))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sign_up_with_google)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.landing_sign_up_with_google_str)))
     }
 
 }

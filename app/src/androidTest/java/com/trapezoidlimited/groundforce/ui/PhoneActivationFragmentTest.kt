@@ -11,8 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trapezoidlimited.groundforce.R
-import kotlinx.android.synthetic.main.fragment_phone_activation.view.*
-import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -30,35 +28,35 @@ class PhoneActivationFragmentTest {
     fun testEnterPhoneNumberDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_activ_enter_phone_no_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_phone_number)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_phone_number_str)))
     }
     // Test for toolbar text display
     @Test
     fun testToolbarTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_activ_app_bar_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_verification)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_verification_str)))
     }
     // Test for the "verify" text display
     @Test
     fun testVerifyTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_activ_verify_text_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_info_user)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_info_user_str)))
     }
     // Test for the Terms and Conditions text display
     @Test
     fun testTermsAndConditionsTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_activ_terms_condition_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_t_and_c)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_t_and_c_str)))
     }
     // Check if the button has the right text
     @Test
     fun testContinueButtonTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
         Espresso.onView(ViewMatchers.withId(R.id.phone_activ_continue_btn))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_continue)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_continue_str)))
     }
 
     // check click on the button

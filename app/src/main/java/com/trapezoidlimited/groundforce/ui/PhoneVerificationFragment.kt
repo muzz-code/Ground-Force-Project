@@ -32,7 +32,7 @@ class PhoneVerificationFragment : Fragment() {
         val view = binding.root
 
         // Get Test from String Resource
-        val codeText = getText(R.string.phone_verif_didnt_get_code_text)
+        val codeText = getText(R.string.phone_verif_didnt_get_code_text_str)
         // Get an instance of SpannableString
         val ssText = SpannableString(codeText)
         // Implement ClickableSpan

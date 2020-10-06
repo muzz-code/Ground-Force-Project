@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name_str">Groundforce</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Groundforce</string>
     <string name="landing_background_desc_str">BackgroundImage</string>
     <string name="landing_welcome_str">Welcome Trooper</string>
     <string name="landing_sub_welcome_str">Nice meet to you!</string>
