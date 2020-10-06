@@ -7,19 +7,19 @@
     tools:context=".ui.PhoneVerificationFragment">
 
     <ImageView
-        android:id="@+id/phone_ver_iv_arrow_back"
+        android:id="@+id/phone_activ_iv_arrow_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/phone_verif_tool_bar_arrow"
         android:src="@drawable/ic_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@+id/phone_verif_tv_app_bar"
-        app:layout_constraintEnd_toStartOf="@+id/phone_verif_tv_app_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_activ_tv_app_bar"
+        app:layout_constraintEnd_toStartOf="@+id/phone_activ_tv_app_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/phone_verif_tv_app_bar"
+        app:layout_constraintTop_toTopOf="@+id/phone_activ_tv_app_bar"
         app:tint="@color/colorTextPrimary" />
 
     <TextView
-        android:id="@+id/phone_verif_tv_app_bar"
+        android:id="@+id/phone_activ_tv_app_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_verif_tv_app_bar"
+        app:layout_constraintTop_toBottomOf="@+id/phone_activ_tv_app_bar"
         app:tint="#32AEBA" />
 
     <TextView
