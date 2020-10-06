@@ -26,7 +26,7 @@ class NetworkModule {
     /**
      * Creates the api service
      */
-
+    @Provides
     @Singleton
     fun provideService(client: OkHttpClient):Retrofit{
         return Retrofit.Builder()
