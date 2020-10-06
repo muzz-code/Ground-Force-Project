@@ -16,7 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.trapezoidlimited.groundforce.CustomTestRunner"
+
     }
 
     buildTypes {
@@ -74,4 +75,8 @@ dependencies {
 
     //otp
     implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview"
+
+    //hilt testing Instrumented testing
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.hilt_version"
 }
