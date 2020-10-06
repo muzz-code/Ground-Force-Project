@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Groundforce</string>
+    <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
+    <string name="screen_4_subtitle_str">More missions, more surveys, more \nmoney!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
 </resources>
