@@ -4,27 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/phone_verification_cl"
     tools:context=".ui.PhoneVerificationFragment">
     <!--Tool bar arrow-->
     <ImageView
-        android:id="@+id/phone_activ_iv_arrow_back"
+        android:id="@+id/phone_activ_arrow_back_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/phone_verif_tool_bar_arrow"
+        android:contentDescription="@string/phone_verif_tool_bar_arrow_str"
         android:src="@drawable/ic_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@+id/phone_activ_tv_app_bar"
-        app:layout_constraintEnd_toStartOf="@+id/phone_activ_tv_app_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_activ_app_bar_tv"
+        app:layout_constraintEnd_toStartOf="@+id/phone_activ_app_bar_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/phone_activ_tv_app_bar"
+        app:layout_constraintTop_toTopOf="@+id/phone_activ_app_bar_tv"
         app:tint="@color/colorTextPrimary" />
     <!--Tool bar title-->
     <TextView
-        android:id="@+id/phone_activ_tv_app_bar"
+        android:id="@+id/phone_activ_app_bar_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/titillium_web_bold"
-        android:text="@string/phone_verif_phone_activation"
+        android:text="@string/phone_verif_phone_activation_str"
         android:textAlignment="center"
         android:textColor="@color/colorTextPrimary"
         android:textSize="20sp"
@@ -33,29 +34,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 <!--Phone image-->
     <ImageView
-        android:id="@+id/phone_verif_iv_phone"
+        android:id="@+id/phone_verif_phone_iv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="60dp"
-        android:contentDescription="@string/phone_verif_phone_sms"
+        android:contentDescription="@string/phone_verif_phone_sms_str"
         android:src="@drawable/ic_phone_message"
-        app:layout_constraintBottom_toTopOf="@+id/phone_verif_tv_verify_text"
+        app:layout_constraintBottom_toTopOf="@+id/phone_verif_verify_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_activ_tv_app_bar"
+        app:layout_constraintTop_toBottomOf="@+id/phone_activ_app_bar_tv"
         app:tint="#32AEBA" />
 <!--Info-->
     <TextView
-        android:id="@+id/phone_verif_tv_verify_text"
+        android:id="@+id/phone_verif_verify_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="53dp"
         android:layout_marginTop="53dp"
         android:layout_marginRight="53dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/phone_verif_text_verify"
+        android:text="@string/phone_verif_text_verify_str"
         android:textAlignment="center"
         android:textColor="@color/colorTextVerify"
         android:textSize="18sp"
@@ -77,19 +78,19 @@
         android:inputType="number"
         android:singleLine="false"
         android:textColor="@color/colorTextVerify"
-        app:layout_constraintEnd_toEndOf="@+id/phone_verif_tv_verify_text"
-        app:layout_constraintStart_toStartOf="@+id/phone_verif_tv_verify_text"
-        app:layout_constraintTop_toBottomOf="@+id/phone_verif_tv_verify_text"
+        app:layout_constraintEnd_toEndOf="@+id/phone_verif_verify_tv"
+        app:layout_constraintStart_toStartOf="@+id/phone_verif_verify_tv"
+        app:layout_constraintTop_toBottomOf="@+id/phone_verif_verify_tv"
         app:lineColor="#363636"
         app:lineWidth="3dp"
         app:viewType="line" />
 <!--Resend-->
     <TextView
-        android:id="@+id/phone_verif_tv_resend"
+        android:id="@+id/phone_verif_resend_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:text="@string/phone_verif_didnt_get_code_text"
+        android:text="@string/phone_verif_didnt_get_code_text_str"
         android:textAlignment="center"
         android:textColor="@color/colorTextDidntGetText"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,14 +100,14 @@
         app:layout_constraintVertical_bias="0.050000012" />
     <!--Confirm Button-->
     <Button
-        android:id="@+id/phone_verif_bt_confirm"
+        android:id="@+id/phone_verif_confirm_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginBottom="23dp"
         android:background="@drawable/btn_primary_shapes"
-        android:text="@string/phone_verif_confirm"
+        android:text="@string/phone_verif_confirm_str"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorTextSecondary"
