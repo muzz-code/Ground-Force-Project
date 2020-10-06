@@ -40,7 +40,7 @@ class PhoneVerificationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
-
+            // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.color = getColor(requireContext(), R.color.colorTextResend)
