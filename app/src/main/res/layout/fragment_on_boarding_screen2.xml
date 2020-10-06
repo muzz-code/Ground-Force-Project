@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.OnBoardingScreen2Fragment">
-
+    tools:context=".ui.main.OnBoardingScreen2Fragment"
+    android:id="@+id/OnBoardingScreen2">
+<!-- Start Image Section-->
     <ImageView
-        android:id="@+id/iv_splash_screen_image_1"
+        android:id="@+id/onBoardingScreen2_splashScreen_image_iv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@drawable/zaria_boy"
@@ -16,9 +17,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+<!--End Image Section-->
 
+<!--    Start Header Text Section-->
     <TextView
-        android:id="@+id/onBoardingScreen_1Fragment_tv_Earn"
+        android:id="@+id/onBoardingScreen2_Fragment_headerText_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
@@ -32,10 +35,11 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_splash_screen_image_1" />
+        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen2_splashScreen_image_iv" />
+<!--    End Header Text-->
 
     <TextView
-        android:id="@+id/onBoardingScreen2_tv_complete"
+        android:id="@+id/onBoardingScreen2_subTitleText_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="57dp"
@@ -43,10 +47,8 @@
         android:text="@string/screen_1_text2"
         android:textSize="14sp"
         android:textColor="@color/colorTextPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen_1Fragment_tv_Earn"
-        app:layout_constraintStart_toStartOf="@+id/onBoardingScreen_1Fragment_tv_Earn"
-        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen_1Fragment_tv_Earn" />
-
-
+        app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
+        app:layout_constraintStart_toStartOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
+        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen2_Fragment_headerText_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
