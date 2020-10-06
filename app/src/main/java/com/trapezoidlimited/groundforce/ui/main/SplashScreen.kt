@@ -1,11 +1,12 @@
 package com.trapezoidlimited.groundforce.ui.main
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.navigation.AppNavigator
-import com.trapezoidlimited.groundforce.navigation.Screens
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,6 +26,9 @@ class SplashScreen : AppCompatActivity() {
         /**
          * Navigates to the MainActivity
          */
-        navigator.navigateTo(Screens.MainActivity)
+       navigator.navigateTo(MainActivity::class.java)
+
+
+
     }
 }

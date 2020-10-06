@@ -16,7 +16,7 @@ interface ApiService {
 
  companion object{
 
-     fun create(): ApiService {
+     fun create(): Retrofit {
              //log info
              val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
@@ -31,7 +31,7 @@ interface ApiService {
                  .client(client)
                  .addConverterFactory(GsonConverterFactory.create())
                  .build()
-                 .create(ApiService::class.java)
+
          }
 
  }

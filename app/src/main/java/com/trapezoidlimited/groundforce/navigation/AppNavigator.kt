@@ -1,17 +1,11 @@
 package com.trapezoidlimited.groundforce.navigation
 
+import androidx.appcompat.app.AppCompatActivity
+
 /**
  * This handles the task of navigating through the app
  * */
 
-/**
- * Each Activity/Fragment is represented in this enum class .. Available Screens
- */
-   enum class Screens {
-
-    MainActivity,
-    SplashScreen
-   }
 
 
 /**
@@ -21,5 +15,5 @@ package com.trapezoidlimited.groundforce.navigation
   interface AppNavigator {
     //Navigate to specified screen
 
-    fun navigateTo (screen:Screens)
+    fun navigateTo (activityToGo:Class<out AppCompatActivity>)
 }

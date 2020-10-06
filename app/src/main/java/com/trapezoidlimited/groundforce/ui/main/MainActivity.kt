@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.navigation.AppNavigator
 import com.trapezoidlimited.groundforce.navigation.AppNavigatorImpl
-import com.trapezoidlimited.groundforce.navigation.Screens
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

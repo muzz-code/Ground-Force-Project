@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.navigation
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.ui.main.SplashScreen
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -14,13 +15,9 @@ import javax.inject.Inject
 class AppNavigatorImpl @Inject constructor( @ActivityContext private var context: Context): AppNavigator {
 
 
-    override fun navigateTo(screen: Screens) {
+    override fun navigateTo(activityToGo:Class<out AppCompatActivity>) {
 
-        //picks the activity based on the screen enum that is passed
-        val activityToGo = when(screen){
-            Screens.MainActivity -> MainActivity::class.java
-            Screens.SplashScreen -> SplashScreen::class.java
-        }
+
 
 
         var intent = Intent(context, activityToGo )
