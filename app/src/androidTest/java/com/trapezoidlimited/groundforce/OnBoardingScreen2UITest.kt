@@ -17,14 +17,14 @@ class OnBoardingScreen2UITest {
     fun testTitleTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<OnBoardingScreen2Fragment>()
         Espresso.onView(ViewMatchers.withId(R.id.onBoardingScreen2_Fragment_headerText_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.screen_1_text1)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.screen1_header_str)))
     }
     @Test
     fun testSubTextDisplayedFragment() {
         /**checks the visibility of the text**/
         val scenario = launchFragmentInContainer<OnBoardingScreen2Fragment>()
         Espresso.onView(ViewMatchers.withId(R.id.onBoardingScreen2_subTitleText_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.screen_1_text2)))
+            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.screen1_subText_str)))
     }
     @Test
     fun test_is_Fragment_inView() {
