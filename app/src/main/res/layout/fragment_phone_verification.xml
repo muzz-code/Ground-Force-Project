@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PhoneVerificationFragment">
+
+    <ImageView
+        android:id="@+id/phone_ver_iv_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/phone_verif_tool_bar_arrow"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_verif_tv_app_bar"
+        app:layout_constraintEnd_toStartOf="@+id/phone_verif_tv_app_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/phone_verif_tv_app_bar"
+        app:tint="@color/colorTextPrimary" />
+
+    <TextView
+        android:id="@+id/phone_verif_tv_app_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:text="@string/phone_verif_phone_activation"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/phone_verif_iv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="@string/phone_verif_phone_sms"
+        android:src="@drawable/ic_phone_message"
+        app:layout_constraintBottom_toTopOf="@+id/phone_verif_tv_verify_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_verif_tv_app_bar"
+        app:tint="#32AEBA" />
+
+    <TextView
+        android:id="@+id/phone_verif_tv_verify_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginRight="53dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/phone_verif_text_verify"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextVerify"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mukesh.OtpView
+        android:id="@+id/phone_verif_pin_view"
+        style="@style/OtpWidget.OtpView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="number"
+        android:singleLine="false"
+        android:textColor="@color/colorTextVerify"
+        app:layout_constraintEnd_toEndOf="@+id/phone_verif_tv_verify_text"
+        app:layout_constraintStart_toStartOf="@+id/phone_verif_tv_verify_text"
+        app:layout_constraintTop_toBottomOf="@+id/phone_verif_tv_verify_text"
+        app:lineColor="#363636"
+        app:lineWidth="3dp"
+        app:viewType="line" />
+
+    <TextView
+        android:id="@+id/phone_verif_tv_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/phone_verif_didnt_get_code_text"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextDidntGetText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/phone_verif_pin_view"
+        app:layout_constraintStart_toStartOf="@+id/phone_verif_pin_view"
+        app:layout_constraintTop_toBottomOf="@+id/phone_verif_pin_view"
+        app:layout_constraintVertical_bias="0.050000012" />
+
+    <Button
+        android:id="@+id/phone_verif_bt_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="23dp"
+        android:background="@drawable/btn_primary_shapes"
+        android:text="@string/phone_verif_confirm"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
