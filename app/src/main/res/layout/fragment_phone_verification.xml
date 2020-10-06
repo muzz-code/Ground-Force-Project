@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.PhoneVerificationFragment">
-
+    <!--Tool bar arrow-->
     <ImageView
         android:id="@+id/phone_activ_iv_arrow_back"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phone_activ_tv_app_bar"
         app:tint="@color/colorTextPrimary" />
-
+    <!--Tool bar title-->
     <TextView
         android:id="@+id/phone_activ_tv_app_bar"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+<!--Phone image-->
     <ImageView
         android:id="@+id/phone_verif_iv_phone"
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone_activ_tv_app_bar"
         app:tint="#32AEBA" />
-
+<!--Info-->
     <TextView
         android:id="@+id/phone_verif_tv_verify_text"
         android:layout_width="0dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+<!--Otp View-->
     <com.mukesh.OtpView
         android:id="@+id/phone_verif_pin_view"
         style="@style/OtpWidget.OtpView"
@@ -83,7 +83,7 @@
         app:lineColor="#363636"
         app:lineWidth="3dp"
         app:viewType="line" />
-
+<!--Resend-->
     <TextView
         android:id="@+id/phone_verif_tv_resend"
         android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
         app:layout_constraintStart_toStartOf="@+id/phone_verif_pin_view"
         app:layout_constraintTop_toBottomOf="@+id/phone_verif_pin_view"
         app:layout_constraintVertical_bias="0.050000012" />
-
+    <!--Confirm Button-->
     <Button
         android:id="@+id/phone_verif_bt_confirm"
         android:layout_width="0dp"

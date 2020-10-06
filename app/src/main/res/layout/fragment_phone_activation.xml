@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.PhoneActivationFragment">
-
+<!--Tool bar arrow-->
     <ImageView
         android:id="@+id/phone_activ_iv_arrow_back"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phone_activ_tv_app_bar"
         app:tint="@color/colorTextPrimary" />
-
+<!--Tool bar title-->
     <TextView
         android:id="@+id/phone_activ_tv_app_bar"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+<!--Enter phone number-->
     <TextView
         android:id="@+id/phone_activ_tv_enter_phone_no"
         android:layout_width="0dp"
@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginTop="90dp" />
-
+<!--The Country list-->
     <com.hbb20.CountryCodePicker
         android:id="@+id/phone_activ_sp_country_picker"
         android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
         app:ccp_textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/phone_activ_tv_enter_phone_no"
         app:layout_constraintTop_toTopOf="@+id/phone_activ_et_phone_no" />
-
+<!--Phone number edit text-->
     <EditText
         android:id="@+id/phone_activ_et_phone_no"
         android:layout_width="0dp"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toEndOf="@+id/phone_activ_sp_country_picker"
         app:layout_constraintTop_toBottomOf="@+id/phone_activ_tv_enter_phone_no" />
 
-
+<!--Info to the user-->
     <TextView
         android:id="@+id/phone_activ_tv_verify_text"
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="@+id/phone_activ_et_phone_no"
         app:layout_constraintStart_toStartOf="@+id/phone_activ_sp_country_picker"
         app:layout_constraintTop_toBottomOf="@+id/phone_activ_et_phone_no" />
-
+<!--Terms and Conditions-->
     <TextView
         android:id="@+id/phone_activ_terms_condition"
         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
         app:layout_constraintBottom_toTopOf="@+id/phone_activ_bt_confirm_button"
         app:layout_constraintEnd_toEndOf="@+id/phone_activ_bt_confirm_button"
         app:layout_constraintStart_toStartOf="@+id/phone_activ_bt_confirm_button" />
-
+<!--Continue Button-->
     <Button
         android:id="@+id/phone_activ_bt_confirm_button"
         android:layout_width="match_parent"
