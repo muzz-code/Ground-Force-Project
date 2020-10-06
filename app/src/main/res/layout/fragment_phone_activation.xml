@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/phone_activation_cl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PhoneActivationFragment">
+    <!--Tool bar arrow-->
+    <ImageView
+        android:id="@+id/phone_activ_arrow_back_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_activ_app_bar_tv"
+        app:layout_constraintEnd_toStartOf="@+id/phone_activ_app_bar_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/phone_activ_app_bar_tv"
+        app:tint="@color/colorTextPrimary" />
+    <!--Tool bar title-->
+    <TextView
+        android:id="@+id/phone_activ_app_bar_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:text="@string/phone_activ_phone_verification_str"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Enter phone number-->
+    <TextView
+        android:id="@+id/phone_activ_enter_phone_no_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginRight="37dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/phone_activ_phone_phone_number_str"
+        android:textColor="@color/colorTextPhoneNumber"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="90dp" />
+    <!--The Country list-->
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/phone_activ_country_picker_sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/phone_activ_hbb_background"
+        app:ccpDialog_fastScroller_bubbleColor="@color/colorAccent"
+        app:ccp_defaultNameCode="NG"
+        app:ccp_showNameCode="false"
+        app:ccp_textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv"
+        app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_et" />
+    <!--Phone number edit text-->
+    <EditText
+        android:id="@+id/phone_activ_phone_no_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:digits="0123456789"
+        android:fontFamily="@font/roboto"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:paddingBottom="13dp"
+        android:singleLine="true"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/phone_activ_enter_phone_no_tv"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/phone_activ_country_picker_sp"
+        app:layout_constraintTop_toBottomOf="@+id/phone_activ_enter_phone_no_tv" />
+
+    <!--Info to the user-->
+    <TextView
+        android:id="@+id/phone_activ_verify_text_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41dp"
+        android:layout_marginRight="41dp"
+        android:fontFamily="@font/roboto"
+        android:paddingLeft="15dp"
+        android:paddingTop="11dp"
+        android:paddingRight="15dp"
+        android:text="@string/phone_activ_info_user_str"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/phone_activ_phone_no_et"
+        app:layout_constraintStart_toStartOf="@+id/phone_activ_country_picker_sp"
+        app:layout_constraintTop_toBottomOf="@+id/phone_activ_phone_no_et" />
+    <!--Terms and Conditions-->
+    <TextView
+        android:id="@+id/phone_activ_terms_condition_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/phone_activ_t_and_c_str"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextVerify"
+        android:textSize="14.5sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/phone_activ_continue_btn"
+        app:layout_constraintEnd_toEndOf="@+id/phone_activ_continue_btn"
+        app:layout_constraintStart_toStartOf="@+id/phone_activ_continue_btn" />
+    <!--Continue Button-->
+    <Button
+        android:id="@+id/phone_activ_continue_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="37dp"
+        android:layout_marginRight="37dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_primary_shapes"
+        android:text="@string/phone_activ_continue_str"
+        android:textAllCaps="false"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/phone_activ_phone_no_et"
+        app:layout_constraintStart_toStartOf="@+id/phone_activ_country_picker_sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

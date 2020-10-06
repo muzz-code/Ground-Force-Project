@@ -26,12 +26,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 
 }
@@ -68,11 +77,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle_version"
 
-    debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
+    // spinner for country selection
+    implementation "com.hbb20:ccp:$versions.hbb_version"
 
-    //hilt testing Intrumentated testing
+    //hilt testing Instrumented testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$versions.hilt_version"
+    
+    // otp
+    implementation "com.github.mukeshsolanki:android-otpview-pinview:$versions.otpview_version"
 
-
+    // fragment-testing
+    debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
 }
