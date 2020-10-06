@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.ui
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getColor
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 
@@ -38,9 +40,15 @@ class PhoneVerificationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = getColor(requireContext(), R.color.colorTextResend)
+                ds.isUnderlineText = false
+            }
         }
         // Set the span text
-        ssText.setSpan(clickableSpan, 21, 26, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
         binding.phoneVerifTvResend.text = ssText
         binding.phoneVerifTvResend.movementMethod = LinkMovementMethod.getInstance()
