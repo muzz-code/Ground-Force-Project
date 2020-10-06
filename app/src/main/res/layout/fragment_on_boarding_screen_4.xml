@@ -9,11 +9,11 @@
     tools:context=".ui.main.OnBoardingScreen4Fragment">
 
     <ImageView
-        android:id="@+id/iv_splash_screen_image_3"
+        android:id="@+id/onBoardingScreen4_Fragment_iv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/lagos_lady_image"
+        android:contentDescription="@string/screen_4_iv_content_desc"
         android:scaleType="centerCrop"
         android:src="@drawable/lagos_girl"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_splash_screen_image_3" />
+        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen4_Fragment_iv" />
 
     <TextView
         android:id="@+id/onBoardingScreen4_subTitleText_tv"
