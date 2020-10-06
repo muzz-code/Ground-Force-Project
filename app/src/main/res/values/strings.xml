@@ -8,4 +8,10 @@
     <string name="landing_create_account">Create Account</string>
     <string name="landing_sign_up">I\'m Not New Here</string>
     <string name="landing_sign_up_with_google">Sign Up With Google</string>
+    <string name="phone_verif_text_verify">Please enter the 4 digit code sent to you at 0801 **** 678</string>
+    <string name="phone_verif_didnt_get_code_text">Didn\'t get the code? Resend.</string>
+    <string name="phone_verif_phone_sms">Phone SMS</string>
+    <string name="phone_verif_tool_bar_arrow">tool bar arrow</string>
+    <string name="phone_verif_confirm">Confirm</string>
+    <string name="phone_verif_phone_activation">Phone Activation</string>
 </resources>

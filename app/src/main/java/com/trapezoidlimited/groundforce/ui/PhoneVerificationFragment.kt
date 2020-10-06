@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce
+package com.trapezoidlimited.groundforce.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
