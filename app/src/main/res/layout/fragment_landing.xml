@@ -8,7 +8,7 @@
     tools:context=".ui.LandingFragment">
     <!--Background Image-->
     <ImageView
-        android:id="@+id/landing_iv_man_on_street2"
+        android:id="@+id/landing_man_on_street2_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <!--Welcome text-->
     <TextView
-        android:id="@+id/landing_tv_welcome"
+        android:id="@+id/landing_welcome_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="37dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
     <!--Sub title-->
     <TextView
-        android:id="@+id/landing_tv_sub_title"
+        android:id="@+id/landing_sub_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
@@ -49,12 +49,12 @@
         android:text="@string/landing_sub_welcome"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/landing_tv_welcome"
-        app:layout_constraintStart_toStartOf="@+id/landing_tv_welcome"
-        app:layout_constraintTop_toBottomOf="@+id/landing_tv_welcome" />
+        app:layout_constraintEnd_toEndOf="@+id/landing_welcome_tv"
+        app:layout_constraintStart_toStartOf="@+id/landing_welcome_tv"
+        app:layout_constraintTop_toBottomOf="@+id/landing_welcome_tv" />
     <!--Create Account Button-->
     <Button
-        android:id="@+id/landing_bt_create_acc"
+        android:id="@+id/landing_create_acc_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -68,12 +68,12 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/landing_bt_sign_up"
-        app:layout_constraintEnd_toEndOf="@+id/landing_bt_sign_up"
-        app:layout_constraintStart_toStartOf="@+id/landing_bt_sign_up" />
+        app:layout_constraintBottom_toTopOf="@id/landing_sign_up_btn"
+        app:layout_constraintEnd_toEndOf="@+id/landing_sign_up_btn"
+        app:layout_constraintStart_toStartOf="@+id/landing_sign_up_btn" />
     <!--Sign Up button-->
     <Button
-        android:id="@+id/landing_bt_sign_up"
+        android:id="@+id/landing_sign_up_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -87,12 +87,12 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/landing_bt_sign_up_google"
-        app:layout_constraintEnd_toEndOf="@+id/landing_bt_sign_up_google"
-        app:layout_constraintStart_toStartOf="@+id/landing_bt_sign_up_google" />
+        app:layout_constraintBottom_toTopOf="@id/landing_sign_up_google_btn"
+        app:layout_constraintEnd_toEndOf="@+id/landing_sign_up_google_btn"
+        app:layout_constraintStart_toStartOf="@+id/landing_sign_up_google_btn" />
     <!--Sign Up with google-->
     <Button
-        android:id="@+id/landing_bt_sign_up_google"
+        android:id="@+id/landing_sign_up_google_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -106,7 +106,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/landing_iv_man_on_street2"
+        app:layout_constraintBottom_toBottomOf="@id/landing_man_on_street2_iv"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
