@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Groundforce</string>
+    <string name="hello_blank_fragment_str">Hello blank fragment</string>
+    <string name="get_things_done_str">Don\'t Get Too Far To Get Things Done</string>
+    <string name="distance_is_not_a_barrier_str">Distance is not a barrier. Verify addresses close to you and earn cool cash!</string>
+    <string name="get_started_str">Get Started</string>
+    <string name="screen1_header_str">Earn Because You \nLive Where You Live</string>
+    <string name="screen1_subText_str">Complete simple tasks on your mobile phone and around your location.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="landing_background_desc_str">BackgroundImage</string>
     <string name="landing_welcome_str">Welcome Trooper</string>
     <string name="landing_sub_welcome_str">Nice meet to you!</string>
@@ -18,4 +25,7 @@
     <string name="phone_activ_info_user_str">We\'ll text you a code to verify your mobile number.</string>
     <string name="phone_activ_t_and_c_str">By clicking \"Continue\", you are accepting our Terms &amp; Conditions as well as our Privacy Policy</string>
     <string name="phone_activ_continue_str">Continue</string>
+    <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
+    <string name="screen_4_subtitle_str">More missions, more surveys, more money!</string>
+    <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
 </resources>

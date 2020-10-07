@@ -12,14 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PhoneVerificationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
@@ -40,6 +36,7 @@ class PhoneVerificationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -55,6 +52,17 @@ class PhoneVerificationFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return view
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //Go to previous screen
+        binding.phoneActivArrowBackIv.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
     }
 
     override fun onDestroy() {
