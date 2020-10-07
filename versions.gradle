@@ -5,5 +5,7 @@ ext.versions = [
         okhttp3_version        : '4.5.0',
         hilt_version           : '2.28-alpha',
         lifecycle_version      : '2.2.0',
+        hbb_version            : '2.4.0',
+        otpview_version        : '2.1.0',
         fragment_version       : '1.2.5'
 ]

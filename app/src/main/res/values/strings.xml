@@ -6,4 +6,25 @@
     <string name="screen1_subText_str">Complete simple tasks on your mobile \nphone and around your location.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="landing_background_desc_str">BackgroundImage</string>
+    <string name="landing_welcome_str">Welcome Trooper</string>
+    <string name="landing_sub_welcome_str">Nice meet to you!</string>
+    <string name="landing_create_account_str">Create Account</string>
+    <string name="landing_sign_up_str">I\'m Not New Here</string>
+    <string name="landing_sign_up_with_google_str">Sign Up With Google</string>
+    <string name="phone_verif_text_verify_str">Please enter the 4 digit code sent to you at 0801 **** 678</string>
+    <string name="phone_verif_didnt_get_code_text_str">Didn\'t get the code? Resend.</string>
+    <string name="phone_verif_phone_sms_str">Phone SMS</string>
+    <string name="phone_verif_tool_bar_arrow_str">tool bar arrow for phone verification screen</string>
+    <string name="phone_activ_tool_bar_arrow_str">tool bar arrow for phone activation screen</string>
+    <string name="phone_verif_confirm_str">Confirm</string>
+    <string name="phone_verif_phone_activation_str">Phone Activation</string>
+    <string name="phone_activ_phone_verification_str">Phone Verification</string>
+    <string name="phone_activ_phone_phone_number_str">Enter Phone Number</string>
+    <string name="phone_activ_info_user_str">We\'ll text you a code to verify your mobile number.</string>
+    <string name="phone_activ_t_and_c_str">By clicking \"Continue\", you are accepting our Terms &amp; Conditions as well as our Privacy Policy</string>
+    <string name="phone_activ_continue_str">Continue</string>
+    <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
+    <string name="screen_4_subtitle_str">More missions, more surveys, more \nmoney!</string>
+    <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
 </resources>
