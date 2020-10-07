@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.OnBoardingViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
+import com.trapezoidlimited.groundforce.utils.hideStatusBar
 
 class OnBoardingFragment : Fragment() {
 
@@ -22,6 +23,8 @@ class OnBoardingFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        // Hide Status Bar
+        hideStatusBar()
         return binding.root
     }
 
