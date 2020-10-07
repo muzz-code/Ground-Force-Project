@@ -1,6 +1,8 @@
 package com.trapezoidlimited.groundforce.utils
 
+import android.graphics.Color
 import android.view.View
+import android.view.Window
 import androidx.fragment.app.Fragment
 import com.trapezoidlimited.groundforce.R
 
@@ -10,6 +12,7 @@ import com.trapezoidlimited.groundforce.R
  */
 fun Fragment.showStatusBar() {
     requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//    activity?.window?.statusBarColor = Color.WHITE;
     requireActivity().window.statusBarColor = resources.getColor(R.color.colorPrimaryDark)
 }
 
@@ -17,6 +20,12 @@ fun Fragment.showStatusBar() {
  * hide status bar
  */
 
+fun Fragment.hideStatusBar(){
+    // Hide the status bar.
+    activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+    activity?.actionBar?.hide()
+}
+/*
 fun Fragment.hideStatusBar(){
     // Enables regular immersive mode.
     // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -31,3 +40,4 @@ fun Fragment.hideStatusBar(){
             or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             or View.SYSTEM_UI_FLAG_FULLSCREEN)
 }
+ */
