@@ -12,14 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PhoneActivationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
@@ -72,5 +69,20 @@ class PhoneActivationFragment : Fragment() {
 
         // Inflate the layout for this fragment
         return view
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //Move to phone verification fragment
+        binding.phoneActivContinueBtn.setOnClickListener {
+         findNavController().navigate(R.id.phoneVerificationFragment)
+        }
+
+        //Go to previous screen
+        binding.phoneActivArrowBackIv.setOnClickListener {
+           findNavController().popBackStack()
+        }
     }
 }

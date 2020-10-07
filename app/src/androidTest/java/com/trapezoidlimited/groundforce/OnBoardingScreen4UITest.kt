@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.trapezoidlimited.groundforce.ui.main.OnBoardingScreen4Fragment
+import com.trapezoidlimited.groundforce.ui.onboarding.OnBoardingScreen4Fragment
 import org.junit.Test
 import org.junit.runner.RunWith
 

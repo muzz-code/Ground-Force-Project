@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/onBoardingFragment">
+
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.onboarding.OnBoardingFragment"
+        android:label="OnBoardingFragment"
+        tools:layout="@layout/fragment_on_boarding"
+        />
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" />
+    <fragment
+        android:id="@+id/phoneVerificationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.PhoneVerificationFragment"
+        android:label="fragment_phone_verification"
+        tools:layout="@layout/fragment_phone_verification" />
+    <fragment
+        android:id="@+id/phoneActivationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"
+        android:label="fragment_phone_activation"
+        tools:layout="@layout/fragment_phone_activation" />
+</navigation>

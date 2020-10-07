@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.main.OnBoardingScreen2Fragment"
+    tools:context=".ui.onboarding.OnBoardingScreen2Fragment"
     android:id="@+id/OnBoardingScreen2">
 <!-- Start Image Section-->
     <ImageView
         android:id="@+id/onBoardingScreen2_splashScreen_image_iv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="380dp"
         android:src="@drawable/zaria_boy"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
@@ -25,11 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="37dp"
         android:layout_marginEnd="37dp"
         android:fontFamily="@font/titillium_web_bold"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:text="@string/screen1_header_str"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
@@ -40,10 +38,10 @@
 
     <TextView
         android:id="@+id/onBoardingScreen2_subTitleText_tv"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginStart="37dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="textStart"
         android:text="@string/screen1_subText_str"
         android:textSize="14sp"
         android:textColor="@color/colorTextPrimary"
