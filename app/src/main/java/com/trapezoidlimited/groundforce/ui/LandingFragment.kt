@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
+import com.trapezoidlimited.groundforce.utils.hideStatusBar
+import com.trapezoidlimited.groundforce.utils.showStatusBar
+
 /**
  * A simple [Fragment] subclass.
  * Use the [LandingFragment.newInstance] factory method to
@@ -23,9 +26,18 @@ class LandingFragment : Fragment() {
     ): View? {
         _bindind = FragmentLandingBinding.inflate(inflater, container, false)
         val view = binding.root
+        // Hide status bar
+        hideStatusBar()
         // Inflate the layout for this fragment
         return view
     }
+
+    override fun onPause() {
+        // Show status bar
+        showStatusBar()
+        super.onPause()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
