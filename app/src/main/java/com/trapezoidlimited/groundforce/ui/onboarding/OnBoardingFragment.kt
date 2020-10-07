@@ -5,20 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.OnBoardingViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {
 
-    private lateinit var binding: FragmentOnBoardingBinding
+    private var _binding: FragmentOnBoardingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+        _binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -27,9 +30,9 @@ class OnBoardingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //Set View PagerAdapter
         val fragmentList: ArrayList<Fragment> = arrayListOf(
-            SecondScreen(),
-            SecondScreen(),
-            SecondScreen()
+            OnBoardingScreen2Fragment(),
+            OnBoardingScreen3Fragment(),
+            OnBoardingScreen4Fragment()
         )
 
         //Connect the fragment list to the view pager
@@ -49,6 +52,16 @@ class OnBoardingFragment : Fragment() {
             binding.fragmentOnBoardingVp
         ) { tab, position ->
         }.attach()
+
+
+        //Set Onclick listener to get started button and navigate to Sign up pager
+        binding.fragmentOnBoardingGetStartedBtn.setOnClickListener {
+            it.findNavController().navigate(R.id.landingFragment)
+        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

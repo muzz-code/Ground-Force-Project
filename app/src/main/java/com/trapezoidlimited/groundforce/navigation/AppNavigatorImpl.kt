@@ -14,11 +14,7 @@ import javax.inject.Inject
  */
 class AppNavigatorImpl @Inject constructor( @ActivityContext private var context: Context): AppNavigator {
 
-
     override fun navigateTo(activityToGo:Class<out AppCompatActivity>) {
-
-
-
 
         var intent = Intent(context, activityToGo )
 

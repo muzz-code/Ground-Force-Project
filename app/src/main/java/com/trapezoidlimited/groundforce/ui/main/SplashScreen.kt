@@ -22,7 +22,6 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-
         /**
          * Navigates to the MainActivity
          */
