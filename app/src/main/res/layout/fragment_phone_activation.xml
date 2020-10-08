@@ -68,6 +68,7 @@
             app:ccp_defaultNameCode="NG"
             app:ccp_showNameCode="false"
             app:ccp_textSize="16sp"
+            app:ccpDialog_showCloseIcon="true"
             app:layout_constraintBottom_toBottomOf="@+id/phone_activ_phone_no_et"
             app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv"
             app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_et" />
