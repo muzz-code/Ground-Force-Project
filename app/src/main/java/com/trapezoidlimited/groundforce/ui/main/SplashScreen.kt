@@ -25,8 +25,9 @@ class SplashScreen : AppCompatActivity() {
         /**
          * Navigates to the MainActivity
          */
-       navigator.navigateTo(MainActivity::class.java)
+      navigator.navigateTo(MainActivity::class.java)
 
+        finish()
 
 
     }

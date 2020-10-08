@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
@@ -79,6 +80,9 @@ class PhoneActivationFragment : Fragment() {
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
            findNavController().popBackStack()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback{
+            findNavController().navigate(R.id.landingFragment)
         }
     }
 }

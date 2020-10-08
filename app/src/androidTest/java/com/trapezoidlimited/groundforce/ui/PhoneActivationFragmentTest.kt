@@ -34,7 +34,7 @@ class PhoneActivationFragmentTest {
     @Test
     fun testToolbarTextDisplayedFragment() {
         val scenario = launchFragmentInContainer<PhoneActivationFragment>()
-        Espresso.onView(ViewMatchers.withId(R.id.phone_activ_app_bar_tv))
+        Espresso.onView(ViewMatchers.withId(R.id.phone_verif_app_bar_tv))
             .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_verification_str)))
     }
     // Test for the "verify" text display
