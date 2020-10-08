@@ -12,23 +12,26 @@
         android:layout_height="match_parent"
         tools:context=".ui.PhoneActivationFragment">
         <!--Tool bar arrow-->
+        <!--Tool bar title-->
+        <!--Enter phone number-->
+
         <ImageView
             android:id="@+id/phone_activ_arrow_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_dim"
+            android:layout_marginTop="30dp"
             android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
             android:src="@drawable/ic_arrow_back"
-            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_app_bar_tv"
-            app:layout_constraintEnd_toStartOf="@+id/phone_activ_app_bar_tv"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/phone_activ_app_bar_tv"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/colorTextPrimary" />
-        <!--Tool bar title-->
+
         <TextView
-            android:id="@+id/phone_activ_app_bar_tv"
-            android:layout_width="wrap_content"
+            android:id="@+id/phone_verif_app_bar_tv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/titillium_web_bold"
             android:text="@string/phone_activ_phone_verification_str"
             android:textAlignment="center"
@@ -37,14 +40,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--Enter phone number-->
+
         <TextView
             android:id="@+id/phone_activ_enter_phone_no_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="112dp"
-            android:layout_marginRight="37dp"
+            android:layout_marginLeft="@dimen/common_margin_dim"
+            android:layout_marginTop="53dp"
+            android:layout_marginRight="@dimen/common_margin_dim"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_activ_phone_phone_number_str"
             android:textColor="@color/colorTextPhoneNumber"
@@ -52,18 +55,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_verif_app_bar_tv"
             app:layout_goneMarginTop="90dp" />
         <!--The Country list-->
         <com.hbb20.CountryCodePicker
             android:id="@+id/phone_activ_country_picker_sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
             android:background="@drawable/phone_activ_hbb_background"
             app:ccpDialog_fastScroller_bubbleColor="@color/colorAccent"
             app:ccp_defaultNameCode="NG"
             app:ccp_showNameCode="false"
             app:ccp_textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_phone_no_et"
             app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv"
             app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_et" />
         <!--Phone number edit text-->
@@ -71,7 +76,7 @@
             android:id="@+id/phone_activ_phone_no_et"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:digits="0123456789"
             android:fontFamily="@font/roboto"
@@ -88,10 +93,8 @@
         <!--Info to the user-->
         <TextView
             android:id="@+id/phone_activ_verify_text_tv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="41dp"
-            android:layout_marginRight="41dp"
             android:fontFamily="@font/roboto"
             android:paddingLeft="15dp"
             android:paddingTop="11dp"
@@ -104,11 +107,15 @@
             app:layout_constraintStart_toStartOf="@+id/phone_activ_country_picker_sp"
             app:layout_constraintTop_toBottomOf="@+id/phone_activ_phone_no_et" />
         <!--Terms and Conditions-->
+        <!--Continue Button-->
+
         <TextView
             android:id="@+id/phone_activ_terms_condition_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginStart="@dimen/common_margin_dim"
+            android:layout_marginEnd="@dimen/common_margin_dim"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_activ_t_and_c_str"
             android:textAlignment="center"
@@ -116,23 +123,23 @@
             android:textSize="14.5sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/phone_activ_continue_btn"
-            app:layout_constraintEnd_toEndOf="@+id/phone_activ_continue_btn"
-            app:layout_constraintStart_toStartOf="@+id/phone_activ_continue_btn" />
-        <!--Continue Button-->
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/phone_activ_continue_btn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/btn_primary_shapes"
             android:text="@string/phone_activ_continue_str"
             android:textAllCaps="false"
             android:textColor="@color/colorTextSecondary"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/phone_activ_phone_no_et"
-            app:layout_constraintStart_toStartOf="@+id/phone_activ_country_picker_sp" />
+            app:layout_constraintEnd_toEndOf="@+id/phone_activ_terms_condition_tv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/phone_activ_terms_condition_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
