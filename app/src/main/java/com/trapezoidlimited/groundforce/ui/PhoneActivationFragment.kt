@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
@@ -27,10 +28,6 @@ class PhoneActivationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
         val view = binding.root
-
-
-//        <!--    47-63-->
-//        <!--    79 - 92-->
 
         // Get Test from String Resource
         val codeText = getText(R.string.phone_activ_t_and_c_str)
@@ -83,6 +80,9 @@ class PhoneActivationFragment : Fragment() {
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
            findNavController().popBackStack()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback{
+            findNavController().navigate(R.id.landingFragment)
         }
     }
 }
