@@ -27,4 +27,9 @@
         android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation" />
+    <fragment
+        android:id="@+id/locationVerificationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.onboarding.LocationVerificationFragment"
+        android:label="fragment_location_verification"
+        tools:layout="@layout/fragment_location_verification" />
 </navigation>
