@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.onboarding.LocationVerificationFragment">
+
+    <ImageView
+        android:id="@+id/location_verification_back_nav_button_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_dim"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorTextSecondary" />
+
+    <TextView
+        android:id="@+id/location_verification_bar_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:text="@string/location_verification_str"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/location_verification_message_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location_verification_message"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="127dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="33dp"
+        android:textColor="@color/colorTextSecondary"
+        android:width="263dp"
+        android:height="41dp"
+        android:fontFamily="@font/roboto"
+        app:layout_constraintTop_toBottomOf="@id/location_verification_bar_tv"/>
+
+    <ImageView
+        android:id="@+id/search_location_iv"
+        android:layout_width="161.42dp"
+        android:layout_height="161.42dp"
+        android:layout_marginStart="59.58dp"
+        android:layout_marginEnd="59.58dp"
+        android:layout_marginTop="144.73dp"
+        android:maxWidth="161.42dp"
+        android:maxHeight="161.42dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/search"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.406"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/location_verification_message_tv" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:text="@string/location_verifcation_status"
+        android:textColor="@color/colorTextSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.941" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
