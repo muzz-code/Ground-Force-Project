@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.viewmodel
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.pm.PackageManager
@@ -20,115 +21,79 @@ import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.data.LocationModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 
-class LocationViewModel(val context: Application): AndroidViewModel(context) {
+class LocationViewModel(application: Application): AndroidViewModel(application) {
 
     private val PERMISSION_REQUEST = 100
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var fusedLocationClient: FusedLocationProviderClient
     private lateinit var request: LocationRequest
-    private lateinit var locationCallback: LocationCallback
+    private  var locationCallback: LocationCallback
 
-    lateinit var locationMutable:MutableLiveData<LocationModel>
-    lateinit var isLocationGotten:MutableLiveData<Boolean>
-    val _location:LiveData<LocationModel> get() = locationMutable
+    var locationMutable=MutableLiveData(LocationModel(0.0,0.0))
+    var isLocationGotten = MutableLiveData("false")
+
+    val _location: LiveData<LocationModel> get() = locationMutable
+    val _isLocationGotten:LiveData<String> get() = isLocationGotten
+
+
 
     init {
-        isLocationGotten.value=false
+        request= LocationRequest()
         locationCallback= LocationCallback()
-        fusedLocationClient=LocationServices.getFusedLocationProviderClient(context)
+        fusedLocationClient= LocationServices.getFusedLocationProviderClient(application)
+        requestLocationUpdates()
     }
 
 
     //1a1 recieve current user location with intervals and display on the map
+    @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
-        isLocationGotten.postValue(false)
         request = LocationRequest()
         /**interval for receiving location updates**/
-        request.interval = 1000
+        //request.interval = 10000
         /**shortest interval for receiving location callBack**/
-        request.fastestInterval = 5000
+        //request.fastestInterval = 5000
 
         //et user location using high accurate settings
         request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         //set location call back to receive updates to location change
         locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
 
+            override fun onLocationResult(locationResult: LocationResult) {
                 val location = locationResult.lastLocation
                 val latitude = location.latitude
                 val longitude = location.longitude
                 if (location != null) {
 
-                    locationMutable.postValue(LocationModel(longitude,latitude))
-                    isLocationGotten.postValue(true)
+                    //Toast.makeText(getApplication(),"Location gotten",Toast.LENGTH_LONG).show()
+
+                    locationMutable.value=LocationModel(longitude,latitude)
+                    isLocationGotten.value="true"
 
 //                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentUserLoc, 20f))
                 }
+
             }
         }
-        if (ActivityCompat.checkSelfPermission(
-                getApplication(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                getApplication(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermission()
-        }
+        fusedLocationClient.requestLocationUpdates(request,locationCallback, Looper.myLooper())
+        startLocationUpdates()
 
         //save the settings using fusedLocationClient, specifying the unit process to take place in the System
-        fusedLocationClient.requestLocationUpdates(request,locationCallback, Looper.myLooper())
+
     }
 
-    //1a. request permission from the user, in other to access location
-    private fun requestPermission(){
-        //Check whether this app has access to the location permission//
-        val permission = ContextCompat.checkSelfPermission(
-            getApplication(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
-        //If the location permission has been granted, then start receiving location updates //
-        if (permission == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplication(),"Permission granted", Toast.LENGTH_LONG).show()
-            //a1.
-            requestLocationUpdates()
-            //a2.
-            startLocationUpdates()
-        } else {
 
-            //If the app doesn’t currently have access to the user’s location, then request access//
-            ActivityCompat.requestPermissions(
-                context.applicationContext as Activity,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST
-            );
-        }
-    }
+
 
     //1a2 update the location
+    @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            return
-        }
         fusedLocationClient.requestLocationUpdates(
             request,
             locationCallback,
             null
         )
     }
-
-
-
-
-
-
-
-
 
 
 
