@@ -8,22 +8,26 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
 import com.trapezoidlimited.groundforce.utils.CustomAlert
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_location_verification.*
+import kotlin.math.acos
+import kotlin.math.cos
+import kotlin.math.sin
 
 class LocationVerificationFragment : Fragment() {
+    private var _binding: FragmentLocationVerificationBinding? = null
+    private val binding get() = _binding!!
 
     //set location request code to 101
     var LOCATION_REQUEST=101
@@ -45,7 +49,9 @@ class LocationVerificationFragment : Fragment() {
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_location_verification, container, false)
+        _binding= FragmentLocationVerificationBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -64,11 +70,11 @@ class LocationVerificationFragment : Fragment() {
             locationViewModel.requestLocationUpdates()
             locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer {
                 if (it == "false") {
-                    progressBar.visibility = View.VISIBLE
+                    binding.locationVerificationPgbar.visibility = View.VISIBLE
                     locationViewModel.requestLocationUpdates()
                 } else {
                     //if location has been gotten, make animation or its visibility gone; while trigger compareLocationResultWithUsersInputAddress
-                    progressBar.visibility = View.GONE
+                    location_verification_pgbar.visibility = View.GONE
                     compareLocationResultWithUsersInputAddress()
                 }
             })
@@ -145,11 +151,69 @@ class LocationVerificationFragment : Fragment() {
     //begin compareLocationResultWithUsersInputAddress and display custom alert
     private fun compareLocationResultWithUsersInputAddress(){
         locationViewModel._location.observe(viewLifecycleOwner) {
-            verifying_location_status_tv.text =
+            binding.verifyingLocationStatusTv.text =
                 getString(R.string.latLong, it.longitude, it.latitude)
-            CustomAlert.dialog(requireActivity(), "Congratulations", "Success")
+            var distanceBetweenUserAddressAndGoogleAddress=distanceBetweenUsersEnteredAddressAndGoogleLatLng(userLat,it.latitude,userLong,it.longitude)
+            if(distanceBetweenUserAddressAndGoogleAddress < 1000.0){
+                CustomAlert.dialog(requireActivity(), "Congratulations", "Success")
+            }
+            else{
+                Toast.makeText(requireContext(),"You should be near the address your registered with",Toast.LENGTH_LONG).show()
+            }
         }
     }
+
+
+    private fun distanceBetweenUsersEnteredAddressAndGoogleLatLng(userLat:Double,userLong:Double,GoogleLat:Double,GoogleLng:Double): Double {
+        //calculate the difference
+        var diffInLong=userLong-GoogleLng
+
+        var distance= sin(deg2Rad(userLat)) *
+                sin(deg2Rad(GoogleLat)) +
+                cos(deg2Rad(userLat)) *
+                cos(deg2Rad(GoogleLat)) *
+                cos(deg2Rad(diffInLong))
+        distance= acos(distance)
+
+        //convert distance radian to degree
+        distance=rad2deg(distance)
+
+        //distance in miles
+        distance *= 60 * 1.1515
+
+        //distance in metres
+        distance *= 1.609344
+
+        //distance in 2decimal place
+
+        return String.format("%.2f",distance).toDouble()
+
+
+    }
+
+    private fun deg2Rad(userLat:Double): Double {
+        return (userLat * Math.PI/180)
+    }
+
+    private fun rad2deg(distance:Double): Double{
+        return (distance * 180/ Math.PI)
+    }
+
+
+
+    //on activity created, handle navigation
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        //Go to previous screen
+        binding.locationVerificationBackNavButtonIv.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        super.onActivityCreated(savedInstanceState)
+    }
+
+
+
+
 
 
 
