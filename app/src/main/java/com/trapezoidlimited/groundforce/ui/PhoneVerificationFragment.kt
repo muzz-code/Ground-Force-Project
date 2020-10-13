@@ -6,6 +6,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +15,15 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,9 +67,13 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneActivArrowBackIv.setOnClickListener {
             findNavController().popBackStack()
         }
-        //
+
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().popBackStack()
+        }
+
+        binding.phoneVerifConfirmBtn.setOnClickListener {
+            findNavController().navigate(R.id.createProfileFragmentOne)
         }
     }
 

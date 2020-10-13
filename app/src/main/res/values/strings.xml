@@ -31,5 +31,33 @@
     <string name="screen_4_subtitle_str">More missions, more surveys, more money!</string>
     <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
     <string name="create_profile_str">Create Profile</string>
-    <string name="create_profile_str">Create Profile</string>
+    <string name="just_the_basics_str">Just the basics</string>
+    <string name="first_name_str">First Name</string>
+    <string name="Chinwendu_str">Chinwendu</string>
+    <string name="last_name_str">Last Name</string>
+    <string name="gbadamosi_str">Gbadamosi</string>
+    <string name="date_of_birth_str">Date Of Birth</string>
+    <string name="gender_str">Gender</string>
+    <string name="religion_str">Religion</string>
+    <string name="next_step_str">Next Step</string>
+
+
+    <string name="email_address_str">Email Address</string>
+    <string name="kehinde_emaildomain_com_str">kehinde@emaildomain.com</string>
+    <string name="additional_phone_number_str">Additional Phone Number</string>
+    <string name="_08023456789_str">08023456789</string>
+    <string name="residence_address_str">Residence Address</string>
+    <string name="bank_details_str">Bank Details</string>
+
+    <string-array name="sex">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="religion">
+        <item>Christian</item>
+        <item>Muslim</item>
+        <item>Others</item>
+    </string-array>
 </resources>

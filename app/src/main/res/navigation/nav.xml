@@ -21,7 +21,11 @@
         android:id="@+id/phoneVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.PhoneVerificationFragment"
         android:label="fragment_phone_verification"
-        tools:layout="@layout/fragment_phone_verification" />
+        tools:layout="@layout/fragment_phone_verification" >
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/phoneActivationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"

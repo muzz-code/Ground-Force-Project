@@ -16,11 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+import com.trapezoidlimited.groundforce.ui.Validation.Companion.validatePhoneNumber
 
 
 class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,18 +66,20 @@ class PhoneActivationFragment : Fragment() {
         binding.phoneActivTermsConditionTv.text = ssText
         binding.phoneActivTermsConditionTv.movementMethod = LinkMovementMethod.getInstance()
 
+
+
         // Inflate the layout for this fragment
         return view
     }
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //Move to phone verification fragment
-        binding.phoneActivContinueBtn.setOnClickListener {
-         findNavController().navigate(R.id.phoneVerificationFragment)
-        }
+
+        val phoneEditText = binding.phoneActivPhoneNoEt
+        val userPhoneNumber = phoneEditText.text.toString()
 
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
@@ -84,5 +88,22 @@ class PhoneActivationFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
         }
+
+        binding.phoneActivContinueBtn.setOnClickListener {
+           if(!validate()){
+               binding.phoneActivPhoneNoEt.error = "Invalid phone number"
+               Toast.makeText(requireContext(), "Invalid phone number", Toast.LENGTH_SHORT).show()
+               return@setOnClickListener
+           }else{
+
+              findNavController().navigate(R.id.phoneVerificationFragment)
+
+           }
+        }
+    }
+
+    private fun validate(): Boolean{
+        val field = "+234"+binding.phoneActivPhoneNoEt.text.toString().trim()
+       return validatePhoneNumber(field)
     }
 }
