@@ -11,8 +11,8 @@ import com.trapezoidlimited.groundforce.R
 class CustomAlert {
 
 
-        companion object showDialog {
-            fun dialog(activity: Activity?, titleToDisplay: String?, bodyToDisplay: String?) = run {
+        companion object ShowDialog {
+            fun dialog(activity: Activity?, titleToDisplay: String?, bodyToDisplay: String?) {
                 val dialog = Dialog(activity!!)
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(false)
