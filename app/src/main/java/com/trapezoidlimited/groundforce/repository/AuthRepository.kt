@@ -9,5 +9,5 @@ import retrofit2.http.Field
  * manages api queries to the network endpoints */
 
 interface AuthRepository {
-    suspend fun login(email: String, password: String): Resource<LoginResponse>
+    suspend fun login(email: String, pin: String): Resource<LoginResponse>
 }

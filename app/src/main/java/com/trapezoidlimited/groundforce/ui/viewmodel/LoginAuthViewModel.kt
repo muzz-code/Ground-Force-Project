@@ -27,8 +27,8 @@ constructor(
         get() = _loginResponse
 
 
-    fun login(email: String, password: String) = viewModelScope.launch {
-        _loginResponse.value = repository.login(email, password)
+    fun login(email: String, pin: String) = viewModelScope.launch {
+        _loginResponse.value = repository.login(email, pin)
     }
 
 

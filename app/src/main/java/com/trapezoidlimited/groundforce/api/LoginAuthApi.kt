@@ -12,7 +12,7 @@ interface LoginAuthApi {
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("pin") pin: String
     ): LoginResponse
 
 //    @GET
