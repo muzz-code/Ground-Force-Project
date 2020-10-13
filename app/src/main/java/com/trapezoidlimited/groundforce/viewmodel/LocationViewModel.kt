@@ -25,7 +25,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
 
     private val PERMISSION_REQUEST = 100
     private var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var request: LocationRequest
+    private var request: LocationRequest
     private  var locationCallback: LocationCallback
 
     var locationMutable=MutableLiveData(LocationModel(0.0,0.0))
