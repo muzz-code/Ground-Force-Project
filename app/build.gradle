@@ -96,3 +96,7 @@ android {
         debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
     }
 }
+
+dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+}

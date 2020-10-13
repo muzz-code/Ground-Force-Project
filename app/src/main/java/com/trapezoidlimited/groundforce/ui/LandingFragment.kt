@@ -38,11 +38,7 @@ class LandingFragment : Fragment() {
         return view
     }
 
-    override fun onPause() {
-        // Show status bar
-        showStatusBar()
-        super.onPause()
-    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -52,6 +48,11 @@ class LandingFragment : Fragment() {
 
         requireActivity().onBackPressedDispatcher.addCallback{
             requireActivity().finish()
+        }
+
+        /**move to login fragment**/
+        binding.landingSignUpBtn.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment)
         }
     }
 
