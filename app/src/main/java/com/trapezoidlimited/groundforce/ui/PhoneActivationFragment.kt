@@ -103,7 +103,7 @@ class PhoneActivationFragment : Fragment() {
                 verifyPhoneNumberInput.error = "Field required"
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
                         getString(R.string.blank_phone_number_input_str),
-                        Snackbar.LENGTH_SHORT).show()
+                        Snackbar.LENGTH_LONG).show()
 
             } else if(!validate()){
 
@@ -111,7 +111,7 @@ class PhoneActivationFragment : Fragment() {
                binding.phoneActivPhoneNoEt.error = "Invalid phone number"
                 Snackbar.make(requireActivity().findViewById(android.R.id.content),
                     getString(R.string.invalid_phone_number_input_str),
-                    Snackbar.LENGTH_SHORT).show()
+                    Snackbar.LENGTH_LONG).show()
                return@setOnClickListener
 
            } else{
