@@ -95,19 +95,31 @@ android {
         // fragment-testing
         debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
 
+
         // Circular image library
         implementation 'de.hdodenhof:circleimageview:3.1.0'
 
         // for more unit testing using google truthy dependency
         testImplementation "com.google.truth:truth:1.0.1"
 
+        def lifecycle_version = "2.2.0"
 
+        // ViewModel
+        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+        // LiveData
+        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+
+        //fragment
+        implementation "androidx.fragment:fragment-ktx:1.2.5"
 
     }
 }
 
 dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+
+}
 
 }
 

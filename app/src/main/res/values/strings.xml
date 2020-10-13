@@ -30,6 +30,7 @@
     <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
     <string name="screen_4_subtitle_str">More missions, more surveys, more money!</string>
     <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
+
     <string name="create_profile_str">Create Profile</string>
     <string name="just_the_basics_str">Just the basics</string>
     <string name="first_name_str">First Name</string>
@@ -68,4 +69,12 @@
         <item>Muslim</item>
         <item>Others</item>
     </string-array>
+
+    <string name="login_sub_title_str">Login to continue</string>
+    <string name="login_str">Login</string>
+    <string name="email_address_str">Email Address</string>
+    <string name="pin_text_str">Pin</string>
+    <string name="new_user_register_here_str">New user? Register here.</string>
+    <string name="forgot_password_str">Forgot password?</string>
 </resources>
+

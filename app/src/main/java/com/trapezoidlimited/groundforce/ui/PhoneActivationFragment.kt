@@ -17,8 +17,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+
 import com.trapezoidlimited.groundforce.utils.Validation
 import com.trapezoidlimited.groundforce.utils.Validation.Companion.validatePhoneNumber
+
+import com.trapezoidlimited.groundforce.utils.showStatusBar
 
 
 class PhoneActivationFragment : Fragment() {
@@ -31,6 +34,9 @@ class PhoneActivationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
+
+        /**show status bar**/
+        showStatusBar()
         val view = binding.root
 
         // Get Test from String Resource
