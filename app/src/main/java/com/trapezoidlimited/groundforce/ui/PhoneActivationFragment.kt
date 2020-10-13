@@ -14,9 +14,11 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
-import com.trapezoidlimited.groundforce.ui.Validation.Companion.validatePhoneNumber
+import com.trapezoidlimited.groundforce.utils.Validation
+import com.trapezoidlimited.groundforce.utils.Validation.Companion.validatePhoneNumber
 
 
 class PhoneActivationFragment : Fragment() {
@@ -89,19 +91,39 @@ class PhoneActivationFragment : Fragment() {
             findNavController().navigate(R.id.landingFragment)
         }
 
+        /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
-           if(!validate()){
-               binding.phoneActivPhoneNoEt.error = "Invalid phone number"
-               Toast.makeText(requireContext(), "Invalid phone number", Toast.LENGTH_SHORT).show()
-               return@setOnClickListener
-           }else{
+            // using vararg to validate input
+            val verifyPhoneNumberInput = Validation(phoneEditText)
 
+
+            if (verifyPhoneNumberInput != null) {
+
+                /**Error message for blank space**/
+                verifyPhoneNumberInput.error = "Field required"
+                Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.blank_phone_number_input_str),
+                        Snackbar.LENGTH_SHORT).show()
+
+            } else if(!validate()){
+
+                /**Error message for invalidate phone number**/
+               binding.phoneActivPhoneNoEt.error = "Invalid phone number"
+                Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.invalid_phone_number_input_str),
+                    Snackbar.LENGTH_SHORT).show()
+               return@setOnClickListener
+
+           } else{
+
+                /**Navigate to activation screen after user verification **/
               findNavController().navigate(R.id.phoneVerificationFragment)
 
            }
         }
     }
 
+    /**Get user input for validation**/
     private fun validate(): Boolean{
         val field = "+234"+binding.phoneActivPhoneNoEt.text.toString().trim()
        return validatePhoneNumber(field)

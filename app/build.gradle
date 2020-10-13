@@ -98,6 +98,9 @@ android {
         // Circular image library
         implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+        // for more unit testing using google truthy dependency
+        testImplementation "com.google.truth:truth:1.0.1"
+
 
 
     }

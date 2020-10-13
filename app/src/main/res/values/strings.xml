@@ -40,6 +40,8 @@
     <string name="gender_str">Gender</string>
     <string name="religion_str">Religion</string>
     <string name="next_step_str">Next Step</string>
+    <string name="blank_phone_number_input_str">Phone number field can not be blank</string>
+    <string name="invalid_phone_number_input_str">Invalid phone number. Double check your information and try again.</string>
 
 
     <string name="email_address_str">Email Address</string>
