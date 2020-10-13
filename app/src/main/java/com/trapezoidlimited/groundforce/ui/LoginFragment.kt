@@ -35,33 +35,33 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
 
         /**Hide status bar**/
         hideStatusBar()
 
-        // Get Test from String Resource
+        /**Get Test from String Resource**/
         val codeText = getText(R.string.new_user_register_here_str)
-        // Get an instance of SpannableString
+        /**Get an instance of SpannableString**/
         val ssText = SpannableString(codeText)
-        // Implement ClickableSpan
+        /**Implement ClickableSpan**/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
 
-            // Change color and remove underline
+            /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextResend)
                 ds.isUnderlineText = false
             }
         }
-        // Set the span text
+        /**Set the span text**/
         ssText.setSpan(clickableSpan, 10, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // Make the text spannable and clickable
+        /**Make the text spannable and clickable**/
         binding.loginNewUserTv.text = ssText
         binding.loginNewUserTv.movementMethod = LinkMovementMethod.getInstance()
 
