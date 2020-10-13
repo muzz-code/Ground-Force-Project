@@ -2,7 +2,7 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.widget.EditText
 
-class Validation {
+class ValidationPhoneNumber {
 
 
     companion object {
