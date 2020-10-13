@@ -36,9 +36,11 @@ class LocationVerificationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //initialize location view model using view model providers
+        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         // Inflate the layout for this fragment
 
-        locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
         return inflater.inflate(R.layout.fragment_location_verification, container, false)
     }
 
