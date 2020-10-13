@@ -50,7 +50,13 @@
     <string name="_08023456789_str">08023456789</string>
     <string name="residence_address_str">Residence Address</string>
     <string name="bank_details_str">Bank Details</string>
+    
+      <string name="bank_name_str">Bank Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="_0801234567890_str">0801234567890</string>
+    <string name="done_profile_str">Done</string>
 
+    
     <string-array name="sex">
         <item>Male</item>
         <item>Female</item>
