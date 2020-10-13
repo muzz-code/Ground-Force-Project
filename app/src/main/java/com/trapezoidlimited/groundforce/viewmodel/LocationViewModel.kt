@@ -44,7 +44,8 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     }
 
 
-    //1a1 recieve current user location with intervals and display on the map
+    //recieve current user location with intervals and display on the map
+    //use suppress lint to ignore missing permission request, treat missing permission in fragment
     @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
         request = LocationRequest()
@@ -64,28 +65,23 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
                 val latitude = location.latitude
                 val longitude = location.longitude
                 if (location != null) {
-
-                    //Toast.makeText(getApplication(),"Location gotten",Toast.LENGTH_LONG).show()
-
+                    //if location is not null, update the islocationgotten to be true and locationMutable value with
+                    //latitude and longitude gotten from location
                     locationMutable.value=LocationModel(longitude,latitude)
                     isLocationGotten.value="true"
-
-//                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentUserLoc, 20f))
                 }
 
             }
         }
         fusedLocationClient.requestLocationUpdates(request,locationCallback, Looper.myLooper())
         startLocationUpdates()
-
-        //save the settings using fusedLocationClient, specifying the unit process to take place in the System
-
     }
 
 
 
 
-    //1a2 update the location
+    //update the location
+    //use suppress lint to ignore missing permission error, treat missing permission in fragment
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         fusedLocationClient.requestLocationUpdates(
@@ -94,7 +90,6 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
             null
         )
     }
-
 
 
 }
