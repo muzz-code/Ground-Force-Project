@@ -25,7 +25,11 @@ import kotlinx.android.synthetic.main.fragment_location_verification.*
 
 class LocationVerificationFragment : Fragment() {
 
+    //set location request code to 101
     var LOCATION_REQUEST=101
+
+    //sample user latitude and longitude which is intended to be used to test that address input by user is near proximity of
+    //location gotten by google location service or vice versa
     var userLat=3.630
     var userLong=6.474
 
