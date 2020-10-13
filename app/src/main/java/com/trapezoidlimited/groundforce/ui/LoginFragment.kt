@@ -1,6 +1,8 @@
 package com.trapezoidlimited.groundforce.ui
 
+
 import android.content.Intent
+
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -15,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -24,9 +27,14 @@ import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.ui.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.utils.Validation
 import com.trapezoidlimited.groundforce.utils.handleApiError
+
+import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.utils.Validation
+
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
-
 
 
 class LoginFragment : Fragment() {
@@ -36,7 +44,9 @@ class LoginFragment : Fragment() {
 
     private val validate = Validation()
 
+
     private val viewModel : LoginAuthViewModel by viewModels()
+
 
 
     override fun onCreateView(
@@ -91,6 +101,7 @@ class LoginFragment : Fragment() {
 
         /**move to Home **/
         binding.loginLoginBtn.setOnClickListener {
+
             val email = binding.editTextTextEmailAddressEt.text.toString()
             val pin = binding.editTextNumberPinEt.text.toString()
 
@@ -123,6 +134,16 @@ class LoginFragment : Fragment() {
 //        })
 
 
+
+            if(!validateEmailAndPin()){
+                return@setOnClickListener
+            }
+            else{
+                Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
+                //findNavController().navigate(R.id.dashBoardFragment)
+            }
+        }
+
     }
 
     override fun onDestroy() {
@@ -130,7 +151,13 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
+
     private fun validateEmailAndPin(email: String, pin: String): Boolean{
+
+    private fun validateEmailAndPin(): Boolean{
+        var email = binding.editTextTextEmailAddressEt.text.toString()
+        var pin = binding.editTextNumberPinEt.text.toString()
+
 
         if(!validate.validateEmail(email)){
             binding.editTextTextEmailAddressEt.error ="Invalid email"
@@ -140,7 +167,7 @@ class LoginFragment : Fragment() {
             binding.editTextNumberPinEt.error="Invalid password"
             return false
         }
-
+      
         return true
     }
 
