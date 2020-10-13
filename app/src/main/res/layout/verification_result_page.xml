@@ -41,7 +41,7 @@
                 android:maxHeight="53.42dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/path_dialog_style"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_title_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                 android:maxHeight="97.09dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/success_mark"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_title_tv"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintHorizontal_bias="0.657"
                 app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/dialog_title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:width="84dp"
@@ -94,13 +94,13 @@
                 android:textColor="#00A769"
                 android:textAlignment="center"
                 android:textSize="23dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_body_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/dialog_body_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="81.16dp"
@@ -112,9 +112,9 @@
                 android:text="Congratulations"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="@+id/dialog_title_tv"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/textView2" />
+                app:layout_constraintStart_toStartOf="@+id/dialog_title_tv" />
 
             <View
                 android:layout_width="match_parent"
@@ -123,10 +123,10 @@
                 android:layout_marginBottom="20dp"
                 app:layout_constraintEnd_toEndOf="@id/cl_success"
                 app:layout_constraintStart_toStartOf="@id/cl_success"
-                app:layout_constraintTop_toTopOf="@+id/button" />
+                app:layout_constraintTop_toTopOf="@+id/dialog_ok_btn" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/dialog_ok_btn"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="334dp"
                 android:layout_height="50dp"
@@ -137,7 +137,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_body_tv"
                 app:layout_constraintVertical_bias="1.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
