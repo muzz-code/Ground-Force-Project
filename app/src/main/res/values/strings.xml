@@ -25,6 +25,10 @@
     <string name="phone_activ_info_user_str">We\'ll text you a code to verify your mobile number.</string>
     <string name="phone_activ_t_and_c_str">By clicking \"Continue\", you are accepting our Terms &amp; Conditions as well as our Privacy Policy</string>
     <string name="phone_activ_continue_str">Continue</string>
+    <string name="main_title_transition">mainTitleTransition</string>
+    <string name="sub_title_transition">subTitleTransition</string>
+    <string name="login_button_transition">loginButtonTransition</string>
+    <string name="google_button_transition">googleButtonTransition</string>
 
 
 
