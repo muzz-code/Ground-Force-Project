@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+import com.trapezoidlimited.groundforce.utils.showStatusBar
 
 
 class PhoneActivationFragment : Fragment() {
@@ -27,6 +28,9 @@ class PhoneActivationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
+
+        /**show status bar**/
+        showStatusBar()
         val view = binding.root
 
         // Get Test from String Resource
@@ -79,7 +83,7 @@ class PhoneActivationFragment : Fragment() {
 
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
-           findNavController().popBackStack()
+           findNavController().navigate(R.id.landingFragment)
         }
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)

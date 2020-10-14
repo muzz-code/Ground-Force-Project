@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
+import com.trapezoidlimited.groundforce.utils.showStatusBar
 
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
@@ -26,6 +27,9 @@ class PhoneVerificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhoneVerificationBinding.inflate(inflater, container, false)
+
+        /**show status bar**/
+        showStatusBar()
         val view = binding.root
 
         // Get Test from String Resource
