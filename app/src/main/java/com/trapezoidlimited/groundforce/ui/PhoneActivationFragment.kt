@@ -17,8 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
-import com.trapezoidlimited.groundforce.utils.Validation
-import com.trapezoidlimited.groundforce.utils.Validation.Companion.validatePhoneNumber
+import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber
+import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber.Companion.validatePhoneNumber
 
 
 class PhoneActivationFragment : Fragment() {
@@ -94,7 +94,7 @@ class PhoneActivationFragment : Fragment() {
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
             // using vararg to validate input
-            val verifyPhoneNumberInput = Validation(phoneEditText)
+            val verifyPhoneNumberInput = ValidationPhoneNumber(phoneEditText)
 
 
             if (verifyPhoneNumberInput != null) {
