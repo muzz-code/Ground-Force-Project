@@ -98,9 +98,9 @@ android {
         //location implementation with lifecycle
         implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation "android.arch.lifecycle:extensions:1.1.1"
-    }
-}
 
-dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+        //ripple effect
+
+        implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
+    }
 }
