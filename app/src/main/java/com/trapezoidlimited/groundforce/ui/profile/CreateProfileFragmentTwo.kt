@@ -20,15 +20,17 @@ class CreateProfileFragmentTwo : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_create_profile_two, container, false)
         _binding = FragmentCreateProfileTwoBinding.inflate(inflater, container, false)
 
+        /** set navigation arrow from drawable **/
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
+        /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
+        /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentThree)
         }
@@ -37,13 +39,10 @@ class CreateProfileFragmentTwo : Fragment() {
     }
 
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 
 
 }

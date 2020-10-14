@@ -23,12 +23,15 @@ class CreateProfileFragmentThree : Fragment() {
        // return inflater.inflate(R.layout.fragment_create_profile_three, container, false)
         _binding = FragmentCreateProfileThreeBinding.inflate(inflater, container, false)
 
+        /** set navigation arrow from drawable **/
         binding.fragmentCreateProfileThreeIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
+        /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentCreateProfileThreeIc.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
+        /** navigate to location verification screen **/
         binding.fragmentCreateProfileThreeDoneBtn.setOnClickListener {
             findNavController().navigate(R.id.locationVerificationFragment)
         }
