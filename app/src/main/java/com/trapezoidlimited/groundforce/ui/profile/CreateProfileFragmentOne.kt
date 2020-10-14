@@ -2,9 +2,12 @@ package com.trapezoidlimited.groundforce.ui.profile
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import kotlinx.android.synthetic.main.fragment_create_profile_one.*
+import kotlinx.android.synthetic.main.verification_result_page.*
 import java.util.*
 
 
@@ -36,6 +40,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     private lateinit var date : String
 
     private val PERMISSION_REQUEST_CODE: Int = 101
+    private val REQUEST_IMAGE_CAPTURE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,22 +130,34 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
         /** On click on camera button, check if permission is granted, if granted take picture or request other wise **/
         cameraButton.setOnClickListener {
-            if (checkPermission()) takePicture() else requestPermission()
+            if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
 
     }
 
 
     /** Take picture function **/
-    private fun takePicture() {
+
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
-            val intent = Intent()
-            intent.action = MediaStore.ACTION_IMAGE_CAPTURE
-            startActivity(intent)
-        } catch (e : Exception) {
-            e.printStackTrace()
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
         }
     }
+
+    /** onActivityResult function place the captured image on the image view place holder **/
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            val imagePlaceHolder = binding.fragmentCreateProfileOneIv
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            //imageView.setImageBitmap(imageBitmap)
+            imagePlaceHolder.setImageBitmap(imageBitmap)
+        }
+    }
+
 
     /** Check for user permission to access phone camera **/
     private fun checkPermission(): Boolean {
@@ -164,7 +181,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
 
-                    takePicture()
+                    dispatchTakePictureIntent()
 
                 } else {
                     Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()

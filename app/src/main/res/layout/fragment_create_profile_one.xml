@@ -21,16 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/fragment_create_profile_one_iv"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:scaleType="centerCrop"
+        android:layout_marginTop="18dp"
         android:src="@drawable/ic_person_profile_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic"/>
+
+
 
     <ImageView
         android:id="@+id/fragment_create_profile_one_ib"
