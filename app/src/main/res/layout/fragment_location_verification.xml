@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.LocationVerificationFragment">
 
     <ImageView
@@ -37,37 +37,52 @@
         android:id="@+id/location_verification_message_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/location_verification_message"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="127dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14dp"
         android:layout_marginLeft="49dp"
-        android:layout_marginRight="48dp"
         android:layout_marginTop="33dp"
-        android:textColor="@color/colorTextSecondary"
+        android:layout_marginRight="48dp"
         android:width="263dp"
         android:height="41dp"
         android:fontFamily="@font/roboto"
-        app:layout_constraintTop_toBottomOf="@id/location_verification_bar_tv"/>
-
-    <ImageView
-        android:id="@+id/search_location_iv"
-        android:layout_width="161.42dp"
-        android:layout_height="161.42dp"
-        android:layout_marginStart="59.58dp"
-        android:layout_marginEnd="59.58dp"
-        android:layout_marginTop="144.73dp"
-        android:maxWidth="161.42dp"
-        android:maxHeight="161.42dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/search"
-
+        android:text="@string/location_verification_message"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_verification_message_tv" />
+        app:layout_constraintTop_toBottomOf="@id/location_verification_bar_tv"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="127dp" />
+
+    <com.gauravbhola.ripplepulsebackground.RipplePulseLayout
+        android:id="@+id/layout_ripplepulse"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:clipChildren="false"
+        app:duration="10"
+        app:endRadius="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/verifying_location_status_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_verification_message_tv"
+        app:rippleColor="#FFFFFF"
+        app:rippleType="stroke"
+        app:strokeWidth="2dp"
+        app:startRadius="100dp">
+
+        <ImageView
+            android:id="@+id/search_location_iv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginVertical="100dp"
+            android:layout_alignBottom="@id/layout_ripplepulse"
+            android:layout_alignTop="@id/layout_ripplepulse"
+            android:layout_alignStart="@id/layout_ripplepulse"
+            android:layout_alignEnd="@id/layout_ripplepulse"
+            android:scaleType="fitCenter"
+            android:src="@drawable/search" />
+
+    </com.gauravbhola.ripplepulsebackground.RipplePulseLayout>
+
 
     <TextView
         android:id="@+id/verifying_location_status_tv"
@@ -82,18 +97,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.941" />
 
-    <ProgressBar
-        android:id="@+id/location_verification_pgbar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/location_verification_bar_tv"
-        app:layout_constraintVertical_bias="0.728" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
