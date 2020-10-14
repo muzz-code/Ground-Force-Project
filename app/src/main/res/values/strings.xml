@@ -37,8 +37,6 @@
     <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
     <string name="screen_4_subtitle_str">More missions, more surveys, more money!</string>
     <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
-
-
     <string name="create_profile_str">Create Profile</string>
     <string name="just_the_basics_str">Just the basics</string>
     <string name="first_name_str">First Name</string>
@@ -52,8 +50,6 @@
     <string name="blank_phone_number_input_str">Phone number field can not be blank</string>
     <string name="invalid_phone_number_input_str">Invalid phone number. Double check your information and try again.</string>
 
-
-    <string name="email_address_str">Email Address</string>
     <string name="kehinde_emaildomain_com_str">kehinde@emaildomain.com</string>
     <string name="additional_phone_number_str">Additional Phone Number</string>
     <string name="_08023456789_str">08023456789</string>
@@ -80,6 +76,7 @@
 
 
 
+
     <!--display location latitude and longitude-->
     <string name="latLong">Longitude: %.3f, Latitude: %.3f</string>
 
@@ -92,9 +89,9 @@
 
     <string name="_10_14_str">10/14</string>
     <string name="contact_details_str">Contact details</string>
+
+
+
 </resources>
-
-
-
 
 

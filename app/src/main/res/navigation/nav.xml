@@ -32,6 +32,8 @@
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation" />
 
+
+
     <fragment
         android:id="@+id/createProfileFragmentOne"
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentOne"
@@ -42,14 +44,15 @@
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentTwo"
         android:label="fragment_create_profile_two"
         tools:layout="@layout/fragment_create_profile_two" />
+
     <fragment
         android:id="@+id/createProfileFragmentThree"
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentThree"
         android:label="fragment_create_profile_three"
         tools:layout="@layout/fragment_create_profile_three" />
 
-    <fragment
 
+    <fragment
         android:id="@+id/locationVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.LocationVerificationFragment"
         android:label="fragment_location_verification"
