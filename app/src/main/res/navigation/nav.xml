@@ -31,6 +31,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation" />
+
     <fragment
         android:id="@+id/createProfileFragmentOne"
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentOne"
@@ -46,4 +47,17 @@
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentThree"
         android:label="fragment_create_profile_three"
         tools:layout="@layout/fragment_create_profile_three" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/dashBoardFragment"
+        android:name="com.trapezoidlimited.groundforce.DashBoardFragment"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
+
 </navigation>

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -47,10 +51,10 @@
         android:id="@+id/fragment_create_profile_one_basic_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35.22dp"
-        android:layout_marginTop="22.12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/just_the_basics_str"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_iv" />
 
@@ -74,7 +78,6 @@
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/Chinwendu_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +105,6 @@
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/gbadamosi_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv" />
@@ -112,6 +114,7 @@
         android:id="@+id/fragment_create_profile_one_date_birth_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/date_of_birth_str"
         android:textColor="@color/colorTextVerify"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
@@ -125,10 +128,8 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorTextVerify"
         android:drawableEnd="@drawable/calendar"
-        android:inputType="date"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/gbadamosi_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,12 +149,13 @@
         android:id="@+id/fragment_create_profile_one_religious_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
+        android:layout_marginEnd="128dp"
         android:text="@string/religion_str"
         android:textColor="@color/colorTextVerify"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_gender_tv"
         app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_et"
-        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_tv" />
+        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_tv"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/fragment_create_profile_one_gender_sp"
@@ -161,6 +163,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="66dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_create_profile_one_btn"
         app:layout_constraintEnd_toStartOf="@+id/fragment_create_profile_one_religion_sp"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,6 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fragment_create_profile_one_gender_sp"
@@ -182,7 +187,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="37dp"
         android:layout_marginBottom="21dp"
         android:background="@drawable/curved_primary_fill_button"
@@ -194,8 +198,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
