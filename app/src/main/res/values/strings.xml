@@ -26,14 +26,27 @@
     <string name="phone_activ_t_and_c_str">By clicking \"Continue\", you are accepting our Terms &amp; Conditions as well as our Privacy Policy</string>
     <string name="phone_activ_continue_str">Continue</string>
 
+
+
+    <!--Location verification string-->
+    <string name="location_verification_str">Location Verification</string>
+    <string name="location_verification_message">Please ensure you are at the location you entered while registering</string>
+    <string name="location_verifcation_status">Verifying location</string>
+
     <!--    Screen 4 Strings-->
     <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
     <string name="screen_4_subtitle_str">More missions, more surveys, more money!</string>
     <string name="screen_4_iv_content_desc_str">Lagos Lady using GroundForce App</string>
+
+
+    <!--display location latitude and longitude-->
+    <string name="latLong">Longitude: %.3f, Latitude: %.3f</string>
+
     <string name="login_sub_title_str">Login to continue</string>
     <string name="login_str">Login</string>
     <string name="email_address_str">Email Address</string>
     <string name="pin_text_str">Pin</string>
     <string name="new_user_register_here_str">New user? Register here.</string>
     <string name="forgot_password_str">Forgot password?</string>
+
 </resources>

@@ -67,7 +67,13 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneActivArrowBackIv.setOnClickListener {
             findNavController().popBackStack()
         }
-        //
+        //Text location verification fragment
+        //click on phone verification to text
+        binding.phoneVerifConfirmBtn.setOnClickListener {
+            findNavController().navigate(R.id.locationVerificationFragment)
+
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().popBackStack()
         }

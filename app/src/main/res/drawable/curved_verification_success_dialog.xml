@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Curved Shape filled Buttons with Primary color-->
+<!--curved shape for dialog success-->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:alpha="http://schemas.android.com/aapt"
     android:shape="rectangle">
-    <corners android:radius="25dp" />
-
-    <solid android:color="@color/colorPrimary" alpha:alpha="0.5" />
+    <corners android:topRightRadius="25dp" android:topLeftRadius="25dp" />
+    <solid android:color="@color/colorPrimaryDark"/>
 
 </shape>
