@@ -28,11 +28,6 @@ import com.trapezoidlimited.groundforce.ui.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.utils.Validation
 import com.trapezoidlimited.groundforce.utils.handleApiError
 
-import androidx.navigation.fragment.findNavController
-import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
-import com.trapezoidlimited.groundforce.utils.Validation
-
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 
@@ -67,7 +62,9 @@ class LoginFragment : Fragment() {
         /**Implement ClickableSpan**/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
+               view.setOnClickListener {
+                   findNavController().navigate(R.id.phoneActivationFragment)
+               }
             }
 
             /**Change color and remove underline**/
@@ -93,7 +90,7 @@ class LoginFragment : Fragment() {
 
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.landingFragment)
         }
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
@@ -135,14 +132,7 @@ class LoginFragment : Fragment() {
 
 
 
-            if(!validateEmailAndPin()){
-                return@setOnClickListener
-            }
-            else{
-                Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
-                //findNavController().navigate(R.id.dashBoardFragment)
-            }
-        }
+
 
     }
 
@@ -154,9 +144,6 @@ class LoginFragment : Fragment() {
 
     private fun validateEmailAndPin(email: String, pin: String): Boolean{
 
-    private fun validateEmailAndPin(): Boolean{
-        var email = binding.editTextTextEmailAddressEt.text.toString()
-        var pin = binding.editTextNumberPinEt.text.toString()
 
 
         if(!validate.validateEmail(email)){
