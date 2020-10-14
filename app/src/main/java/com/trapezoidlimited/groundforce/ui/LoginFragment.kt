@@ -49,7 +49,9 @@ class LoginFragment : Fragment() {
         /**Implement ClickableSpan**/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
+               view.setOnClickListener {
+                   findNavController().navigate(R.id.phoneActivationFragment)
+               }
             }
 
             /**Change color and remove underline**/
