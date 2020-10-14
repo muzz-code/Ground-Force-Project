@@ -9,9 +9,11 @@ import android.widget.Toast
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.trapezoidlimited.groundforce.data.GpsState
 
 
 class GpsUtils(context: Context) {
+    lateinit var gpsModel:GpsState
     private val context: Context = context
     private val mSettingsClient: SettingsClient = LocationServices.getSettingsClient(context)
     private val mLocationSettingsRequest: LocationSettingsRequest
@@ -19,14 +21,15 @@ class GpsUtils(context: Context) {
     private val locationRequest: LocationRequest = LocationRequest.create()
 
     // method for turn on GPS
-    fun turnGPSOn(onGpsListener: OnGpsListener?) {
+    fun turnGPSOn(){
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            onGpsListener?.gpsStatus(true)
+            gpsModel.gpsGotten=true
         } else {
             mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener((context as Activity)) { //  GPS is already enable, callback GPS status through listener
-                    onGpsListener?.gpsStatus(true)
+                    //save the result using data class
+                    gpsModel.gpsGotten=true
                 }
                 .addOnFailureListener(
                     (context as Activity)
@@ -55,9 +58,11 @@ class GpsUtils(context: Context) {
         }
     }
 
-    interface OnGpsListener {
-        fun gpsStatus(isGPSEnable: Boolean)
+    //return the result of the data i.e true
+    fun returnGpsState(): GpsState {
+        return gpsModel
     }
+
 
     init {
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
