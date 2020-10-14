@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.ui
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,14 +18,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.data.LocationModel
+import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
+import com.trapezoidlimited.groundforce.utils.AppConstants
 import com.trapezoidlimited.groundforce.utils.CustomAlert
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_location_verification.*
-import kotlin.math.acos
-import kotlin.math.cos
-import kotlin.math.sin
 
 
 class LocationVerificationFragment : Fragment() {
@@ -35,10 +33,11 @@ class LocationVerificationFragment : Fragment() {
     //set location request code to 101
     var LOCATION_REQUEST=101
 
-    //sample user latitude and longitude which is intended to be used to test that address input by user is near proximity of
-    //location gotten by google location service or vice versa
-    var userLat=3.630
-    var userLong=6.474
+
+    //check if Gps is enabled
+    private var isGpsEnabled=false
+    //check if check of location should continue
+    private var isContinue: Boolean = false
 
     private lateinit var locationViewModel: LocationViewModel
 
@@ -60,7 +59,6 @@ class LocationVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //onview created, trigger getLocation
-
         getLocation()
         super.onViewCreated(view, savedInstanceState)
     }
@@ -69,13 +67,23 @@ class LocationVerificationFragment : Fragment() {
     //observe that location is gotten
     @RequiresApi(Build.VERSION_CODES.M)
     fun getLocation(){
-
-
         if(isPermissionsGranted()) {
+            //request location of user
             locationViewModel.requestLocationUpdates()
-            locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer {
-                if (it == "false") {
+
+            locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer { locationM ->
+                if (locationM == "false") {
                     binding.layoutRipplepulse.startRippleAnimation()
+                    //check that the gps was turned on while it is still searching for the users location
+                    locationViewModel._isGpsEnabled.observe(viewLifecycleOwner) {
+                        if(!it.gpsGotten)
+                        Toast.makeText(
+                            requireContext(),
+                            "Please turn on GPS",
+                            Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                    //still continue to listen to location of user expecting the user to turn on gps
                     locationViewModel.requestLocationUpdates()
                 } else {
                     //if location has been gotten, make animation or its visibility gone; while trigger compareLocationResultWithUsersInputAddress
@@ -85,9 +93,9 @@ class LocationVerificationFragment : Fragment() {
             })
         }
         else{
+            //if permission not granted, request for permission
             requestPermission()
         }
-
         if(shouldShowRequestPermissionRationale()){
             Toast.makeText(requireContext(), "permission not granted", Toast.LENGTH_LONG).show()
         }
@@ -105,6 +113,8 @@ class LocationVerificationFragment : Fragment() {
                     requireContext().applicationContext,
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
+
+
 
 
     //if the permission has been granted, compare location result with user's input location
@@ -138,95 +148,42 @@ class LocationVerificationFragment : Fragment() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (resultCode == Activity.RESULT_OK) {
+                if (requestCode == AppConstants.GPS_REQUEST) {
+                    locationViewModel.isGpsEnabled.value = GpsState(true) // flag maintain before get location
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 
     //if permission is not granted, consider to show the permission not granted rationale
     @RequiresApi(Build.VERSION_CODES.M)
     private fun shouldShowRequestPermissionRationale() =
        shouldShowRequestPermissionRationale(
 
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) && ActivityCompat.shouldShowRequestPermissionRationale(
-            requireContext().applicationContext as Activity,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
+           Manifest.permission.ACCESS_FINE_LOCATION
+       ) && ActivityCompat.shouldShowRequestPermissionRationale(
+           requireContext().applicationContext as Activity,
+           Manifest.permission.ACCESS_COARSE_LOCATION
+       )
 
 
     //begin compareLocationResultWithUsersInputAddress and display custom alert
     private fun getLocationLatLng(){
-
        locationViewModel._location.value.apply{
             verifying_location_status_tv.text =
                 getString(R.string.latLong, this?.longitude, this?.latitude)
-            this?.let { compareLocationResultWithUsersInputAddress(it) }
-
+            this?.let {
+                var alertDialog=CustomAlert()
+                alertDialog.showDialog(requireContext(), "Congratulations", "Success")
+            }
         }
     }
-
-    private fun compareLocationResultWithUsersInputAddress(locationModel:LocationModel){
-        var distanceBetweenUserAddressAndGoogleAddress=distanceBetweenUsersEnteredAddressAndGoogleLatLng(
-            userLat,
-            locationModel.latitude,
-            userLong,
-            locationModel.longitude
-        )
-        if(distanceBetweenUserAddressAndGoogleAddress < 1000.0){
-            var alertDialog=CustomAlert()
-            alertDialog.showDialog(requireContext(), "Congratulations", "Success")
-
-        }
-        else{
-            Toast.makeText(
-                requireContext(),
-                "You should be near the address your registered with",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-
-    }
-
-
-
-
-    private fun distanceBetweenUsersEnteredAddressAndGoogleLatLng(
-        userLat: Double,
-        userLong: Double,
-        GoogleLat: Double,
-        GoogleLng: Double
-    ): Double {
-        //calculate the difference
-        var diffInLong=userLong-GoogleLng
-
-        var distance= sin(deg2Rad(userLat)) *
-                sin(deg2Rad(GoogleLat)) +
-                cos(deg2Rad(userLat)) *
-                cos(deg2Rad(GoogleLat)) *
-                cos(deg2Rad(diffInLong))
-        distance= acos(distance)
-
-        //convert distance radian to degree
-        distance=rad2deg(distance)
-
-        //distance in miles
-        distance *= 60 * 1.1515
-
-        //distance in metres
-        distance *= 1.609344
-
-        //distance in 2decimal place
-
-        return String.format("%.2f", distance).toDouble()
-
-
-    }
-
-    private fun deg2Rad(userLat: Double): Double {
-        return (userLat * Math.PI/180)
-    }
-
-    private fun rad2deg(distance: Double): Double{
-        return (distance * 180/ Math.PI)
-    }
-
 
 
     //on activity created, handle navigation
