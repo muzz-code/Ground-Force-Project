@@ -1,16 +1,7 @@
 package com.trapezoidlimited.groundforce.viewmodel
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Application
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.location.Location
-import android.os.Looper
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
@@ -73,7 +64,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
 
             }
         }
-        fusedLocationClient.requestLocationUpdates(request,locationCallback, Looper.myLooper())
+        fusedLocationClient.requestLocationUpdates(request,locationCallback,null)
         startLocationUpdates()
     }
 
