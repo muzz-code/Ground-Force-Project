@@ -43,6 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
 
 
+<!--    Edit text for email address -->
     <EditText
         android:id="@+id/fragment_create_profile_two_email_address_placeholder_et"
         android:layout_width="match_parent"
@@ -56,6 +57,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_tv" />
 
+
+<!--    Text view for Additional phone number -->
     <TextView
         android:id="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
         android:layout_width="wrap_content"
@@ -65,6 +68,7 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_email_address_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_placeholder_et" />
 
+<!--    Edit text for Additional phone number -->
     <EditText
         android:id="@+id/fragment_create_profile_two_phone_number_et"
         android:layout_width="match_parent"
@@ -77,6 +81,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv" />
 
+
+<!--    Residence text view -->
     <TextView
         android:id="@+id/fragment_create_profile_two_residence_address_tv"
         android:layout_width="wrap_content"
@@ -86,6 +92,7 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_phone_number_et" />
 
+<!--    Edit text for residence -->
     <EditText
         android:id="@+id/fragment_create_profile_two_address_placeholder_et"
         android:layout_width="match_parent"
@@ -98,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_residence_address_tv" />
 
+<!-- Text view for error   -->
     <TextView
         android:id="@+id/fragment_create_profile_error_tv"
         android:layout_width="wrap_content"
@@ -106,6 +114,7 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_residence_address_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_address_placeholder_et" />
 
+<!--   Button to go to next profile page  -->
     <Button
         android:id="@+id/fragment_create_profile_two_btn"
         android:layout_width="0dp"

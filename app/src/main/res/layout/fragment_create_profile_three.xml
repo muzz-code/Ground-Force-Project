@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.profile.CreateProfileFragmentThree">
 
+<!--    Tool bar -->
     <include
         android:id="@+id/fragment_create_profile_three_ic"
         layout="@layout/toolbar_fragment"
@@ -16,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    Text view for bank detail -->
     <TextView
         android:id="@+id/fragment_create_profile_two_contact_details_tv"
         android:layout_width="wrap_content"
@@ -29,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_three_ic" />
 
+<!--   Text view for bank name  -->
     <TextView
         android:id="@+id/fragment_create_profile_three_bank_name_tv"
         android:layout_width="wrap_content"
@@ -39,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
 
 
+<!--    Auto complete text view for email -->
     <AutoCompleteTextView
         android:id="@+id/fragment_create_profile_three_email_address_placeholder_sp"
         android:layout_width="match_parent"
@@ -53,6 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_three_bank_name_tv" />
 
+<!--  Text view for account number   -->
     <TextView
         android:id="@+id/fragment_create_profile_three_account_number_tv"
         android:layout_width="wrap_content"
@@ -62,6 +67,7 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_three_bank_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_three_email_address_placeholder_sp" />
 
+<!--    Edit text for account number -->
     <EditText
         android:id="@+id/fragment_create_profile_three_account_number_et"
         android:layout_width="match_parent"
@@ -75,6 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_three_account_number_tv" />
 
+<!--    Done button to navigate to verify location-->
     <Button
         android:id="@+id/fragment_create_profile_three_done_btn"
         android:layout_width="0dp"
