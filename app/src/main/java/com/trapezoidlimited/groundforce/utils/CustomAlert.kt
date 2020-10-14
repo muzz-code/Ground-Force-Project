@@ -18,17 +18,18 @@ class CustomAlert {
             fun showDialog(context: Context, titleToDisplay: String?, bodyToDisplay: String?) {
                 val dialog = Dialog(context)
                 dialog.setContentView(R.layout.verification_result_page)
+                dialog.setCancelable(true)
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val title = dialog.findViewById<View>(R.id.dialog_title_tv) as TextView
                 val body=dialog.findViewById<View>(R.id.dialog_body_tv) as TextView
                 title.text = titleToDisplay.toString()
                 body.text=bodyToDisplay.toString()
                 val dialogButton:Button= dialog.findViewById(R.id.dialog_ok_btn)
+                dialogButton.isClickable=true
                 dialogButton.setOnClickListener {
+                    Toast.makeText(context,"You have been verified",Toast.LENGTH_LONG).show()
                     dialog.dismiss()
-                    dialog.cancel()
                 }
                 dialog.show()
-
             }
         }
