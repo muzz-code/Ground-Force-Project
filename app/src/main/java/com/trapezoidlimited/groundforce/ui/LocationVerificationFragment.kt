@@ -69,6 +69,8 @@ class LocationVerificationFragment : Fragment() {
     //observe that location is gotten
     @RequiresApi(Build.VERSION_CODES.M)
     fun getLocation(){
+
+
         if(isPermissionsGranted()) {
             locationViewModel.requestLocationUpdates()
             locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer {
