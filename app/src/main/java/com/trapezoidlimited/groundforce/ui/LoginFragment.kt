@@ -1,5 +1,8 @@
 package com.trapezoidlimited.groundforce.ui
 
+
+import android.content.Intent
+
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -14,10 +17,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.ui.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.utils.Validation
+import com.trapezoidlimited.groundforce.utils.handleApiError
+
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 
@@ -28,6 +38,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val validate = Validation()
+
+
+    private val viewModel : LoginAuthViewModel by viewModels()
 
 
 
@@ -77,7 +90,7 @@ class LoginFragment : Fragment() {
 
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.landingFragment)
         }
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
@@ -85,14 +98,42 @@ class LoginFragment : Fragment() {
 
         /**move to Home **/
         binding.loginLoginBtn.setOnClickListener {
-            if(!validateEmailAndPin()){
+
+            val email = binding.editTextTextEmailAddressEt.text.toString()
+            val pin = binding.editTextNumberPinEt.text.toString()
+
+            if(!validateEmailAndPin(email, pin)){
                 return@setOnClickListener
             }
             else{
+
+                /** USE CODE WHEN API IS READY: set the email and pin to the login method in the viewModel to make the post request */
+
+                //viewModel.login(email, pin)
+
                 Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
-                //findNavController().navigate(R.id.dashBoardFragment)
+
             }
         }
+
+        /** USE CODE WHEN API IS READY: observe the loginResponse to authorize  user to navigate to the next page
+         * or handle error */
+
+//        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
+//            when(it) {
+//                is Resource.Success -> {
+//                    findNavController().navigate(R.id.dashBoardFragment)
+//                }
+//                is Resource.Failure -> {
+//                    handleApiError(it)
+//                }
+//            }
+//        })
+
+
+
+
+
     }
 
     override fun onDestroy() {
@@ -100,9 +141,10 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
-    private fun validateEmailAndPin(): Boolean{
-        var email = binding.editTextTextEmailAddressEt.text.toString()
-        var pin = binding.editTextNumberPinEt.text.toString()
+
+    private fun validateEmailAndPin(email: String, pin: String): Boolean{
+
+
 
         if(!validate.validateEmail(email)){
             binding.editTextTextEmailAddressEt.error ="Invalid email"
@@ -112,6 +154,7 @@ class LoginFragment : Fragment() {
             binding.editTextNumberPinEt.error="Invalid password"
             return false
         }
+      
         return true
     }
 
