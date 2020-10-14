@@ -5,18 +5,20 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.LocationModel
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
 import com.trapezoidlimited.groundforce.utils.CustomAlert
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_location_verification.*
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
+
 
 class LocationVerificationFragment : Fragment() {
     private var _binding: FragmentLocationVerificationBinding? = null
@@ -36,7 +39,6 @@ class LocationVerificationFragment : Fragment() {
     //location gotten by google location service or vice versa
     var userLat=3.630
     var userLong=6.474
-
 
     private lateinit var locationViewModel: LocationViewModel
 
@@ -58,6 +60,7 @@ class LocationVerificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //onview created, trigger getLocation
+
         getLocation()
         super.onViewCreated(view, savedInstanceState)
     }
@@ -70,12 +73,14 @@ class LocationVerificationFragment : Fragment() {
             locationViewModel.requestLocationUpdates()
             locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer {
                 if (it == "false") {
-                    binding.locationVerificationPgbar.visibility = View.VISIBLE
+                    binding.layoutRipplepulse.startRippleAnimation()
+//                    binding.locationVerificationPgbar.visibility = View.VISIBLE
                     locationViewModel.requestLocationUpdates()
                 } else {
                     //if location has been gotten, make animation or its visibility gone; while trigger compareLocationResultWithUsersInputAddress
-                    location_verification_pgbar.visibility = View.GONE
-                    compareLocationResultWithUsersInputAddress()
+                    binding.layoutRipplepulse.stopRippleAnimation()
+//                    location_verification_pgbar.visibility = View.GONE
+                    getLocationLatLng()
                 }
             })
         }
@@ -149,22 +154,47 @@ class LocationVerificationFragment : Fragment() {
 
 
     //begin compareLocationResultWithUsersInputAddress and display custom alert
-    private fun compareLocationResultWithUsersInputAddress(){
-        locationViewModel._location.observe(viewLifecycleOwner) {
-            binding.verifyingLocationStatusTv.text =
-                getString(R.string.latLong, it.longitude, it.latitude)
-            var distanceBetweenUserAddressAndGoogleAddress=distanceBetweenUsersEnteredAddressAndGoogleLatLng(userLat,it.latitude,userLong,it.longitude)
-            if(distanceBetweenUserAddressAndGoogleAddress < 1000.0){
-                CustomAlert.dialog(requireActivity(), "Congratulations", "Success")
-            }
-            else{
-                Toast.makeText(requireContext(),"You should be near the address your registered with",Toast.LENGTH_LONG).show()
-            }
+    private fun getLocationLatLng(){
+
+       locationViewModel._location.value.apply{
+            verifying_location_status_tv.text =
+                getString(R.string.latLong, this?.longitude, this?.latitude)
+            this?.let { compareLocationResultWithUsersInputAddress(it) }
+
         }
     }
 
+    private fun compareLocationResultWithUsersInputAddress(locationModel:LocationModel){
+        var distanceBetweenUserAddressAndGoogleAddress=distanceBetweenUsersEnteredAddressAndGoogleLatLng(
+            userLat,
+            locationModel.latitude,
+            userLong,
+            locationModel.longitude
+        )
+        if(distanceBetweenUserAddressAndGoogleAddress < 1000.0){
+            var alertDialog=CustomAlert()
+            alertDialog.showDialog(requireContext(), "Congratulations", "Success")
 
-    private fun distanceBetweenUsersEnteredAddressAndGoogleLatLng(userLat:Double,userLong:Double,GoogleLat:Double,GoogleLng:Double): Double {
+        }
+        else{
+            Toast.makeText(
+                requireContext(),
+                "You should be near the address your registered with",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+    }
+
+
+
+
+    private fun distanceBetweenUsersEnteredAddressAndGoogleLatLng(
+        userLat: Double,
+        userLong: Double,
+        GoogleLat: Double,
+        GoogleLng: Double
+    ): Double {
         //calculate the difference
         var diffInLong=userLong-GoogleLng
 
@@ -186,16 +216,16 @@ class LocationVerificationFragment : Fragment() {
 
         //distance in 2decimal place
 
-        return String.format("%.2f",distance).toDouble()
+        return String.format("%.2f", distance).toDouble()
 
 
     }
 
-    private fun deg2Rad(userLat:Double): Double {
+    private fun deg2Rad(userLat: Double): Double {
         return (userLat * Math.PI/180)
     }
 
-    private fun rad2deg(distance:Double): Double{
+    private fun rad2deg(distance: Double): Double{
         return (distance * 180/ Math.PI)
     }
 
