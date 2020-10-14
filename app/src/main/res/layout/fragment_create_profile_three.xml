@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_three_account_number_tv" />
 
     <Button
-        android:id="@+id/fragment_create_profile_one_btn"
+        android:id="@+id/fragment_create_profile_three_done_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"

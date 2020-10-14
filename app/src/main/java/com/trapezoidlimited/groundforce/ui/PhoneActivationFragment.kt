@@ -92,7 +92,7 @@ class PhoneActivationFragment : Fragment() {
 
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
-           findNavController().popBackStack()
+           findNavController().navigate(R.id.landingFragment)
         }
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)

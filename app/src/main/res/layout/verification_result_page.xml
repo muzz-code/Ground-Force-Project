@@ -1,0 +1,127 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="279.84dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="35dp"
+    android:layout_height="wrap_content">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/cl_success"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/path_dialog_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxWidth="26.71dp"
+                android:maxHeight="53.42dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/path_dialog_style"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_title_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.077" />
+
+            <ImageView
+                android:id="@+id/success_mark_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="84.62dp"
+                android:layout_marginTop="40.05dp"
+                android:layout_marginEnd="39.62dp"
+                android:layout_marginBottom="11.3dp"
+                android:adjustViewBounds="true"
+                android:maxWidth="117.62dp"
+                android:maxHeight="97.09dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/success_mark"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_title_tv"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintHorizontal_bias="0.657"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="37.14dp"
+                android:maxHeight="38.71dp"
+                android:layout_marginBottom="164.26dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/polygon_dialog_style"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dialog_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:width="84dp"
+                android:height="35dp"
+                android:layout_marginBottom="4.72dp"
+                android:fontFamily="@font/titillium_web_bold"
+                android:gravity="center"
+                android:text="Success!"
+                android:textColor="#00A769"
+                android:textAlignment="center"
+                android:textSize="23dp"
+                app:layout_constraintBottom_toTopOf="@+id/dialog_body_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/dialog_body_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="81.16dp"
+                android:width="114dp"
+                android:height="19dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:textColor="#363636"
+                android:text="Congratulations"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/dialog_title_tv"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/dialog_title_tv" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#AAAAAA"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintEnd_toEndOf="@id/cl_success"
+                app:layout_constraintStart_toStartOf="@id/cl_success"
+                app:layout_constraintTop_toTopOf="@+id/dialog_ok_btn" />
+
+            <Button
+                android:id="@+id/dialog_ok_btn"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:text="OK"
+                android:textColor="#363636"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dialog_body_tv"
+                app:layout_constraintVertical_bias="1.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

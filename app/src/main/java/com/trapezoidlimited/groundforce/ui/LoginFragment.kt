@@ -30,6 +30,9 @@ import com.trapezoidlimited.groundforce.utils.handleApiError
 
 
 
+
+
+
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 
@@ -65,7 +68,9 @@ class LoginFragment : Fragment() {
         /**Implement ClickableSpan**/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
+               view.setOnClickListener {
+                   findNavController().navigate(R.id.phoneActivationFragment)
+               }
             }
 
             /**Change color and remove underline**/
@@ -91,7 +96,7 @@ class LoginFragment : Fragment() {
 
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.landingFragment)
         }
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
@@ -129,6 +134,11 @@ class LoginFragment : Fragment() {
 //                }
 //            }
 //        })
+
+
+
+
+
 
 
     }

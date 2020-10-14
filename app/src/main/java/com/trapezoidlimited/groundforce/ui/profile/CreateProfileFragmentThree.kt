@@ -29,6 +29,10 @@ class CreateProfileFragmentThree : Fragment() {
             findNavController().popBackStack()
         }
 
+        binding.fragmentCreateProfileThreeDoneBtn.setOnClickListener {
+            findNavController().navigate(R.id.locationVerificationFragment)
+        }
+
         return binding.root
     }
 
