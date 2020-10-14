@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.profile.CreateProfileFragmentTwo">
 
+<!--    Include to tool bar -->
     <include
         android:id="@+id/fragment_create_profile_two_ic"
         layout="@layout/toolbar_fragment"
@@ -16,17 +17,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--  Contact detail text view details  -->
     <TextView
         android:id="@+id/fragment_create_profile_two_contact_details_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/contact_details_str"
+        android:textSize="16dp"
+        android:textStyle="bold"
         android:textColor="@android:color/black"
         android:layout_marginTop="18dp"
         android:layout_marginStart="35.22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_ic" />
 
+<!--  Email text text view   -->
     <TextView
         android:id="@+id/fragment_create_profile_two_email_address_tv"
         android:layout_width="wrap_content"
@@ -47,7 +52,6 @@
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/kehinde_emaildomain_com_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_tv" />
@@ -69,7 +73,6 @@
         android:paddingEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/_08023456789_str"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv" />
