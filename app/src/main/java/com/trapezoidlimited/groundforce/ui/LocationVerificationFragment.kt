@@ -74,12 +74,10 @@ class LocationVerificationFragment : Fragment() {
             locationViewModel._isLocationGotten.observe(viewLifecycleOwner, Observer {
                 if (it == "false") {
                     binding.layoutRipplepulse.startRippleAnimation()
-//                    binding.locationVerificationPgbar.visibility = View.VISIBLE
                     locationViewModel.requestLocationUpdates()
                 } else {
                     //if location has been gotten, make animation or its visibility gone; while trigger compareLocationResultWithUsersInputAddress
                     binding.layoutRipplepulse.stopRippleAnimation()
-//                    location_verification_pgbar.visibility = View.GONE
                     getLocationLatLng()
                 }
             })
