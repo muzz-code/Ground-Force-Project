@@ -67,6 +67,7 @@ class PhoneVerificationFragment : Fragment() {
         //click on phone verification to text
         binding.phoneVerifConfirmBtn.setOnClickListener {
             findNavController().navigate(R.id.locationVerificationFragment)
+
         }
 
         requireActivity().onBackPressedDispatcher.addCallback{

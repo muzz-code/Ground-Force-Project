@@ -32,4 +32,9 @@
         android:name="com.trapezoidlimited.groundforce.ui.LocationVerificationFragment"
         android:label="fragment_location_verification"
         tools:layout="@layout/fragment_location_verification" />
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
 </navigation>

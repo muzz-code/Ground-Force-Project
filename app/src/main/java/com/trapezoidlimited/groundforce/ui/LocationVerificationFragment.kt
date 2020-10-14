@@ -111,15 +111,13 @@ class LocationVerificationFragment : Fragment() {
     //request for permission  and then trigger get location
     @RequiresApi(Build.VERSION_CODES.M)
     private fun requestPermission(){
-        ActivityCompat.requestPermissions(
-            context as Activity,
+        requestPermissions(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ),
             LOCATION_REQUEST
         )
-        getLocation()
     }
 
 
@@ -142,7 +140,7 @@ class LocationVerificationFragment : Fragment() {
     //if permission is not granted, consider to show the permission not granted rationale
     @RequiresApi(Build.VERSION_CODES.M)
     private fun shouldShowRequestPermissionRationale() =
-        requireActivity().shouldShowRequestPermissionRationale(
+       shouldShowRequestPermissionRationale(
 
             Manifest.permission.ACCESS_FINE_LOCATION
         ) && ActivityCompat.shouldShowRequestPermissionRationale(
@@ -238,13 +236,6 @@ class LocationVerificationFragment : Fragment() {
         }
         super.onActivityCreated(savedInstanceState)
     }
-
-
-
-
-
-
-
 
 
 
