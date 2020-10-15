@@ -70,6 +70,8 @@
             app:layout_constraintTop_toBottomOf="@+id/phone_verif_phone_iv"
             app:layout_constraintVertical_bias="0.0" />
 
+
+
         <com.mukesh.OtpView
             android:id="@+id/phone_verif_pin_view"
             style="@style/OtpWidget.OtpView"
