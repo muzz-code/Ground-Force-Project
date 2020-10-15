@@ -96,6 +96,15 @@ android {
         debugImplementation "androidx.fragment:fragment-testing:$versions.fragment_version"
 
 
+        // Circular image library
+        implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+        // for more unit testing using google truthy dependency
+        testImplementation "com.google.truth:truth:1.0.1"
+
+
+
+
         //location implementation with lifecycle
         implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation "android.arch.lifecycle:extensions:1.1.1"
@@ -103,6 +112,7 @@ android {
         //ripple effect
 
         implementation 'com.gauravbhola.ripplepulsebackground:library:1.0.0'
+
 
         def lifecycle_version = "2.2.0"
 
@@ -115,6 +125,12 @@ android {
         implementation "androidx.fragment:fragment-ktx:1.2.5"
 
 
+
+        // Date picker
+        implementation 'com.afollestad:date-picker:0.6.1'
+
+
+
     }
 }
 
@@ -124,4 +140,15 @@ dependencies {
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+
 }
+
+
+
+
+
+
+
+
+

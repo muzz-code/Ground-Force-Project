@@ -9,22 +9,24 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_onBoarding_vp"
-        android:layout_width="411dp"
-        android:layout_height="560dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_onBoarding_indicator_tl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/fragment_onBoarding_indicator_tl"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="8dp"
         android:elevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_onBoarding_get_started_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_onBoarding_vp"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
         app:tabIndicatorGravity="center"
@@ -35,7 +37,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="37dp"
         android:layout_marginBottom="21dp"
         android:background="@drawable/curved_primary_fill_button"
@@ -47,7 +48,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_onBoarding_indicator_tl" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
