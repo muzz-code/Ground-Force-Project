@@ -98,7 +98,7 @@
         app:layout_constraintVertical_bias="0.941" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/location_indicator_one_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location_indicator_one"
@@ -111,7 +111,7 @@
         app:tint="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/location_indicator_two_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location_indicator_one"
@@ -125,7 +125,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/location_indicator_three_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location_indicator_one"
@@ -138,7 +138,7 @@
         app:tint="#FFFFFF" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/location_indicator_four_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_location_indicator_one"
