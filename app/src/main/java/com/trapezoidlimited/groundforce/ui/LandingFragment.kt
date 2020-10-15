@@ -1,23 +1,21 @@
 package com.trapezoidlimited.groundforce.ui
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LandingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 
 class LandingFragment : Fragment() {
 
@@ -29,6 +27,8 @@ class LandingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         _binding = FragmentLandingBinding.inflate(inflater, container, false)
         val view = binding.root
         // Hide status bar
@@ -52,7 +52,13 @@ class LandingFragment : Fragment() {
 
         /**move to login fragment**/
         binding.landingSignUpBtn.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
+            val extra = FragmentNavigatorExtras(
+                binding.landingWelcomeTv to binding.landingWelcomeTv.transitionName,
+                binding.landingSubTitleTv to binding.landingSubTitleTv.transitionName,
+                binding.landingCreateAccBtn to binding.landingCreateAccBtn.transitionName,
+                binding.landingSignUpGoogleBtn to binding.landingSignUpGoogleBtn.transitionName
+            )
+            findNavController().navigate(R.id.loginFragment,null, null,  extra)
         }
     }
 
