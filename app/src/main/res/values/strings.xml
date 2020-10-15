@@ -31,7 +31,7 @@
     <!--Location verification string-->
     <string name="location_verification_str">Location Verification</string>
     <string name="location_verification_message">Please ensure you are at the location you entered while registering</string>
-    <string name="location_verifcation_status">Verifying location</string>
+    <string name="location_verifcation_status">Verifying location...</string>
 
     <!--    Screen 4 Strings-->
     <string name="screen_4_title_str">Do More, Earn More \nWith Groundforce</string>
