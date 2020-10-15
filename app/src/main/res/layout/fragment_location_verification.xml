@@ -63,9 +63,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/location_verification_message_tv"
-        app:rippleColor="#FFFFFF"
-        app:rippleType="stroke"
-        app:strokeWidth="2dp"
+        app:rippleColor="@color/colorAccent"
+        app:rippleType="fill"
         app:startRadius="100dp">
 
         <ImageView
