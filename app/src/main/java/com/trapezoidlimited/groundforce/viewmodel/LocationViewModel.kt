@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.data.LocationModel
@@ -20,7 +21,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
 
     private var fusedLocationClient: FusedLocationProviderClient
     private var request: LocationRequest
-    var gpsUtil=GpsUtils(getApplication())
+    var gpsUtil=GpsUtils(application)
     private  var locationCallback: LocationCallback
 
     //for change and updates
@@ -71,10 +72,6 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
                     locationMutable.value=LocationModel(longitude, latitude)
                     isLocationGotten.value="true"
 
-                    //one time location must have been gotten at the call back and mutable data updated, remove listening for location update
-                    //if (fusedLocationClient != null) {
-                      //  fusedLocationClient.removeLocationUpdates(locationCallback);
-                    //}
                 }
                 //location is null, use fused location client to request location update
                 else {
@@ -94,14 +91,6 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
         //when the gps is turned on, the state by now would be true, return it
         isGpsEnabled.value=gpsUtil.returnGpsState()
     }
-
-
-
-
-
-
-
-
 
 
 //    //update the location
