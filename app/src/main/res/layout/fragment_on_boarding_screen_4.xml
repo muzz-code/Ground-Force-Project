@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/OnBoardingScreen4"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="2"
+    android:layout_height="wrap_content"
     tools:context=".ui.onboarding.OnBoardingScreen4Fragment">
 
     <ImageView
         android:id="@+id/onBoardingScreen4_Fragment_iv"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/screen_4_iv_content_desc_str"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         android:src="@drawable/lagos_girl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +21,9 @@
 
     <TextView
         android:id="@+id/onBoardingScreen4_Fragment_headerText_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="37dp"
         android:fontFamily="@font/titillium_web_bold"

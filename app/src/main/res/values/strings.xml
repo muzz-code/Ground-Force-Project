@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Groundforce</string>
     <string name="hello_blank_fragment_str">Hello blank fragment</string>
-    <string name="get_things_done_str">Don\'t Get Too Far To Get Things Done</string>
+    <string name="get_things_done_str">Don\'t Get Too Far To \nGet Things Done</string>
     <string name="distance_is_not_a_barrier_str">Distance is not a barrier. Verify addresses close to you and earn cool cash!</string>
     <string name="get_started_str">Get Started</string>
     <string name="screen1_header_str">Earn Because You \nLive Where You Live</string>
