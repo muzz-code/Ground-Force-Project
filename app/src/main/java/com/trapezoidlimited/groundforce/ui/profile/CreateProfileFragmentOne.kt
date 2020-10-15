@@ -150,6 +150,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     /** onActivityResult function place the captured image on the image view place holder **/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            binding.fragmentCreateProfileOneIv
 
             val imagePlaceHolder = binding.fragmentCreateProfileOneIv
             val imageBitmap = data?.extras?.get("data") as Bitmap
