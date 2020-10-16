@@ -12,16 +12,12 @@ import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.data.LocationModel
 import com.trapezoidlimited.groundforce.utils.AppConstants
-import com.trapezoidlimited.groundforce.utils.GpsUtils
 
 
 class LocationViewModel(application: Application): AndroidViewModel(application) {
 
-    private val PERMISSION_REQUEST = 100
-
     private var fusedLocationClient: FusedLocationProviderClient
     private var request: LocationRequest
-    var gpsUtil=GpsUtils(application)
     private  var locationCallback: LocationCallback
 
     //for change and updates
@@ -44,19 +40,12 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
         requestLocationUpdates()
     }
 
-
-    //recieve current user location with intervals and display on the map
     //use suppress lint to ignore missing permission request, treat missing permission in fragment
     @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
         request = LocationRequest()
-        //fusedLocationClient.lastLocation
-        /**interval for receiving location updates**/
-        //request.interval = 10000
-        /**shortest interval for receiving location callBack**/
-        //request.fastestInterval = 5000
 
-        //et user location using high accurate settings
+        //get user location using high accurate settings
         request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         //set location call back to receive updates to location change
@@ -75,8 +64,6 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
                 }
                 //location is null, use fused location client to request location update
                 else {
-                    //maybe gps is turned off, trigger to turn on gps if it is not turned on
-                    //triggerGps()
                     fusedLocationClient.requestLocationUpdates(request, locationCallback, null)
                 }
 
@@ -85,12 +72,6 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
         fusedLocationClient.requestLocationUpdates(request, locationCallback, null)
         startLocationUpdates()
     }
-
-    //fun triggerGps(){
-     //   gpsUtil.turnGPSOn()
-        //when the gps is turned on, the state by now would be true, return it
-      //  isGpsEnabled.value=gpsUtil.returnGpsState()
-    //}
 
 
 //    //update the location
@@ -103,8 +84,5 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
             null
         )
     }
-
-
-
 
 }
