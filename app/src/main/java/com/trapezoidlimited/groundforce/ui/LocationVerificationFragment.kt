@@ -35,13 +35,18 @@ import kotlinx.android.synthetic.main.fragment_location_verification.*
 
 class LocationVerificationFragment : Fragment(),GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener{
+
+
     private var _binding: FragmentLocationVerificationBinding? = null
     private val binding get() = _binding!!
-    lateinit var mLocationRequest:LocationRequest
 
+    //declare location request and google api client
+    lateinit var mLocationRequest:LocationRequest
     lateinit var mGoogleApiClient:GoogleApiClient
 
+    //declare locaiton view model
     private lateinit var locationViewModel: LocationViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +65,8 @@ GoogleApiClient.OnConnectionFailedListener{
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //initialize location request
         mLocationRequest=LocationRequest()
         //initialize google api client which will be used to trigger the turn on gps dialog
         mGoogleApiClient = GoogleApiClient.Builder(requireContext())
@@ -72,21 +79,18 @@ GoogleApiClient.OnConnectionFailedListener{
         getLocation()
     }
 
-    //if permission is granted, trigger gps and check that it is turned on
+    //while permission is granted, observe gps and check that it is turned on, else trigger gps
     @RequiresApi(Build.VERSION_CODES.M)
     fun getLocation(){
         if(isPermissionsGranted()) {
-            //trigger the gps function
-//            triggerGPS()
-            //observe that gps is enabled
+            //observe that gps is enabled, if not enables, trigger gps
             locationViewModel._isGpsEnabled.observe(viewLifecycleOwner) {
                 if (!it.gpsGotten) {
                     triggerGPS()
-
-                } else {
-                    //request location of user
+                }
+            }
+                    //request location of user if permission is granted
                     locationViewModel.requestLocationUpdates()
-
                     //observe the state wether it has been gotten, if it is false continue to show ripple else get the location latlng
                     locationViewModel._isLocationGotten.observe(
                         viewLifecycleOwner,
@@ -99,8 +103,6 @@ GoogleApiClient.OnConnectionFailedListener{
                                 getLocationLatLng()
                             }
                         })
-                }
-            }
         }
         else{
             //if permission not granted, request for permission
@@ -112,9 +114,9 @@ GoogleApiClient.OnConnectionFailedListener{
         }
     }
 
-    //trigger gps via view model while dialog for turning on google service is connected
+    //trigger gps
     private fun triggerGPS(){
-        locationViewModel.triggerGps()
+       //connect and load the location service builder to the fragment; attach a callback listener and connection failed listener
         activity?.let {
             GoogleApiClient.Builder(it)
                 .addApi(LocationServices.API)
@@ -166,14 +168,17 @@ GoogleApiClient.OnConnectionFailedListener{
         }
     }
 
-    //on activity result is triggered after the dialog for turn on gps is displayed
+    //when the user selects a response after the dialog for gps is displayed
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
             super.onActivityResult(requestCode, resultCode, data)
             if (resultCode == Activity.RESULT_OK) {
+                //if the user selects ok, then update the isGpsEnabled to be true
                 if (requestCode == AppConstants.GPS_REQUEST) {
-
                     //reset the state of gps enabled to true
-                    locationViewModel.isGpsEnabled.value = GpsState(true) // flag maintain before get location
+                    locationViewModel.isGpsEnabled.value= GpsState(true)
+                }
+                else{
+                    Toast.makeText(requireContext(),"Location is turned off, Please turn on your location",Toast.LENGTH_LONG).show()
                 }
             }
     }
@@ -191,12 +196,13 @@ GoogleApiClient.OnConnectionFailedListener{
        )
 
 
-    //begin compareLocationResultWithUsersInputAddress and display custom alert
+    //permission is granted, gps is turned on, now we can get the users lat long
     private fun getLocationLatLng(){
        locationViewModel._location.value.apply{
             verifying_location_status_tv.text =
                 getString(R.string.latLong, this?.longitude, this?.latitude)
             this?.let {
+                //get the custom alert dialog to display success since location is gotten
                 var alertDialog=CustomAlert()
                 alertDialog.showDialog(requireContext(), "Success!", "Congratulations")
             }
@@ -204,32 +210,29 @@ GoogleApiClient.OnConnectionFailedListener{
     }
 
 
-    //on activity created, handle navigation
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        //Go to previous screen
-        binding.locationVerificationBackNavButtonIv.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        super.onActivityCreated(savedInstanceState)
-    }
 
-    //if the dialog has been build and connected, show it
+
+    // the function that actaullay shows the turn on gps dialog builder when its connected
     override fun onConnected(p0: Bundle?) {
         mLocationRequest = LocationRequest.create()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 30 * 1000
         mLocationRequest.fastestInterval = 5 * 1000
 
+        //always show the builder if location service is requested
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(mLocationRequest)
         builder.setAlwaysShow(true)
 
+        //get result wether the builder was displayed
         var result =
             LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build())
+
 
         result.setResultCallback { result ->
             val status: Status = result.status
             when (status.statusCode) {
+                //if the builder was displayed,
                 LocationSettingsStatusCodes.SUCCESS -> {
 
                 }
@@ -256,6 +259,7 @@ GoogleApiClient.OnConnectionFailedListener{
 
     }
 
+    //on start, check if google api client has been created, if it has then connect the location service builder to the fragment activity
     override fun onStart() {
         super.onStart();
         if (mGoogleApiClient != null) {
@@ -265,6 +269,17 @@ GoogleApiClient.OnConnectionFailedListener{
 
     override fun onConnectionFailed(p0: ConnectionResult) {
         TODO("Not yet implemented")
+    }
+
+
+
+    //on activity created, handle navigation
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        //Go to previous screen
+        binding.locationVerificationBackNavButtonIv.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        super.onActivityCreated(savedInstanceState)
     }
 
 

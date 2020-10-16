@@ -76,7 +76,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
                 //location is null, use fused location client to request location update
                 else {
                     //maybe gps is turned off, trigger to turn on gps if it is not turned on
-                    triggerGps()
+                    //triggerGps()
                     fusedLocationClient.requestLocationUpdates(request, locationCallback, null)
                 }
 
@@ -86,11 +86,11 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
         startLocationUpdates()
     }
 
-    fun triggerGps(){
-        gpsUtil.turnGPSOn()
+    //fun triggerGps(){
+     //   gpsUtil.turnGPSOn()
         //when the gps is turned on, the state by now would be true, return it
-        isGpsEnabled.value=gpsUtil.returnGpsState()
-    }
+      //  isGpsEnabled.value=gpsUtil.returnGpsState()
+    //}
 
 
 //    //update the location
