@@ -25,22 +25,27 @@ class CreateProfileFragmentTwo : Fragment() {
         /** set navigation arrow from drawable **/
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
-        /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
+        return binding.root
+    }
 
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentThree)
         }
 
-        return binding.root
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 

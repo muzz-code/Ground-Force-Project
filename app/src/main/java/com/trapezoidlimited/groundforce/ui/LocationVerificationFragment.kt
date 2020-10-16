@@ -37,8 +37,8 @@ class LocationVerificationFragment : Fragment(),GoogleApiClient.ConnectionCallba
 GoogleApiClient.OnConnectionFailedListener{
     private var _binding: FragmentLocationVerificationBinding? = null
     private val binding get() = _binding!!
+    lateinit var mLocationRequest:LocationRequest
 
-    var mLocationRequest=LocationRequest()
     lateinit var mGoogleApiClient:GoogleApiClient
 
     private lateinit var locationViewModel: LocationViewModel
@@ -59,7 +59,8 @@ GoogleApiClient.OnConnectionFailedListener{
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        super.onViewCreated(view, savedInstanceState)
+        mLocationRequest=LocationRequest()
         //initialize google api client which will be used to trigger the turn on gps dialog
         mGoogleApiClient = GoogleApiClient.Builder(requireContext())
             .addConnectionCallbacks(this)
@@ -69,7 +70,6 @@ GoogleApiClient.OnConnectionFailedListener{
 
         //onview created, trigger getLocation
         getLocation()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     //if permission is granted, trigger gps and check that it is turned on
@@ -216,9 +216,9 @@ GoogleApiClient.OnConnectionFailedListener{
     //if the dialog has been build and connected, show it
     override fun onConnected(p0: Bundle?) {
         mLocationRequest = LocationRequest.create()
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-        mLocationRequest.setInterval(30 * 1000)
-        mLocationRequest.setFastestInterval(5 * 1000)
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 30 * 1000
+        mLocationRequest.fastestInterval = 5 * 1000
 
         val builder = LocationSettingsRequest.Builder()
             .addLocationRequest(mLocationRequest)
@@ -229,8 +229,9 @@ GoogleApiClient.OnConnectionFailedListener{
 
         result.setResultCallback { result ->
             val status: Status = result.status
-            when (status.getStatusCode()) {
+            when (status.statusCode) {
                 LocationSettingsStatusCodes.SUCCESS -> {
+
                 }
                 LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
                     // Location settings are not satisfied. But could be fixed by showing the user // a dialog.
@@ -252,6 +253,7 @@ GoogleApiClient.OnConnectionFailedListener{
 
     override fun onConnectionSuspended(p0: Int) {
         TODO("Not yet implemented")
+
     }
 
     override fun onStart() {

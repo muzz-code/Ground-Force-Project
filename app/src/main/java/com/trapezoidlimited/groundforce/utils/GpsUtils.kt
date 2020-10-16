@@ -12,15 +12,16 @@ import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.ui.LocationVerificationFragment
 
+//load by lazy
 
-class GpsUtils(application: Application) {
+class GpsUtils(context: Context) {
     var gpsModel=GpsState(false)
     lateinit var context:Context
     var fragment=LocationVerificationFragment::class.java
-    private val mSettingsClient: SettingsClient = LocationServices.getSettingsClient(application)
+    private val mSettingsClient: SettingsClient = LocationServices.getSettingsClient(context)
     private val mLocationSettingsRequest: LocationSettingsRequest
-    private val locationManager: LocationManager = application.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    private val locationRequest: LocationRequest = LocationRequest.create()
+    private val locationManager: LocationManager by lazy{ context.getSystemService(Context.LOCATION_SERVICE) as LocationManager}
+    private val locationRequest: LocationRequest by lazy { LocationRequest.create() }
 
     // method for turn on GPS
     fun turnGPSOn(){

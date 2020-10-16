@@ -92,9 +92,9 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onDestroy() {
+        _binding=null
+        super.onDestroy()
     }
 
     /** on spinner item selected get item position override method**/
