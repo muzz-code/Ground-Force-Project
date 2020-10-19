@@ -73,10 +73,9 @@ class PhoneVerificationFragment : Fragment() {
         }
 
 
-        //Text location verification fragment
-        //click on phone verification to text
+        //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
-            findNavController().navigate(R.id.locationVerificationFragment)
+            findNavController().navigate(R.id.createProfileFragmentOne)
 
         }
 
@@ -85,9 +84,6 @@ class PhoneVerificationFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.phoneVerifConfirmBtn.setOnClickListener {
-            findNavController().navigate(R.id.createProfileFragmentOne)
-        }
     }
 
     override fun onDestroy() {

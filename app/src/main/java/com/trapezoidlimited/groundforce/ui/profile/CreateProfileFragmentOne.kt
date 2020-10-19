@@ -92,9 +92,9 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onDestroy() {
+        _binding=null
+        super.onDestroy()
     }
 
     /** on spinner item selected get item position override method**/
@@ -150,6 +150,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     /** onActivityResult function place the captured image on the image view place holder **/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            binding.fragmentCreateProfileOneIv
 
             val imagePlaceHolder = binding.fragmentCreateProfileOneIv
             val imageBitmap = data?.extras?.get("data") as Bitmap

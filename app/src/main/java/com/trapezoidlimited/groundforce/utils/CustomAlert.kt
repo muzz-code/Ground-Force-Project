@@ -19,7 +19,6 @@ class CustomAlert() {
 
             fun showDialog(context: Context, titleToDisplay: String?, bodyToDisplay: String?) {
                 val dialog = Dialog(context)
-                val fragment=Fragment()
                 dialog.setContentView(R.layout.verification_result_page)
                 dialog.setCancelable(true)
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
