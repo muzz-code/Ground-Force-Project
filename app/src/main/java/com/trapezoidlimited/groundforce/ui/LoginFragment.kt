@@ -63,6 +63,7 @@ class LoginFragment : Fragment() {
             duration = 750
         }
 
+
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
