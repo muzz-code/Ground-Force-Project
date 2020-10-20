@@ -33,8 +33,9 @@ class ResetPasswordFragment : Fragment() {
             var newPassword=binding.newpasswordEt.text.toString()
             var confirmPassword=binding.confirmpasswordEt.text.toString()
             if(ResetPasswordValidator.isNotEmpty(newPassword) && ResetPasswordValidator.isNotEmpty(confirmPassword)){
-                if(!ResetPasswordValidator.isEqual(newPassword,confirmPassword)) {
+                if(ResetPasswordValidator.isEqual(newPassword,confirmPassword)) {
                     //implementation should handle new password send to the database via api
+                    Toast.makeText(requireContext(),"Password is equal with confirm password",Toast.LENGTH_LONG).show()
                 }
                 else{
                     Toast.makeText(requireContext(),"New password and Confirm password must be equal",Toast.LENGTH_LONG).show()

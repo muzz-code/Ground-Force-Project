@@ -117,6 +117,7 @@ class LoginFragment : Fragment() {
                 //viewModel.login(email, pin)
 
                 Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.resetPasswordFragment)
 
             }
         }
