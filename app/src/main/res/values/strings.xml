@@ -31,7 +31,6 @@
     <string name="google_button_transition">googleButtonTransition</string>
 
 
-
     <!--Location verification string-->
     <string name="location_verification_str">Location Verification</string>
     <string name="location_verification_message">Please ensure you are at the location you entered while registering</string>
@@ -60,13 +59,13 @@
     <string name="residence_address_str">Residence Address</string>
     <string name="bank_details_str">Bank Details</string>
     <string name="email_address_str">Email Address</string>
-    
-      <string name="bank_name_str">Bank Name</string>
+
+    <string name="bank_name_str">Bank Name</string>
     <string name="account_number">Account Number</string>
     <string name="_0801234567890_str">0801234567890</string>
     <string name="done_profile_str">Done</string>
 
-    
+
     <string-array name="sex">
         <item>Male</item>
         <item>Female</item>
@@ -78,8 +77,6 @@
         <item>Muslim</item>
         <item>Others</item>
     </string-array>
-
-
 
 
     <!--display location latitude and longitude-->
@@ -95,6 +92,13 @@
     <string name="_10_14_str">10/14</string>
     <string name="contact_details_str">Contact details</string>
 
+    <!--reset password string-->
+    <string name="reset_password_title_str">Reset Password</string>
+    <string name="reset_password_str">Reset Password</string>
+
+    <string name="new_password_str">NEW PASSWORD</string>
+    <string name="confirm_password_str">CONFIRM PASSWORD</string>
+    <string name="confirm_password_change_btn_str">Confirm Password Change </string>
 
 
 </resources>

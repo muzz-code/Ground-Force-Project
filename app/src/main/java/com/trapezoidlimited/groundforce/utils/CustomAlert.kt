@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 
-class CustomAlert() {
+class CustomAlert {
 
 
             fun showDialog(context: Context, titleToDisplay: String?, bodyToDisplay: String?) {
