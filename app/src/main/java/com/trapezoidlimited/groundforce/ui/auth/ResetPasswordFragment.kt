@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentResetPasswordBinding
 import com.trapezoidlimited.groundforce.validator.ResetPasswordValidator
@@ -33,7 +34,7 @@ class ResetPasswordFragment : Fragment() {
             var confirmPassword=binding.confirmpasswordEt.text.toString()
             if(ResetPasswordValidator.isNotEmpty(newPassword) && ResetPasswordValidator.isNotEmpty(confirmPassword)){
                 if(!ResetPasswordValidator.isEqual(newPassword,confirmPassword)) {
-                    //send to implementing class for use
+                    //implementation should handle new password send to the database via api
                 }
                 else{
                     Toast.makeText(requireContext(),"New password and Confirm password must be equal",Toast.LENGTH_LONG).show()
@@ -45,8 +46,8 @@ class ResetPasswordFragment : Fragment() {
         }
 
         binding.resetpasswordArrowBackIv.setOnClickListener {
-
-
+            //should go back to login fragment, since the user is not ready to enter his new password and current password
+            findNavController().navigate(R.id.loginFragment)
         }
     }
 
