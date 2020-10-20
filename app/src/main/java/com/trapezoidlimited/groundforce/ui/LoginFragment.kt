@@ -91,6 +91,32 @@ class LoginFragment : Fragment() {
         binding.loginNewUserTv.text = ssText
         binding.loginNewUserTv.movementMethod = LinkMovementMethod.getInstance()
 
+
+        /**Get Test from String Resource**/
+        val codeText2 = getText(R.string.forgot_password_str)
+        /**Get an instance of SpannableString**/
+        val ssText2 = SpannableString(codeText2)
+        /**Implement ClickableSpan**/
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                view.setOnClickListener {
+                    findNavController().navigate(R.id.forgetPasswordFragment)
+                }
+            }
+
+            /**Change color and remove underline**/
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextPrimary)
+                ds.isUnderlineText = false
+            }
+        }
+        /**Set the span text**/
+        ssText2.setSpan(clickableSpan2, 0, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        /**Make the text spannable and clickable**/
+        binding.loginForgetPasswordTv.text = ssText2
+        binding.loginForgetPasswordTv.movementMethod = LinkMovementMethod.getInstance()
+
         return binding.root
 
 
