@@ -11,5 +11,5 @@ import retrofit2.http.Field
 
 interface AuthRepository {
     suspend fun login(email: String, pin: String): Resource<LoginResponse>
-    suspend fun submitEmail ( email: String): Resource<ForgotPasswordResponse>
+    suspend fun forgotPassword (email: String): Resource<ForgotPasswordResponse>
 }

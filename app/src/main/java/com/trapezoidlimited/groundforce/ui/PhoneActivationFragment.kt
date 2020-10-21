@@ -19,15 +19,10 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 
 
-import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber
-import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber.Companion.validatePhoneNumber
+import com.trapezoidlimited.groundforce.validator.ValidationPhoneNumber
+import com.trapezoidlimited.groundforce.validator.ValidationPhoneNumber.Companion.validatePhoneNumber
 
 import com.trapezoidlimited.groundforce.utils.showStatusBar
-import com.trapezoidlimited.groundforce.utils.Validation
-
-
-
-
 
 
 class PhoneActivationFragment : Fragment() {

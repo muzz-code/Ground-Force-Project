@@ -1,7 +1,4 @@
-package com.trapezoidlimited.groundforce.utils
-
-import android.text.TextUtils
-import androidx.core.text.isDigitsOnly
+package com.trapezoidlimited.groundforce.validator
 
 class Validation {
 

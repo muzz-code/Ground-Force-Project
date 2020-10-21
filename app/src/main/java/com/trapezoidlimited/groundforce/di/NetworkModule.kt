@@ -1,6 +1,5 @@
 package com.trapezoidlimited.groundforce.di
 
-import com.trapezoidlimited.groundforce.api.ForgotPasswordApi
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.OtpAuthService
 import com.trapezoidlimited.groundforce.data.BASE_URL
@@ -75,9 +74,5 @@ class NetworkModule {
         return retrofit.create(LoginAuthApi::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideForgotPasswordApiService(retrofit: Retrofit): ForgotPasswordApi{
-        return retrofit.create(ForgotPasswordApi::class.java)
-    }
+
 }
