@@ -14,14 +14,26 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+
+
+import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber
+import com.trapezoidlimited.groundforce.utils.ValidationPhoneNumber.Companion.validatePhoneNumber
+
 import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.utils.Validation
+
+
+
+
 
 
 class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,18 +80,20 @@ class PhoneActivationFragment : Fragment() {
         binding.phoneActivTermsConditionTv.text = ssText
         binding.phoneActivTermsConditionTv.movementMethod = LinkMovementMethod.getInstance()
 
+
+
         // Inflate the layout for this fragment
         return view
     }
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //Move to phone verification fragment
-        binding.phoneActivContinueBtn.setOnClickListener {
-         findNavController().navigate(R.id.phoneVerificationFragment)
-        }
+
+        val phoneEditText = binding.phoneActivPhoneNoEt
+        val userPhoneNumber = phoneEditText.text.toString()
 
         //Go to previous screen
         binding.phoneActivArrowBackIv.setOnClickListener {
@@ -88,5 +102,42 @@ class PhoneActivationFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
         }
+
+        /**Verification button to verify user phone number as nigeria phone number**/
+        binding.phoneActivContinueBtn.setOnClickListener {
+            // using vararg to validate input
+            val verifyPhoneNumberInput = ValidationPhoneNumber(phoneEditText)
+
+
+            if (verifyPhoneNumberInput != null) {
+
+                /**Error message for blank space**/
+                verifyPhoneNumberInput.error = "Field required"
+                Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                        getString(R.string.blank_phone_number_input_str),
+                        Snackbar.LENGTH_LONG).show()
+
+            } else if(!validate()){
+
+                /**Error message for invalidate phone number**/
+               binding.phoneActivPhoneNoEt.error = "Invalid phone number"
+                Snackbar.make(requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.invalid_phone_number_input_str),
+                    Snackbar.LENGTH_LONG).show()
+               return@setOnClickListener
+
+           } else{
+
+                /**Navigate to activation screen after user verification **/
+              findNavController().navigate(R.id.phoneVerificationFragment)
+
+           }
+        }
+    }
+
+    /**Get user input for validation**/
+    private fun validate(): Boolean{
+        val field = "+234"+binding.phoneActivPhoneNoEt.text.toString().trim()
+       return validatePhoneNumber(field)
     }
 }

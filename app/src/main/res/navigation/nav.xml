@@ -21,14 +21,38 @@
         android:id="@+id/phoneVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.PhoneVerificationFragment"
         android:label="fragment_phone_verification"
-        tools:layout="@layout/fragment_phone_verification" />
+        tools:layout="@layout/fragment_phone_verification" >
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/phoneActivationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation" />
-    <fragment
 
+
+
+    <fragment
+        android:id="@+id/createProfileFragmentOne"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentOne"
+        android:label="fragment_create_profile_one"
+        tools:layout="@layout/fragment_create_profile_one" />
+    <fragment
+        android:id="@+id/createProfileFragmentTwo"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentTwo"
+        android:label="fragment_create_profile_two"
+        tools:layout="@layout/fragment_create_profile_two" />
+
+    <fragment
+        android:id="@+id/createProfileFragmentThree"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentThree"
+        android:label="fragment_create_profile_three"
+        tools:layout="@layout/fragment_create_profile_three" />
+
+
+    <fragment
         android:id="@+id/locationVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.LocationVerificationFragment"
         android:label="fragment_location_verification"
@@ -44,6 +68,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
     <fragment
         android:id="@+id/dashBoardFragment"
         android:name="com.trapezoidlimited.groundforce.DashBoardFragment"
@@ -54,5 +79,12 @@
         android:name="com.trapezoidlimited.groundforce.ui.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" />
+<fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
+        android:label="ResetPasswordFragment"
+        tools:layout="@layout/fragment_reset_password"
+        />
+
 
 </navigation>

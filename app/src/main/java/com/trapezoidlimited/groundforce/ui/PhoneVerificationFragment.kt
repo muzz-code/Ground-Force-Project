@@ -6,6 +6,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.utils.showStatusBar
@@ -21,6 +23,8 @@ import com.trapezoidlimited.groundforce.utils.showStatusBar
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,16 +71,19 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneActivArrowBackIv.setOnClickListener {
             findNavController().popBackStack()
         }
-        //Text location verification fragment
-        //click on phone verification to text
+
+
+        //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
-            findNavController().navigate(R.id.locationVerificationFragment)
+            findNavController().navigate(R.id.createProfileFragmentOne)
 
         }
+
 
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().popBackStack()
         }
+
     }
 
     override fun onDestroy() {

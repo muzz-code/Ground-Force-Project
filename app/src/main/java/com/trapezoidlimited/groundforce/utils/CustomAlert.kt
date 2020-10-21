@@ -14,12 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 
-class CustomAlert() {
+class CustomAlert {
 
 
             fun showDialog(context: Context, titleToDisplay: String?, bodyToDisplay: String?) {
                 val dialog = Dialog(context)
-                val fragment=Fragment()
                 dialog.setContentView(R.layout.verification_result_page)
                 dialog.setCancelable(true)
                 dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
