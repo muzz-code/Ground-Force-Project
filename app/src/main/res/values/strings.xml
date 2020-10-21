@@ -31,7 +31,6 @@
     <string name="google_button_transition">googleButtonTransition</string>
 
 
-
     <!--Location verification string-->
     <string name="location_verification_str">Location Verification</string>
     <string name="location_verification_message">Please ensure you are at the location you entered while registering</string>
@@ -60,13 +59,13 @@
     <string name="residence_address_str">Residence Address</string>
     <string name="bank_details_str">Bank Details</string>
     <string name="email_address_str">Email Address</string>
-    
-      <string name="bank_name_str">Bank Name</string>
+
+    <string name="bank_name_str">Bank Name</string>
     <string name="account_number">Account Number</string>
     <string name="_0801234567890_str">0801234567890</string>
     <string name="done_profile_str">Done</string>
 
-    
+
     <string-array name="sex">
         <item>Male</item>
         <item>Female</item>
@@ -80,8 +79,6 @@
     </string-array>
 
 
-
-
     <!--display location latitude and longitude-->
     <string name="latLong">Longitude: %.3f, Latitude: %.3f</string>
 
@@ -91,10 +88,21 @@
     <string name="pin_text_str">Pin</string>
     <string name="new_user_register_here_str">New user? Register here.</string>
     <string name="forgot_password_str">Forgot password?</string>
+    <string name="forgot_password_forgot_str">Enter your e-mail address and we will send you a link to reset your password</string>
+    <string name="email_address_forgot_str">Email Address</string>
+    <string name="forgot_your_password_str">Forgot your password?</string>
+    <string name="reset_str">Reset</string>
 
     <string name="_10_14_str">10/14</string>
     <string name="contact_details_str">Contact details</string>
 
+    <!--reset password string-->
+    <string name="reset_password_title_str">Reset Password</string>
+    <string name="reset_password_str">Reset Password</string>
+
+    <string name="new_password_str">NEW PASSWORD</string>
+    <string name="confirm_password_str">CONFIRM PASSWORD</string>
+    <string name="confirm_password_change_btn_str">Confirm Password Change </string>
 
 
 </resources>
