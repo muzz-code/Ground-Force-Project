@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.viewmodel
+package com.trapezoidlimited.groundforce.viewmodel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
