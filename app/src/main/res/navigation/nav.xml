@@ -75,10 +75,16 @@
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" />
     <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.ForgetPasswordFragment"
+        android:label="fragment_forget_password"
+        tools:layout="@layout/fragment_forget_password" />
+<fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
         tools:layout="@layout/fragment_reset_password"
         />
+
 
 </navigation>

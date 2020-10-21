@@ -88,6 +88,10 @@
     <string name="pin_text_str">Pin</string>
     <string name="new_user_register_here_str">New user? Register here.</string>
     <string name="forgot_password_str">Forgot password?</string>
+    <string name="forgot_password_forgot_str">Enter your e-mail address and we will send you a link to reset your password</string>
+    <string name="email_address_forgot_str">Email Address</string>
+    <string name="forgot_your_password_str">Forgot your password?</string>
+    <string name="reset_str">Reset</string>
 
     <string name="_10_14_str">10/14</string>
     <string name="contact_details_str">Contact details</string>
