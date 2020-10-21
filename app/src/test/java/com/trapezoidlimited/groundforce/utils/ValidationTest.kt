@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
+import com.trapezoidlimited.groundforce.validator.Validation
 import org.junit.Test
 
 import org.junit.Assert.*

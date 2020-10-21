@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.utils
+package com.trapezoidlimited.groundforce.validator
 
 import android.widget.EditText
 

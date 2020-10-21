@@ -73,4 +73,6 @@ class NetworkModule {
     fun provideLoginApiService(retrofit: Retrofit): LoginAuthApi{
         return retrofit.create(LoginAuthApi::class.java)
     }
+
+
 }

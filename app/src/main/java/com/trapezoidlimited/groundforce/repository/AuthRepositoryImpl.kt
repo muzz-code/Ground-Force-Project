@@ -17,6 +17,10 @@ constructor(
         api.login(email, pin)
     }
 
+    override suspend fun forgotPassword(email: String)= safeApiCall{
+        api.forgotPassword(email)
+    }
+
 
 
 }

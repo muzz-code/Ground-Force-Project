@@ -22,9 +22,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import com.trapezoidlimited.groundforce.utils.Validation
-
-
+import com.trapezoidlimited.groundforce.validator.Validation
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 
 
@@ -51,6 +49,7 @@ class LoginFragment : Fragment() {
         sharedElementEnterTransition = ChangeBounds().apply {
             duration = 750
         }
+
 
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
