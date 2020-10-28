@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.adapters.OnBoardingViewPagerAdapter
+import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
-import com.trapezoidlimited.groundforce.di.NetworkModule
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import javax.inject.Inject
 
 class OnBoardingFragment : Fragment() {
 
@@ -45,7 +43,7 @@ class OnBoardingFragment : Fragment() {
 
         //Connect the fragment list to the view pager
         val adapter = activity?.supportFragmentManager?.let {
-            OnBoardingViewPagerAdapter(
+            GenericViewPagerAdapter(
                 fragmentList,
                 it,
                 lifecycle

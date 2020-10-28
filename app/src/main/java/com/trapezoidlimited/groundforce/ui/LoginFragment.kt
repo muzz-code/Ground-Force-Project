@@ -43,8 +43,10 @@ class LoginFragment : Fragment() {
     ): View? {
 
         /** Determine how shared elements are handled**/
-        sharedElementEnterTransition = TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
-        sharedElementReturnTransition =  TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementEnterTransition =
+            TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
+        sharedElementReturnTransition =
+            TransitionInflater.from(this.context).inflateTransition(R.transition.change_bounds)
         /**delay transition**/
         sharedElementEnterTransition = ChangeBounds().apply {
             duration = 750
@@ -67,9 +69,9 @@ class LoginFragment : Fragment() {
         /**Implement ClickableSpan**/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-               view.setOnClickListener {
-                   findNavController().navigate(R.id.phoneActivationFragment)
-               }
+                view.setOnClickListener {
+                    findNavController().navigate(R.id.phoneActivationFragment)
+                }
             }
 
             /**Change color and remove underline**/
@@ -88,8 +90,10 @@ class LoginFragment : Fragment() {
 
         /**Get Test from String Resource**/
         val codeText2 = getText(R.string.forgot_password_str)
+
         /**Get an instance of SpannableString**/
         val ssText2 = SpannableString(codeText2)
+
         /**Implement ClickableSpan**/
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
@@ -118,6 +122,8 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
 
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
@@ -162,11 +168,6 @@ class LoginFragment : Fragment() {
 //        })
 
 
-
-
-
-
-
     }
 
     override fun onDestroy() {
@@ -178,14 +179,14 @@ class LoginFragment : Fragment() {
     private fun validateEmailAndPin(email: String, pin: String): Boolean {
 
 
-            if (!validate.validateEmail(email)) {
-                binding.editTextTextEmailAddressEt.error = "Invalid email"
-                return false
-            } else if (!validate.validatePin(pin)) {
-                binding.editTextNumberPinEt.error = "Invalid password"
-                return false
-            }
-
-            return true
+        if (!validate.validateEmail(email)) {
+            binding.editTextTextEmailAddressEt.error = "Invalid email"
+            return false
+        } else if (!validate.validatePin(pin)) {
+            binding.editTextNumberPinEt.error = "Invalid password"
+            return false
         }
+
+        return true
     }
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/single_survey_item_root_cl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_bottom"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/single_survey_item_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="Human Resource Survey 2020"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/single_survey_item_body_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/single_survey_item_title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/single_survey_item_title_tv" />
+
+    <ProgressBar
+        android:id="@+id/single_survey_item_title_progress_bar_tv"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
+        android:max="100"
+        android:progress="80"
+        android:progressTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/single_survey_item_body_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/single_survey_item_body_tv" />
+
+    <TextView
+        android:id="@+id/single_survey_item_title_accept_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="ACCEPT"
+        android:textColor="#32AEBA"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/single_survey_item_title_decline_tv"
+        app:layout_constraintTop_toTopOf="@+id/single_survey_item_title_decline_tv" />
+
+    <TextView
+        android:id="@+id/single_survey_item_title_decline_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="DECLINE"
+        android:textColor="#32AEBA"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/single_survey_item_body_tv"
+        app:layout_constraintTop_toBottomOf="@+id/single_survey_item_title_progress_bar_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

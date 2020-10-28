@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -14,7 +15,6 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
-
 
 
 class LandingFragment : Fragment() {
@@ -39,14 +39,20 @@ class LandingFragment : Fragment() {
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
+        binding.landingSignUpGoogleBtn.setOnClickListener {
+            findNavController().navigate(R.id.surveyListFragment)
+            Toast.makeText(requireContext(), "Btn Clicked", Toast.LENGTH_SHORT).show()
+        }
+
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.phoneActivationFragment)
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             requireActivity().finish()
         }
 
@@ -58,7 +64,7 @@ class LandingFragment : Fragment() {
                 binding.landingCreateAccBtn to binding.landingCreateAccBtn.transitionName,
                 binding.landingSignUpGoogleBtn to binding.landingSignUpGoogleBtn.transitionName
             )
-            findNavController().navigate(R.id.loginFragment,null, null,  extra)
+            findNavController().navigate(R.id.loginFragment, null, null, extra)
         }
     }
 
