@@ -60,6 +60,10 @@ class LandingFragment : Fragment() {
             )
             findNavController().navigate(R.id.loginFragment,null, null,  extra)
         }
+
+        binding.landingSignUpGoogleBtn.setOnClickListener {
+            findNavController().navigate(R.id.beginSurveyFragment)
+        }
     }
 
     override fun onDestroy() {

@@ -85,6 +85,16 @@
         android:label="ResetPasswordFragment"
         tools:layout="@layout/fragment_reset_password"
         />
+    <fragment
+        android:id="@+id/surveyQuestionsFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.SurveyQuestionsFragment"
+        android:label="fragment_survey_questions"
+        tools:layout="@layout/fragment_survey_questions" />
+    <fragment
+        android:id="@+id/beginSurveyFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.BeginSurveyFragment"
+        android:label="BeginSurveyFragment"
+        tools:layout="@layout/fragment_begin_survey"/>
 
 
 </navigation>
