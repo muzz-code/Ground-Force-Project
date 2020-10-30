@@ -108,18 +108,26 @@
     <string name="begin_survey_instructions_str">Instructions</string>
     <string name="begin_survey_confirm_age_str">Confirm that participant is above 21 years of age. </string>
 
-   <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
-        <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
+    <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
+    <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
     <string name="begin_survey_button_text_str">Begin Survey</string>
-    
-    
-     <!--    survey questions fragment-->
+
+
+    <!--    survey questions fragment-->
     <string name="survey_questions_title_str">1 of 10</string>
     <string name="survey_questions_question_str">Which of these companies are you most likely to work with?</string>
     <string name="survey_questions_option_one_str">Option 1</string>
     <string name="survey_questions_option_two_str">Option 2</string>
     <string name="survey_questions_option_three_str">Option 3</string>
     <string name="survey_questions_next_button_str">Next</string>
+
+    <!--    Mission and Ongoing -->
+    <string name="mission_tab_title_str">Tasks</string>
+    <string name="mission_accept_btn_str">ACCEPT</string>
+    <string name="mission_decline_btn_str">DECLINE</string>
+    <string name="mission_address_sub_str">31, Opebi Street, Ikeja, Lagos.</string>
+    <string name="mission_address_title_str">Ikeja, GRA</string>
+    <string name="ongoing_verify_btn_str">VERIFY</string>
 
 </resources>
 
