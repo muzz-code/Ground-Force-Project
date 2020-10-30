@@ -121,6 +121,7 @@
     <string name="survey_questions_option_three_str">Option 3</string>
     <string name="survey_questions_next_button_str">Next</string>
 
+
     <!--    Agent Dashboard-->
     <string name="agentDashboard_page_title_str">Home</string>
     <string name="agentDashboard_name_str">Hello Kehinde</string>
@@ -148,6 +149,33 @@
     <string name="agentDashboard_contact_str">Contact Us</string>
     <string name="agentDashboard_logout_str">Logout</string>
 
+    <!--    Mission and Ongoing -->
+    <string name="mission_tab_title_str">Tasks</string>
+    <string name="mission_accept_btn_str">ACCEPT</string>
+    <string name="mission_decline_btn_str">DECLINE</string>
+    <string name="mission_address_sub_str">31, Opebi Street, Ikeja, Lagos.</string>
+    <string name="mission_address_title_str">Ikeja, GRA</string>
+    <string name="ongoing_verify_btn_str">VERIFY</string>
+
+    <!--    mission report strings-->
+    <string name="_title_str">Mission Report</string>
+    <string name="mission_report_intro_str">Please fill while at given address</string>
+    <string name="mission_report_first_qus_str">Does the given address exist?</string>
+    <string name="mission_report_first_hint_str">&quot;31, Opebi Street, Ikeja, Lagos.&quot;</string>
+    <string name="radio_yes_str">Yes</string>
+    <string name="radio_no_str">No</string>
+    <string name="landmark_hint_str">e.g a police barracks</string>
+    <string name="nearest_bus_stop_str">Nearest Bus Stop</string>
+    <string name="nearest_landmark_str">Nearest Landmark</string>
+    <string name="type_of_structure_str">Type Of Structure</string>
+    <string name="absolute_coordinates_str">Absolute Coordinates</string>
+    <string name="coord_str">6° 27\' 55.5192\'\' N and 3° 24\' 23.2128\'\' E</string>
+    <string name="additional_comments_str">Additional Comments</string>
+    <string name="submit_str">submit</string>
+    <string name="cancel_str">Cancel</string>
+    <string name="label_str">Label</string>
+    <string name="mission_error_str">Field cannot be empty</string>
+    <string name="report_saved_str">Report saved</string>
 </resources>
 
 

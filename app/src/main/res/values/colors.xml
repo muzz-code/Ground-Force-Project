@@ -13,5 +13,6 @@
     <color name="colorBgPrimary">#FAFAFA</color>
     <color name="colorBgSecondary">#57C5CC</color>
     <color name="colorBgTertiary">#E35948</color>
+    <color name="colorMission">#fafafa</color>
 
 </resources>

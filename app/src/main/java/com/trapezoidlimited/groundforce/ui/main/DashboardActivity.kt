@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
@@ -34,7 +36,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         NavigationUI.setupWithNavController(binding.agentDashboardNavigationView, navController)
 
-
+    /**navigating between different fragment in the bottom navigation**/
         binding.dashboardActivityBnv.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.agentDashboard_more_bn -> {
@@ -53,6 +55,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     false
                 }
             }
+        }
+
+        //        Navigate to Driver home on Back Press
+        onBackPressedDispatcher.addCallback {
+           finish()
         }
     }
 
@@ -80,4 +87,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
+
+
 }
