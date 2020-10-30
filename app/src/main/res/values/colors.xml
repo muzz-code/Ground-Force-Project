@@ -10,5 +10,6 @@
     <color name="colorTextDidntGetText">#232323</color>
     <color name="colorTextResend">#3867B0</color>
     <color name="colorTextPhoneNumber">#1C1C1C</color>
+    <color name="colorMission">#fafafa</color>
 
 </resources>

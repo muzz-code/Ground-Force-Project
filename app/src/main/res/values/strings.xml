@@ -108,18 +108,38 @@
     <string name="begin_survey_instructions_str">Instructions</string>
     <string name="begin_survey_confirm_age_str">Confirm that participant is above 21 years of age. </string>
 
-   <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
-        <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
+    <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
+    <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
     <string name="begin_survey_button_text_str">Begin Survey</string>
-    
-    
-     <!--    survey questions fragment-->
+
+
+    <!--    survey questions fragment-->
     <string name="survey_questions_title_str">1 of 10</string>
     <string name="survey_questions_question_str">Which of these companies are you most likely to work with?</string>
     <string name="survey_questions_option_one_str">Option 1</string>
     <string name="survey_questions_option_two_str">Option 2</string>
     <string name="survey_questions_option_three_str">Option 3</string>
     <string name="survey_questions_next_button_str">Next</string>
+
+    <!--    mission report strings-->
+    <string name="_title_str">Mission Report</string>
+    <string name="mission_report_intro_str">Please fill while at given address</string>
+    <string name="mission_report_first_qus_str">Does the given address exist?</string>
+    <string name="mission_report_first_hint_str">&quot;31, Opebi Street, Ikeja, Lagos.&quot;</string>
+    <string name="radio_yes_str">Yes</string>
+    <string name="radio_no_str">No</string>
+    <string name="landmark_hint_str">e.g a police barracks</string>
+    <string name="nearest_bus_stop_str">Nearest Bus Stop</string>
+    <string name="nearest_landmark_str">Nearest Landmark</string>
+    <string name="type_of_structure_str">Type Of Structure</string>
+    <string name="absolute_coordinates_str">Absolute Coordinates</string>
+    <string name="coord_str">6° 27\' 55.5192\'\' N and 3° 24\' 23.2128\'\' E</string>
+    <string name="additional_comments_str">Additional Comments</string>
+    <string name="submit_str">submit</string>
+    <string name="cancel_str">Cancel</string>
+    <string name="label_str">Label</string>
+    <string name="mission_error_str">Field cannot be empty</string>
+    <string name="report_saved_str">Report saved</string>
 
 </resources>
 
