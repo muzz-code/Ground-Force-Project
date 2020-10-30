@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -21,6 +22,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.ui.mission.MissionActivity
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.validator.Validation
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
@@ -166,6 +168,7 @@ class LoginFragment : Fragment() {
 //                }
 //            }
 //        })
+
 
 
     }
