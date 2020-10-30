@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/colorTextSecondary"
+    tools:context=".ui.MissionReportActivity">
+
+    <!--    Tool bar -->
+    <include
+        android:id="@+id/activity_mission_report_ic"
+        layout="@layout/mission_report_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- scroll view-->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/activity_mission_report_nsv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_mission_report_ic"
+        app:layout_constraintVertical_bias="1.0">
+
+        <!--        main container-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- intro text-->
+            <TextView
+                android:id="@+id/activity_mission_report_intro_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="26dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/mission_report_intro_str"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toTopOf="@id/container" />
+            <!--    line-->
+            <View
+                android:id="@+id/activity_mission_report_line1_v"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorMission"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_intro_tv" />
+
+            <!--            first question layout-->
+            <LinearLayout
+                android:id="@+id/activity_mission_report_first_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_intro_tv">
+
+                <TextView
+                    android:id="@+id/activity_mission_report_first_ques_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_qus_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/activity_mission_report_first_hint_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_hint_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <RadioGroup
+                    android:id="@+id/activity_mission_report_group1_rg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_yes_one_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_yes_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_no_one_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_no_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--        second question layout-->
+            <LinearLayout
+                android:id="@+id/activity_mission_report_second_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/mission_question_selector"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_first_ll">
+
+                <TextView
+                    android:id="@+id/activity_mission_report_second_ques_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_qus_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/activity_mission_report_second_hint_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_hint_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_yes_two_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_yes_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_no_two_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_no_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--            third question layout-->
+            <LinearLayout
+                android:id="@+id/activity_mission_report_third_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_second_ll">
+
+                <TextView
+                    android:id="@+id/activity_mission_report_third_ques_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_qus_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/activity_mission_report_third_hint_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/mission_report_first_hint_str"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_yes_three_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_yes_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/activity_mission_report_no_three_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/radio_no_str"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--            line-->
+            <View
+                android:id="@+id/activity_mission_report_line2_v"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/colorMission"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_third_ll"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintEnd_toEndOf="@id/container"/>
+
+            <!--            nearest landmark edit text-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_mission_report_landmark_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/nearest_landmark_str"
+                app:expandedHintEnabled="false"
+                android:textColorHint="@color/colorTextPrimary"
+                android:textStyle="bold"
+                app:placeholderText="@string/landmark_hint_str"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/colorPrimary"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_line2_v"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_mission_report_landmark_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorMission"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            bus stop edit text-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_mission_report_busstop_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/nearest_bus_stop_str"
+                app:expandedHintEnabled="false"
+                android:textColorHint="@color/colorTextPrimary"
+                android:textStyle="bold"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/colorPrimary"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_landmark_til"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_mission_report_busstop_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            type of structure edit text-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_mission_report_structure_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/type_of_structure_str"
+                app:placeholderText="@string/label_str"
+                app:expandedHintEnabled="false"
+                android:textColorHint="@color/colorTextPrimary"
+                android:textStyle="bold"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/colorPrimary"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_busstop_til"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_mission_report_structure_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorMission"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            coordinates-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_mission_report_coord_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/absolute_coordinates_str"
+                app:placeholderText="@string/coord_str"
+                app:expandedHintEnabled="false"
+                android:textColorHint="@color/colorTextPrimary"
+                android:textStyle="bold"
+                android:enabled="false"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/colorPrimary"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_structure_til"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_mission_report_coord_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorMission"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            additional comments-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/activity_mission_report_comments_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:fontFamily="@font/roboto"
+                android:textColorHint="@color/colorMission"
+                android:hint=""
+                app:expandedHintEnabled="false"
+                app:placeholderText="@string/additional_comments_str"
+                android:textStyle="bold"
+                app:boxStrokeColor="@color/colorPrimary"
+                app:boxStrokeWidthFocused="2dp"
+                app:hintTextColor="@color/colorPrimary"
+                android:maxHeight="100dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginEnd="26dp"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_coord_til"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/activity_mission_report_comments_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textColorHint="@color/colorMission"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            submit button-->
+            <Button
+                android:id="@+id/activity_mission_report_submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_margin_dim"
+                android:layout_marginRight="@dimen/common_margin_dim"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/btn_primary_shapes"
+                android:text="@string/submit_str"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til"/>
+
+            <!--            cancel button-->
+            <TextView
+                android:id="@+id/activity_mission_report_cancel_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_str"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="21dp"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_submit_btn"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
