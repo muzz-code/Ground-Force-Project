@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/agentDashboard_home"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/agentDashboard_notification"
+        android:title="Notifications"
+        android:icon="@drawable/social_notifications"/>
+
+    <item
+        android:id="@+id/agentDashboard_more_bn"
+        android:title="More"
+        android:icon="@drawable/navigation_more"/>
+</menu>

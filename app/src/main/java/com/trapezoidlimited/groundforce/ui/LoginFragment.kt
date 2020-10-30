@@ -22,6 +22,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.ui.main.DashboardActivity
 import com.trapezoidlimited.groundforce.ui.mission.MissionActivity
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.validator.Validation
@@ -126,7 +127,6 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
             findNavController().navigate(R.id.landingFragment)
@@ -169,6 +169,13 @@ class LoginFragment : Fragment() {
 //            }
 //        })
 
+        /**This code add clickListener to the login button and it move to a new activity **/
+        binding.loginLoginBtn.setOnClickListener {
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                startActivity(it)
+                requireActivity().finish()
+            }
+        }
 
 
     }
