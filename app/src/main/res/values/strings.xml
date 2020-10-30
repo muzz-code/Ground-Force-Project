@@ -108,18 +108,45 @@
     <string name="begin_survey_instructions_str">Instructions</string>
     <string name="begin_survey_confirm_age_str">Confirm that participant is above 21 years of age. </string>
 
-   <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
-        <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
+    <string name="begin_survey_confirm_professional_str">Confirm that participant is a working professional.</string>
+    <string name="begin_survey_confirm_date_str">Survey ends 24th November, 2020.</string>
     <string name="begin_survey_button_text_str">Begin Survey</string>
-    
-    
-     <!--    survey questions fragment-->
+
+
+    <!--    survey questions fragment-->
     <string name="survey_questions_title_str">1 of 10</string>
     <string name="survey_questions_question_str">Which of these companies are you most likely to work with?</string>
     <string name="survey_questions_option_one_str">Option 1</string>
     <string name="survey_questions_option_two_str">Option 2</string>
     <string name="survey_questions_option_three_str">Option 3</string>
     <string name="survey_questions_next_button_str">Next</string>
+
+    <!--    Agent Dashboard-->
+    <string name="agentDashboard_page_title_str">Home</string>
+    <string name="agentDashboard_name_str">Hello Kehinde</string>
+    <string name="agentDashboard_date_str">Sept 31, 2020</string>
+    <string name="agentDashboard_totalearning_str">Total Earnings</string>
+    <string name="agentDashboard_amount_str">NGN 200.00</string>
+    <string name="agentDashboard_next_pay_day_str">Next Payout Date: Oct 06, 2020</string>
+    <string name="agentDashboard_details_str">See Details</string>
+    <string name="agentDashboard_tasks_str">Tasks</string>
+    <string name="agentDashboard_mission_str">Missions</string>
+    <string name="agentDashboard_survey_str">Surveys</string>
+    <string name="agentDashboard_active_str">Active</string>
+    <string name="agentDashboard_activity_str">Activity</string>
+    <string name="agentDashboard_mission_completed_str">Missions \nCompleted</string>
+    <string name="agentDashboard_mission_completed_num_str">2</string>
+    <string name="agentDashboard_view_details_str">View Details</string>
+    <string name="agentDashboard_mission_survey_num_str">5</string>
+    <string name="agentDashboard_survey_completed_str">Surveys \nCompleted</string>
+    <string name="agentDashboard_user_name">Kehinde Oladimeji</string>
+    <string name="agentDashboard_view_profile">View Profile</string>
+    <string name="agentDashboard_home_str">Home</string>
+    <string name="agentDashboard_payment_str">Payment History</string>
+    <string name="agentDashboard_security_str">Security</string>
+    <string name="agentDashboard_help_str">Help</string>
+    <string name="agentDashboard_contact_str">Contact Us</string>
+    <string name="agentDashboard_logout_str">Logout</string>
 
 </resources>
 
