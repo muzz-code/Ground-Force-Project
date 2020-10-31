@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<!--The Base ViewGroup-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/landing_cl"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-<!--The Base ViewGroup-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/landing_cl"
+    android:layout_height="match_parent">
+    <!--Background Image-->
+    <ImageView
+        android:id="@+id/landing_man_on_street2_iv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.LandingFragment">
-        <!--Background Image-->
-        <ImageView
-            android:id="@+id/landing_man_on_street2_iv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/landing_background_desc_str"
-            android:scaleType="centerCrop"
-            android:src="@drawable/man_on_street2b"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <!--Welcome text-->
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/landing_background_desc_str"
+        android:scaleType="centerCrop"
+        android:src="@drawable/man_on_street2b" />
+    <!--Welcome text-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/landing_welcome_tv"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="37dp"
-            android:layout_marginRight="37dp"
+            android:layout_gravity="center"
             android:fontFamily="@font/titillium_web_bold"
             android:text="@string/landing_welcome_str"
             android:textAlignment="center"
@@ -40,81 +35,82 @@
             android:transitionName="@string/main_title_transition"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--Sub title-->
+
         <TextView
             android:id="@+id/landing_sub_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
             android:text="@string/landing_sub_welcome_str"
-            android:transitionName="@string/sub_title_transition"
             android:textColor="@android:color/white"
             android:textSize="16sp"
+            android:transitionName="@string/sub_title_transition"
             app:layout_constraintEnd_toEndOf="@+id/landing_welcome_tv"
             app:layout_constraintStart_toStartOf="@+id/landing_welcome_tv"
             app:layout_constraintTop_toBottomOf="@+id/landing_welcome_tv" />
-        <!--Create Account Button-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/landing_create_acc_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/btn_primary_shapes"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/landing_create_account_str"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:transitionName="@string/login_button_transition"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/landing_sign_up_btn"
-            app:layout_constraintEnd_toEndOf="@+id/landing_sign_up_btn"
-            app:layout_constraintStart_toStartOf="@+id/landing_sign_up_btn" />
-        <!--Sign Up button-->
+            android:transitionName="@string/login_button_transition" />
+
         <Button
             android:id="@+id/landing_sign_up_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/btn_transp_shapes"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/landing_sign_up_str"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/landing_sign_up_google_btn"
-            app:layout_constraintEnd_toEndOf="@+id/landing_sign_up_google_btn"
-            app:layout_constraintStart_toStartOf="@+id/landing_sign_up_google_btn" />
-        <!--Sign Up with google-->
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/landing_sign_up_google_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/btn_red_shapes"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="@string/landing_sign_up_with_google_str"
-            android:transitionName="@string/google_button_transition"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/landing_man_on_street2_iv"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            android:transitionName="@string/google_button_transition" />
+    </LinearLayout>
+
+</FrameLayout>
