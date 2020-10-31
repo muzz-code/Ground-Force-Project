@@ -10,9 +10,6 @@
         android:name="com.trapezoidlimited.groundforce.AgentDashboardFragment"
         android:label="fragment_agent_dashboard"
         tools:layout="@layout/fragment_agent_dashboard" />
-    <fragment
-        android:id="@+id/dashboardToolBarFragment"
-        android:name="com.trapezoidlimited.groundforce.DashboardToolBarFragment"
-        android:label="fragment_dashboard_tool_bar"
-        tools:layout="@layout/fragment_dashboard_tool_bar" />
+
+
 </navigation>

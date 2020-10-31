@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
@@ -61,10 +61,8 @@ class OnBoardingFragment : Fragment() {
 
         //Set Onclick listener to get started button and navigate to Sign up pager
         binding.fragmentOnBoardingGetStartedBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.landingFragment)
+            findNavController().navigate(R.id.landingFragment)
         }
-
-
 
     }
 

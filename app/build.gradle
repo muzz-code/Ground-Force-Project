@@ -103,8 +103,6 @@ android {
         testImplementation "com.google.truth:truth:1.0.1"
 
 
-
-
         //location implementation with lifecycle
         implementation 'com.google.android.gms:play-services-location:17.0.0'
         implementation "android.arch.lifecycle:extensions:1.1.1"
@@ -123,8 +121,6 @@ android {
 
         //fragment
         implementation "androidx.fragment:fragment-ktx:1.2.5"
-
-
 
         // Date picker
         implementation 'com.afollestad:date-picker:0.6.1'
@@ -146,9 +142,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.3'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-
-
 }
 
 
