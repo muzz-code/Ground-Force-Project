@@ -103,6 +103,11 @@
         android:label="BeginSurveyFragment"
         tools:layout="@layout/fragment_begin_survey"
         />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.UserProfileFragment"
+        android:label="UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile"/>
 
 
 </navigation>

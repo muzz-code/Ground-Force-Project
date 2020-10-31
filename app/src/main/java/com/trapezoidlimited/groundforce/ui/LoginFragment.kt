@@ -135,6 +135,8 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.landingFragment)
         }
 
+
+
         /**move to Home **/
         binding.loginLoginBtn.setOnClickListener {
 
