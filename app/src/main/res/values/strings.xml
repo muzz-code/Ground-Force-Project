@@ -176,6 +176,12 @@
     <string name="label_str">Label</string>
     <string name="mission_error_str">Field cannot be empty</string>
     <string name="report_saved_str">Report saved</string>
+
+    <string name="kehinde_oladimeji_str">Kehinde Oladimeji</string>
+    <string name="kehindeemaildomain_gmail_com_str">kehindeemaildomain@gmail.com</string>
+    <string name="bank_details_str_user">Bank details</string>
+    <string name="save_changes_str">Save Changes</string>
+    <string name="profile_str">Profile</string>
 </resources>
 
 
