@@ -49,6 +49,7 @@ class OnBoardingFragment : Fragment() {
                 lifecycle
             )
         }
+
         binding.fragmentOnBoardingVp.adapter = adapter
 
         //Ue TabLayoutMediator to set indicator to the tab layout

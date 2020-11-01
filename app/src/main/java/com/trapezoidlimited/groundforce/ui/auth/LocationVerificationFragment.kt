@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.auth
 
 import android.Manifest
 import android.app.Activity
@@ -7,7 +7,6 @@ import android.content.IntentSender.SendIntentException
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.R

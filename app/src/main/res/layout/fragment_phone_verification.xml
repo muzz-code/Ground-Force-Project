@@ -10,7 +10,7 @@
         android:id="@+id/phone_verification_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.PhoneVerificationFragment">
+        tools:context=".ui.auth.PhoneVerificationFragment">
         <!--Tool bar arrow-->
         <ImageView
             android:id="@+id/phone_activ_arrow_back_iv"

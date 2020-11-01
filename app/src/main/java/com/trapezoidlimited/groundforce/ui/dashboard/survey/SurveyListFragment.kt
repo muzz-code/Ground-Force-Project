@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.survey
+package com.trapezoidlimited.groundforce.ui.dashboard.survey
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.SurveyRecyclerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentSurveyListBinding
 import com.trapezoidlimited.groundforce.utils.DummyData
-import kotlinx.android.synthetic.main.fragment_survey_list.*
 
 class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListener {
 

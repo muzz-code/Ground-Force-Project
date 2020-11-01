@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.dashboard.survey
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

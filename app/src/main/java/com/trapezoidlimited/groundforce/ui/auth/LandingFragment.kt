@@ -1,7 +1,6 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
 
 
 class LandingFragment : Fragment() {

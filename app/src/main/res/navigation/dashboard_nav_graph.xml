@@ -7,9 +7,14 @@
 
     <fragment
         android:id="@+id/agentDashboardFragment"
-        android:name="com.trapezoidlimited.groundforce.AgentDashboardFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.AgentDashboardFragment"
         android:label="fragment_agent_dashboard"
         tools:layout="@layout/fragment_agent_dashboard" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.mission.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
 
 
 </navigation>

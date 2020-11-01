@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.mission
+package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,7 +17,6 @@ import com.trapezoidlimited.groundforce.adapters.mission.OnMissionItemClickListe
 import com.trapezoidlimited.groundforce.databinding.FragmentMissionBinding
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 import com.trapezoidlimited.groundforce.utils.DummyData
-import kotlinx.android.synthetic.main.activity_mission.*
 
 
 class MissionFragment : Fragment(), OnMissionItemClickListener {
@@ -26,7 +25,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     private val binding get() = _binding!!
     private var locationTitlesList = DummyData.missionLocationData()
     private var adapter: MissionAdapter = MissionAdapter(
-        mutableListOf<MissionItem>(),
+        mutableListOf(),
         this
     )
 
@@ -91,7 +90,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        requireActivity().mission_ongoing_tl?.getTabAt(1)?.text = SpannableString(sb)
+//        requireActivity().mission_ongoing_tl?.getTabAt(1)?.text = SpannableString(sb)
 
 
 
