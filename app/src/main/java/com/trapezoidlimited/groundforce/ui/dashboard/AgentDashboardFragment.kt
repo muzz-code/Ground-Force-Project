@@ -30,9 +30,18 @@ class AgentDashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.agentDashboardFragmentTaskFlagIv.setOnClickListener {
+        binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             findNavController().navigate(R.id.tasksFragment)
         }
+
+        binding.fragmentAgentDashboardSurveysButtonIb.setOnClickListener {
+            findNavController().navigate(R.id.surveyListFragment2)
+        }
+
+        binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
+            findNavController().navigate(R.id.tasksFragment)
+        }
+
 
     }
 

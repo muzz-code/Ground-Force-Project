@@ -167,7 +167,7 @@
                 app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_summary_container_cv" />
 
             <ImageButton
-                android:id="@+id/agentDashboardFragment_task_flag_iv"
+                android:id="@+id/fragment_agent_dashboard_missions_button_ib"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
                 android:layout_marginTop="16dp"
@@ -188,14 +188,13 @@
                 android:background="@drawable/dashboard_task_label_btn"
                 android:elevation="6dp"
                 android:fontFamily="@font/roboto"
-                android:paddingTop="1dp"
                 android:text="4"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/agentDashboardFragment_task_flag_iv"
-                app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_task_flag_iv"
-                app:layout_constraintStart_toEndOf="@id/agentDashboardFragment_task_flag_iv" />
+                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
+                app:layout_constraintStart_toEndOf="@id/fragment_agent_dashboard_missions_button_ib" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -207,10 +206,10 @@
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_task_flag_iv" />
+                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib" />
 
             <ImageButton
-                android:id="@+id/agentDashboardFragment_task_poll_iv"
+                android:id="@+id/fragment_agent_dashboard_surveys_button_ib"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
                 android:layout_marginStart="37dp"
@@ -220,9 +219,9 @@
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/poll"
-                app:layout_constraintBottom_toBottomOf="@id/agentDashboardFragment_task_flag_iv"
-                app:layout_constraintStart_toEndOf="@+id/agentDashboardFragment_task_flag_iv"
-                app:layout_constraintTop_toTopOf="@id/agentDashboardFragment_task_flag_iv"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib"
+                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
+                app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_missions_button_ib"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -233,14 +232,13 @@
                 android:background="@drawable/dashboard_task_label_btn"
                 android:elevation="6dp"
                 android:fontFamily="@font/roboto"
-                android:paddingTop="1dp"
                 android:text="2"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintStart_toEndOf="@id/agentDashboardFragment_task_poll_iv" />
+                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintStart_toEndOf="@id/fragment_agent_dashboard_surveys_button_ib" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -250,12 +248,12 @@
                 android:text="@string/agentDashboard_survey_str"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintStart_toStartOf="@id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_task_poll_iv" />
+                app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib" />
 
             <ImageButton
-                android:id="@+id/agentDashboardFragment_task_bolt_iv"
+                android:id="@+id/fragment_agent_dashboard_active_button_ib"
                 android:layout_width="53dp"
                 android:layout_height="53dp"
                 android:layout_marginStart="25dp"
@@ -265,9 +263,9 @@
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/bolt"
-                app:layout_constraintBottom_toBottomOf="@id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintStart_toEndOf="@+id/agentDashboardFragment_task_poll_iv"
-                app:layout_constraintTop_toTopOf="@id/agentDashboardFragment_task_poll_iv"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
+                app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_surveys_button_ib"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -278,14 +276,13 @@
                 android:background="@drawable/dashboard_task_label_btn"
                 android:elevation="6dp"
                 android:fontFamily="@font/roboto"
-                android:paddingTop="1dp"
                 android:text="4"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/agentDashboardFragment_task_bolt_iv"
-                app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_task_bolt_iv"
-                app:layout_constraintStart_toEndOf="@id/agentDashboardFragment_task_bolt_iv" />
+                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_active_button_ib"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_active_button_ib"
+                app:layout_constraintStart_toEndOf="@id/fragment_agent_dashboard_active_button_ib" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -296,9 +293,9 @@
                 android:text="@string/agentDashboard_active_str"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/agentDashboardFragment_task_bolt_iv"
-                app:layout_constraintStart_toStartOf="@id/agentDashboardFragment_task_bolt_iv"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_task_bolt_iv" />
+                app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_active_button_ib"
+                app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_active_button_ib"
+                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_active_button_ib" />
 
             <View
                 android:id="@+id/agentDashboardFragment_divider_v"
@@ -317,12 +314,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="11dp"
-                android:layout_marginEnd="295dp"
                 android:fontFamily="@font/titillium_web_bold"
                 android:text="@string/agentDashboard_activity_str"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_divider_v" />
 

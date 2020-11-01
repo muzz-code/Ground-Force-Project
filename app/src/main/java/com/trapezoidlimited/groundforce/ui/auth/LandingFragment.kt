@@ -40,12 +40,6 @@ class LandingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        binding.landingSignUpGoogleBtn.setOnClickListener {
-            findNavController().navigate(R.id.surveyListFragment)
-            Toast.makeText(requireContext(), "Btn Clicked", Toast.LENGTH_SHORT).show()
-        }
-
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.phoneActivationFragment)
         }
@@ -65,9 +59,7 @@ class LandingFragment : Fragment() {
             findNavController().navigate(R.id.loginFragment, null, null, extra)
         }
 
-        binding.landingSignUpGoogleBtn.setOnClickListener {
-            findNavController().navigate(R.id.beginSurveyFragment)
-        }
+
     }
 
     override fun onDestroy() {

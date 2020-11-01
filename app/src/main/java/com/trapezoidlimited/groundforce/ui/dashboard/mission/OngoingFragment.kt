@@ -11,7 +11,7 @@ import com.trapezoidlimited.groundforce.adapters.mission.OngoingAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingItemClickListener
 import com.trapezoidlimited.groundforce.databinding.FragmentOngoingBinding
 import com.trapezoidlimited.groundforce.model.mission.OngoingItem
-import com.trapezoidlimited.groundforce.ui.MissionReportActivity
+import com.trapezoidlimited.groundforce.ui.dashboard.MissionReportActivity
 import com.trapezoidlimited.groundforce.utils.DummyData
 
 

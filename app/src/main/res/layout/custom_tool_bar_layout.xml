@@ -17,7 +17,7 @@
         android:paddingBottom="15dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/fragment_mission_report_back_arrow_iv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"

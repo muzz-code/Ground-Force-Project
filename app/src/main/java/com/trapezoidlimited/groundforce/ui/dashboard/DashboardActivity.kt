@@ -3,7 +3,6 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,7 +13,6 @@ import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityDashboardBinding
@@ -105,8 +103,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     //OnClick Listener on View Profile
     fun openProfile(view: View) {
-        Toast.makeText(this, "Profile CLicked", Toast.LENGTH_SHORT).show()
         drawer.closeDrawer(GravityCompat.START)
+        Navigation.findNavController(this, R.id.dashboard_activity_nhf)
+            .navigate(R.id.userProfileFragment)
     }
 
 }

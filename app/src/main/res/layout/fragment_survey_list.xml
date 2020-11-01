@@ -9,7 +9,7 @@
 
     <LinearLayout style="@style/customToolBarContainer">
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/fragment_mission_report_back_arrow_iv"
             style="@style/customToolBackBAckArrow" />
 
         <TextView

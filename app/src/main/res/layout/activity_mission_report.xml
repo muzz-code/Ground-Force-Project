@@ -6,18 +6,25 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:background="@color/colorTextSecondary"
-    tools:context=".ui.MissionReportActivity">
+    tools:context=".ui.dashboard.MissionReportActivity">
 
     <!--    Tool bar -->
-    <include
-        android:id="@+id/activity_mission_report_ic"
-        layout="@layout/mission_report_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/fragment_mission_report_tool_bar_ll"
+        style="@style/customToolBarContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/fragment_mission_report_back_arrow_iv"
+            style="@style/customToolBackBAckArrow" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/customToolBarTitle"
+            android:text="Mission Report" />
+    </LinearLayout>
 
     <!-- scroll view-->
     <androidx.core.widget.NestedScrollView
@@ -29,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_mission_report_ic"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_mission_report_tool_bar_ll"
         app:layout_constraintVertical_bias="1.0">
 
         <!--        main container-->

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentBeginSurveyBinding
+import com.trapezoidlimited.groundforce.databinding.FragmentSurveyListBinding
 
 
 /**
@@ -15,26 +16,25 @@ import com.trapezoidlimited.groundforce.databinding.FragmentBeginSurveyBinding
  */
 class BeginSurveyFragment : Fragment() {
 
-    private lateinit var beginSurveyBinding: FragmentBeginSurveyBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _binding: FragmentBeginSurveyBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        beginSurveyBinding = FragmentBeginSurveyBinding.inflate(inflater, container, false)
 
-        beginSurveyBinding.beginSurveyFragmentBtn.setOnClickListener {
-            findNavController().navigate(R.id.surveyQuestionsFragment)
-        }
+        _binding = FragmentBeginSurveyBinding.inflate(inflater, container, false)
 
-        return beginSurveyBinding.root
+        return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+        binding.beginSurveyFragmentBtn.setOnClickListener {
+            findNavController().navigate(R.id.surveyQuestionsFragment2)
+        }
+    }
 }

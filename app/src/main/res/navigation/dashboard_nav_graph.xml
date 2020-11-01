@@ -15,6 +15,27 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.mission.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/surveyListFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyListFragment"
+        android:label="fragment_survey_list"
+        tools:layout="@layout/fragment_survey_list" />
+    <fragment
+        android:id="@+id/beginSurveyFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.BeginSurveyFragment"
+        android:label="fragment_begin_survey"
+        tools:layout="@layout/fragment_begin_survey" />
+    <fragment
+        android:id="@+id/surveyQuestionsFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyQuestionsFragment"
+        android:label="fragment_survey_questions"
+        tools:layout="@layout/fragment_survey_questions" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.UserProfileFragment"
+        android:label="UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile"
+        />
 
 
 </navigation>

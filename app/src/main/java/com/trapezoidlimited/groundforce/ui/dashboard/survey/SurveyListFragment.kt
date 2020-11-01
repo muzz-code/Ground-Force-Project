@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.SurveyRecyclerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentSurveyListBinding
@@ -33,21 +35,22 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.fragmentMissionReportBackArrowIv.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         //initialize survey recycler view adapter and  Layout Manager
         binding.fragmentSurveyListRecyclerView.adapter = adapter
         binding.fragmentSurveyListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    //TODO(Move to the Begin Survey )
-
     override fun onAcceptClick(position: Int) {
-        DummyData.surveyList.removeAt(position)
-        adapter.notifyItemRemoved(position)
+        findNavController().navigate(R.id.beginSurveyFragment2)
     }
 
     override fun onDeleteClick(position: Int) {
-        Toast.makeText(requireContext(), "Item $position clicked for Decline", Toast.LENGTH_SHORT)
-            .show()
+        DummyData.surveyList.removeAt(position)
+        adapter.notifyItemRemoved(position)
     }
 
 

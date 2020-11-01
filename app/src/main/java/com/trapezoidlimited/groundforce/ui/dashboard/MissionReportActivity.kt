@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,10 +26,12 @@ class MissionReportActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        /** set navigation arrow from drawable **/
-        binding.activityMissionReportIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
-
         binding.activityMissionReportGroup1Rg.checkedRadioButtonId
+
+        //Back Arrow
+        binding.fragmentMissionReportBackArrowIv.setOnClickListener {
+            finish()
+        }
 
         /***save mission report**/
         binding.activityMissionReportSubmitBtn.setOnClickListener {

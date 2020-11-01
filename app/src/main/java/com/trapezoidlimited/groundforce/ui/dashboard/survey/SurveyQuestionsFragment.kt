@@ -27,11 +27,11 @@ class SurveyQuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        surveyQuestionsBinding   = FragmentSurveyQuestionsBinding.inflate(inflater, container, false)
+        surveyQuestionsBinding = FragmentSurveyQuestionsBinding.inflate(inflater, container, false)
 
 
         surveyQuestionsBinding.surveyQuestionsFragmentBackImageImg.setOnClickListener {
-            findNavController().navigate(R.id.beginSurveyFragment)
+            findNavController().popBackStack()
         }
 
         return surveyQuestionsBinding.root
