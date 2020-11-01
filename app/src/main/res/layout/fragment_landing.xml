@@ -69,17 +69,18 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_primary_shapes"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:text="@string/landing_create_account_str"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:transitionName="@string/login_button_transition" />
+            android:transitionName="@string/login_button_transition"
+            app:cornerRadius="50dp" />
 
         <Button
             android:id="@+id/landing_sign_up_btn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -87,13 +88,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_transp_shapes"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:text="@string/landing_sign_up_str"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:cornerRadius="50dp"
+            app:strokeColor="@android:color/white" />
 
         <Button
             android:id="@+id/landing_sign_up_google_btn"
@@ -103,14 +105,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/btn_red_shapes"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
+            android:backgroundTint="#E35948"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             android:text="@string/landing_sign_up_with_google_str"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:transitionName="@string/google_button_transition" />
+            android:transitionName="@string/google_button_transition"
+            app:cornerRadius="50dp" />
     </LinearLayout>
 
 </FrameLayout>

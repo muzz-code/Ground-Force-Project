@@ -169,14 +169,14 @@
                                 android:layout_marginTop="20dp"
                                 android:layout_marginRight="35dp"
                                 android:layout_marginBottom="20dp"
-                                android:background="@drawable/btn_primary_shapes"
-                                android:paddingTop="12dp"
-                                android:paddingBottom="12dp"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="16dp"
                                 android:text="@string/login_str"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
-                                android:transitionName="@string/google_button_transition" />
+                                android:transitionName="@string/google_button_transition"
+                                app:cornerRadius="50dp" />
 
                             <!--                login with google button-->
                             <Button
@@ -187,14 +187,15 @@
                                 android:layout_marginLeft="35dp"
                                 android:layout_marginRight="35dp"
                                 android:layout_marginBottom="15dp"
-                                android:background="@drawable/btn_red_shapes"
-                                android:paddingTop="12dp"
-                                android:paddingBottom="12dp"
+                                android:backgroundTint="#E35948"
+                                android:paddingTop="16dp"
+                                android:paddingBottom="16dp"
                                 android:text="@string/landing_sign_up_with_google_str"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
-                                android:transitionName="@string/login_button_transition" />
+                                android:transitionName="@string/login_button_transition"
+                                app:cornerRadius="50dp" />
 
                             <!--                register here text-->
                             <TextView

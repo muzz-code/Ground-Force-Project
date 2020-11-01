@@ -129,16 +129,18 @@
                         app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_sum_tv" />
 
                     <Button
-
-                        android:id="@+id/materialButton"
+                        android:id="@+id/fragment_agent_dashboard_see_details_button"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="19dp"
                         android:layout_marginBottom="15dp"
-                        android:background="@drawable/dashboard_btn"
+                        android:padding="14dp"
                         android:text="@string/agentDashboard_details_str"
+                        android:textAllCaps="false"
                         android:textColor="@color/colorTextSecondary"
                         android:textSize="14sp"
+                        app:cornerRadius="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
                         app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
@@ -166,11 +168,12 @@
 
             <ImageButton
                 android:id="@+id/agentDashboardFragment_task_flag_iv"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/dashboard_task_btn"
                 android:clickable="true"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/flag"
@@ -208,12 +211,12 @@
 
             <ImageButton
                 android:id="@+id/agentDashboardFragment_task_poll_iv"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
                 android:layout_marginStart="37dp"
                 android:background="@drawable/dashboard_task_btn"
                 android:clickable="true"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/poll"
@@ -253,12 +256,12 @@
 
             <ImageButton
                 android:id="@+id/agentDashboardFragment_task_bolt_iv"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
                 android:layout_marginStart="25dp"
                 android:background="@drawable/dashboard_task_btn"
                 android:clickable="true"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/bolt"
