@@ -169,6 +169,12 @@ class LoginFragment : Fragment() {
 //            }
 //        })
 
+        binding.loginSignUpGoogleBtn.setOnClickListener {
+            Intent(requireContext(), MissionActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
 
 
     }
