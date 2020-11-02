@@ -201,6 +201,10 @@
     <string name="_0">0</string>
     <string name="forgot">Forgot?</string>
     <string name="reset">Reset</string>
+    <string name="no_missions_available_str">No Missions Available</string>
+    <string name="no_missions_available_two_str">We\'ll let you know when something comes up.</string>
+    <string name="looks_clear_here_str">Looks Clear Here</string>
+    <string name="well_done_champ_str">Well done champ!</string>
 </resources>
 
 

@@ -14,5 +14,6 @@
     <color name="colorBgSecondary">#57C5CC</color>
     <color name="colorBgTertiary">#E35948</color>
     <color name="colorMission">#fafafa</color>
+    <color name="colorGreyText">#c6c6c6</color>
 
 </resources>
