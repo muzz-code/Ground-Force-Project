@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.auth
 
 
 import android.content.Intent
@@ -10,22 +10,21 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.transition.ChangeBounds
 import android.transition.TransitionInflater
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
-import com.trapezoidlimited.groundforce.ui.mission.MissionActivity
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import com.trapezoidlimited.groundforce.validator.Validation
+import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
+import com.trapezoidlimited.groundforce.validator.Validation
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 
 
 class LoginFragment : Fragment() {
@@ -57,7 +56,6 @@ class LoginFragment : Fragment() {
 
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-
 
         /**Hide status bar**/
         hideStatusBar()
@@ -104,6 +102,7 @@ class LoginFragment : Fragment() {
                 }
             }
 
+
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -126,7 +125,6 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-
         /**move to previous screen**/
         binding.loginArrowBackIv.setOnClickListener {
             findNavController().navigate(R.id.landingFragment)
@@ -134,6 +132,7 @@ class LoginFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }
+
 
         /**move to Home **/
         binding.loginLoginBtn.setOnClickListener {
@@ -169,9 +168,14 @@ class LoginFragment : Fragment() {
 //            }
 //        })
 
-        binding.loginSignUpGoogleBtn.setOnClickListener {
-            Intent(requireContext(), MissionActivity::class.java).also {
+
+
+
+        /**This code add clickListener to the login button and it move to a new activity **/
+        binding.loginLoginBtn.setOnClickListener {
+            Intent(requireContext(), DashboardActivity::class.java).also {
                 startActivity(it)
+//                requireActivity().finish()
             }
         }
 

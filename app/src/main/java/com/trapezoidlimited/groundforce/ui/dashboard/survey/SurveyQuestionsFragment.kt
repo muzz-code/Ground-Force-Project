@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.dashboard.survey
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,11 +27,11 @@ class SurveyQuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        surveyQuestionsBinding   = FragmentSurveyQuestionsBinding.inflate(inflater, container, false)
+        surveyQuestionsBinding = FragmentSurveyQuestionsBinding.inflate(inflater, container, false)
 
 
         surveyQuestionsBinding.surveyQuestionsFragmentBackImageImg.setOnClickListener {
-            findNavController().navigate(R.id.beginSurveyFragment)
+            findNavController().popBackStack()
         }
 
         return surveyQuestionsBinding.root

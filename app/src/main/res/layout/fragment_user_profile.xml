@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Nested scroll view wrap all view and view group -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sample_layout"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@drawable/user_profile_drawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--        back arrow-->
+        <ImageView
+            android:id="@+id/fragment_user_profile_back_arrow"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorTextSecondary" />
+
+        <!--    Circular image view -->
+
+        <TextView
+            android:id="@+id/fragment_user_profile_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/profile_str"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sample_layout"
+        app:layout_constraintVertical_bias="1.0"
+        tools:context=".ui.profile.UserProfileFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            tools:context=".ui.profile.UserProfileFragment">
+
+
+            <TextView
+                android:id="@+id/fragment_user_profile_user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:text="@string/kehinde_oladimeji_str"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_user_email_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/kehindeemaildomain_gmail_com_str"
+                android:textColor="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_user_name_tv"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_user_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_user_name_tv" />
+
+            <!--    text view for first name -->
+            <TextView
+                android:id="@+id/fragment_user_profile_first_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:alpha="0.8"
+                android:text="@string/first_name_str"
+                android:textColor="@color/colorTextVerify"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_user_email_tv" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_first_name_placeholder_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/Chinwendu_str"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_first_name_tv" />
+
+
+            <TextView
+                android:id="@+id/fragment_user_profile_last_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.8"
+                android:text="@string/last_name_str"
+                android:textColor="@color/colorTextVerify"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_first_name_placeholder_et" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_last_name_placeholder_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="@string/gbadamosi_str"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_first_name_placeholder_et"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_placeholder_et"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_tv" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_date_birth_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/date_of_birth_str"
+                android:textColor="@color/colorTextVerify"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_last_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_placeholder_et" />
+
+
+            <EditText
+                android:id="@+id/fragment_user_profile_date_birth_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorTextVerify"
+                android:drawableEnd="@drawable/calender_asset"
+                android:hint="July 20th, 2020"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_last_name_placeholder_et"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_last_name_placeholder_et"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_tv" />
+
+
+            <!--   Text view for sex  -->
+            <TextView
+                android:id="@+id/fragment_user_profile_gender_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:text="@string/gender_str"
+                android:textColor="@color/colorTextVerify"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
+
+            <!--    Text view for religion -->
+
+            <TextView
+                android:id="@+id/fragment_user_profile_religious_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/religion_str"
+                android:textColor="@color/colorTextVerify"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_religious_sp"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
+
+            <Spinner
+                android:id="@+id/fragment_user_profile_gender_sp"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="66dp"
+                android:paddingStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/fragment_user_profile_religious_sp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_tv" />
+
+            <Spinner
+                android:id="@+id/fragment_user_profile_religious_sp"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/fragment_user_profile_gender_sp"
+                app:layout_constraintTop_toTopOf="@id/fragment_user_profile_gender_sp" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_contact_details_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/contact_details_str"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_sp" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_email_address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/email_address_str"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_contact_details_tv" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_email_address_placeholder_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="kehinde@emaildomain.com"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_date_birth_et"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_et"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_tv" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_additional_phone_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/additional_phone_number_str"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_placeholder_et" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_additional_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="08123456789"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_email_address_placeholder_et"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_placeholder_et"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_phone_number_tv" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_residential_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/residence_address_str"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_phone_number_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_number_et" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_residential_address_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_additional_number_et"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_number_et"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_bank_detail_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/bank_details_str_user"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_et" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_bank_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/bank_name_str"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
+                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv" />
+
+            <AutoCompleteTextView
+                android:id="@+id/fragment_user_profile_bank_name_at"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawableEnd="@drawable/ic_spinner_drop_down"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_residential_address_et"
+                app:layout_constraintStart_toStartOf="@id/fragment_user_profile_residential_address_et"
+                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_name_tv" />
+
+            <TextView
+                android:id="@+id/fragment_user_profile_account_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/account_number"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_tv"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_bank_name_at" />
+
+            <EditText
+                android:id="@+id/fragment_user_profile_account_number_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:hint="5432100000"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_bank_name_at"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_at"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_tv" />
+
+            <!--   Button to go to next profile page  -->
+            <Button
+                android:id="@+id/fragment_create_profile_two_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="37dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="37dp"
+                android:layout_marginBottom="21dp"
+                android:background="@drawable/curved_primary_fill_button"
+                android:fontFamily="@font/roboto"
+                android:text="@string/save_changes_str"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_et" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="301dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/fragment_create_profile_one_iv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/zaria_boy"
+        android:translationZ="2dp"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sample_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sample_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.mission
+package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingItemClickListener
 import com.trapezoidlimited.groundforce.databinding.FragmentOngoingBinding
 import com.trapezoidlimited.groundforce.model.mission.OngoingItem
+import com.trapezoidlimited.groundforce.ui.dashboard.MissionReportActivity
 import com.trapezoidlimited.groundforce.utils.DummyData
 
 
@@ -22,7 +22,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     private var locationTitlesList = DummyData.ongoingLocationData()
     private var adapter: OngoingAdapter = OngoingAdapter(
-        mutableListOf<OngoingItem>(),
+        mutableListOf(),
         this
     )
 
@@ -32,7 +32,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding= FragmentOngoingBinding.inflate(inflater, container, false)
+        _binding = FragmentOngoingBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -53,13 +53,12 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         binding.fragmentOngoingRv.layoutManager = LinearLayoutManager(this.context)
 
 
-
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 
     /**
@@ -68,10 +67,9 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
     override fun onVerifyBtnClick(ongoing: OngoingItem, position: Int) {
 
         /** navigate to the verification page */
-
-//        Intent(requireContext(), MissionReportActivity::class.java).also {
-//            startActivity(it)
-//        }
+        Intent(requireContext(), MissionReportActivity::class.java).also {
+            startActivity(it)
+        }
 
     }
 }

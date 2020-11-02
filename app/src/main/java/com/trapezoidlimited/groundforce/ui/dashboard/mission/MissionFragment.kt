@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.mission
+package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -17,7 +17,8 @@ import com.trapezoidlimited.groundforce.adapters.mission.OnMissionItemClickListe
 import com.trapezoidlimited.groundforce.databinding.FragmentMissionBinding
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 import com.trapezoidlimited.groundforce.utils.DummyData
-import kotlinx.android.synthetic.main.activity_mission.*
+import kotlinx.android.synthetic.main.custom_tab.*
+import kotlinx.android.synthetic.main.fragment_tasks.*
 
 
 class MissionFragment : Fragment(), OnMissionItemClickListener {
@@ -26,7 +27,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     private val binding get() = _binding!!
     private var locationTitlesList = DummyData.missionLocationData()
     private var adapter: MissionAdapter = MissionAdapter(
-        mutableListOf<MissionItem>(),
+        mutableListOf(),
         this
     )
 
@@ -54,7 +55,6 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
 
 
-
         adapter.setMyList(locationTitlesList)
 
         binding.fragmentMissionRv.adapter = adapter
@@ -78,20 +78,24 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
         /** setting the indicator  on the onGoing tab onclick of the accept btn */
 
-        val image: Drawable? = ResourcesCompat.getDrawable(resources, R.drawable.custom_tab_indicator_active, null)
-        image?.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
+//        val image: Drawable? = ResourcesCompat.getDrawable(resources, R.drawable.custom_tab_indicator_active, null)
+//        image?.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
+//
+//        val sb = SpannableString("Ongoing" + "     ")
+//
+//        val imageSpan = ImageSpan(image!!, ImageSpan.ALIGN_CENTER)
+//        sb.setSpan(
+//            imageSpan,
+//            sb.length - 2,
+//            sb.length - 1,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//        )
 
-        val sb = SpannableString("Ongoing" + "     ")
+//        requireActivity().mission_ongoing_tl?.getTabAt(1)?.text = SpannableString(sb)
 
-        val imageSpan = ImageSpan(image!!, ImageSpan.ALIGN_CENTER)
-        sb.setSpan(
-            imageSpan,
-            sb.length - 2,
-            sb.length - 1,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
 
-        requireActivity().mission_ongoing_tl?.getTabAt(1)?.text = SpannableString(sb)
+
+
 
 
 

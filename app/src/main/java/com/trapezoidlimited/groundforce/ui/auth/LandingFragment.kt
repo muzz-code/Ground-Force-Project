@@ -1,7 +1,6 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
 
 
 class LandingFragment : Fragment() {
@@ -42,12 +40,6 @@ class LandingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        binding.landingSignUpGoogleBtn.setOnClickListener {
-            findNavController().navigate(R.id.surveyListFragment)
-            Toast.makeText(requireContext(), "Btn Clicked", Toast.LENGTH_SHORT).show()
-        }
-
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.phoneActivationFragment)
         }
@@ -67,9 +59,7 @@ class LandingFragment : Fragment() {
             findNavController().navigate(R.id.loginFragment, null, null, extra)
         }
 
-        binding.landingSignUpGoogleBtn.setOnClickListener {
-            findNavController().navigate(R.id.beginSurveyFragment)
-        }
+
     }
 
     override fun onDestroy() {

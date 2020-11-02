@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:id="@+id/mission_activity_root"
-    tools:context=".ui.mission.MissionActivity">
+    android:id="@+id/tasks_fragment__root"
+    tools:context=".ui.dashboard.mission.TasksFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mission_toolbar"
+        android:id="@+id/fragment_tasks_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorTextSecondary"
@@ -61,7 +61,7 @@
 
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/mission_ongoing_tl"
+        android:id="@+id/fragment_tasks_tab_layoyt_tl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mission_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_tasks_toolbar"
         app:tabBackground="@android:color/white"
         android:background="@drawable/mission_separator_bg"
         app:tabGravity="fill"
@@ -81,16 +81,16 @@
         app:tabTextColor="@color/colorTextPrimary" />
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/mission_ongoing_vp"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_tasks_tab_view_pager_vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mission_ongoing_tl" >
+        app:layout_constraintTop_toBottomOf="@+id/fragment_tasks_tab_layoyt_tl" >
 
-    </androidx.viewpager.widget.ViewPager>
+    </androidx.viewpager2.widget.ViewPager2>
 
 
 

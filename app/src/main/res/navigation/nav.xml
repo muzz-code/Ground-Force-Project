@@ -14,12 +14,12 @@
 
     <fragment
         android:id="@+id/landingFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.LandingFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.LandingFragment"
         android:label="fragment_landing"
         tools:layout="@layout/fragment_landing" />
     <fragment
         android:id="@+id/phoneVerificationFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.PhoneVerificationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneVerificationFragment"
         android:label="fragment_phone_verification"
         tools:layout="@layout/fragment_phone_verification" >
         <argument
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/phoneActivationFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.PhoneActivationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneActivationFragment"
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation" />
 
@@ -54,7 +54,7 @@
 
     <fragment
         android:id="@+id/locationVerificationFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.LocationVerificationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.LocationVerificationFragment"
         android:label="fragment_location_verification"
         tools:layout="@layout/fragment_location_verification" />
     <fragment
@@ -65,18 +65,18 @@
 
   <fragment
         android:id="@+id/loginFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.LoginFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 
     <fragment
         android:id="@+id/dashBoardFragment"
-        android:name="com.trapezoidlimited.groundforce.DashBoardFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.DashBoardFragment"
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" />
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.ForgetPasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" />
 <fragment
@@ -84,24 +84,6 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
         tools:layout="@layout/fragment_reset_password"
-        />
-
-
-    <fragment
-        android:id="@+id/surveyListFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.survey.SurveyListFragment"
-        android:label="fragment_survey_list"
-        tools:layout="@layout/fragment_survey_list" />
-    <fragment
-        android:id="@+id/surveyQuestionsFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.SurveyQuestionsFragment"
-        android:label="fragment_survey_questions"
-        tools:layout="@layout/fragment_survey_questions" />
-    <fragment
-        android:id="@+id/beginSurveyFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.BeginSurveyFragment"
-        android:label="BeginSurveyFragment"
-        tools:layout="@layout/fragment_begin_survey"
         />
 
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/user_home"
+            android:title="@string/agentDashboard_home_str" />
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/money_bill"
+            android:title="@string/agentDashboard_payment_str" />
+        <item
+            android:id="@+id/nav_security"
+            android:icon="@drawable/security_lock"
+            android:title="@string/agentDashboard_security_str" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/question_help"
+            android:title="@string/agentDashboard_help_str" />
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/contact_headphones"
+            android:title="@string/agentDashboard_contact_str" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/agentDashboard_logout_str" />
+    </group>
+</menu>
