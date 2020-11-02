@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentTasksBinding
+import kotlinx.android.synthetic.main.custom_tab.*
 
 class TasksFragment : Fragment() {
     private lateinit var binding: FragmentTasksBinding
@@ -29,6 +31,11 @@ class TasksFragment : Fragment() {
         binding.missionBackArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        custom_tab_imageView.setImageResource(R.drawable.custom_tab_indicator_active)
+
+        binding.fragmentTasksTabLayoytTl.getTabAt(1)?.setCustomView(R.layout.custom_tab)
+
 
         return binding.root
     }

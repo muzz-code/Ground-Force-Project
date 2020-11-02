@@ -14,23 +14,26 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.*
 
 
 class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private var _binding : FragmentUserProfileBinding? = null
+    private var _binding: FragmentUserProfileBinding? = null
 
     val binding get() = _binding!!
 
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
 
-    private lateinit var date : String
+    private lateinit var date: String
 
     /** onCreateView over ride function **/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_user_profile, container, false)
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
@@ -40,7 +43,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             requireContext(),
             R.array.sex,
             android.R.layout.simple_spinner_item
-        ).also {sexAdapter ->
+        ).also { sexAdapter ->
             // Specify the layout to use when the list of choices appears
             sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -53,7 +56,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             requireContext(),
             R.array.religion,
             android.R.layout.simple_spinner_item
-        ).also {religionAdapter ->
+        ).also { religionAdapter ->
             // Specify the layout to use when the list of choices appears
             religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -72,6 +75,12 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             findNavController().popBackStack()
         }
 
+        binding.fragmentUserProfileFirstNamePlaceholderEt.isEnabled = false
+        binding.fragmentUserProfileLastNamePlaceholderEt.isEnabled = false
+        binding.fragmentUserProfileAccountNumberEt.isEnabled =false
+        binding.fragmentUserProfileResidentialAddressEt.isEnabled = false
+
+
         return binding.root
     }
 
@@ -82,7 +91,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
-
 
 
     /** onActivityCreated **/
@@ -99,7 +107,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** Date set listener **/
         dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-            date = "${month+1}/$day/$year"
+            date = "${month + 1}/$day/$year"
             dateButton.setText(date)
         }
 
@@ -116,9 +124,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         /** Date dialog picker style **/
-        val dialog = DatePickerDialog(requireContext(),
+        val dialog = DatePickerDialog(
+            requireContext(),
             android.R.style.ThemeOverlay_Material_Dialog_Alert,
-            dateSetListener,year, month,day
+            dateSetListener, year, month, day
         )
         dialog.show()
 

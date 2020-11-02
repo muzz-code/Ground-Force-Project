@@ -12,14 +12,11 @@
         android:id="@+id/fragment_mission_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="40dp"
-        android:scrollbars="vertical"
-        android:scrollbarSize="1dp"
-        tools:listitem="@layout/mission_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/mission_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
