@@ -9,7 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sample_layout"
+        android:id="@+id/fragment_user_profile_header_background_cl"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:background="@drawable/user_profile_drawable"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sample_layout"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl"
         app:layout_constraintVertical_bias="1.0"
         tools:context=".ui.profile.UserProfileFragment">
 
@@ -75,7 +75,7 @@
                 android:layout_marginTop="80dp"
                 android:text="@string/kehinde_oladimeji_str"
                 android:textColor="@color/colorPrimary"
-                android:textSize="30sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,8 +113,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:editable="false"
                 android:hint="@string/Chinwendu_str"
-                android:inputType="text"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="14sp"
@@ -142,8 +144,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:editable="false"
                 android:hint="@string/gbadamosi_str"
-                android:inputType="text"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="14sp"
@@ -170,8 +174,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/colorTextVerify"
+                android:clickable="false"
                 android:drawableEnd="@drawable/calender_asset"
+                android:editable="false"
                 android:hint="July 20th, 2020"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_last_name_placeholder_et"
@@ -240,6 +247,7 @@
                 android:text="@string/contact_details_str"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_sp" />
 
@@ -259,8 +267,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:hint="kehinde@emaildomain.com"
+                android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_tv" />
@@ -283,6 +293,7 @@
                 android:hint="08123456789"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_phone_number_tv" />
@@ -302,8 +313,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:editable="false"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address" />
@@ -316,6 +331,7 @@
                 android:text="@string/bank_details_str_user"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_et" />
 
@@ -334,7 +350,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
                 android:drawableEnd="@drawable/ic_spinner_drop_down"
+                android:editable="false"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -357,9 +375,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:editable="false"
                 android:hint="5432100000"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_bank_name_at"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_at"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_tv" />
@@ -372,7 +394,7 @@
                 android:layout_marginStart="37dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="37dp"
-                android:layout_marginBottom="21dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/curved_primary_fill_button"
                 android:fontFamily="@font/roboto"
                 android:text="@string/save_changes_str"
@@ -389,13 +411,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="301dp" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/fragment_create_profile_one_iv"
         android:layout_width="150dp"
@@ -404,10 +419,10 @@
         android:translationZ="2dp"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/sample_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_user_profile_header_background_cl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sample_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -126,8 +126,12 @@ android {
         implementation 'com.afollestad:date-picker:0.6.1'
 
 
-
     }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 
