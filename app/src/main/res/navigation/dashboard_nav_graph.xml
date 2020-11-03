@@ -36,6 +36,11 @@
         android:label="UserProfileFragment"
         tools:layout="@layout/fragment_user_profile"
         />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history"/>
 
 
 </navigation>

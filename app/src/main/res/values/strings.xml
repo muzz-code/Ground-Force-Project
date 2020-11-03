@@ -205,6 +205,14 @@
     <string name="no_missions_available_two_str">We\'ll let you know when something comes up.</string>
     <string name="looks_clear_here_str">Looks Clear Here</string>
     <string name="well_done_champ_str">Well done champ!</string>
+    <string name="human_resource_survey_2020_str">Human Resource Survey 2020</string>
+    <string name="survey_comment_str">This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos...</string>
+    <string name="completed_str">Completed</string>
+    <string name="verified_str">Verified</string>
+    <string name="mission_date_str">6 Sept, 2020</string>
+    <string name="mission_address_str">10 Aremo Adesegun Oniru Crescent</string>
+    <string name="mission_address_city_str">Makoko, Eti-Osa</string>
+    <string name="history_title_bar_str">History</string>
 </resources>
 
 

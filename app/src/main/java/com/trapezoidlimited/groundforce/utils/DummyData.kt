@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.utils
 import com.trapezoidlimited.groundforce.data.SurveyData
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 import com.trapezoidlimited.groundforce.model.mission.OngoingItem
+import com.trapezoidlimited.groundforce.model.mission.SurveyItem
 
 
 object DummyData {
@@ -15,6 +16,25 @@ object DummyData {
             MissionItem("Ikeja D GRA", "31, Opebi Street, Ikeja, Lagos "),
             MissionItem("Ikeja E GRA", "31, Opebi Street, Ikeja, Lagos "),
             MissionItem("Ikeja F GRA", "31, Opebi Street, Ikeja, Lagos ")
+        )
+    }
+
+    fun historyMissionData(): MutableList<MissionItem> {
+        return mutableListOf(
+            MissionItem("Makoro, Eti-Osa", "10 Aremo Adesegun Oniru Crescent", "6 Sept, 2020"),
+            MissionItem("Allen, Ikeja", "7 Gbemisola St, Allen 100281", "6 Sept, 2020")
+        )
+    }
+
+    fun historySurveyData(): MutableList<SurveyItem> {
+        return mutableListOf(
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos..."),
+            SurveyItem("Human Resource Survey 2020", "This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos...")
         )
     }
 
