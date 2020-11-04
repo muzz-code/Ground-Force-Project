@@ -43,6 +43,11 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
+        binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
+            findNavController().navigate(R.id.paymentHistory)
+        }
+
+
     }
 
 

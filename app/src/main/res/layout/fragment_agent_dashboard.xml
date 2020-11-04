@@ -290,7 +290,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_mission_completed_str"
+                    android:text="Missions \nCompleted"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="18sp" />
 
@@ -337,7 +337,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_survey_completed_str"
+                    android:text="Surveys \nCompleted"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="18sp" />
 
@@ -382,7 +382,6 @@
                     android:text="6"
                     android:textColor="#FFFFFF" />
             </androidx.cardview.widget.CardView>
-
 
 
             <androidx.cardview.widget.CardView

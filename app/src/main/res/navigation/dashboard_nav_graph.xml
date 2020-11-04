@@ -36,6 +36,11 @@
         android:label="UserProfileFragment"
         tools:layout="@layout/fragment_user_profile"
         />
+    <fragment
+        android:id="@+id/paymentHistory"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.PaymentHistory"
+        android:label="fragment_payment_history"
+        tools:layout="@layout/fragment_payment_history" />
 
 
 </navigation>
