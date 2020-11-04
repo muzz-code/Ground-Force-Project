@@ -52,7 +52,7 @@
                     android:paddingBottom="2dp"
                     android:text="@string/login_sub_title_str"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/medium_text"
                     android:transitionName="@string/sub_title_transition"
                     app:layout_constraintBottom_toTopOf="@+id/login_welcome_tv"
                     app:layout_constraintEnd_toEndOf="@+id/login_welcome_tv"
@@ -70,7 +70,7 @@
                     android:text="@string/landing_welcome_str"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
-                    android:textSize="33sp"
+                    android:textSize="@dimen/extra_large_text"
                     android:textStyle="bold"
                     android:transitionName="@string/main_title_transition"
                     app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
@@ -110,7 +110,7 @@
                                 android:text="@string/login_str"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="20sp" />
+                                android:textSize="@dimen/header_text" />
 
                             <!--                input email address-->
                             <TextView
@@ -121,7 +121,7 @@
                                 android:alpha=".5"
                                 android:text="@string/email_address_str"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="12dp" />
+                                android:textSize="@dimen/extra_small_text" />
 
                             <EditText
                                 android:id="@+id/editText_TextEmailAddress_et"
@@ -144,7 +144,7 @@
                                 android:alpha=".5"
                                 android:text="@string/pin_text_str"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="12dp" />
+                                android:textSize="@dimen/extra_small_text" />
 
                             <EditText
                                 android:id="@+id/editText_NumberPin_et"
@@ -174,7 +174,7 @@
                                 android:text="@string/login_str"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/small_text"
                                 android:transitionName="@string/google_button_transition"
                                 app:cornerRadius="50dp" />
 
@@ -193,7 +193,7 @@
                                 android:text="@string/landing_sign_up_with_google_str"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white"
-                                android:textSize="16sp"
+                                android:textSize="@dimen/small_text"
                                 android:transitionName="@string/login_button_transition"
                                 app:cornerRadius="50dp" />
 
@@ -206,7 +206,7 @@
                                 android:text="@string/new_user_register_here_str"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/small_text" />
 
                             <!--                forget password text-->
                             <TextView
@@ -219,7 +219,7 @@
                                 android:text="@string/forgot_password_str"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="14sp" />
+                                android:textSize="@dimen/small_text" />
 
                         </LinearLayout>
 

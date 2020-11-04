@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/textView2"
             style="@style/customToolBarTitle"
-            android:text="Mission Report" />
+            android:text="@string/mission_report_str" />
     </LinearLayout>
 
     <!-- scroll view-->
@@ -56,7 +56,7 @@
                 android:text="@string/mission_report_intro_str"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp"
+                android:textSize="@dimen/medium_text"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
@@ -100,7 +100,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="bold" />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -179,7 +179,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="bold" />
 
                 <TextView
@@ -193,7 +193,7 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -255,7 +255,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="bold" />
 
                 <TextView
@@ -269,7 +269,7 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/small_text"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -289,7 +289,7 @@
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/small_text" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_three_rb"
@@ -301,7 +301,7 @@
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/small_text" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -492,7 +492,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextSecondary"
-                android:textSize="16sp"
+                android:textSize="@dimen/medium_text"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til" />
@@ -508,7 +508,7 @@
                 android:text="@string/cancel_str"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"

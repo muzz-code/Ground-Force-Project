@@ -29,9 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/titillium_web_bold"
-            android:text="Surveys"
+            android:text="@string/surveys_str"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="30sp" />
+            android:textSize="@dimen/extra_large_text" />
     </LinearLayout>
 </LinearLayout>

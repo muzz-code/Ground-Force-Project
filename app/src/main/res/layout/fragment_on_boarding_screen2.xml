@@ -36,7 +36,7 @@
         android:fontFamily="@font/titillium_web_bold"
         android:text="@string/screen1_header_str"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
+        android:textSize="@dimen/extra_large_text"
         app:layout_constraintBottom_toTopOf="@+id/onBoardingScreen2_subTitleText_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -49,7 +49,7 @@
         android:text="@string/screen1_subText_str"
         android:textAlignment="textStart"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="14sp"
+        android:textSize="@dimen/small_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
         app:layout_constraintHorizontal_bias="0.0"

@@ -75,7 +75,7 @@
                 android:layout_marginTop="80dp"
                 android:text="@string/kehinde_oladimeji_str"
                 android:textColor="@color/colorPrimary"
-                android:textSize="32sp"
+                android:textSize="@dimen/extra_large_text"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:textSize="@dimen/small_text"
                 android:text="@string/kehindeemaildomain_gmail_com_str"
                 android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_user_name_tv"
@@ -103,7 +104,7 @@
                 android:alpha="0.8"
                 android:text="@string/first_name_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="14sp"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_user_email_tv" />
 
@@ -119,7 +120,7 @@
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +135,7 @@
                 android:alpha="0.8"
                 android:text="@string/last_name_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="14sp"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_first_name_placeholder_et" />
 
@@ -150,7 +151,7 @@
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_first_name_placeholder_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_placeholder_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_tv" />
@@ -162,7 +163,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/date_of_birth_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_last_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_placeholder_et" />
 
@@ -176,8 +177,8 @@
                 android:backgroundTint="@color/colorTextVerify"
                 android:clickable="false"
                 android:drawableEnd="@drawable/calender_asset"
-                android:editable="false"
-                android:hint="July 20th, 2020"
+                android:textSize="@dimen/small_text"
+                android:hint="@string/july_20th_2020_str"
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -194,7 +195,7 @@
                 android:layout_marginTop="26dp"
                 android:text="@string/gender_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="14sp"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -208,7 +209,7 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/religion_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="14sp"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_religious_sp"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -247,7 +248,7 @@
                 android:text="@string/contact_details_str"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="@dimen/medium_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_sp" />
 
@@ -257,6 +258,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/email_address_str"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_contact_details_tv" />
 
@@ -270,7 +272,7 @@
                 android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_tv" />
@@ -281,6 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/additional_phone_number_str"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_placeholder_et" />
 
@@ -293,7 +296,7 @@
                 android:hint="08123456789"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_phone_number_tv" />
@@ -304,6 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/residence_address_str"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_phone_number_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_number_et" />
 
@@ -318,7 +322,7 @@
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address" />
@@ -331,7 +335,7 @@
                 android:text="@string/bank_details_str_user"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="@dimen/medium_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_et" />
 
@@ -341,6 +345,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/bank_name_str"
+                android:textSize="@dimen/small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv" />
 
@@ -354,6 +359,7 @@
                 android:drawableEnd="@drawable/ic_spinner_drop_down"
                 android:editable="false"
                 android:inputType="text"
+                android:textSize="@dimen/small_text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_residential_address_et"
@@ -366,6 +372,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/account_number"
+                android:textSize="@dimen/extra_small_text"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_bank_name_at" />
 
@@ -381,7 +388,7 @@
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textSize="14sp"
+                android:textSize="@dimen/medium_text"
                 app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_bank_name_at"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_at"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_tv" />
@@ -400,7 +407,7 @@
                 android:text="@string/save_changes_str"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextSecondary"
-                android:textSize="16sp"
+                android:textSize="@dimen/small_text"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
