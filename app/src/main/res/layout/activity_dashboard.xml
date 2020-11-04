@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer"
-    tools:context=".ui.main.DashboardActivity"
+    tools:context=".ui.dashboard.DashboardActivity"
     tools:openDrawer="start"
     android:fitsSystemWindows="true">
 
@@ -15,7 +15,7 @@
 
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/dashboard_activity_nhf"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"

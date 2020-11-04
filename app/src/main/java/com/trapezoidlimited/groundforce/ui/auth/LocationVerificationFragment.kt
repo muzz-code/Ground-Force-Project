@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui
+package com.trapezoidlimited.groundforce.ui.auth
 
 import android.Manifest
 import android.app.Activity
@@ -7,7 +7,6 @@ import android.content.IntentSender.SendIntentException
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,28 +20,27 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.ResultCallback
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
 import com.trapezoidlimited.groundforce.utils.AppConstants
-import com.trapezoidlimited.groundforce.utils.CustomAlert
+import com.trapezoidlimited.groundforce.utils.showDialog
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_location_verification.*
 
 
-class LocationVerificationFragment : Fragment(),GoogleApiClient.ConnectionCallbacks,
-GoogleApiClient.OnConnectionFailedListener{
+class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener {
 
 
     private var _binding: FragmentLocationVerificationBinding? = null
     private val binding get() = _binding!!
 
     //declare location request and google api client
-    lateinit var mLocationRequest:LocationRequest
-    lateinit var mGoogleApiClient:GoogleApiClient
+    lateinit var mLocationRequest: LocationRequest
+    lateinit var mGoogleApiClient: GoogleApiClient
 
     //declare locaiton view model
     private lateinit var locationViewModel: LocationViewModel
@@ -57,7 +55,7 @@ GoogleApiClient.OnConnectionFailedListener{
         locationViewModel = ViewModelProviders.of(this).get(LocationViewModel::class.java)
 
         // Inflate the layout for this fragment
-        _binding= FragmentLocationVerificationBinding.inflate(inflater, container, false)
+        _binding = FragmentLocationVerificationBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -67,7 +65,7 @@ GoogleApiClient.OnConnectionFailedListener{
         super.onViewCreated(view, savedInstanceState)
 
         //initialize location request
-        mLocationRequest=LocationRequest()
+        mLocationRequest = LocationRequest()
         //initialize google api client which will be used to trigger the turn on gps dialog
         mGoogleApiClient = GoogleApiClient.Builder(requireContext())
             .addConnectionCallbacks(this)
@@ -81,42 +79,41 @@ GoogleApiClient.OnConnectionFailedListener{
 
     //while permission is granted, observe gps and check that it is turned on, else trigger gps
     @RequiresApi(Build.VERSION_CODES.M)
-    fun getLocation(){
-        if(isPermissionsGranted()) {
+    fun getLocation() {
+        if (isPermissionsGranted()) {
             //observe that gps is enabled, if not enables, trigger gps
             locationViewModel._isGpsEnabled.observe(viewLifecycleOwner) {
                 if (!it.gpsGotten) {
                     triggerGPS()
                 }
             }
-                    //request location of user if permission is granted
-                    locationViewModel.requestLocationUpdates()
-                    //observe the state wether it has been gotten, if it is false continue to show ripple else get the location latlng
-                    locationViewModel._isLocationGotten.observe(
-                        viewLifecycleOwner,
-                        Observer { locationM ->
-                            if (locationM == "false") {
-                                binding.layoutRipplepulse.startRippleAnimation()
-                            } else {
-                                //if location has been gotten, make animation or its visibility gone; while get users latlng
-                                binding.layoutRipplepulse.stopRippleAnimation()
-                                getLocationLatLng()
-                            }
-                        })
-        }
-        else{
+            //request location of user if permission is granted
+            locationViewModel.requestLocationUpdates()
+            //observe the state wether it has been gotten, if it is false continue to show ripple else get the location latlng
+            locationViewModel._isLocationGotten.observe(
+                viewLifecycleOwner,
+                Observer { locationM ->
+                    if (locationM == "false") {
+                        binding.layoutRipplepulse.startRippleAnimation()
+                    } else {
+                        //if location has been gotten, make animation or its visibility gone; while get users latlng
+                        binding.layoutRipplepulse.stopRippleAnimation()
+                        getLocationLatLng()
+                    }
+                })
+        } else {
             //if permission not granted, request for permission
             requestPermission()
         }
 
-        if(shouldShowRequestPermissionRationale()){
+        if (shouldShowRequestPermissionRationale()) {
             Toast.makeText(requireContext(), "permission not granted", Toast.LENGTH_LONG).show()
         }
     }
 
     //trigger gps
-    private fun triggerGPS(){
-       //connect and load the location service builder to the fragment; attach a callback listener and connection failed listener
+    private fun triggerGPS() {
+        //connect and load the location service builder to the fragment; attach a callback listener and connection failed listener
         activity?.let {
             GoogleApiClient.Builder(it)
                 .addApi(LocationServices.API)
@@ -139,10 +136,9 @@ GoogleApiClient.OnConnectionFailedListener{
                 ) == PackageManager.PERMISSION_GRANTED
 
 
-
     //request for permission
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun requestPermission(){
+    private fun requestPermission() {
         requestPermissions(
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -170,46 +166,47 @@ GoogleApiClient.OnConnectionFailedListener{
 
     //when the user selects a response after the dialog for gps is displayed
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            if (resultCode == Activity.RESULT_OK) {
-                //if the user selects ok, then update the isGpsEnabled to be true
-                if (requestCode == AppConstants.GPS_REQUEST) {
-                    //reset the state of gps enabled to true
-                    locationViewModel.isGpsEnabled.value= GpsState(true)
-                }
-                else{
-                    Toast.makeText(requireContext(),"Location is turned off, Please turn on your location",Toast.LENGTH_LONG).show()
-                }
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            //if the user selects ok, then update the isGpsEnabled to be true
+            if (requestCode == AppConstants.GPS_REQUEST) {
+                //reset the state of gps enabled to true
+                locationViewModel.isGpsEnabled.value = GpsState(true)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Location is turned off, Please turn on your location",
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
     }
 
 
     //if permission is not granted, consider to show the permission not granted rationale
     @RequiresApi(Build.VERSION_CODES.M)
     private fun shouldShowRequestPermissionRationale() =
-       shouldShowRequestPermissionRationale(
+        shouldShowRequestPermissionRationale(
 
-           Manifest.permission.ACCESS_FINE_LOCATION
-       ) && ActivityCompat.shouldShowRequestPermissionRationale(
-           requireContext().applicationContext as Activity,
-           Manifest.permission.ACCESS_COARSE_LOCATION
-       )
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) && ActivityCompat.shouldShowRequestPermissionRationale(
+            requireContext().applicationContext as Activity,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
 
 
     //permission is granted, gps is turned on, now we can get the users lat long
-    private fun getLocationLatLng(){
-       locationViewModel._location.value.apply{
+    private fun getLocationLatLng() {
+        locationViewModel._location.value.apply {
             verifying_location_status_tv.text =
                 getString(R.string.latLong, this?.longitude, this?.latitude)
             this?.let {
                 //get the custom alert dialog to display success since location is gotten
-                var alertDialog=CustomAlert()
-                alertDialog.showDialog(requireContext(), "Success!", "Congratulations")
+                showDialog(requireContext(), "Success!", "Congratulations")
+
             }
         }
     }
-
-
 
 
     // the function that actaullay shows the turn on gps dialog builder when its connected
@@ -272,7 +269,6 @@ GoogleApiClient.OnConnectionFailedListener{
     }
 
 
-
     //on activity created, handle navigation
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         //Go to previous screen
@@ -285,8 +281,13 @@ GoogleApiClient.OnConnectionFailedListener{
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
+
+//    override fun pageToNavigate(page: Int) {
+//        Toast.makeText(requireContext(), page.toString(), Toast.LENGTH_SHORT).show()
+////        findNavController().navigate(R.id.createPinFragment)
+//    }
 
 
 }

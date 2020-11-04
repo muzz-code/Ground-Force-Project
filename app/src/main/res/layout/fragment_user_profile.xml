@@ -9,9 +9,9 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sample_layout"
+        android:id="@+id/fragment_user_profile_header_background_cl"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="170dp"
         android:background="@drawable/user_profile_drawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,9 +21,9 @@
         <!--        back arrow-->
         <ImageView
             android:id="@+id/fragment_user_profile_back_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_dim"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="30dp"
             android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
             android:src="@drawable/ic_arrow_back"
@@ -40,7 +40,7 @@
             android:layout_marginTop="30dp"
             android:text="@string/profile_str"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,19 +48,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/fragment_create_profile_one_iv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:translationZ="2dp"
-        android:src="@drawable/zaria_boy"
-        app:civ_border_color="@android:color/white"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll"
@@ -70,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sample_layout"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl"
         app:layout_constraintVertical_bias="1.0"
         tools:context=".ui.profile.UserProfileFragment">
 
@@ -85,10 +72,10 @@
                 android:id="@+id/fragment_user_profile_user_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="80dp"
                 android:text="@string/kehinde_oladimeji_str"
                 android:textColor="@color/colorPrimary"
-                android:textSize="30sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,9 +100,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
+                android:alpha="0.8"
                 android:text="@string/first_name_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_user_email_tv" />
 
@@ -125,8 +113,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/colorTextVerify"
-                android:inputType="text"
+                android:clickable="false"
+                android:editable="false"
+                android:hint="@string/Chinwendu_str"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="14sp"
@@ -141,9 +131,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:alpha="0.8"
                 android:text="@string/last_name_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_first_name_placeholder_et" />
 
@@ -153,8 +144,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/colorTextVerify"
-                android:inputType="text"
+                android:clickable="false"
+                android:editable="false"
+                android:hint="@string/gbadamosi_str"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="14sp"
@@ -169,7 +162,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/date_of_birth_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_last_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_placeholder_et" />
 
@@ -181,7 +174,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/colorTextVerify"
+                android:clickable="false"
                 android:drawableEnd="@drawable/calender_asset"
+                android:editable="false"
+                android:hint="July 20th, 2020"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_last_name_placeholder_et"
@@ -197,7 +194,7 @@
                 android:layout_marginTop="26dp"
                 android:text="@string/gender_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="16dp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -211,7 +208,7 @@
                 android:layout_marginTop="24dp"
                 android:text="@string/religion_str"
                 android:textColor="@color/colorTextVerify"
-                android:textSize="16dp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_religious_sp"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -250,6 +247,7 @@
                 android:text="@string/contact_details_str"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_sp" />
 
@@ -268,8 +266,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:hint="kehinde@emaildomain.com"
+                android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_tv" />
@@ -289,8 +290,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:hint="08123456789"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_placeholder_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_phone_number_tv" />
@@ -310,8 +313,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:editable="false"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_number_et"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address" />
@@ -324,6 +331,7 @@
                 android:text="@string/bank_details_str_user"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_et" />
 
@@ -342,7 +350,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
                 android:drawableEnd="@drawable/ic_spinner_drop_down"
+                android:editable="false"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -365,8 +375,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:editable="false"
+                android:hint="5432100000"
+                android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_bank_name_at"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_at"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_tv" />
@@ -379,7 +394,7 @@
                 android:layout_marginStart="37dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="37dp"
-                android:layout_marginBottom="21dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/curved_primary_fill_button"
                 android:fontFamily="@font/roboto"
                 android:text="@string/save_changes_str"
@@ -394,15 +409,20 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="422dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/fragment_create_profile_one_iv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/zaria_boy"
+        android:translationZ="2dp"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_user_profile_header_background_cl"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

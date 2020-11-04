@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.mission.MissionFragment">
+    tools:context=".ui.dashboard.mission.MissionFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_ongoing_rv"
@@ -17,5 +17,39 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ongoing_shoes_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shoes"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <TextView
+        android:id="@+id/ongoing_no_ongoing_tv"
+        style="@style/no_mission_ongoing_text_bold_style"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:text="@string/looks_clear_here_str"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ongoing_shoes_iv" />
+
+    <TextView
+        android:id="@+id/ongoing_no_ongoing_two_tv"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:text="@string/well_done_champ_str"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ongoing_no_ongoing_tv"
+        style="@style/no_mission_ongoing_two_str" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

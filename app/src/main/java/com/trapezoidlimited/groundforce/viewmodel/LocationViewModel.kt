@@ -14,29 +14,28 @@ import com.trapezoidlimited.groundforce.data.LocationModel
 import com.trapezoidlimited.groundforce.utils.AppConstants
 
 
-class LocationViewModel(application: Application): AndroidViewModel(application) {
+class LocationViewModel(application: Application) : AndroidViewModel(application) {
 
     private var fusedLocationClient: FusedLocationProviderClient
     private var request: LocationRequest
-    private  var locationCallback: LocationCallback
+    private var locationCallback: LocationCallback
 
     //for change and updates
-    var locationMutable=MutableLiveData(LocationModel(0.0, 0.0))
+    var locationMutable = MutableLiveData(LocationModel(0.0, 0.0))
     var isLocationGotten = MutableLiveData("false")
     var isGpsEnabled = MutableLiveData(GpsState(false))
 
     //for observation only
 
     val _location: LiveData<LocationModel> get() = locationMutable
-    val _isLocationGotten:LiveData<String> get() = isLocationGotten
-    val _isGpsEnabled:LiveData<GpsState> get() = isGpsEnabled
-
+    val _isLocationGotten: LiveData<String> get() = isLocationGotten
+    val _isGpsEnabled: LiveData<GpsState> get() = isGpsEnabled
 
 
     init {
-        request= LocationRequest()
-        locationCallback= LocationCallback()
-        fusedLocationClient= LocationServices.getFusedLocationProviderClient(application)
+        request = LocationRequest()
+        locationCallback = LocationCallback()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application)
         requestLocationUpdates()
     }
 
@@ -44,6 +43,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
         request = LocationRequest()
+        request.interval = 10000
 
         //get user location using high accurate settings
         request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -58,8 +58,8 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
                 if (location != null) {
                     //if location is not null, update the islocationgotten to be true and locationMutable value with
                     //latitude and longitude gotten from location
-                    locationMutable.value=LocationModel(longitude, latitude)
-                    isLocationGotten.value="true"
+                    locationMutable.value = LocationModel(longitude, latitude)
+                    isLocationGotten.value = "true"
 
                 }
                 //location is null, use fused location client to request location update
@@ -74,7 +74,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     }
 
 
-//    //update the location
+    //    //update the location
 //    //use suppress lint to ignore missing permission error, treat missing permission in fragment
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {

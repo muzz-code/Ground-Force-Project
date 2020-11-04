@@ -10,7 +10,7 @@
         android:id="@+id/phone_activation_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.PhoneActivationFragment">
+        tools:context=".ui.auth.PhoneActivationFragment">
         <!--Tool bar arrow-->
         <!--Tool bar title-->
         <!--Enter phone number-->

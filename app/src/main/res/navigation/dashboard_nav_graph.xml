@@ -7,12 +7,40 @@
 
     <fragment
         android:id="@+id/agentDashboardFragment"
-        android:name="com.trapezoidlimited.groundforce.AgentDashboardFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.AgentDashboardFragment"
         android:label="fragment_agent_dashboard"
         tools:layout="@layout/fragment_agent_dashboard" />
     <fragment
-        android:id="@+id/dashboardToolBarFragment"
-        android:name="com.trapezoidlimited.groundforce.DashboardToolBarFragment"
-        android:label="fragment_dashboard_tool_bar"
-        tools:layout="@layout/fragment_dashboard_tool_bar" />
+        android:id="@+id/tasksFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.mission.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/surveyListFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyListFragment"
+        android:label="fragment_survey_list"
+        tools:layout="@layout/fragment_survey_list" />
+    <fragment
+        android:id="@+id/beginSurveyFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.BeginSurveyFragment"
+        android:label="fragment_begin_survey"
+        tools:layout="@layout/fragment_begin_survey" />
+    <fragment
+        android:id="@+id/surveyQuestionsFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyQuestionsFragment"
+        android:label="fragment_survey_questions"
+        tools:layout="@layout/fragment_survey_questions" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.UserProfileFragment"
+        android:label="UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile"
+        />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history"/>
+
+
 </navigation>

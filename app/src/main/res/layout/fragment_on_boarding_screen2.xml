@@ -1,53 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.onboarding.OnBoardingScreen2Fragment"
-    android:id="@+id/OnBoardingScreen2">
-<!-- Start Image Section-->
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/OnBoardingScreen2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.onboarding.OnBoardingScreen2Fragment">
+    <!-- Start Image Section-->
+    <!--End Image Section-->
+
+    <!--    Start Header Text Section-->
+    <!--    End Header Text-->
+
     <ImageView
         android:id="@+id/onBoardingScreen2_splashScreen_image_iv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:src="@drawable/zaria_boy"
-        android:scaleType="fitXY"
+        android:layout_marginBottom="32dp"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/zaria_boy"
+        app:layout_constraintBottom_toTopOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!--End Image Section-->
-
-<!--    Start Header Text Section-->
-    <!--    End Header Text-->
 
     <TextView
         android:id="@+id/onBoardingScreen2_Fragment_headerText_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="37dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/titillium_web_bold"
         android:text="@string/screen1_header_str"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/onBoardingScreen2_subTitleText_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen2_splashScreen_image_iv" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/onBoardingScreen2_subTitleText_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAlignment="textStart"
+        android:layout_marginBottom="16dp"
         android:text="@string/screen1_subText_str"
-        android:textSize="14sp"
+        android:textAlignment="textStart"
         android:textColor="@color/colorTextPrimary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
-        app:layout_constraintStart_toStartOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
-        app:layout_constraintTop_toBottomOf="@id/onBoardingScreen2_Fragment_headerText_tv" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/onBoardingScreen2_Fragment_headerText_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

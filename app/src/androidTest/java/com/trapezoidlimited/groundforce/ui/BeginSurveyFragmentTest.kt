@@ -2,16 +2,13 @@ package com.trapezoidlimited.groundforce.ui
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.ViewAssertion
 import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.trapezoidlimited.groundforce.R
-import org.junit.Assert.*
+import com.trapezoidlimited.groundforce.ui.dashboard.survey.BeginSurveyFragment
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.regex.Pattern.matches
 
 //@RunWith(AndroidJUnit4::class)
 //class PhoneVerificationFragmentTest{

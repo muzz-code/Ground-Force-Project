@@ -25,6 +25,16 @@ fun Fragment.hideStatusBar(){
     activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
     activity?.actionBar?.hide()
 }
+
+
+fun Fragment.setVisibility(view: View) {
+    view.visibility = View.VISIBLE
+}
+
+fun Fragment.setInVisibility(view: View) {
+    view.visibility = View.GONE
+}
+
 /*
 fun Fragment.hideStatusBar(){
     // Enables regular immersive mode.

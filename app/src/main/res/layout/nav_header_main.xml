@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorBgSecondary">
 
     <ImageView
         android:id="@+id/agent_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/agent_icon"
-        android:layout_marginTop="48dp"
         android:layout_marginStart="17dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/agent_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,16 +30,23 @@
 
     <Button
         android:id="@+id/agentDashboardFragment_drawer_header_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
-        android:layout_height="41dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="openProfile"
+        android:padding="16dp"
         android:text="@string/agentDashboard_view_profile"
         android:textColor="@color/colorTextSecondary"
         android:textSize="14sp"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/dashboard_btn"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/agentDashboardframent_user_name_tv"
         app:layout_constraintStart_toStartOf="@id/agent_icon"
-        app:layout_constraintEnd_toEndOf="@id/agentDashboardframent_user_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/agent_icon"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="@android:color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

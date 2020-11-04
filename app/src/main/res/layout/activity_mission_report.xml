@@ -6,29 +6,37 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     android:background="@color/colorTextSecondary"
-    tools:context=".ui.MissionReportActivity">
+    tools:context=".ui.dashboard.MissionReportActivity">
 
     <!--    Tool bar -->
-    <include
-        android:id="@+id/activity_mission_report_ic"
-        layout="@layout/mission_report_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/fragment_mission_report_tool_bar_ll"
+        style="@style/customToolBarContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/fragment_mission_report_back_arrow_iv"
+            style="@style/customToolBackBAckArrow" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/customToolBarTitle"
+            android:text="Mission Report" />
+    </LinearLayout>
 
     <!-- scroll view-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/activity_mission_report_nsv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_mission_report_ic"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_mission_report_tool_bar_ll"
         app:layout_constraintVertical_bias="1.0">
 
         <!--        main container-->
@@ -48,7 +56,7 @@
                 android:text="@string/mission_report_intro_str"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
@@ -71,8 +79,8 @@
                 android:id="@+id/activity_mission_report_first_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="20dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -92,7 +100,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -106,7 +114,7 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -127,7 +135,7 @@
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_one_rb"
@@ -139,7 +147,7 @@
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -148,13 +156,14 @@
                 android:id="@+id/activity_mission_report_second_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="21dp"
-                android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
+                android:background="@drawable/mission_question_selector"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/mission_question_selector"
                 android:orientation="vertical"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_first_ll">
@@ -170,7 +179,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -184,7 +193,7 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -204,7 +213,7 @@
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_two_rb"
@@ -216,7 +225,7 @@
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -225,8 +234,8 @@
                 android:id="@+id/activity_mission_report_third_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="21dp"
                 android:layout_marginEnd="20dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -246,7 +255,7 @@
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -260,14 +269,14 @@
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:textStyle="normal" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="14dp"
                     android:orientation="vertical">
 
                     <RadioButton
@@ -280,7 +289,7 @@
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_three_rb"
@@ -292,7 +301,7 @@
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -305,9 +314,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/colorMission"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_third_ll"
+                app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintEnd_toEndOf="@id/container"/>
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_third_ll" />
 
             <!--            nearest landmark edit text-->
             <com.google.android.material.textfield.TextInputLayout
@@ -315,30 +324,29 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/nearest_landmark_str"
-                app:expandedHintEnabled="false"
                 android:textColorHint="@color/colorTextPrimary"
                 android:textStyle="bold"
-                app:placeholderText="@string/landmark_hint_str"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
+                app:expandedHintEnabled="false"
                 app:hintTextColor="@color/colorPrimary"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_line2_v"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                >
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_line2_v"
+                app:placeholderText="@string/landmark_hint_str">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_mission_report_landmark_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColorHint="@color/colorMission"
                     android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -349,21 +357,20 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/nearest_bus_stop_str"
-                app:expandedHintEnabled="false"
                 android:textColorHint="@color/colorTextPrimary"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
+                app:expandedHintEnabled="false"
                 app:hintTextColor="@color/colorPrimary"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_landmark_til"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                >
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_landmark_til">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_mission_report_busstop_et"
@@ -380,30 +387,29 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/type_of_structure_str"
-                app:placeholderText="@string/label_str"
-                app:expandedHintEnabled="false"
                 android:textColorHint="@color/colorTextPrimary"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
+                app:expandedHintEnabled="false"
                 app:hintTextColor="@color/colorPrimary"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_busstop_til"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                >
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_busstop_til"
+                app:placeholderText="@string/label_str">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_mission_report_structure_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColorHint="@color/colorMission"
                     android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -413,31 +419,30 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="26dp"
+                android:enabled="false"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/absolute_coordinates_str"
-                app:placeholderText="@string/coord_str"
-                app:expandedHintEnabled="false"
                 android:textColorHint="@color/colorTextPrimary"
                 android:textStyle="bold"
-                android:enabled="false"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
+                app:expandedHintEnabled="false"
                 app:hintTextColor="@color/colorPrimary"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_structure_til"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                >
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_structure_til"
+                app:placeholderText="@string/coord_str">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_mission_report_coord_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColorHint="@color/colorMission"
                     android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -447,31 +452,30 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
-                android:textColorHint="@color/colorMission"
                 android:hint=""
-                app:expandedHintEnabled="false"
-                app:placeholderText="@string/additional_comments_str"
+                android:maxHeight="100dp"
+                android:textColorHint="@color/colorMission"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
+                app:expandedHintEnabled="false"
                 app:hintTextColor="@color/colorPrimary"
-                android:maxHeight="100dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="26dp"
-                android:layout_marginEnd="26dp"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_coord_til"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                >
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_coord_til"
+                app:placeholderText="@string/additional_comments_str">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/activity_mission_report_comments_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColorHint="@color/colorMission"
                     android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -481,34 +485,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/common_margin_dim"
-                android:layout_marginRight="@dimen/common_margin_dim"
                 android:layout_marginTop="21dp"
+                android:layout_marginRight="@dimen/common_margin_dim"
                 android:background="@drawable/btn_primary_shapes"
                 android:text="@string/submit_str"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/colorTextSecondary"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintEnd_toEndOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til"/>
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til" />
 
             <!--            cancel button-->
             <TextView
                 android:id="@+id/activity_mission_report_cancel_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel_str"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:fontFamily="@font/roboto"
                 android:layout_marginTop="21dp"
                 android:layout_marginBottom="21dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/cancel_str"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_submit_btn"/>
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_submit_btn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

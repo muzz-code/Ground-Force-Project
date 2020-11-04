@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/second_screen_root_cl"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.onboarding.OnBoardingScreen3Fragment">
 
     <ImageView
         android:id="@+id/second_screen_abj_girl_iv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
+        android:layout_marginBottom="32dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
         android:src="@drawable/abj_girl"
+        app:layout_constraintBottom_toTopOf="@+id/second_screen_get_things_done_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,29 +26,29 @@
         android:id="@+id/second_screen_get_things_done_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="37dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/titillium_web_bold"
         android:text="@string/get_things_done_str"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/second_screen_distance_not_barrier_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second_screen_abj_girl_iv" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/second_screen_distance_not_barrier_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorTextPrimary"
+        android:layout_marginBottom="16dp"
         android:text="@string/distance_is_not_a_barrier_str"
         android:textAlignment="textStart"
+        android:textColor="@color/colorTextPrimary"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/second_screen_get_things_done_tv"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/second_screen_get_things_done_tv"
-        app:layout_constraintTop_toBottomOf="@+id/second_screen_get_things_done_tv" />
+        app:layout_constraintStart_toStartOf="@+id/second_screen_get_things_done_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

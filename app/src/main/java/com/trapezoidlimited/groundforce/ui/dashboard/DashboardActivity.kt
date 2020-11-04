@@ -1,15 +1,14 @@
-package com.trapezoidlimited.groundforce.ui.main
+package com.trapezoidlimited.groundforce.ui.dashboard
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.Navigation
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
@@ -21,7 +20,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_dashboard)
+
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -31,37 +30,40 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         drawerLayout = binding.drawer
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-
-        NavigationUI.setupWithNavController(binding.agentDashboardNavigationView, navController)
+        //Bottom Navigation with Menu
+        val bottomNavigator: BottomNavigationView = binding.dashboardActivityBnv
+        bottomNavigator.setOnNavigationItemSelectedListener(navListener)
+    }
 
     /**navigating between different fragment in the bottom navigation**/
-        binding.dashboardActivityBnv.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+
+    private var navListener: BottomNavigationView.OnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener {
+            var fragment = 0
+            when (it.itemId) {
                 R.id.agentDashboard_more_bn -> {
                     drawerLayout.openDrawer(binding.agentDashboardNavigationView)
-                    true
                 }
-                R.id.agentDashboard_notification ->{
+                R.id.agentDashboard_notification -> {
                     Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show()
-                    true
+                    fragment = R.id.agentDashboardFragment
                 }
-                R.id.agentDashboard_home ->{
+                R.id.agentDashboard_home -> {
+                    fragment = R.id.agentDashboardFragment
                     Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
-                    true
                 }
                 else -> {
-                    false
+                    fragment = R.id.agentDashboardFragment
                 }
             }
+
+            if (fragment != 0) {
+                Navigation.findNavController(this, R.id.dashboard_activity_nhf).navigate(fragment)
+            }
+            true
+
         }
 
-        //        Navigate to Driver home on Back Press
-        onBackPressedDispatcher.addCallback {
-           finish()
-        }
-    }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
@@ -88,5 +90,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         return true
     }
 
+
+    //If Drawer is open, close it on back button pressed
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
+    //OnClick Listener on View Profile
+    fun openProfile(view: View) {
+        drawer.closeDrawer(GravityCompat.START)
+        Navigation.findNavController(this, R.id.dashboard_activity_nhf)
+            .navigate(R.id.userProfileFragment)
+    }
 
 }
