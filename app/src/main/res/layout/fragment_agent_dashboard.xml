@@ -280,6 +280,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="18sp"
                     android:text="@string/agentDashboard_mission_completed_str"
                     style="@style/TextPrimaryLargeText"/>
 
@@ -325,6 +327,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="18sp"
                     android:text="@string/agentDashboard_survey_completed_str"
                     style="@style/TextPrimaryLargeText"/>
 
@@ -367,7 +371,6 @@
                     android:text="@string/badge_number_six"
                     style="@style/TextSecondaryExtraSmallText" />
             </androidx.cardview.widget.CardView>
-
 
 
             <androidx.cardview.widget.CardView

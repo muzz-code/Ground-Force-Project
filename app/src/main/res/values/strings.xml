@@ -135,11 +135,11 @@
     <string name="agentDashboard_survey_str">Surveys</string>
     <string name="agentDashboard_active_str">Active</string>
     <string name="agentDashboard_activity_str">Activity</string>
-    <string name="agentDashboard_mission_completed_str">Missions \nCompleted</string>
+    <string name="agentDashboard_mission_completed_str">Missions Completed</string>
     <string name="agentDashboard_mission_completed_num_str">2</string>
     <string name="agentDashboard_view_details_str">View Details</string>
     <string name="agentDashboard_mission_survey_num_str">5</string>
-    <string name="agentDashboard_survey_completed_str">Surveys \nCompleted</string>
+    <string name="agentDashboard_survey_completed_str">Surveys Completed</string>
     <string name="agentDashboard_user_name">Kehinde Oladimeji</string>
     <string name="agentDashboard_view_profile">View Profile</string>
     <string name="agentDashboard_home_str">Home</string>

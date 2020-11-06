@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
+import com.trapezoidlimited.groundforce.data.PaymentData
 import com.trapezoidlimited.groundforce.data.SurveyData
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 import com.trapezoidlimited.groundforce.model.mission.OngoingItem
@@ -97,5 +98,12 @@ object DummyData {
         )
     )
 
+
+    var paymentList = mutableListOf<PaymentData>(
+        PaymentData(100, "You received NGN 100 ", "13 Sept, 2020"),
+        PaymentData(200, "You received NGN 200 ", "14 Sept, 2020"),
+        PaymentData(300, "You received NGN 300 ", "15 Sept, 2020"),
+        PaymentData(400, "You received NGN 400 ", "16 Sept, 2020")
+    )
 
 }
