@@ -47,19 +47,13 @@ class AgentDashboardFragment : Fragment() {
             findNavController().navigate(R.id.tasksFragment)
         }
 
-
-
         binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
             findNavController().navigate(R.id.paymentHistory)
         }
 
-
-
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
             findNavController().navigate(R.id.historyFragment)
         }
-
-
     }
 
 

@@ -68,8 +68,7 @@
                         android:layout_marginTop="17dp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/agentDashboard_name_str"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp"
+                        style="@style/TextSecondarySmallText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                     <!--End Name-->
@@ -82,8 +81,7 @@
                         android:layout_marginEnd="17dp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/agentDashboard_date_str"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp"
+                        style="@style/TextSecondarySmallText"
                         app:layout_constraintBottom_toBottomOf="@+id/agentDashboardFragment_name_tv"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/agentDashboardFragment_name_tv" />
@@ -97,8 +95,7 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="@font/roboto_bold"
                         android:text="@string/agentDashboard_totalearning_str"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp"
+                        style="@style/TextSecondarySmallText"
                         app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
                         app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
                         app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_name_tv" />
@@ -110,8 +107,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_bold"
                         android:text="@string/agentDashboard_amount_str"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="30sp"
+                        style="@style/TextSecondaryLargeText"
                         app:layout_constraintEnd_toEndOf="@id/agentDashboardFragment_total_earning_tv"
                         app:layout_constraintStart_toStartOf="@id/agentDashboardFragment_total_earning_tv"
                         app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_total_earning_tv" />
@@ -123,8 +119,7 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/roboto"
                         android:text="@string/agentDashboard_next_pay_day_str"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="12sp"
+                        style="@style/TextSecondaryMiniSmallText"
                         app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_sum_tv"
                         app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_sum_tv"
                         app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_sum_tv" />
@@ -140,7 +135,7 @@
                         android:text="@string/agentDashboard_details_str"
                         android:textAllCaps="false"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/small_text"
                         app:cornerRadius="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
@@ -160,8 +155,7 @@
                 android:layout_marginTop="22dp"
                 android:fontFamily="@font/titillium_web_bold"
                 android:text="@string/agentDashboard_tasks_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp"
+                style="@style/TextPrimaryMediumText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_summary_container_cv" />
 
@@ -186,8 +180,7 @@
                 android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/agentDashboard_mission_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="12sp"
+                style="@style/TextPrimaryExtraSmallText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib" />
 
@@ -213,8 +206,7 @@
                 android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/agentDashboard_survey_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="12sp"
+                style="@style/TextPrimaryExtraSmallText"
                 app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_surveys_button_ib"
                 app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_surveys_button_ib"
                 app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib" />
@@ -242,8 +234,7 @@
                 android:layout_marginTop="6dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/agentDashboard_active_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="12sp"
+                style="@style/TextPrimaryExtraSmallText"
                 app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_active_button_ib"
                 app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_active_button_ib"
                 app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_active_button_ib" />
@@ -267,8 +258,7 @@
                 android:layout_marginTop="11dp"
                 android:fontFamily="@font/titillium_web_bold"
                 android:text="@string/agentDashboard_activity_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp"
+                style="@style/TextPrimaryMediumText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_divider_v" />
 
@@ -290,9 +280,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Missions \nCompleted"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@string/agentDashboard_mission_completed_str"
+                    style="@style/TextPrimaryLargeText"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -302,8 +293,7 @@
                     android:layout_marginEnd="31dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/agentDashboard_mission_completed_num_str"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="36sp" />
+                    style="@style/TextPrimarySuperLargeText"/>
 
                 <TextView
                     android:id="@+id/fragment_agent_view_details_tv"
@@ -314,8 +304,7 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/agentDashboard_view_details_str"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    style="@style/PrimaryDarkGreenExtraSmallText"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -338,9 +327,10 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Surveys \nCompleted"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@string/agentDashboard_survey_completed_str"
+                    style="@style/TextPrimaryLargeText"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -350,8 +340,7 @@
                     android:layout_marginEnd="31dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/agentDashboard_mission_survey_num_str"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="36sp" />
+                    style="@style/TextPrimarySuperLargeText"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -361,8 +350,7 @@
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/agentDashboard_view_details_str"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    style="@style/PrimaryDarkGreenExtraSmallText"/>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -380,8 +368,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="6"
-                    android:textColor="#FFFFFF" />
+                    android:text="@string/badge_number_six"
+                    style="@style/TextSecondaryExtraSmallText" />
             </androidx.cardview.widget.CardView>
 
 
@@ -400,8 +388,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="4"
-                    android:textColor="#FFFFFF" />
+                    android:text="@string/badge_number_four"
+                    style="@style/TextSecondaryExtraSmallText" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -419,8 +407,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="2"
-                    android:textColor="#FFFFFF" />
+                    android:text="@string/badge_number_two"
+                    style="@style/TextSecondaryExtraSmallText"/>
             </androidx.cardview.widget.CardView>
 
 

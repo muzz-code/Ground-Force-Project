@@ -50,19 +50,31 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
        // return inflater.inflate(R.layout.fragment_create_profile_one, container, false)
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+
+
+    /** onActivityCreated **/
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
+
         /** Array adapter for spinner drop down for sex **/
-       ArrayAdapter.createFromResource(
-           requireContext(),
-           R.array.sex,
-           android.R.layout.simple_spinner_item
-       ).also {sexAdapter ->
-           // Specify the layout to use when the list of choices appears
-           sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-           // Apply the adapter to the spinner
-           binding.fragmentCreateProfileOneGenderSp.adapter = sexAdapter
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.sex,
+            android.R.layout.simple_spinner_item
+        ).also {sexAdapter ->
+            // Specify the layout to use when the list of choices appears
+            sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.fragmentCreateProfileOneGenderSp.adapter = sexAdapter
 
 
-       }
+        }
 
         /** Array adapter for spinner drop down for religion **/
         ArrayAdapter.createFromResource(
@@ -88,29 +100,6 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             findNavController().navigate(R.id.createProfileFragmentTwo)
         }
 
-        return binding.root
-    }
-
-
-    override fun onDestroy() {
-        _binding=null
-        super.onDestroy()
-    }
-
-    /** on spinner item selected get item position override method**/
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        parent?.getItemAtPosition(position)
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
-
-    /** onActivityCreated **/
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         val dateButton = binding.fragmentCreateProfileOneDateBirthEt
 
@@ -214,6 +203,21 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         )
         dialog.show()
 
+    }
+
+
+    /** on spinner item selected get item position override method**/
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        parent?.getItemAtPosition(position)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDestroy() {
+        _binding=null
+        super.onDestroy()
     }
 
 }

@@ -27,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="@string/mission_address_title_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="18sp"
+                style="@style/TextPrimaryLargeText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +39,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/mission_address_sub_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="16sp"
+                style="@style/TextPrimaryMediumText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ongoing_location_title_tv" />
 
@@ -52,8 +50,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/ongoing_verify_btn_str"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
+                style="@style/PrimaryGreenSmallText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ongoing_location_subtitle_tv"
