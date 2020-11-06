@@ -74,7 +74,7 @@
         android:layout_marginTop="21.88dp"
         android:textSize="@dimen/extra_small_text"
         android:text="@string/first_name_str"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@color/colorGreyTextPrimaryDark"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_basic_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_basic_tv" />
 
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTextVerify"
+        android:backgroundTint="@color/colorGreyTextPrimaryDark"
         android:inputType="text"
         android:textSize="@dimen/small_text"
         android:paddingStart="16dp"
@@ -105,7 +105,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/last_name_str"
         android:textSize="@dimen/small_text"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@color/colorGreyTextPrimaryDark"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_et" />
 
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTextVerify"
+        android:backgroundTint="@color/colorGreyTextPrimaryDark"
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -134,7 +134,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/date_of_birth_str"
         android:textSize="@dimen/extra_small_text"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@color/colorGreyTextPrimaryDark"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_et" />
 
@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTextVerify"
+        android:backgroundTint="@color/colorGreyTextPrimaryDark"
         android:drawableEnd="@drawable/calender_asset"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -163,7 +163,7 @@
         android:layout_marginTop="26dp"
         android:text="@string/gender_str"
         android:textSize="@dimen/extra_small_text"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@color/colorGreyTextPrimaryDark"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
 
@@ -175,7 +175,7 @@
         android:layout_marginStart="37dp"
         android:layout_marginEnd="128dp"
         android:text="@string/religion_str"
-        android:textColor="@color/colorTextVerify"
+        android:textColor="@color/colorGreyTextPrimaryDark"
         android:textSize="@dimen/extra_small_text"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_gender_tv"
         app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_et"

@@ -22,8 +22,7 @@
         android:layout_marginStart="9dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/agentDashboard_user_name"
-        android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/header_text"
+        style="@style/TextSecondaryHeaderText"
         app:layout_constraintBottom_toBottomOf="@+id/agent_icon"
         app:layout_constraintStart_toEndOf="@id/agent_icon"
         app:layout_constraintTop_toTopOf="@id/agent_icon" />
