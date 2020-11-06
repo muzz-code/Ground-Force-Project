@@ -8,23 +8,17 @@
     android:background="@color/colorTextSecondary"
     tools:context=".ui.dashboard.MissionReportActivity">
 
-    <!--    Tool bar -->
-    <LinearLayout
+
+    <!--    Include to tool bar -->
+    <include
         android:id="@+id/fragment_mission_report_tool_bar_ll"
-        style="@style/customToolBarContainer"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/fragment_mission_report_back_arrow_iv"
-            style="@style/customToolBackBAckArrow" />
-
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/customToolBarTitle"
-            android:text="@string/mission_report_str" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- scroll view-->
     <androidx.core.widget.NestedScrollView

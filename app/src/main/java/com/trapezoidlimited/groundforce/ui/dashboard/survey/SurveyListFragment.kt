@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.SurveyRecyclerAdapter
-import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentSurveyListBinding
 import com.trapezoidlimited.groundforce.utils.DummyData
 
@@ -28,6 +26,11 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSurveyListBinding.inflate(inflater, container, false)
+        /** setting toolbar text **/
+        binding.fragmentSurveyListToolbar.toolbarTitle.text = getString(R.string.surveys_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentSurveyListToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
         return binding.root
     }
@@ -35,7 +38,10 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.fragmentMissionReportBackArrowIv.setOnClickListener {
+
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentSurveyListToolbar.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

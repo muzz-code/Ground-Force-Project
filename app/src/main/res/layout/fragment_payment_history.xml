@@ -6,16 +6,22 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.PaymentHistory" >
 
-    <LinearLayout style="@style/customToolBarContainer">
-        <ImageView
-            android:id="@+id/fragment_payment_history_back_arrow_iv"
-            style="@style/customToolBackBAckArrow" />
+<!--    <LinearLayout style="@style/customToolBarContainer">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/fragment_payment_history_back_arrow_iv"-->
+<!--            style="@style/customToolBackBAckArrow" />-->
 
-        <TextView
-            android:text="Payment History"
-            style="@style/customToolBarTitle"
-            />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:text="Payment History"-->
+<!--            style="@style/customToolBarTitle"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+    <include
+        android:id="@+id/fragment_primary_history_toolbar"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

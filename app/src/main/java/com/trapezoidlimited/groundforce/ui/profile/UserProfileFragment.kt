@@ -38,6 +38,18 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // return inflater.inflate(R.layout.fragment_user_profile, container, false)
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         /** Array adapter for spinner drop down for sex **/
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -70,10 +82,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /** listener for religion option **/
         binding.fragmentUserProfileReligiousSp.onItemSelectedListener = this
 
-        // navigate back to the previous screen
-        binding.fragmentUserProfileBackArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         binding.fragmentUserProfileFirstNamePlaceholderEt.isEnabled = false
         binding.fragmentUserProfileLastNamePlaceholderEt.isEnabled = false

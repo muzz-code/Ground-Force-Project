@@ -11,29 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.auth.PhoneVerificationFragment">
-        <!--Tool bar arrow-->
-        <ImageView
-            android:id="@+id/phone_activ_arrow_back_iv"
-            android:layout_width="wrap_content"
+        <!--    Tool bar -->
+        <include
+            android:id="@+id/fragment_phone_verification_tb"
+            layout="@layout/toolbar_transparent_fragment"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_dim"
-            android:layout_marginTop="30dp"
-            android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
-            android:src="@drawable/ic_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/colorTextPrimary" />
-        <!--Tool bar title-->
-        <TextView
-            android:id="@+id/phone_verif_app_bar_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/titillium_web_bold"
-            android:text="@string/phone_verif_phone_activation_str"
-            android:textAlignment="center"
-            style="@style/TextPrimaryHeaderText"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <!--Phone image-->
@@ -49,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_verif_app_bar_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_phone_verification_tb"
             app:tint="#32AEBA" />
 
         <TextView

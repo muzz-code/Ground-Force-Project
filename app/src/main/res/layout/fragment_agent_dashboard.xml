@@ -7,19 +7,17 @@
     android:background="@color/colorTextSecondary"
     tools:context=".ui.dashboard.AgentDashboardFragment">
 
-    <LinearLayout
-        android:id="@+id/dashboard_tool_bar_ly"
-        style="@style/customToolBarContainer"
-        android:paddingLeft="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/dashboard_title_tv"
-            style="@style/customToolBarTitle"
-            android:text="@string/agentDashboard_page_title_str" />
-    </LinearLayout>
+    <!--    Tool bar -->
+    <include
+        android:id="@+id/dashboard_tool_bar_ly"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ScrollView

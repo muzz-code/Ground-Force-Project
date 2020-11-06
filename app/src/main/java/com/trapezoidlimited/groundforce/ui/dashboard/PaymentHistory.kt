@@ -11,10 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
-import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentPaymentHistoryBinding
-import com.trapezoidlimited.groundforce.ui.dashboard.mission.MissionFragment
-import com.trapezoidlimited.groundforce.ui.dashboard.mission.OngoingFragment
 
 class PaymentHistory : Fragment() {
 
@@ -31,11 +28,22 @@ class PaymentHistory : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentPaymentHistoryBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentPrimaryHistoryToolbar.toolbarTitle.text = getString(R.string.payment_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentPrimaryHistoryToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentPrimaryHistoryToolbar.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         paymentHistoryTabLayout = binding.fragmentPaymentHistoryTabLayout
         paymentHistoryViewPager = binding.fragmentPaymentHistoryViewPager
@@ -66,9 +74,7 @@ class PaymentHistory : Fragment() {
             }
         }.attach()
 
-        binding.fragmentPaymentHistoryBackArrowIv.setOnClickListener {
-            findNavController().popBackStack()
-        }
+
     }
 
 

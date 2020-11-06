@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.utils.showStatusBar
@@ -31,6 +29,13 @@ class PhoneVerificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhoneVerificationBinding.inflate(inflater, container, false)
+
+        /** setting toolbar text **/
+        binding.fragmentPhoneVerificationTb.toolbarTitle.text = getString(R.string.phone_verification_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentPhoneVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
 
         /**show status bar**/
         showStatusBar()
@@ -67,8 +72,9 @@ class PhoneVerificationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //Go to previous screen
-        binding.phoneActivArrowBackIv.setOnClickListener {
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentPhoneVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

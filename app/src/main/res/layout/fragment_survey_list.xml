@@ -7,17 +7,24 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.survey.SurveyListFragment">
 
-    <LinearLayout style="@style/customToolBarContainer">
-        <ImageView
-            android:id="@+id/fragment_mission_report_back_arrow_iv"
-            style="@style/customToolBackBAckArrow" />
+<!--    <LinearLayout style="@style/customToolBarContainer">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/fragment_mission_report_back_arrow_iv"-->
+<!--            style="@style/customToolBackBAckArrow" />-->
 
-        <TextView
-            android:id="@+id/textView2"
-            android:text="Surveys"
-            style="@style/customToolBarTitle"
-       />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/textView2"-->
+<!--            android:text="Surveys"-->
+<!--            style="@style/customToolBarTitle"-->
+<!--       />-->
+<!--    </LinearLayout>-->
+
+    <include
+        android:id="@+id/fragment_survey_list_toolbar"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

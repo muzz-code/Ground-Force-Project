@@ -36,6 +36,18 @@ class PhoneActivationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentPhoneActivationTb.toolbarTitle.text = getString(R.string.phone_activation_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         /**show status bar**/
         showStatusBar()
         val view = binding.root
@@ -90,10 +102,6 @@ class PhoneActivationFragment : Fragment() {
         val phoneEditText = binding.phoneActivPhoneNoEt
         val userPhoneNumber = phoneEditText.text.toString()
 
-        //Go to previous screen
-        binding.phoneActivArrowBackIv.setOnClickListener {
-           findNavController().navigate(R.id.landingFragment)
-        }
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
         }

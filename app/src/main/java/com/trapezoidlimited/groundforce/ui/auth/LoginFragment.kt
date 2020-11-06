@@ -57,6 +57,15 @@ class LoginFragment : Fragment() {
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+
+
+
         /**Hide status bar**/
         hideStatusBar()
 
@@ -124,11 +133,11 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        /**move to previous screen**/
-        binding.loginArrowBackIv.setOnClickListener {
-            findNavController().navigate(R.id.landingFragment)
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
+
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }

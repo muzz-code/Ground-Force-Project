@@ -28,10 +28,17 @@ class MissionReportActivity : AppCompatActivity() {
 
         binding.activityMissionReportGroup1Rg.checkedRadioButtonId
 
-        //Back Arrow
-        binding.fragmentMissionReportBackArrowIv.setOnClickListener {
+        /** setting toolbar text **/
+        binding.fragmentMissionReportToolBarLl.toolbarTitle.text = getString(R.string.mission_report_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentMissionReportToolBarLl.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentMissionReportToolBarLl.toolbarFragment.setNavigationOnClickListener {
             finish()
         }
+
 
         /***save mission report**/
         binding.activityMissionReportSubmitBtn.setOnClickListener {
