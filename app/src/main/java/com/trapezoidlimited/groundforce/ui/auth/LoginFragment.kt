@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
         binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
 
         /** set navigation arrow from drawable **/
-        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
 
 

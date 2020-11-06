@@ -60,8 +60,11 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
         /** setting toolbar text **/
         binding.fragmentLocationVerificationTb.toolbarTitle.text = getString(R.string.location_verification_title_str)
 
+        binding.fragmentLocationVerificationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorTextSecondary))
+
         /** set navigation arrow from drawable **/
-        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+
 
 
         return binding.root

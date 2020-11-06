@@ -40,9 +40,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** setting toolbar text **/
         binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
+        binding.fragmentUserProfileTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorTextSecondary))
 
         /** set navigation arrow from drawable **/
-        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
