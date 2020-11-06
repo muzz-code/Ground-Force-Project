@@ -37,22 +37,22 @@
 
 
 <!-- Image view button -->
-    <ImageView
+
+    <!--  Basic text   -->
+
+    <ImageButton
         android:id="@+id/fragment_create_profile_one_ib"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/transparent"
         android:elevation="2dp"
         android:src="@drawable/ic_add_picture"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_ic"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_iv"
-        app:layout_constraintHorizontal_bias="0.89"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_iv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_iv"
-        app:layout_constraintVertical_bias="0.20999998" />
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintStart_toStartOf="parent" />
 
-<!--  Basic text   -->
     <TextView
         android:id="@+id/fragment_create_profile_one_basic_tv"
         android:layout_width="wrap_content"
