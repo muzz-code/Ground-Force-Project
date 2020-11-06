@@ -213,6 +213,15 @@
     <string name="mission_address_str">10 Aremo Adesegun Oniru Crescent</string>
     <string name="mission_address_city_str">Makoko, Eti-Osa</string>
     <string name="history_title_bar_str">History</string>
+    <string name="july_20th_2020_str">July 20th, 2020</string>
+    <string name="single_survey_comment_str">This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos...</string>
+    <string name="you_are_almost_done_str">You are almost Done</string>
+    <string name="create_pin_sentence_str">Create a pin to keep your app safe. You can change this anytime in the app.</string>
+    <string name="badge_number_six">6</string>
+    <string name="badge_number_four">4</string>
+    <string name="badge_number_two">2</string>
+    <string name="surveys_str">Surveys</string>
+    <string name="mission_report_str">Mission Report</string>
 </resources>
 
 

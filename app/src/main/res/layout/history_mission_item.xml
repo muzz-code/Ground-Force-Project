@@ -27,9 +27,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="@string/mission_address_city_str"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
                 android:textStyle="bold"
+                style="@style/PrimaryGreenLargeText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,8 +41,7 @@
                 android:fontFamily="@font/roboto"
                 android:textStyle="bold"
                 android:text="@string/mission_address_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="14sp"
+                style="@style/TextPrimarySmallText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_mission_location_title_tv" />
 
@@ -54,8 +52,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/mission_date_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="12sp"
+                style="@style/TextPrimaryExtraSmallText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_mission_location_subtitle_tv" />
 
@@ -66,8 +63,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/verified_str"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"
+                style="@style/PrimaryGreenExtraSmallText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_mission_date_tv" />

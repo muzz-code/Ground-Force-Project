@@ -27,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:text="@string/human_resource_survey_2020_str"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                style="@style/PrimaryGreenLargeText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,8 +40,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/survey_comment_str"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="14sp"
+                style="@style/TextPrimarySmallText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_survey_location_title_tv" />
 
@@ -54,8 +52,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/completed_str"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"
+                style="@style/PrimaryGreenExtraSmallText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/history_survey_location_comment_tv" />

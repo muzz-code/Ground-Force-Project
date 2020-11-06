@@ -5,8 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorTextPrimary">#000000</color>
     <color name="colorTextSecondary">#ffffff</color>
-    <color name="colorTransparent">#29FFFFFF</color>
-    <color name="colorTextVerify">#363636</color>
+    <color name="colorGreyTextPrimary">#29FFFFFF</color>
+    <color name="colorGreyTextPrimaryDark">#363636</color>
     <color name="colorTextDidntGetText">#232323</color>
     <color name="colorTextResend">#3867B0</color>
     <color name="colorTextPhoneNumber">#1C1C1C</color>
