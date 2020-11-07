@@ -135,11 +135,11 @@
     <string name="agentDashboard_survey_str">Surveys</string>
     <string name="agentDashboard_active_str">Active</string>
     <string name="agentDashboard_activity_str">Activity</string>
-    <string name="agentDashboard_mission_completed_str">Missions \nCompleted</string>
+    <string name="agentDashboard_mission_completed_str">Missions Completed</string>
     <string name="agentDashboard_mission_completed_num_str">2</string>
     <string name="agentDashboard_view_details_str">View Details</string>
     <string name="agentDashboard_mission_survey_num_str">5</string>
-    <string name="agentDashboard_survey_completed_str">Surveys \nCompleted</string>
+    <string name="agentDashboard_survey_completed_str">Surveys Completed</string>
     <string name="agentDashboard_user_name">Kehinde Oladimeji</string>
     <string name="agentDashboard_view_profile">View Profile</string>
     <string name="agentDashboard_home_str">Home</string>
@@ -203,6 +203,7 @@
     <string name="reset">Reset</string>
 
 
+
     <!--    location verified dialog fragment-->
     <string name="location_verified_dialog_ok_str">OK</string>
     <string name="location_verified_dialog_congratulations_str">Congratulations</string>
@@ -211,6 +212,29 @@
     <string name="settings">Settings</string>
     <string name="verification_result_page_congratulations_str">Congratulations</string>
     <string name="verification_result_page_success_str">Success!</string>
+
+    <string name="no_missions_available_str">No Missions Available</string>
+    <string name="no_missions_available_two_str">We\'ll let you know when something comes up.</string>
+    <string name="looks_clear_here_str">Looks Clear Here</string>
+    <string name="well_done_champ_str">Well done champ!</string>
+    <string name="human_resource_survey_2020_str">Human Resource Survey 2020</string>
+    <string name="survey_comment_str">This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos...</string>
+    <string name="completed_str">Completed</string>
+    <string name="verified_str">Verified</string>
+    <string name="mission_date_str">6 Sept, 2020</string>
+    <string name="mission_address_str">10 Aremo Adesegun Oniru Crescent</string>
+    <string name="mission_address_city_str">Makoko, Eti-Osa</string>
+    <string name="history_title_bar_str">History</string>
+    <string name="july_20th_2020_str">July 20th, 2020</string>
+    <string name="single_survey_comment_str">This survey is to capture the opinions of Nigerian low level employees in the lorem ipsum dolor sit abet duos...</string>
+    <string name="you_are_almost_done_str">You are almost Done</string>
+    <string name="create_pin_sentence_str">Create a pin to keep your app safe. You can change this anytime in the app.</string>
+    <string name="badge_number_six">6</string>
+    <string name="badge_number_four">4</string>
+    <string name="badge_number_two">2</string>
+    <string name="surveys_str">Surveys</string>
+    <string name="mission_report_str">Mission Report</string>
+
 </resources>
 
 

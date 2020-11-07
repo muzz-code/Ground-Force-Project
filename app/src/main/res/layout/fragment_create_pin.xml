@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="Create Pin"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="@dimen/header_text" />
 
         <TextView
             android:id="@+id/fragment_reset_password_title_tv"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/titillium_web_bold"
-            android:text="You are almost Done"
+            android:text="@string/you_are_almost_done_str"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="30sp" />
@@ -68,10 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:text="Create a pin to keep your app safe. You can change this anytime in the app."
+            android:text="@string/create_pin_sentence_str"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="@dimen/small_text" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                     android:elevation="10dp"
                     android:text="@string/_1"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -111,7 +111,7 @@
                     android:elevation="10dp"
                     android:text="@string/_2"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_1"
                     app:layout_constraintEnd_toStartOf="@+id/forgot_password_push_button_3"
                     app:layout_constraintStart_toEndOf="@+id/forgot_password_push_button_1"
@@ -127,7 +127,7 @@
                     android:elevation="10dp"
                     android:text="@string/_3"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/forgot_password_push_button_2" />
@@ -148,7 +148,7 @@
                     android:elevation="10dp"
                     android:text="@string/_4"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -161,7 +161,7 @@
                     android:elevation="10dp"
                     android:text="@string/_5"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_4"
                     app:layout_constraintEnd_toStartOf="@+id/forgot_password_push_button_6"
                     app:layout_constraintStart_toEndOf="@+id/forgot_password_push_button_4"
@@ -176,7 +176,7 @@
                     android:elevation="10dp"
                     android:text="@string/_6"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/forgot_password_push_button_5" />
@@ -197,7 +197,7 @@
                     android:elevation="10dp"
                     android:text="@string/_7"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -210,7 +210,7 @@
                     android:elevation="10dp"
                     android:text="@string/_8"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_7"
                     app:layout_constraintEnd_toStartOf="@+id/forgot_password_push_button_9"
                     app:layout_constraintStart_toEndOf="@+id/forgot_password_push_button_7"
@@ -225,7 +225,7 @@
                     android:elevation="10dp"
                     android:text="@string/_9"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="@+id/forgot_password_push_button_8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/forgot_password_push_button_8" />
@@ -247,7 +247,7 @@
                     android:elevation="10dp"
                     android:text="@string/_0"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -261,7 +261,7 @@
                     android:layout_marginStart="28dp"
                     android:text="@string/forgot"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/large_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -269,8 +269,8 @@
 
                 <ImageView
                     android:id="@+id/forgot_password__delete_iv"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginEnd="40dp"
                     android:src="@drawable/ic_arrow_back"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -293,7 +293,7 @@
                 android:text="Confirm"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textSize="@dimen/large_text"
                 app:cornerRadius="50dp"
                 app:strokeColor="@android:color/white"
                 app:strokeWidth="2dp" />

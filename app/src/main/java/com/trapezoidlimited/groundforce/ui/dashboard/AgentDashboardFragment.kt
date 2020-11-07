@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
+import com.trapezoidlimited.groundforce.utils.DataListener
 
 class AgentDashboardFragment : Fragment() {
 
@@ -38,11 +39,21 @@ class AgentDashboardFragment : Fragment() {
             findNavController().navigate(R.id.surveyListFragment2)
         }
 
+        /** setting mutableLiveData value controlling where the tab will start on the mission fragment  */
+
         binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
+
+            DataListener.mSetStartTab.value = true
             findNavController().navigate(R.id.tasksFragment)
         }
 
+        binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
+            findNavController().navigate(R.id.paymentHistory)
+        }
 
+        binding.fragmentAgentViewDetailsTv.setOnClickListener {
+            findNavController().navigate(R.id.historyFragment)
+        }
     }
 
 

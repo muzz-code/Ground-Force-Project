@@ -168,6 +168,9 @@ class LoginFragment : Fragment() {
 //            }
 //        })
 
+
+
+
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
             Intent(requireContext(), DashboardActivity::class.java).also {
@@ -175,6 +178,7 @@ class LoginFragment : Fragment() {
 //                requireActivity().finish()
             }
         }
+
 
 
     }

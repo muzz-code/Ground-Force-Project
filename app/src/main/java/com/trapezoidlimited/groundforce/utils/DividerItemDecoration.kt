@@ -14,16 +14,16 @@ class DividerItemDecoration(color: Int, private val heightInPixels: Int) : Recyc
         paint.isAntiAlias = true
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
-        val left = parent.paddingLeft
-        val right = parent.width - parent.paddingRight
+        val left = parent.paddingLeft + 50
+        val right = parent.width - parent.paddingRight - 50
         val childCount = parent.childCount
 
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             val params = child.layoutParams as RecyclerView.LayoutParams
-            val top = child.bottom + params.bottomMargin
+            val top = child.bottom + params.bottomMargin - 10
             val bottom = top + heightInPixels
             val position = parent.getChildAdapterPosition(child)
             val viewType = parent.adapter?.getItemViewType(position)

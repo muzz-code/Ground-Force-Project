@@ -22,8 +22,7 @@
         android:layout_marginStart="9dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/agentDashboard_user_name"
-        android:textColor="@color/colorTextSecondary"
-        android:textSize="20sp"
+        style="@style/TextSecondaryHeaderText"
         app:layout_constraintBottom_toBottomOf="@+id/agent_icon"
         app:layout_constraintStart_toEndOf="@id/agent_icon"
         app:layout_constraintTop_toTopOf="@id/agent_icon" />
@@ -40,7 +39,7 @@
         android:padding="16dp"
         android:text="@string/agentDashboard_view_profile"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="14sp"
+        android:textSize="@dimen/small_text"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/agentDashboardframent_user_name_tv"
