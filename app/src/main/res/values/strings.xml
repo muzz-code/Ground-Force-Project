@@ -204,6 +204,7 @@
 
 
 
+
     <!--    location verified dialog fragment-->
     <string name="location_verified_dialog_ok_str">OK</string>
     <string name="location_verified_dialog_congratulations_str">Congratulations</string>
@@ -212,6 +213,7 @@
     <string name="settings">Settings</string>
     <string name="verification_result_page_congratulations_str">Congratulations</string>
     <string name="verification_result_page_success_str">Success!</string>
+
 
     <string name="no_missions_available_str">No Missions Available</string>
     <string name="no_missions_available_two_str">We\'ll let you know when something comes up.</string>

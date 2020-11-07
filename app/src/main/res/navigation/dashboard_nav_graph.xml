@@ -34,7 +34,6 @@
         android:id="@+id/userProfileFragment"
         android:name="com.trapezoidlimited.groundforce.ui.profile.UserProfileFragment"
         android:label="UserProfileFragment"
-
         tools:layout="@layout/fragment_user_profile"
         />
     <fragment
@@ -42,6 +41,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+
 
     <fragment
         android:id="@+id/paymentHistory"
@@ -53,6 +53,8 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+
+
 
 
 
