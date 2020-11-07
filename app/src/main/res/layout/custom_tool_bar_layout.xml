@@ -31,6 +31,6 @@
             android:fontFamily="@font/titillium_web_bold"
             android:text="@string/surveys_str"
             android:textAlignment="center"
-            style="@style/TextPrimaryExtraLargeText"/>
+            style="@style/colorPrimaryBlackExtraLargeText"/>
     </LinearLayout>
 </LinearLayout>

@@ -7,17 +7,6 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.survey.SurveyListFragment">
 
-<!--    <LinearLayout style="@style/customToolBarContainer">-->
-<!--        <ImageView-->
-<!--            android:id="@+id/fragment_mission_report_back_arrow_iv"-->
-<!--            style="@style/customToolBackBAckArrow" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textView2"-->
-<!--            android:text="Surveys"-->
-<!--            style="@style/customToolBarTitle"-->
-<!--       />-->
-<!--    </LinearLayout>-->
 
     <include
         android:id="@+id/fragment_survey_list_toolbar"

@@ -16,9 +16,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="N100"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:text="@string/n100_str"
+        style="@style/colorPrimaryBlackLargeText"/>
 
     <TextView
         android:id="@+id/single_payment_history_have_recieved_tv"
@@ -28,8 +27,8 @@
         android:layout_marginRight="10dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
-        android:text="You have recieved N100 "
-        android:textColor="@color/colorTextPrimary" />
+        android:text="@string/you_have_received_n100_str"
+        style="@style/colorPrimaryBlackSmallText" />
 
     <TextView
         android:id="@+id/single_payment_history_payment_date_tv"
@@ -39,6 +38,6 @@
         android:layout_marginRight="10dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
-        android:text="18th Sept, 2020"
-        android:textColor="@color/colorTextPrimary" />
+        android:text="@string/_18th_sept_2020_str"
+        style="@style/colorPrimaryBlackExtraSmallText" />
 </LinearLayout>

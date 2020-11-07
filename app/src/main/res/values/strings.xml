@@ -232,10 +232,9 @@
     <string name="badge_number_six">6</string>
     <string name="badge_number_four">4</string>
     <string name="badge_number_two">2</string>
-    <string name="surveys_str">Surveys</string>
     <string name="mission_report_str">Mission Report</string>
 
-    <!--    ToolBar Titles-->
+<!--    ToolBar Titles-->
 
     <string name="home_title_str">Home</string>
     <string name="tasks_title_str">Tasks</string>
@@ -250,6 +249,11 @@
     <string name="create_pin_title_str">Create Pin</string>
     <string name="mission_report_title_str">Mission Report</string>
     <string name="one_of_ten_title_str">"1 0f 10"</string>
+    <string name="missions_str">Missions</string>
+    <string name="surveys_str">Surveys</string>
+    <string name="n100_str">N100</string>
+    <string name="you_have_received_n100_str">You have received N100</string>
+    <string name="_18th_sept_2020_str">18th Sept, 2020</string>
 
 
 </resources>

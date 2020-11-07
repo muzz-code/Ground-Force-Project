@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:text="@string/kehinde_oladimeji_str"
-                style="@style/PrimaryGreenExtraLargeText"
+                style="@style/colorPrimaryExtraLargeText"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="@string/kehindeemaildomain_gmail_com_str"
-                style="@style/TextPrimarySmallText"
+                style="@style/colorPrimaryBlackSmallText"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_user_name_tv"
                 app:layout_constraintHorizontal_bias="0.513"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_user_name_tv"
@@ -85,7 +85,7 @@
                 android:layout_marginTop="24dp"
                 android:alpha="0.8"
                 android:text="@string/first_name_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_user_email_tv" />
 
@@ -115,7 +115,7 @@
                 android:layout_marginTop="20dp"
                 android:alpha="0.8"
                 android:text="@string/last_name_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_first_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_first_name_placeholder_et" />
 
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/date_of_birth_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_last_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_last_name_placeholder_et" />
 
@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/colorGreyTextPrimaryDark"
+                android:backgroundTint="@color/colorTertiaryGrey"
                 android:clickable="false"
                 android:drawableEnd="@drawable/calender_asset"
                 android:textSize="@dimen/small_text"
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
                 android:text="@string/gender_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_date_birth_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -186,7 +186,7 @@
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/religion_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_religious_sp"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_date_birth_et" />
 
@@ -224,7 +224,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/contact_details_str"
                 android:textStyle="bold"
-                style="@style/TextPrimaryMediumText"
+                style="@style/colorPrimaryBlackMediumText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_gender_sp" />
 
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/email_address_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_gender_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_contact_details_tv" />
 
@@ -259,7 +259,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/additional_phone_number_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_email_address_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_email_address_placeholder_et" />
 
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/residence_address_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_additional_phone_number_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_additional_number_et" />
 
@@ -310,7 +310,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@string/bank_details_str_user"
                 android:textStyle="bold"
-                style="@style/TextPrimaryMediumText"
+                style="@style/colorPrimaryBlackMediumText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_et" />
 
@@ -320,7 +320,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/bank_name_str"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv" />
 
@@ -347,7 +347,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/account_number"
-                style="@style/GreyTextPrimaryDarkExtraSmallText"
+                style="@style/colorTertiaryGreyExtraSmallText"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_bank_name_at" />
 
@@ -381,7 +381,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/save_changes_str"
                 android:textAllCaps="false"
-                style="@style/TextSecondarySmallText"
+                style="@style/colorWhiteSmallText"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

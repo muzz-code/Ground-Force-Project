@@ -6,16 +6,6 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.PaymentHistory" >
 
-<!--    <LinearLayout style="@style/customToolBarContainer">-->
-<!--        <ImageView-->
-<!--            android:id="@+id/fragment_payment_history_back_arrow_iv"-->
-<!--            style="@style/customToolBackBAckArrow" />-->
-
-<!--        <TextView-->
-<!--            android:text="Payment History"-->
-<!--            style="@style/customToolBarTitle"-->
-<!--            />-->
-<!--    </LinearLayout>-->
     <include
         android:id="@+id/fragment_primary_history_toolbar"
         layout="@layout/toolbar_fragment"
@@ -40,12 +30,12 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Missions" />
+                android:text="@string/missions_str" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Surveys" />
+                android:text="@string/surveys_str" />
 
         </com.google.android.material.tabs.TabLayout>
 

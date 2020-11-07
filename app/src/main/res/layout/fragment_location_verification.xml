@@ -24,7 +24,7 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorTextSecondary" />
+        app:tint="@color/colorWhite" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -60,7 +60,7 @@
 
     <TextView
         android:id="@+id/location_verification_message_tv"
-        style="@style/TextSecondarySmallText"
+        style="@style/colorWhiteSmallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="49dp"
@@ -95,7 +95,7 @@
 
     <TextView
         android:id="@+id/verifying_location_status_tv"
-        style="@style/TextSecondarySmallText"
+        style="@style/colorWhiteSmallText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
@@ -158,6 +158,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.68"
         app:tint="#FFFFFF" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

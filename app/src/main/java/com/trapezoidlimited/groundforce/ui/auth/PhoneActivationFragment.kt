@@ -64,7 +64,7 @@ class PhoneActivationFragment : Fragment() {
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextResend)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }
@@ -76,7 +76,7 @@ class PhoneActivationFragment : Fragment() {
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextResend)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }
