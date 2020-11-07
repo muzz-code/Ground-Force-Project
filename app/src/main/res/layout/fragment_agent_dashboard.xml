@@ -357,7 +357,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 app:cardBackgroundColor="@color/colorBgTertiary"
-                app:cardCornerRadius="60dp"
+                app:cardCornerRadius="50dp"
                 app:cardElevation="3dp"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_missions_button_ib"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
