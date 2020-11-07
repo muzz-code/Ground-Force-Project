@@ -31,4 +31,8 @@ class NotificationsItem {
             return notifications
         }
     }
+
+    override fun toString(): String {
+        return if (isHeader) notificationsHeader.status else notificationItem.message
+    }
 }

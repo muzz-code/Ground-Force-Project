@@ -1,5 +1,7 @@
 package com.trapezoidlimited.groundforce.adapters
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,9 @@ class NotificationsAdapter(private val notificationsItem: MutableList<Notificati
                  itemView.notifications_item_recycler_item_message_tv.text = notificationsGotten.message
                  itemView.notifications_item_recycler_item_date_tv.text = notificationsGotten.date
              }
+
+
+             Log.d("CHECKINGS", "$notification")
          }
 
         override fun onClick(p0: View?) {
@@ -53,6 +58,7 @@ class NotificationsAdapter(private val notificationsItem: MutableList<Notificati
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d("CHECKINGSCALLED", "CALLED")
        holder.bind(notificationsItem[position])
     }
 
@@ -68,6 +74,7 @@ class NotificationsAdapter(private val notificationsItem: MutableList<Notificati
 
 
     fun updateNotifications(notification: List<NotificationsItem>){
+        Log.d("CHECKINGSTWO", "${notification.toString()}")
         this.notificationsItem.clear()
         this.notificationsItem.addAll(notification)
         notifyDataSetChanged()
