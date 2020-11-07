@@ -15,4 +15,12 @@
     <color name="colorOffWhite">#FAFAFA</color>
     <color name="colorBgSecondary">#57C5CC</color>
     <color name="colorMission">#fafafa</color>
+
+    <color name="colorDialogText">#363636</color>
+    <color name="colorDividerDialogVerification">#707070</color>
+    <color name="colorTextBlackSlight">#DE000000</color>
+    <color name="colorWhiteDarker">#1F000000</color>
+    <color name="notificationsBackground">#E0F5F6</color>
+    <color name="colorGreyText">#c6c6c6</color>
+
 </resources>

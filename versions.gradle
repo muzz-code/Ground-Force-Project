@@ -7,5 +7,6 @@ ext.versions = [
         lifecycle_version      : '2.2.0',
         hbb_version            : '2.4.0',
         otpview_version        : '2.1.0',
+        lottieVersion         : '3.4.4',
         fragment_version       : '1.2.5'
 ]
