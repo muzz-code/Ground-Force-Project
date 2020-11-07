@@ -201,6 +201,18 @@
     <string name="_0">0</string>
     <string name="forgot">Forgot?</string>
     <string name="reset">Reset</string>
+
+
+    <!--    location verified dialog fragment-->
+    <string name="location_verified_dialog_ok_str">OK</string>
+    <string name="location_verified_dialog_congratulations_str">Congratulations</string>
+    <string name="location_verified_dialog_success_str">Success</string>
+    <string name="permission_denied_explanation">You do not have the required permission</string>
+    <string name="settings">Settings</string>
+    <string name="verification_result_page_congratulations_str">Congratulations</string>
+    <string name="verification_result_page_success_str">Success!</string>
+
+
     <string name="no_missions_available_str">No Missions Available</string>
     <string name="no_missions_available_two_str">We\'ll let you know when something comes up.</string>
     <string name="looks_clear_here_str">Looks Clear Here</string>
@@ -223,9 +235,7 @@
     <string name="surveys_str">Surveys</string>
     <string name="mission_report_str">Mission Report</string>
 
-
-
-<!--    ToolBar Titles-->
+    <!--    ToolBar Titles-->
 
     <string name="home_title_str">Home</string>
     <string name="tasks_title_str">Tasks</string>

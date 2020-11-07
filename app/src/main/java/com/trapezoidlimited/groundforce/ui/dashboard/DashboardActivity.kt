@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
@@ -46,7 +47,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 }
                 R.id.agentDashboard_notification -> {
                     Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show()
-                    fragment = R.id.agentDashboardFragment
+                    fragment = R.id.notificationsFragment
                 }
                 R.id.agentDashboard_home -> {
                     fragment = R.id.agentDashboardFragment

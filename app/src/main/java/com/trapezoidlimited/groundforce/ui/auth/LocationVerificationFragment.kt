@@ -26,7 +26,8 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
 import com.trapezoidlimited.groundforce.utils.AppConstants
-import com.trapezoidlimited.groundforce.utils.showDialog
+import com.trapezoidlimited.groundforce.utils.crossShow
+import com.trapezoidlimited.groundforce.utils.onLogin
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_location_verification.*
 
@@ -44,6 +45,8 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
 
     //declare locaiton view model
     private lateinit var locationViewModel: LocationViewModel
+
+    private var shortAnimationDuration: Int = 0
 
 
     override fun onCreateView(
@@ -66,6 +69,17 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
 
+        /**
+         * Get the duration of the animation
+         */
+        shortAnimationDuration = resources.getInteger(android.R.integer.config_longAnimTime)
+
+        /**
+         * Starts the animation for the textview
+         */
+        binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
+
+        onLogin()
 
         return binding.root
     }
@@ -104,10 +118,10 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
                 viewLifecycleOwner,
                 Observer { locationM ->
                     if (locationM == "false") {
-                        binding.layoutRipplepulse.startRippleAnimation()
+
                     } else {
                         //if location has been gotten, make animation or its visibility gone; while get users latlng
-                        binding.layoutRipplepulse.stopRippleAnimation()
+
                         getLocationLatLng()
                     }
                 })
@@ -212,8 +226,7 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
                 getString(R.string.latLong, this?.longitude, this?.latitude)
             this?.let {
                 //get the custom alert dialog to display success since location is gotten
-                showDialog(requireContext(), "Success!", "Congratulations")
-
+                onLogin()
             }
         }
     }

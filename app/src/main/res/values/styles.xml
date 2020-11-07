@@ -76,12 +76,12 @@
     </style>
 
     <!--   Green text Styles -->
+
     <style name="PrimaryGreenMiniSmallText">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
-    <style name="PrimaryGreenExtraSmallText">
-        <item name="android:textColor">@color/colorPrimary</item>
+    <style name="PrimaryGreenExtraSmallText"  parent="PrimaryDarkGreenMiniSmallText">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
     <style name="PrimaryGreenSmallText">
