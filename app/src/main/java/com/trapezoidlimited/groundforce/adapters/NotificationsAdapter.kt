@@ -33,12 +33,12 @@ class NotificationsAdapter(private val notificationsItem: MutableList<Notificati
 
              if(notification.isHeader){
                  if (notification.notificationsHeader.status == "Older Notifications"){
-                     var s = itemView.resources.getColor(R.color.colorTextSecondary)
+                     var s = itemView.resources.getColor(R.color.colorWhite)
                      itemView.notification_header_recycler_item_root_layout.setBackgroundColor(s)
                  }
              } else{
                  if (notificationsGotten.isNew == "Older Notifications"){
-                     var s = itemView.resources.getColor(R.color.colorTextSecondary)
+                     var s = itemView.resources.getColor(R.color.colorWhite)
                      itemView.notification_item_recycler_item_root_layout.setBackgroundColor(s)
                  }
              }

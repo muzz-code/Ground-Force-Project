@@ -7,6 +7,12 @@
     android:background="@drawable/map"
     tools:context=".ui.auth.LocationVerificationFragment">
 
+    <!--    Tool bar -->
+    <include
+        android:id="@+id/fragment_location_verification_tb"
+        layout="@layout/toolbar_transparent_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/location_verification_back_nav_button_iv"
         android:layout_width="wrap_content"
@@ -17,7 +23,7 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/colorTextSecondary" />
+        app:tint="@color/colorWhite" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -46,12 +52,8 @@
         android:id="@+id/location_verification_bar_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/titillium_web_bold"
-        android:text="@string/location_verification_str"
-        android:textAlignment="center"
-        style="@style/TextSecondaryHeaderText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,10 +68,10 @@
         android:height="41dp"
         android:fontFamily="@font/roboto"
         android:text="@string/location_verification_message"
-        style="@style/TextSecondarySmallText"
+        style="@style/colorWhiteSmallText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_verification_bar_tv"
+        app:layout_constraintTop_toBottomOf="@id/fragment_location_verification_tb"
         tools:layout_editor_absoluteX="165dp"
         tools:layout_editor_absoluteY="127dp" />
 
@@ -96,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
         android:text="@string/location_verifcation_status"
-        style="@style/TextSecondarySmallText"
+        style="@style/colorWhiteSmallText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -35,7 +35,7 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/titillium_web_bold"
         android:text="@string/screen1_header_str"
-        style="@style/PrimaryDarkGreenExtraLargeText"
+        style="@style/PrimaryDarkExtraLargeText"
         app:layout_constraintBottom_toTopOf="@+id/onBoardingScreen2_subTitleText_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,7 +47,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/screen1_subText_str"
         android:textAlignment="textStart"
-        style="@style/TextPrimarySmallText"
+        style="@style/colorPrimaryBlackSmallText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/onBoardingScreen2_Fragment_headerText_tv"
         app:layout_constraintHorizontal_bias="0.0"

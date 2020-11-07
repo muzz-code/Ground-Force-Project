@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
-    app:titleTextColor="@color/colorTextPrimary"
+    app:titleTextColor="@color/colorPrimaryBlack"
     android:background="@color/colorMission"
     android:elevation="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="@string/_title_str"
         android:textSize="@dimen/header_text"
-        android:textColor="@color/colorTextPrimary"
+        android:textColor="@color/colorPrimaryBlack"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         android:layout_gravity="center"
         />

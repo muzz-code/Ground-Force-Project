@@ -60,6 +60,15 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
         // Inflate the layout for this fragment
         _binding = FragmentLocationVerificationBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentLocationVerificationTb.toolbarTitle.text = getString(R.string.location_verification_title_str)
+
+        binding.fragmentLocationVerificationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+
+
 
 
         /**
@@ -288,9 +297,12 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
     //on activity created, handle navigation
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         //Go to previous screen
-        binding.locationVerificationBackNavButtonIv.setOnClickListener {
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
         super.onActivityCreated(savedInstanceState)
     }
 

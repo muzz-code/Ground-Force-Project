@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--        background image-->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,15 +16,16 @@
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/man_on_street2b" />
 
-    <ImageView
-        android:id="@+id/login_arrow_back_iv"
-        android:layout_width="40dp"
+    <!--    Tool bar -->
+    <include
+        android:id="@+id/fragment_login_tb"
+        layout="@layout/toolbar_transparent_fragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:contentDescription="@string/phone_activ_tool_bar_arrow_str"
-        android:src="@drawable/ic_arrow_back"
-        app:tint="#FFFFFF" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,7 +53,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:text="@string/login_sub_title_str"
-                    style="@style/TextSecondaryMediumText"
+                    style="@style/colorWhiteMediumText"
                     android:transitionName="@string/sub_title_transition"
                     app:layout_constraintBottom_toTopOf="@+id/login_welcome_tv"
                     app:layout_constraintEnd_toEndOf="@+id/login_welcome_tv"
@@ -68,7 +70,7 @@
                     android:fontFamily="@font/titillium_web_bold"
                     android:text="@string/landing_welcome_str"
                     android:textAlignment="center"
-                    style="@style/TextSecondaryExtraLargeText"
+                    style="@style/colorWhiteExtraLargeText"
                     android:textStyle="bold"
                     android:transitionName="@string/main_title_transition"
                     app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
@@ -107,7 +109,7 @@
                                 android:fontFamily="@font/titillium_web_bold"
                                 android:text="@string/login_str"
                                 android:textAlignment="viewStart"
-                                style="@style/TextPrimaryHeaderText"/>
+                                style="@style/colorPrimaryBlackHeaderText"/>
 
                             <!--                input email address-->
                             <TextView
@@ -117,7 +119,7 @@
                                 android:layout_marginTop="15dp"
                                 android:alpha=".5"
                                 android:text="@string/email_address_str"
-                                style="@style/TextPrimaryExtraSmallText"/>
+                                style="@style/colorPrimaryBlackExtraSmallText"/>
 
                             <EditText
                                 android:id="@+id/editText_TextEmailAddress_et"
@@ -139,7 +141,7 @@
                                 android:layout_marginTop="15dp"
                                 android:alpha=".5"
                                 android:text="@string/pin_text_str"
-                                style="@style/TextPrimaryExtraSmallText"/>
+                                style="@style/colorPrimaryBlackExtraSmallText"/>
 
                             <EditText
                                 android:id="@+id/editText_NumberPin_et"
@@ -168,7 +170,7 @@
                                 android:paddingBottom="16dp"
                                 android:text="@string/login_str"
                                 android:textAllCaps="false"
-                                style="@style/TextSecondarySmallText"
+                                style="@style/colorWhiteSmallText"
                                 android:transitionName="@string/google_button_transition"
                                 app:cornerRadius="50dp" />
 
@@ -186,7 +188,7 @@
                                 android:paddingBottom="16dp"
                                 android:text="@string/landing_sign_up_with_google_str"
                                 android:textAllCaps="false"
-                                style="@style/TextSecondarySmallText"
+                                style="@style/colorWhiteSmallText"
                                 android:transitionName="@string/login_button_transition"
                                 app:cornerRadius="50dp" />
 
@@ -198,7 +200,7 @@
                                 android:fontFamily="@font/roboto"
                                 android:text="@string/new_user_register_here_str"
                                 android:textAlignment="center"
-                                style="@style/TextPrimarySmallText"/>
+                                style="@style/colorPrimaryBlackSmallText"/>
 
                             <!--                forget password text-->
                             <TextView
@@ -210,7 +212,7 @@
                                 android:fontFamily="@font/roboto"
                                 android:text="@string/forgot_password_str"
                                 android:textAlignment="center"
-                                style="@style/TextPrimarySmallText"/>
+                                style="@style/colorPrimaryBlackSmallText"/>
 
                         </LinearLayout>
 

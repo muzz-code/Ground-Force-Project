@@ -21,8 +21,8 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     private var _binding: FragmentOngoingBinding? = null
     private val binding get() = _binding!!
-    private var locationTitlesList = mutableListOf<OngoingItem>()
-//    private var locationTitlesList = DummyData.ongoingLocationData()
+//    private var locationTitlesList = mutableListOf<OngoingItem>()
+    private var locationTitlesList = DummyData.ongoingLocationData()
     private var adapter: OngoingAdapter = OngoingAdapter(
         mutableListOf(),
         this

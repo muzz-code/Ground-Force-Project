@@ -29,7 +29,7 @@
             android:fontFamily="@font/titillium_web_bold"
             android:text="@string/landing_welcome_str"
             android:textAlignment="center"
-            style="@style/TextSecondaryExtraLargeText"
+            style="@style/colorWhiteExtraLargeText"
             android:textStyle="bold"
             android:transitionName="@string/main_title_transition"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:text="@string/landing_sub_welcome_str"
-            style="@style/TextSecondaryMediumText"
+            style="@style/colorWhiteMediumText"
             android:transitionName="@string/sub_title_transition"
             app:layout_constraintEnd_toEndOf="@+id/landing_welcome_tv"
             app:layout_constraintStart_toStartOf="@+id/landing_welcome_tv"
@@ -71,7 +71,7 @@
             android:paddingBottom="16dp"
             android:text="@string/landing_create_account_str"
             android:textAllCaps="false"
-            style="@style/TextSecondaryMediumText"
+            style="@style/colorWhiteMediumText"
             android:transitionName="@string/login_button_transition"
             app:cornerRadius="50dp" />
 
@@ -107,7 +107,7 @@
             android:paddingBottom="16dp"
             android:text="@string/landing_sign_up_with_google_str"
             android:textAllCaps="false"
-            style="@style/TextSecondaryMediumText"
+            style="@style/colorWhiteMediumText"
             android:transitionName="@string/google_button_transition"
             app:cornerRadius="50dp" />
     </LinearLayout>

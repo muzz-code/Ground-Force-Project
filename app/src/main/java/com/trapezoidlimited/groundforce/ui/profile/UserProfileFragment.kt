@@ -12,9 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.*
 
 
@@ -37,6 +35,19 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         // Inflate the layout for this fragment
         // return inflater.inflate(R.layout.fragment_user_profile, container, false)
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+
+        /** setting toolbar text **/
+        binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
+        binding.fragmentUserProfileTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
 
         /** Array adapter for spinner drop down for sex **/
         ArrayAdapter.createFromResource(
@@ -70,10 +81,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /** listener for religion option **/
         binding.fragmentUserProfileReligiousSp.onItemSelectedListener = this
 
-        // navigate back to the previous screen
-        binding.fragmentUserProfileBackArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         binding.fragmentUserProfileFirstNamePlaceholderEt.isEnabled = false
         binding.fragmentUserProfileLastNamePlaceholderEt.isEnabled = false

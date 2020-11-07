@@ -2,8 +2,8 @@ package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -31,27 +31,29 @@ class TasksFragment : Fragment() {
     ): View? {
         binding = FragmentTasksBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentTasksToolbar.toolbarTitle.text = getString(R.string.tasks_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentTasksToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
         /** Setting up tabs and handling indicator behavior*/
         setUpTabs()
         handleTabIndicator()
 
-        /** Setting back arrow to return to the agent's dashboard */
-        binding.missionBackArrow.setOnClickListener {
-            findNavController().popBackStack()
-        }
 
         /** setting the startTab to Ongoing if this fragment creation is triggered by the active btn  */
 
 
         DataListener.setStartTab.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-//                binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = "Ongoing"
+                binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = "Ongoing"
 
-//                binding.fragmentTasksTabViewPagerVp.currentItem = 1
+                binding.fragmentTasksTabViewPagerVp.currentItem = 1
 
-                binding.fragmentTasksTabLayoytTl.getTabAt(1)?.select()
+                //binding.fragmentTasksTabLayoytTl.getTabAt(1)?.select()
 
-                adapter.notifyItemInserted(1)
+                //adapter.notifyItemInserted(1)
 
                 DataListener.mSetStartTab.value = false
             }
@@ -64,6 +66,11 @@ class TasksFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentTasksToolbar.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
         /** setting the indicator  on the onGoing tab onclick of the accept btn */
 
         DataListener.setTabIndicator.observe(viewLifecycleOwner, Observer {
@@ -75,16 +82,19 @@ class TasksFragment : Fragment() {
                     R.drawable.custom_tab_indicator_active,
                     null
                 )
+
                 image?.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
 
                 val sb = SpannableString("Ongoing" + "     ")
 
                 val imageSpan = ImageSpan(image!!, ImageSpan.ALIGN_CENTER)
+
+
                 sb.setSpan(
                     imageSpan,
                     sb.length - 2,
                     sb.length - 1,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
 
                 binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = SpannableString(sb)

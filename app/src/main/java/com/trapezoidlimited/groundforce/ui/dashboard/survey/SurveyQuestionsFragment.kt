@@ -29,12 +29,24 @@ class SurveyQuestionsFragment : Fragment() {
         // Inflate the layout for this fragment
         surveyQuestionsBinding = FragmentSurveyQuestionsBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        surveyQuestionsBinding.fragmentSurveyQuestToolbar.toolbarTitle.text = getString(R.string.one_of_ten_title_str)
 
-        surveyQuestionsBinding.surveyQuestionsFragmentBackImageImg.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        /** set navigation arrow from drawable **/
+        surveyQuestionsBinding.fragmentSurveyQuestToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+
 
         return surveyQuestionsBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        surveyQuestionsBinding.fragmentSurveyQuestToolbar.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 

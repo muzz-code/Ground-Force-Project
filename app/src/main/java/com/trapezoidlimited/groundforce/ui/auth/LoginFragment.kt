@@ -27,6 +27,7 @@ import com.trapezoidlimited.groundforce.validator.Validation
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 
 
+
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
 
@@ -57,6 +58,16 @@ class LoginFragment : Fragment() {
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
+        binding.fragmentLoginTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+
+
+
+
         /**Hide status bar**/
         hideStatusBar()
 
@@ -77,7 +88,7 @@ class LoginFragment : Fragment() {
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextResend)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }
@@ -106,7 +117,7 @@ class LoginFragment : Fragment() {
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextPrimary)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryBlack)
                 ds.isUnderlineText = false
             }
         }
@@ -124,11 +135,11 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        /**move to previous screen**/
-        binding.loginArrowBackIv.setOnClickListener {
-            findNavController().navigate(R.id.landingFragment)
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
+
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }

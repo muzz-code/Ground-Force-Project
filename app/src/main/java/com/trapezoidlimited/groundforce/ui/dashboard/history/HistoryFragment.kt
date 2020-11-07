@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentHistoryBinding
-import com.trapezoidlimited.groundforce.ui.dashboard.mission.MissionFragment
-import com.trapezoidlimited.groundforce.ui.dashboard.mission.OngoingFragment
 
 
 class HistoryFragment : Fragment() {
@@ -29,6 +28,12 @@ class HistoryFragment : Fragment() {
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.fragmentHistoryToolbar.toolbarTitle.text = getString(R.string.history_title_str)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentHistoryToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
         return binding.root
     }
 
@@ -36,7 +41,8 @@ class HistoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.historyBackArrow.setOnClickListener {
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentHistoryToolbar.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 

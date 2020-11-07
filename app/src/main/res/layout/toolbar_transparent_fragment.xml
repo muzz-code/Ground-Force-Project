@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Tool bar for create profile -->
 <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbar_fragment"
+    android:id="@+id/toolbar_transparent_fragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     app:titleTextColor="@color/colorPrimaryBlack"
-    android:background="@color/colorWhite"
+    android:background="@android:color/transparent"
     android:elevation="4dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    Tool bar for text view -->
+    <!--    Tool bar for text view -->
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_profile_str"
+        android:text=""
         android:textSize="@dimen/header_text"
         android:textColor="@color/colorPrimaryBlack"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

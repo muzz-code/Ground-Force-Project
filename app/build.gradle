@@ -129,7 +129,6 @@ android {
         //Lottie animation
         implementation "com.airbnb.android:lottie:$versions.lottieVersion"
 
-
     }
 }
 

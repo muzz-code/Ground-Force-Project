@@ -23,6 +23,9 @@ class AgentDashboardFragment : Fragment() {
 
         _binding = FragmentAgentDashboardBinding.inflate(inflater, container, false)
 
+        /** setting toolbar text **/
+        binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
+
         // Inflate the layout for this fragment
         return binding.root
     }
