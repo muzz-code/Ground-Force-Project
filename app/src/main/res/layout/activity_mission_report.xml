@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    android:background="@color/colorTextSecondary"
+    android:background="@color/colorWhite"
     tools:context=".ui.dashboard.MissionReportActivity">
 
 
@@ -49,7 +49,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/mission_report_intro_str"
                 android:textAlignment="viewStart"
-                style="@style/TextPrimaryMediumText"
+                style="@style/colorPrimaryBlackMediumText"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,7 +105,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -125,7 +125,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_one_rb"
@@ -136,7 +136,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -167,7 +167,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="bold" />
 
                 <TextView
@@ -180,7 +180,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -199,7 +199,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_two_rb"
@@ -210,7 +210,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -239,7 +239,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_qus_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="bold" />
 
                 <TextView
@@ -252,7 +252,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/mission_report_first_hint_str"
                     android:textAlignment="viewStart"
-                    style="@style/TextPrimarySmallText"
+                    style="@style/colorPrimaryBlackSmallText"
                     android:textStyle="normal" />
 
                 <RadioGroup
@@ -271,7 +271,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_yes_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_three_rb"
@@ -282,7 +282,7 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_no_str"
                         android:textAlignment="viewStart"
-                        style="@style/TextPrimarySmallText" />
+                        style="@style/colorPrimaryBlackSmallText" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -310,7 +310,7 @@
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/nearest_landmark_str"
-                android:textColorHint="@color/colorTextPrimary"
+                android:textColorHint="@color/colorPrimaryBlack"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
@@ -326,7 +326,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorPrimaryBlack"
                     android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
 
@@ -343,7 +343,7 @@
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/nearest_bus_stop_str"
-                android:textColorHint="@color/colorTextPrimary"
+                android:textColorHint="@color/colorPrimaryBlack"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
@@ -358,7 +358,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorPrimaryBlack"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -373,7 +373,7 @@
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/type_of_structure_str"
-                android:textColorHint="@color/colorTextPrimary"
+                android:textColorHint="@color/colorPrimaryBlack"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
@@ -389,7 +389,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorPrimaryBlack"
                     android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -406,7 +406,7 @@
                 android:enabled="false"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/absolute_coordinates_str"
-                android:textColorHint="@color/colorTextPrimary"
+                android:textColorHint="@color/colorPrimaryBlack"
                 android:textStyle="bold"
                 app:boxStrokeColor="@color/colorPrimary"
                 app:boxStrokeWidthFocused="2dp"
@@ -422,7 +422,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorPrimaryBlack"
                     android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -455,7 +455,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorPrimaryBlack"
                     android:textColorHint="@color/colorMission"
                     android:textStyle="bold" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -472,7 +472,7 @@
                 android:text="@string/submit_str"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                style="@style/TextSecondaryMediumText"
+                style="@style/colorWhiteMediumText"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til" />
@@ -488,7 +488,7 @@
                 android:text="@string/cancel_str"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                style="@style/PrimaryGreenSmallText"
+                style="@style/colorPrimarySmallText"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_submit_btn" />

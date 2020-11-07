@@ -54,7 +54,7 @@ class PhoneVerificationFragment : Fragment() {
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = getColor(requireContext(), R.color.colorTextResend)
+                ds.color = getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }

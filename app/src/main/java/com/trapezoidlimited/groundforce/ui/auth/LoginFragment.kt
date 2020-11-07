@@ -27,6 +27,7 @@ import com.trapezoidlimited.groundforce.validator.Validation
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 
 
+
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
 
@@ -59,6 +60,7 @@ class LoginFragment : Fragment() {
 
         /** setting toolbar text **/
         binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
+        binding.fragmentLoginTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
 
         /** set navigation arrow from drawable **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
@@ -86,7 +88,7 @@ class LoginFragment : Fragment() {
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextResend)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }
@@ -115,7 +117,7 @@ class LoginFragment : Fragment() {
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorTextPrimary)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryBlack)
                 ds.isUnderlineText = false
             }
         }

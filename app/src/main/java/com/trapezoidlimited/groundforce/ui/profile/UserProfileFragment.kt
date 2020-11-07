@@ -12,9 +12,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.util.*
 
 
@@ -40,7 +38,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** setting toolbar text **/
         binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
-        binding.fragmentUserProfileTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorTextSecondary))
+        binding.fragmentUserProfileTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
 
         /** set navigation arrow from drawable **/
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)

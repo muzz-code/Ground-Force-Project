@@ -15,7 +15,7 @@
         android:id="@+id/survey_questions_fragment_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorTextSecondary">
+        android:background="@color/colorWhite">
 
 
         <include
@@ -37,7 +37,7 @@
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/roboto"
             android:text="@string/survey_questions_question_str"
-            style="@style/PrimaryGreenSuperLargeText"
+            style="@style/colorPrimarySuperLargeText"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:padding="21dp"
             android:text="@string/survey_questions_option_one_str"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +72,7 @@
             android:padding="21dp"
             android:text="@string/survey_questions_option_two_str"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="@+id/survey_questions_option_one_btn"
@@ -90,7 +90,7 @@
             android:padding="21dp"
             android:text="@string/survey_questions_option_three_str"
             android:textAllCaps="false"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
             app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="@+id/survey_questions_option_two_btn"
@@ -113,7 +113,7 @@
             android:padding="16dp"
             android:text="@string/survey_questions_next_button_str"
             android:textStyle="bold"
-            style="@style/TextSecondaryMediumText"
+            style="@style/colorWhiteMediumText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
