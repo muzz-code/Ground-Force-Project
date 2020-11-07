@@ -59,10 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:textSize="@dimen/medium_text"
         android:textStyle="bold"
         android:text="@string/just_the_basics_str"
-        android:textColor="@android:color/black"
+        style="@style/TextPrimaryMediumText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_iv" />
 
@@ -72,9 +71,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21.88dp"
-        android:textSize="@dimen/extra_small_text"
         android:text="@string/first_name_str"
-        android:textColor="@color/colorGreyTextPrimaryDark"
+        style="@style/GreyTextExtraSmallText"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_basic_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_basic_tv" />
 
@@ -87,7 +85,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorGreyTextPrimaryDark"
         android:inputType="text"
-        android:textSize="@dimen/small_text"
+        style="@style/TextPrimarySmallText"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,8 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/last_name_str"
-        android:textSize="@dimen/small_text"
-        android:textColor="@color/colorGreyTextPrimaryDark"
+        style="@style/GreyTextExtraSmallText"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_et" />
 
@@ -120,7 +117,7 @@
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textSize="@dimen/small_text"
+        style="@style/TextPrimarySmallText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv" />
@@ -133,8 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/date_of_birth_str"
-        android:textSize="@dimen/extra_small_text"
-        android:textColor="@color/colorGreyTextPrimaryDark"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_et" />
 
@@ -150,6 +146,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:textSize="@dimen/small_text"
+        style="@style/TextPrimarySmallText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,8 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:text="@string/gender_str"
-        android:textSize="@dimen/extra_small_text"
-        android:textColor="@color/colorGreyTextPrimaryDark"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
 
@@ -175,8 +171,7 @@
         android:layout_marginStart="37dp"
         android:layout_marginEnd="128dp"
         android:text="@string/religion_str"
-        android:textColor="@color/colorGreyTextPrimaryDark"
-        android:textSize="@dimen/extra_small_text"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_gender_tv"
         app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_et"
         app:layout_constraintHorizontal_bias="0.26"
@@ -226,8 +221,7 @@
         android:fontFamily="@font/roboto"
         android:text="@string/next_step_str"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/small_text"
+        style="@style/TextSecondarySmallText"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

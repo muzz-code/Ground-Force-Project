@@ -23,9 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/contact_details_str"
-        android:textSize="@dimen/medium_text"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        style="@style/TextPrimaryMediumText"
         android:layout_marginTop="18dp"
         android:layout_marginStart="35.22dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email_address_str"
-        android:textSize="@dimen/extra_small_text"
-        android:textColor="@color/colorGreyTextPrimaryDark"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         android:layout_marginTop="22.88dp"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_details_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
@@ -65,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/additional_phone_number_str"
-        android:textSize="@dimen/extra_small_text"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_email_address_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_placeholder_et" />
@@ -91,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
         android:text="@string/residence_address_str"
-        android:textSize="@dimen/extra_small_text"
+        style="@style/GreyTextPrimaryDarkExtraSmallText"
         app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
         app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_phone_number_et" />
 
@@ -130,8 +128,7 @@
         android:fontFamily="@font/roboto"
         android:text="@string/next_step_str"
         android:textAllCaps="false"
-        android:textColor="@color/colorTextSecondary"
-        android:textSize="@dimen/small_text"
+        style="@style/TextSecondarySmallText"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
