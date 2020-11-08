@@ -77,6 +77,13 @@
 
     <!--   Green text Styles -->
 
+    <style name="PrimaryGreenMiniSmallText">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/mini_small_text</item>
+    </style>
+
+<!--    <style name="PrimaryGreenExtraSmallText"  parent="PrimaryDarkGreenMiniSmallText">-->
+
      <style name="colorPrimaryStyle">
          <item name="android:textColor">@color/colorPrimary</item>
      </style>

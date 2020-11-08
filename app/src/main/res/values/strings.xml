@@ -203,8 +203,6 @@
     <string name="reset">Reset</string>
 
 
-
-
     <!--    location verified dialog fragment-->
     <string name="location_verified_dialog_ok_str">OK</string>
     <string name="location_verified_dialog_congratulations_str">Congratulations</string>
@@ -235,9 +233,6 @@
     <string name="badge_number_four">4</string>
     <string name="badge_number_two">2</string>
     <string name="mission_report_str">Mission Report</string>
-
-
-
 
 <!--    ToolBar Titles-->
 

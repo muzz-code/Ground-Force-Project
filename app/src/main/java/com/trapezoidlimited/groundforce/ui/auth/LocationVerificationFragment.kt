@@ -69,8 +69,6 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
 
-
-
         /**
          * Get the duration of the animation
          */

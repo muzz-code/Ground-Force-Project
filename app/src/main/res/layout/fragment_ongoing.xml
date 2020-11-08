@@ -34,8 +34,8 @@
         android:id="@+id/ongoing_no_ongoing_tv"
         style="@style/no_mission_ongoing_text_bold_style"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
         android:text="@string/looks_clear_here_str"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,13 +43,13 @@
 
     <TextView
         android:id="@+id/ongoing_no_ongoing_two_tv"
+        style="@style/no_mission_ongoing_two_str"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
         android:text="@string/well_done_champ_str"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ongoing_no_ongoing_tv"
-        style="@style/no_mission_ongoing_two_str" />
+        app:layout_constraintTop_toBottomOf="@+id/ongoing_no_ongoing_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

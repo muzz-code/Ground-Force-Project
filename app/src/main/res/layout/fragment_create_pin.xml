@@ -61,7 +61,7 @@
             app:viewType="line" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/fragment_missions_surveys_notif_icon_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

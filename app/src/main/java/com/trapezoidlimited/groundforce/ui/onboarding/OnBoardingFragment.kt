@@ -10,7 +10,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
+import com.trapezoidlimited.groundforce.utils.ONBOARD
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
+import com.trapezoidlimited.groundforce.utils.loadFromSharedPreference
+import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
 
 class OnBoardingFragment : Fragment() {
 
@@ -60,11 +63,24 @@ class OnBoardingFragment : Fragment() {
         }.attach()
 
 
-        //Set Onclick listener to get started button and navigate to Sign up pager
+        /*
+        Set Onclick listener to get started button and navigate to Sign up pager
+        Also, save to shared preference so users don't need to go through again.
+         */
         binding.fragmentOnBoardingGetStartedBtn.setOnClickListener {
+            saveToSharedPreference(requireActivity(), ONBOARD, "true")
             findNavController().navigate(R.id.landingFragment)
         }
 
+    }
+
+
+    //If User has already gone through OnBoarding once, Move straight to Landing Fragment
+    override fun onStart() {
+        super.onStart()
+        if (loadFromSharedPreference(requireActivity(), ONBOARD) == "true") {
+            findNavController().navigate(R.id.landingFragment)
+        }
     }
 
     override fun onDestroy() {
