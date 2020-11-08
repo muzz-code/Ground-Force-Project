@@ -19,38 +19,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/mission_item" />
 
-    <ImageView
-        android:id="@+id/mission_shoes_iv"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/fragment_empty_mission"
+        layout="@layout/empty_mission"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/shoes"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_mission_rv"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_mission_rv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintTop_toTopOf="@+id/fragment_mission_rv" />
 
-    <TextView
-        android:id="@+id/mission_no_mission_tv"
-        style="@style/no_mission_ongoing_text_bold_style"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        android:text="@string/no_missions_available_str"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mission_shoes_iv" />
 
-    <TextView
-        android:id="@+id/mission_no_mission_two_tv"
-        android:layout_marginTop="8dp"
-        android:text="@string/no_missions_available_two_str"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mission_no_mission_tv"
-        style="@style/no_mission_ongoing_two_str" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
