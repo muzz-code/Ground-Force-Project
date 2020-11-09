@@ -1,234 +1,229 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--Nested scroll view wrap all view and view group -->
+<?xml version="1.0" encoding="utf-8"?><!--Nested scroll view wrap all view and view group -->
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".ui.profile.CreateProfileFragmentOne">
 
-<!--    Tool bar -->
-    <include
-        android:id="@+id/fragment_create_profile_one_ic"
-        layout="@layout/toolbar_fragment"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context=".ui.profile.CreateProfileFragmentOne">
+
+        <!--    Tool bar -->
+        <include
+            android:id="@+id/fragment_create_profile_one_ic"
+            layout="@layout/toolbar_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-<!--    Circular image view -->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/fragment_create_profile_one_iv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="18dp"
-        android:src="@drawable/ic_person_profile_placeholder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fragment_create_profile_one_profile_image_iv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_person_profile_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fragment_create_profile_one_ib"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:elevation="2dp"
+            android:src="@drawable/create_profile_plus_button"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_profile_image_iv"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_profile_image_iv"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_profile_image_iv"
+            app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_profile_image_iv"
+            app:layout_constraintVertical_bias="0.82" />
+
+        <TextView
+            android:id="@+id/fragment_create_profile_one_basic_tv"
+            style="@style/colorPrimaryBlackMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/just_the_basics_str"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_profile_image_iv" />
+
+        <!--    text view for first name -->
+        <TextView
+            android:id="@+id/fragment_create_profile_one_first_name_tv"
+            style="@style/colorPrimaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21.88dp"
+            android:text="@string/first_name_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_basic_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_basic_tv" />
+
+        <!--    edit text for first name -->
+        <EditText
+            android:id="@+id/fragment_create_profile_first_name_placeholder_et"
+            style="@style/colorPrimaryBlackSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorTertiaryGrey"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_first_name_tv">
+
+        </EditText>
+
+        <!--    Text view for last name -->
+        <TextView
+            android:id="@+id/fragment_create_profile_one_last_name_tv"
+            style="@style/colorPrimaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/last_name_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_et" />
+
+        <!--    Edit text for last name -->
+        <EditText
+            android:id="@+id/fragment_create_profile_one_last_name_et"
+            style="@style/colorPrimaryBlackSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorTertiaryGrey"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv" />
 
 
-<!-- Image view button -->
+        <!--    Birth date text view -->
+        <TextView
+            android:id="@+id/fragment_create_profile_one_date_birth_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/date_of_birth_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_et" />
 
-    <!--  Basic text   -->
+        <!--    Birth day edit text -->
+        <EditText
+            android:id="@+id/fragment_create_profile_one_date_birth_et"
+            style="@style/colorPrimaryBlackSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorTertiaryGrey"
+            android:drawableEnd="@drawable/calender_asset"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="@dimen/small_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_tv" />
 
-    <ImageButton
-        android:id="@+id/fragment_create_profile_one_ib"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="16dp"
-        android:background="@android:color/transparent"
-        android:elevation="2dp"
-        android:src="@drawable/ic_add_picture"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_iv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.629"
-        app:layout_constraintStart_toStartOf="parent" />
+        <!--   Text view for sex  -->
+        <TextView
+            android:id="@+id/fragment_create_profile_one_gender_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:text="@string/gender_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
 
-    <TextView
-        android:id="@+id/fragment_create_profile_one_basic_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:textStyle="bold"
-        android:text="@string/just_the_basics_str"
-        style="@style/colorPrimaryBlackMediumText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_iv" />
+        <!--    Text view for religion -->
+        <TextView
+            android:id="@+id/fragment_create_profile_one_religious_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginEnd="128dp"
+            android:text="@string/religion_str"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_gender_tv"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_et"
+            app:layout_constraintHorizontal_bias="0.26"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_religion_sp"
+            app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_tv"
+            app:layout_constraintVertical_bias="0.0" />
 
-<!--    text view for first name -->
-    <TextView
-        android:id="@+id/fragment_create_profile_one_first_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21.88dp"
-        android:text="@string/first_name_str"
-        style="@style/colorPrimaryGreyExtraSmallText"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_basic_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_basic_tv" />
+        <!--    Spinner for gender -->
+        <Spinner
+            android:id="@+id/fragment_create_profile_one_gender_sp"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="66dp"
+            android:paddingLeft="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_create_profile_one_btn"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_create_profile_one_religion_sp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_gender_tv" />
 
-<!--    edit text for first name -->
-    <EditText
-        android:id="@+id/fragment_create_profile_first_name_placeholder_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTertiaryGrey"
-        android:inputType="text"
-        style="@style/colorPrimaryBlackSmallText"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_first_name_tv">
+        <!--    Spinner for religion -->
+        <Spinner
+            android:id="@+id/fragment_create_profile_one_religion_sp"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:paddingLeft="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/fragment_create_profile_one_gender_sp"
+            app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_sp" />
 
-    </EditText>
-
-<!--    Text view for last name -->
-    <TextView
-        android:id="@+id/fragment_create_profile_one_last_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/last_name_str"
-        style="@style/colorPrimaryGreyExtraSmallText"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_et" />
-
-<!--    Edit text for last name -->
-    <EditText
-        android:id="@+id/fragment_create_profile_one_last_name_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTertiaryGrey"
-        android:inputType="text"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        style="@style/colorPrimaryBlackSmallText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv" />
-
-
-<!--    Birth date text view -->
-    <TextView
-        android:id="@+id/fragment_create_profile_one_date_birth_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/date_of_birth_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_et" />
-
-<!--    Birth day edit text -->
-    <EditText
-        android:id="@+id/fragment_create_profile_one_date_birth_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorTertiaryGrey"
-        android:drawableEnd="@drawable/calender_asset"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textSize="@dimen/small_text"
-        style="@style/colorPrimaryBlackSmallText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_tv" />
-
-<!--   Text view for sex  -->
-    <TextView
-        android:id="@+id/fragment_create_profile_one_gender_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:text="@string/gender_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
-
-<!--    Text view for religion -->
-    <TextView
-        android:id="@+id/fragment_create_profile_one_religious_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="128dp"
-        android:text="@string/religion_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_gender_tv"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_et"
-        app:layout_constraintHorizontal_bias="0.26"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_religion_sp"
-        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_tv"
-        app:layout_constraintVertical_bias="0.0" />
-
-<!--    Spinner for gender -->
-    <Spinner
-        android:id="@+id/fragment_create_profile_one_gender_sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="66dp"
-        android:paddingLeft="8dp"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_create_profile_one_btn"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_create_profile_one_religion_sp"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_gender_tv" />
-
-<!--    Spinner for religion -->
-    <Spinner
-        android:id="@+id/fragment_create_profile_one_religion_sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:paddingLeft="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragment_create_profile_one_gender_sp"
-        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_gender_sp" />
-
-<!--    next profile  page click button -->
-    <Button
-        android:id="@+id/fragment_create_profile_one_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/curved_primary_fill_button"
-        android:fontFamily="@font/roboto"
-        android:text="@string/next_step_str"
-        android:textAllCaps="false"
-        style="@style/colorWhiteSmallText"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        <!--    next profile  page click button -->
+        <Button
+            android:id="@+id/fragment_create_profile_one_btn"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/curved_primary_fill_button"
+            android:fontFamily="@font/roboto"
+            android:text="@string/next_step_str"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

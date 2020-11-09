@@ -9,36 +9,61 @@
         android:id="@+id/onBoardingFragment"
         android:name="com.trapezoidlimited.groundforce.ui.onboarding.OnBoardingFragment"
         android:label="OnBoardingFragment"
-        tools:layout="@layout/fragment_on_boarding"
-        />
+        tools:layout="@layout/fragment_on_boarding" />
 
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LandingFragment"
         android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" />
+        tools:layout="@layout/fragment_landing">
+        <action
+            android:id="@+id/action_landingFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
+        <action
+            android:id="@+id/action_landingFragment_to_phoneActivationFragment"
+            app:destination="@id/phoneActivationFragment" />
+        <argument
+            android:name="google_account"
+            android:defaultValue="@null"
+            app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/phoneVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneVerificationFragment"
         android:label="fragment_phone_verification"
-        tools:layout="@layout/fragment_phone_verification" >
+        tools:layout="@layout/fragment_phone_verification">
         <argument
             android:name="phoneNumber"
             app:argType="string" />
+        <action
+            android:id="@+id/action_phoneVerificationFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
     </fragment>
     <fragment
         android:id="@+id/phoneActivationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneActivationFragment"
         android:label="fragment_phone_activation"
-        tools:layout="@layout/fragment_phone_activation" />
-
+        tools:layout="@layout/fragment_phone_activation">
+        <action
+            android:id="@+id/action_phoneActivationFragment_to_phoneVerificationFragment"
+            app:destination="@id/phoneVerificationFragment" />
+    </fragment>
 
 
     <fragment
         android:id="@+id/createProfileFragmentOne"
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentOne"
         android:label="fragment_create_profile_one"
-        tools:layout="@layout/fragment_create_profile_one" />
+        tools:layout="@layout/fragment_create_profile_one">
+
+        <argument
+            android:name="google_account"
+            android:defaultValue="@null"
+            app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
+            app:nullable="true" />
+    </fragment>
+
     <fragment
         android:id="@+id/createProfileFragmentTwo"
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentTwo"
@@ -62,24 +87,34 @@
         android:id="@+id/loginFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
+    </fragment>
 
     <fragment
         android:id="@+id/dashBoardFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.DashBoardFragment"
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" />
+
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ForgetPasswordFragment"
         android:label="fragment_forget_password"
         tools:layout="@layout/fragment_forget_password" />
-<fragment
+
+    <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
-        tools:layout="@layout/fragment_reset_password"
-        />
+        tools:layout="@layout/fragment_reset_password" >
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
+    </fragment>
+
     <fragment
         android:id="@+id/createPinFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.CreatePinFragment"

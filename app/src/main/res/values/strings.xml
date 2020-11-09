@@ -234,7 +234,7 @@
     <string name="badge_number_two">2</string>
     <string name="mission_report_str">Mission Report</string>
 
-<!--    ToolBar Titles-->
+    <!--    ToolBar Titles-->
 
     <string name="home_title_str">Home</string>
     <string name="tasks_title_str">Tasks</string>

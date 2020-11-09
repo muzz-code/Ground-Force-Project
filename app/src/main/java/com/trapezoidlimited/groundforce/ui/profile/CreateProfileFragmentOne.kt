@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,37 +23,68 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
+import com.trapezoidlimited.groundforce.utils.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_create_profile_one.*
 import kotlinx.android.synthetic.main.verification_result_page.*
 import java.util.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener {
 
-    private var _binding : FragmentCreateProfileOneBinding? = null
-
+    private var _binding: FragmentCreateProfileOneBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
+    private lateinit var date: String
 
-    private lateinit var date : String
+    @Inject
+    lateinit var requestManager: RequestManager
+
+    //    private val args: Arg
+    private var googleAccount: GoogleSignInAccount? = null
+    private val args: CreateProfileFragmentOneArgs by navArgs()
+
 
     private val PERMISSION_REQUEST_CODE: Int = 101
     private val REQUEST_IMAGE_CAPTURE = 1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        //Get Google Account Details from Landing Fragment via navigation argument
+        googleAccount = args.googleAccount
+
         // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_create_profile_one, container, false)
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
+
+
+        if (googleAccount != null) {
+            setProfileDetailsFromGoogle()
+        }
 
         return binding.root
     }
 
+    private fun setProfileDetailsFromGoogle() {
+
+        //Injected requestManager returns Glide Instance
+        if (googleAccount!!.photoUrl != null) {
+            requestManager
+                .load(googleAccount!!.photoUrl)
+                .into(binding.fragmentCreateProfileOneProfileImageIv)
+        }
+    }
 
 
     /** onActivityCreated **/
@@ -61,13 +93,12 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         super.onActivityCreated(savedInstanceState)
 
 
-
         /** Array adapter for spinner drop down for sex **/
         ArrayAdapter.createFromResource(
             requireContext(),
             R.array.sex,
             android.R.layout.simple_spinner_item
-        ).also {sexAdapter ->
+        ).also { sexAdapter ->
             // Specify the layout to use when the list of choices appears
             sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -81,7 +112,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             requireContext(),
             R.array.religion,
             android.R.layout.simple_spinner_item
-        ).also {religionAdapter ->
+        ).also { religionAdapter ->
             // Specify the layout to use when the list of choices appears
             religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -110,7 +141,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
         /** Date set listener **/
         dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
-            date = "${month+1}/$day/$year"
+            date = "${month + 1}/$day/$year"
             dateButton.setText(date)
         }
 
@@ -121,7 +152,6 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         cameraButton.setOnClickListener {
             if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
-
     }
 
 
@@ -139,9 +169,9 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     /** onActivityResult function place the captured image on the image view place holder **/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            binding.fragmentCreateProfileOneIv
+            binding.fragmentCreateProfileOneProfileImageIv
 
-            val imagePlaceHolder = binding.fragmentCreateProfileOneIv
+            val imagePlaceHolder = binding.fragmentCreateProfileOneProfileImageIv
             val imageBitmap = data?.extras?.get("data") as Bitmap
             //imageView.setImageBitmap(imageBitmap)
             imagePlaceHolder.setImageBitmap(imageBitmap)
@@ -151,25 +181,37 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
     /** Check for user permission to access phone camera **/
     private fun checkPermission(): Boolean {
-        return (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireContext(),
-            android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        return (ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.CAMERA
+        ) ==
+                PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED)
     }
 
     /** requestPermission for user permission to access phone camera **/
     private fun requestPermission() {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
-            PERMISSION_REQUEST_CODE)
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
+            PERMISSION_REQUEST_CODE
+        )
     }
 
 
     /** On request permission result grant user permission or show a permission denied message **/
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
 
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                ) {
 
                     dispatchTakePictureIntent()
 
@@ -186,7 +228,6 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
 
-
     /** Show Date picker Dialog Function **/
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showDatePickerDialog(v: View) {
@@ -197,9 +238,10 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         /** Date dialog picker style **/
-        val dialog = DatePickerDialog(requireContext(),
+        val dialog = DatePickerDialog(
+            requireContext(),
             android.R.style.ThemeOverlay_Material_Dialog_Alert,
-            dateSetListener,year, month,day
+            dateSetListener, year, month, day
         )
         dialog.show()
 
@@ -216,7 +258,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
     override fun onDestroy() {
-        _binding=null
+        _binding = null
         super.onDestroy()
     }
 
