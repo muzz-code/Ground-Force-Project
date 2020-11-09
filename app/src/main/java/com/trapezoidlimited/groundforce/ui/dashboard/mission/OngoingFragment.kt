@@ -82,15 +82,15 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     private fun setNoOngoingViewVisible(){
         setInVisibility(binding.fragmentOngoingRv)
-        setVisibility(binding.ongoingShoesIv)
-        setVisibility(binding.ongoingNoOngoingTv)
-        setVisibility(binding.ongoingNoOngoingTwoTv)
+        setVisibility(binding.fragmentEmptyOngoing.ongoingShoesIv)
+        setVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTv)
+        setVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTwoTv)
     }
 
     private fun setNoOngoingViewInVisible(){
         setVisibility(binding.fragmentOngoingRv)
-        setInVisibility(binding.ongoingShoesIv)
-        setInVisibility(binding.ongoingNoOngoingTv)
-        setInVisibility(binding.ongoingNoOngoingTwoTv)
+        setInVisibility(binding.fragmentEmptyOngoing.ongoingShoesIv)
+        setInVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTv)
+        setInVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTwoTv)
     }
 }

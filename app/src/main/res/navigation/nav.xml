@@ -16,7 +16,10 @@
         android:id="@+id/landingFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LandingFragment"
         android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" />
+        tools:layout="@layout/fragment_landing">
+
+
+    </fragment>
     <fragment
         android:id="@+id/phoneVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneVerificationFragment"
@@ -62,7 +65,7 @@
         android:id="@+id/loginFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login"/>
 
     <fragment
         android:id="@+id/dashBoardFragment"

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.ui.dialog.VerifiedDialog
 
@@ -126,4 +127,12 @@ fun Fragment.showAlertDialog(
     val alert = dialogBuilder.create()
     alert.setTitle("Test")
     alert.show()
+}
+
+fun Fragment.showSnackBar(view: View, message: String) {
+    Snackbar.make(
+        view,
+        message,
+        Snackbar.LENGTH_LONG
+    ).setAction("Ok") {}.show()
 }

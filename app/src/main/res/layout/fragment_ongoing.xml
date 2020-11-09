@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.dashboard.mission.MissionFragment">
+    tools:context=".ui.dashboard.mission.OngoingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_ongoing_rv"
@@ -18,38 +18,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ongoing_shoes_iv"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/fragment_empty_ongoing"
+        layout="@layout/empty_ongoing"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/shoes"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_ongoing_rv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
-
-    <TextView
-        android:id="@+id/ongoing_no_ongoing_tv"
-        style="@style/no_mission_ongoing_text_bold_style"
-        android:layout_marginTop="16dp"
-        android:text="@string/looks_clear_here_str"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ongoing_shoes_iv" />
-
-    <TextView
-        android:id="@+id/ongoing_no_ongoing_two_tv"
-        style="@style/no_mission_ongoing_two_str"
-        android:layout_marginTop="8dp"
-        android:text="@string/well_done_champ_str"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ongoing_no_ongoing_tv" />
+        app:layout_constraintTop_toTopOf="@+id/fragment_ongoing_rv"
+        app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

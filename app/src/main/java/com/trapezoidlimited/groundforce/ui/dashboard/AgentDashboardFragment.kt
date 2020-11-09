@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
@@ -57,6 +58,8 @@ class AgentDashboardFragment : Fragment() {
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
             findNavController().navigate(R.id.historyFragment)
         }
+
+
     }
 
 

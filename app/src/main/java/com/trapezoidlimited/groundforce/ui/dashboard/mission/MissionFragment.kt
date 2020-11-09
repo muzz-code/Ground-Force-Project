@@ -114,16 +114,16 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     private fun setNoMissionViewVisible(){
         setInVisibility(binding.fragmentMissionRv)
-        setVisibility(binding.missionShoesIv)
-        setVisibility(binding.missionNoMissionTv)
-        setVisibility(binding.missionNoMissionTwoTv)
+        setVisibility(binding.fragmentEmptyMission.missionShoesIv)
+        setVisibility(binding.fragmentEmptyMission.missionNoMissionTv)
+        setVisibility(binding.fragmentEmptyMission.missionNoMissionTwoTv)
     }
 
     private fun setNoMissionViewInVisible(){
         setVisibility(binding.fragmentMissionRv)
-        setInVisibility(binding.missionShoesIv)
-        setInVisibility(binding.missionNoMissionTv)
-        setInVisibility(binding.missionNoMissionTwoTv)
+        setInVisibility(binding.fragmentEmptyMission.missionShoesIv)
+        setInVisibility(binding.fragmentEmptyMission.missionNoMissionTv)
+        setInVisibility(binding.fragmentEmptyMission.missionNoMissionTwoTv)
     }
 
 }

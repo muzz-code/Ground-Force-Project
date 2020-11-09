@@ -67,15 +67,26 @@
 
 
     <string-array name="sex">
+        <item>Choose gender</item>
         <item>Male</item>
         <item>Female</item>
         <item>Others</item>
     </string-array>
 
     <string-array name="religion">
+        <item>Choose religion</item>
         <item>Christian</item>
         <item>Muslim</item>
         <item>Others</item>
+    </string-array>
+
+    <string-array name="bank">
+        <item>GTBank</item>
+        <item>Access</item>
+        <item>UBA</item>
+        <item>FirstBank</item>
+        <item>FCMB</item>
+        <item>Sterling Bank</item>
     </string-array>
 
 

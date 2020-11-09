@@ -56,7 +56,9 @@ class LandingFragment : Fragment() {
                 binding.landingCreateAccBtn to binding.landingCreateAccBtn.transitionName,
                 binding.landingSignUpGoogleBtn to binding.landingSignUpGoogleBtn.transitionName
             )
+
             findNavController().navigate(R.id.loginFragment, null, null, extra)
+
         }
 
 
