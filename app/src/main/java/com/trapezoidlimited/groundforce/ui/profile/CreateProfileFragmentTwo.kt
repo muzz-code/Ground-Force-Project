@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
+import com.trapezoidlimited.groundforce.validator.AllFormValidator
+import com.trapezoidlimited.groundforce.validator.EditFieldType
+import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
 
 class CreateProfileFragmentTwo : Fragment() {
 
-    private var _binding : FragmentCreateProfileTwoBinding? = null
+    private var _binding: FragmentCreateProfileTwoBinding? = null
 
     private val binding get() = _binding!!
 
@@ -29,8 +32,27 @@ class CreateProfileFragmentTwo : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val emailEditText = binding.fragmentCreateProfileTwoEmailAddressPlaceholderEt
+        val addressEditText = binding.fragmentCreateProfileTwoAddressPlaceholderEt
+        val additionalPhoneEditText = binding.fragmentCreateProfileTwoPhoneNumberEt
+
+        /** validating email and residential address fields **/
+        emailEditText.watchToValidator(EditFieldType.EMAIL)
+        addressEditText.watchToValidator(EditFieldType.ADDRESS)
+        additionalPhoneEditText.watchToValidator(EditFieldType.ADDITIONALPHONE)
+
+        AllFormValidator.watchAllMyFields(
+            mutableMapOf(
+                emailEditText to EditFieldType.EMAIL,
+                addressEditText to EditFieldType.ADDRESS,
+                additionalPhoneEditText to EditFieldType.ADDITIONALPHONE
+            ),
+            binding.fragmentCreateProfileTwoBtn
+        )
+
+
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentThree)

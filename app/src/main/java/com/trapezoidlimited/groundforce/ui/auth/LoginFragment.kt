@@ -18,6 +18,7 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
@@ -184,12 +185,14 @@ class LoginFragment : Fragment() {
 
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
+
             Intent(requireContext(), DashboardActivity::class.java).also {
                 startActivity(it)
 //                requireActivity().finish()
             }
-        }
 
+            requireActivity().finish()
+        }
 
 
     }

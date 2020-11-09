@@ -121,6 +121,7 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/btn_primary_shapes"
             android:text="@string/phone_activ_continue_str"
+            android:enabled="false"
             android:textAllCaps="false"
             style="@style/colorWhiteMediumText"
             app:layout_constraintBottom_toBottomOf="parent"
