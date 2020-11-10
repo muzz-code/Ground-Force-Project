@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
-import com.trapezoidlimited.groundforce.validator.AllFormValidator
 import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
+import com.trapezoidlimited.groundforce.validator.watchAllMyFields
+import com.trapezoidlimited.groundforce.validator.watchToValidator
 
 class CreateProfileFragmentTwo : Fragment() {
 
@@ -43,7 +43,7 @@ class CreateProfileFragmentTwo : Fragment() {
         addressEditText.watchToValidator(EditFieldType.ADDRESS)
         additionalPhoneEditText.watchToValidator(EditFieldType.ADDITIONALPHONE)
 
-        AllFormValidator.watchAllMyFields(
+        watchAllMyFields(
             mutableMapOf(
                 emailEditText to EditFieldType.EMAIL,
                 addressEditText to EditFieldType.ADDRESS,

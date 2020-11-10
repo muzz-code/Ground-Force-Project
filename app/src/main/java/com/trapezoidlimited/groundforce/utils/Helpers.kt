@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.api.Resource
@@ -24,4 +25,13 @@ fun Fragment.handleApiError(
     }
 
 
+}
+
+
+fun showSnackBar(view: View, message: String) {
+    Snackbar.make(
+        view,
+        message,
+        Snackbar.LENGTH_LONG
+    ).setAction("Ok") {}.show()
 }

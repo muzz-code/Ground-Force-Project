@@ -43,13 +43,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl"
         app:layout_constraintVertical_bias="1.0"
-        tools:context=".ui.profile.UserProfileFragment">
+        tools:context=".ui.dashboard.UserProfileFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@android:color/white"
-            tools:context=".ui.profile.UserProfileFragment">
+            tools:context=".ui.dashboard.UserProfileFragment">
 
 
             <TextView
@@ -393,7 +393,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/fragment_create_profile_one_iv"
+        android:id="@+id/fragment_create_profile_one_profile_image_iv"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/zaria_boy"

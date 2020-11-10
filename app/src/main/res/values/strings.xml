@@ -245,7 +245,7 @@
     <string name="badge_number_two">2</string>
     <string name="mission_report_str">Mission Report</string>
 
-<!--    ToolBar Titles-->
+    <!--    ToolBar Titles-->
 
     <string name="home_title_str">Home</string>
     <string name="tasks_title_str">Tasks</string>
@@ -265,6 +265,7 @@
     <string name="n100_str">N100</string>
     <string name="you_have_received_n100_str">You have received N100</string>
     <string name="_18th_sept_2020_str">18th Sept, 2020</string>
+    <string name="sign_in_with_google">Sign in With Google</string>
 
 
 </resources>

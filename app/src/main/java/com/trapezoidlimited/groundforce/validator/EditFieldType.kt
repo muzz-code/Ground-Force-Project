@@ -7,5 +7,6 @@ enum class EditFieldType {
     EMAIL,
     ADDRESS,
     ADDITIONALPHONE,
-    ACCOUNTNUMBER
+    ACCOUNTNUMBER,
+    PIN
 }
