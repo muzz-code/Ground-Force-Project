@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,6 +19,8 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentTasksBinding
 import com.trapezoidlimited.groundforce.utils.DataListener
+import com.trapezoidlimited.groundforce.utils.MISSION
+import com.trapezoidlimited.groundforce.utils.ONGOING
 
 
 class TasksFragment : Fragment() {
@@ -42,22 +45,14 @@ class TasksFragment : Fragment() {
         handleTabIndicator()
 
 
-        /** setting the startTab to Ongoing if this fragment creation is triggered by the active btn  */
+        /** setting the viewPager item to Ongoing and Missions depending on the currentItem value and the button clicked */
 
-
-        DataListener.setStartTab.observe(viewLifecycleOwner, Observer {
-            if (it == true) {
-                binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = "Ongoing"
-
-                binding.fragmentTasksTabViewPagerVp.currentItem = 1
-
-                //binding.fragmentTasksTabLayoytTl.getTabAt(1)?.select()
-
-                //adapter.notifyItemInserted(1)
-
-                DataListener.mSetStartTab.value = false
-            }
-        })
+        if(DataListener.currentItem == ONGOING){
+            binding.fragmentTasksTabViewPagerVp.currentItem = ONGOING
+        }
+        else{
+            binding.fragmentTasksTabViewPagerVp.currentItem = MISSION
+        }
 
 
         return binding.root
@@ -169,5 +164,6 @@ class TasksFragment : Fragment() {
 
         })
     }
+
 
 }
