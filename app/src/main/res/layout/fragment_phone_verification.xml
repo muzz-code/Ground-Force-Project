@@ -112,6 +112,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             style="@style/colorWhiteSmallText"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/phone_verif_resend_tv"
             app:layout_constraintStart_toStartOf="@+id/phone_verif_resend_tv" />

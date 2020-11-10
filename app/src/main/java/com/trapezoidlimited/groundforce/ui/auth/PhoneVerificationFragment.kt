@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat.getColor
@@ -17,6 +18,9 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.validator.AllFormValidator
+import com.trapezoidlimited.groundforce.validator.EditFieldType
+import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
 
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
@@ -78,11 +82,22 @@ class PhoneVerificationFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        val otpField = binding.phoneVerifPinView as EditText
+
+
+        otpField.watchToValidator(EditFieldType.OTP)
+        AllFormValidator.watchAllMyFields(
+            mutableMapOf(
+                otpField to EditFieldType.OTP
+            ),
+            binding.phoneVerifConfirmBtn
+        )
 
         //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentOne)
-
+            otpField.text.clear()
+            AllFormValidator.clearFieldsArray()
         }
 
 

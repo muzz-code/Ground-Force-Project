@@ -11,7 +11,6 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,15 +23,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import com.trapezoidlimited.groundforce.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_create_profile_one.*
-import kotlinx.android.synthetic.main.verification_result_page.*
+import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
+import com.trapezoidlimited.groundforce.validator.AllFormValidator
+import com.trapezoidlimited.groundforce.validator.EditFieldType
+import com.trapezoidlimited.groundforce.validator.FormFieldValidator
+import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
 import java.util.*
 import javax.inject.Inject
 
@@ -103,8 +103,6 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
             binding.fragmentCreateProfileOneGenderSp.adapter = sexAdapter
-
-
         }
 
         /** Array adapter for spinner drop down for religion **/
@@ -126,9 +124,32 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         /** listener for religion option **/
         binding.fragmentCreateProfileOneReligionSp.onItemSelectedListener = this
 
+
+        /**Validating the Name fields*/
+        validateNameFields()
+
+        val genderField = binding.fragmentCreateProfileOneGenderSp
+        val religionField = binding.fragmentCreateProfileOneReligionSp
+        val dateOfBirth = binding.fragmentCreateProfileOneDateBirthEt
+
         /** Navigate to contact details page **/
         binding.fragmentCreateProfileOneBtn.setOnClickListener {
-            findNavController().navigate(R.id.createProfileFragmentTwo)
+
+            if (!FormFieldValidator.validateDateOfBirth(dateOfBirth.text.toString())) {
+                dateOfBirth.error = "Please specify a date of birth"
+            } else if (!FormFieldValidator.validateGender(genderField.selectedItem.toString())) {
+
+                showSnackBar(binding.fragmentCreateProfileOneBtn, "Gender field is required.")
+
+            } else if (!FormFieldValidator.validateReligion(religionField.selectedItem.toString())) {
+
+                showSnackBar(binding.fragmentCreateProfileOneBtn, "Religion field is required.")
+
+            } else {
+                findNavController().navigate(R.id.createProfileFragmentTwo)
+                AllFormValidator.clearFieldsArray()
+            }
+
         }
 
 
@@ -143,6 +164,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             date = "${month + 1}/$day/$year"
             dateButton.setText(date)
+            dateOfBirth.error = null
         }
 
 
@@ -254,6 +276,25 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+
+    private fun validateNameFields() {
+        val firstNameEditText = binding.fragmentCreateProfileFirstNamePlaceholderEt
+        val lastNameEditText = binding.fragmentCreateProfileOneLastNameEt
+
+
+        firstNameEditText.watchToValidator(EditFieldType.NAME)
+        lastNameEditText.watchToValidator(EditFieldType.NAME)
+
+        AllFormValidator.watchAllMyFields(
+            mutableMapOf(
+                firstNameEditText to EditFieldType.NAME,
+                lastNameEditText to EditFieldType.NAME,
+            ),
+            binding.fragmentCreateProfileOneBtn
+        )
 
     }
 

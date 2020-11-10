@@ -27,6 +27,7 @@
             android:defaultValue="@null"
             app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
             app:nullable="true" />
+
     </fragment>
     <fragment
         android:id="@+id/phoneVerificationFragment"
@@ -87,11 +88,12 @@
         android:id="@+id/loginFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_createProfileFragmentOne"
             app:destination="@id/createProfileFragmentOne" />
     </fragment>
+
 
     <fragment
         android:id="@+id/dashBoardFragment"
@@ -109,7 +111,7 @@
         android:id="@+id/resetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
-        tools:layout="@layout/fragment_reset_password" >
+        tools:layout="@layout/fragment_reset_password">
         <action
             android:id="@+id/action_resetPasswordFragment_to_createProfileFragmentOne"
             app:destination="@id/createProfileFragmentOne" />
