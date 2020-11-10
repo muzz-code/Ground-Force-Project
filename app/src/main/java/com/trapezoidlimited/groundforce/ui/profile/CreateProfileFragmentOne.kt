@@ -29,10 +29,7 @@ import com.trapezoidlimited.groundforce.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
-import com.trapezoidlimited.groundforce.validator.AllFormValidator
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
+import com.trapezoidlimited.groundforce.validator.*
 import java.util.*
 import javax.inject.Inject
 
@@ -135,19 +132,19 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         /** Navigate to contact details page **/
         binding.fragmentCreateProfileOneBtn.setOnClickListener {
 
-            if (!FormFieldValidator.validateDateOfBirth(dateOfBirth.text.toString())) {
+            if (!validateDateOfBirth(dateOfBirth.text.toString())) {
                 dateOfBirth.error = "Please specify a date of birth"
-            } else if (!FormFieldValidator.validateGender(genderField.selectedItem.toString())) {
+            } else if (!validateGender(genderField.selectedItem.toString())) {
 
                 showSnackBar(binding.fragmentCreateProfileOneBtn, "Gender field is required.")
 
-            } else if (!FormFieldValidator.validateReligion(religionField.selectedItem.toString())) {
+            } else if (!validateReligion(religionField.selectedItem.toString())) {
 
                 showSnackBar(binding.fragmentCreateProfileOneBtn, "Religion field is required.")
 
             } else {
                 findNavController().navigate(R.id.createProfileFragmentTwo)
-                AllFormValidator.clearFieldsArray()
+                clearFieldsArray()
             }
 
         }
@@ -242,9 +239,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
                 }
                 return
             }
-
             else -> {
-
             }
         }
     }
@@ -281,14 +276,14 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
 
     private fun validateNameFields() {
+
         val firstNameEditText = binding.fragmentCreateProfileFirstNamePlaceholderEt
         val lastNameEditText = binding.fragmentCreateProfileOneLastNameEt
-
 
         firstNameEditText.watchToValidator(EditFieldType.NAME)
         lastNameEditText.watchToValidator(EditFieldType.NAME)
 
-        AllFormValidator.watchAllMyFields(
+        watchAllMyFields(
             mutableMapOf(
                 firstNameEditText to EditFieldType.NAME,
                 lastNameEditText to EditFieldType.NAME,

@@ -15,12 +15,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -32,17 +33,19 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.validator.Validation
+import com.trapezoidlimited.groundforce.validator.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val validate = Validation()
     private var googleAccount: GoogleSignInAccount? = null
+    private lateinit var emailAddressEt: EditText
+    private lateinit var pinEt: EditText
+    private lateinit var loginButton: Button
 
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -71,6 +74,18 @@ class LoginFragment : Fragment() {
 
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+
+        /**
+         * Initialize Views Here
+         */
+        emailAddressEt = binding.editTextTextEmailAddressEt
+        pinEt = binding.editTextNumberPinEt
+        loginButton = binding.loginLoginBtn
+
+
+        validateFields()
+
 
         /** setting toolbar text **/
         binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
@@ -143,6 +158,21 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /** Validate form fields **/
+    private fun validateFields() {
+        emailAddressEt.watchToValidator(EditFieldType.EMAIL)
+        pinEt.watchToValidator(EditFieldType.PIN)
+
+        watchAllMyFields(
+            mutableMapOf(
+                emailAddressEt to EditFieldType.ADDRESS,
+                pinEt to EditFieldType.PIN
+            ),
+            loginButton
+        )
+    }
+
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -203,7 +233,7 @@ class LoginFragment : Fragment() {
             Intent(requireContext(), DashboardActivity::class.java).also {
                 it.putExtra("googleAccount", googleAccount)
                 startActivity(it)
-//                requireActivity().finish()
+                requireActivity().finish()
             }
 
             requireActivity().finish()
@@ -237,14 +267,12 @@ class LoginFragment : Fragment() {
     //Google Sign Up result
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
-
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
-            val action =
-                LoginFragmentDirections.actionLoginFragmentToCreateProfileFragmentOne(account)
-
-
-            // Signed in successfully, show authenticated UI.
-            findNavController().navigate(action)
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                it.putExtra("googleAccount", account)
+                startActivity(it)
+                requireActivity().finish()
+            }
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
@@ -261,10 +289,10 @@ class LoginFragment : Fragment() {
 
 
     private fun validateEmailAndPin(email: String, pin: String): Boolean {
-        if (!validate.validateEmail(email)) {
+        if (!validateEmail(email)) {
             binding.editTextTextEmailAddressEt.error = "Invalid email"
             return false
-        } else if (!validate.validatePin(pin)) {
+        } else if (!validatePin(pin)) {
             binding.editTextNumberPinEt.error = "Invalid password"
             return false
         }

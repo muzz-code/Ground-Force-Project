@@ -159,6 +159,7 @@
                             <!--                login with email button-->
                             <Button
                                 android:id="@+id/login_login_btn"
+                                style="@style/colorWhiteSmallText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -166,17 +167,18 @@
                                 android:layout_marginTop="20dp"
                                 android:layout_marginRight="35dp"
                                 android:layout_marginBottom="20dp"
+                                android:enabled="false"
                                 android:paddingTop="16dp"
                                 android:paddingBottom="16dp"
                                 android:text="@string/login_str"
                                 android:textAllCaps="false"
-                                style="@style/colorWhiteSmallText"
                                 android:transitionName="@string/google_button_transition"
                                 app:cornerRadius="50dp" />
 
                             <!--                login with google button-->
                             <Button
                                 android:id="@+id/login_sign_up_google_btn"
+                                style="@style/colorWhiteSmallText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -186,9 +188,8 @@
                                 android:backgroundTint="#E35948"
                                 android:paddingTop="16dp"
                                 android:paddingBottom="16dp"
-                                android:text="@string/landing_sign_up_with_google_str"
+                                android:text="@string/sign_in_with_google"
                                 android:textAllCaps="false"
-                                style="@style/colorWhiteSmallText"
                                 android:transitionName="@string/login_button_transition"
                                 app:cornerRadius="50dp" />
 
