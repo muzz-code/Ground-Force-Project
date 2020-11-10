@@ -51,7 +51,7 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
     }
 
     override fun onAcceptClick(position: Int) {
-        findNavController().navigate(R.id.beginSurveyFragment2)
+        findNavController().navigate(R.id.action_surveyListFragment2_to_beginSurveyFragment2)
     }
 
     override fun onDeleteClick(position: Int) {

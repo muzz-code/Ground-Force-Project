@@ -36,11 +36,11 @@ class AgentDashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSurveysButtonIb.setOnClickListener {
-            findNavController().navigate(R.id.surveyListFragment2)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_surveyListFragment2)
         }
 
         /** setting mutableLiveData value controlling where the tab will start on the mission fragment  */
@@ -48,18 +48,16 @@ class AgentDashboardFragment : Fragment() {
         binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
 
             DataListener.mSetStartTab.value = true
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
-            findNavController().navigate(R.id.paymentHistory)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_paymentHistory)
         }
 
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
-            findNavController().navigate(R.id.historyFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
-
-
     }
 
 

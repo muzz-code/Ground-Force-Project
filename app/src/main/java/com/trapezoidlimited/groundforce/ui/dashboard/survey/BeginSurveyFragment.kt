@@ -34,7 +34,7 @@ class BeginSurveyFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.beginSurveyFragmentBtn.setOnClickListener {
-            findNavController().navigate(R.id.surveyQuestionsFragment2)
+            findNavController().navigate(R.id.action_beginSurveyFragment2_to_surveyQuestionsFragment2)
         }
     }
 }
