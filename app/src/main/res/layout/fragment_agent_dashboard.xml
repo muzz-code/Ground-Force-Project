@@ -342,6 +342,7 @@
                     android:text="@string/agentDashboard_mission_survey_num_str" />
 
                 <TextView
+                    android:id="@+id/fragment_agent_survey_view_details_tv"
                     style="@style/PrimaryDarkExtraSmallText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

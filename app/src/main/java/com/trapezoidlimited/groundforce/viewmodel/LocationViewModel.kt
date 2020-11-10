@@ -43,7 +43,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     @SuppressLint("MissingPermission")
     fun requestLocationUpdates() {
         request = LocationRequest()
-        request.interval = 10000
+        request.interval = 60000
 
         //get user location using high accurate settings
         request.priority = LocationRequest.PRIORITY_HIGH_ACCURACY

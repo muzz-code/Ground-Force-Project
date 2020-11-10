@@ -1,15 +1,19 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.history
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentHistoryBinding
+import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.utils.MISSIONCOMPLETED
 
 
 class HistoryFragment : Fragment() {
@@ -34,6 +38,19 @@ class HistoryFragment : Fragment() {
         /** set navigation arrow from drawable **/
         binding.fragmentHistoryToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
+        setUpTabs()
+
+        /** setting the viewPager item to Missions History and Surveys History depending on the button clicked  */
+
+        if(DataListener.msCurrentItem == SURVEYCOMPLETED){
+            Log.d("historySurveyCompleted", "$SURVEYCOMPLETED")
+            binding.fragmentHistoryTabViewPagerVp.currentItem = SURVEYCOMPLETED
+        }
+        else{
+            Log.d("missionSurveyCompleted", "$MISSIONCOMPLETED ")
+            binding.fragmentHistoryTabViewPagerVp.currentItem = MISSIONCOMPLETED
+        }
+
         return binding.root
     }
 
@@ -41,12 +58,13 @@ class HistoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentHistoryToolbar.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-        setUpTabs()
+
     }
 
     override fun onDestroyView() {
@@ -60,7 +78,7 @@ class HistoryFragment : Fragment() {
     private fun setUpTabs() {
 
         val fragmentList = arrayListOf(
-           HistoryMissionFragment(),
+            HistoryMissionFragment(),
             HistorySurveyFragment()
         )
 
@@ -76,7 +94,6 @@ class HistoryFragment : Fragment() {
         binding.fragmentHistoryTabViewPagerVp.adapter = adapter
 
 
-
         TabLayoutMediator(
             binding.fragmentHistoryTabLayoutTl,
             binding.fragmentHistoryTabViewPagerVp
@@ -87,9 +104,8 @@ class HistoryFragment : Fragment() {
             }
         }.attach()
 
+
     }
-
-
 
 
 }

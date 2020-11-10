@@ -81,7 +81,6 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         DataListener.mSetTabIndicator.value = true
 
 
-
         /** Onclick of the accept btn, the location data at that position will be removed from the Mission's list in the backend
          * And then, this location data is added to the ongoing list.
          * For now, this logic here just removes from the dummy list of the locations data */
