@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
-import com.trapezoidlimited.groundforce.utils.DataListener
+import com.trapezoidlimited.groundforce.utils.*
 
 class AgentDashboardFragment : Fragment() {
 
@@ -36,6 +37,7 @@ class AgentDashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
+            DataListener.currentItem = MISSION
             findNavController().navigate(R.id.tasksFragment)
         }
 
@@ -47,7 +49,7 @@ class AgentDashboardFragment : Fragment() {
 
         binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
 
-            DataListener.mSetStartTab.value = true
+            DataListener.currentItem = ONGOING
             findNavController().navigate(R.id.tasksFragment)
         }
 
@@ -56,6 +58,14 @@ class AgentDashboardFragment : Fragment() {
         }
 
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
+            // Setting currentItem value for mission-survey-history viewpager
+            DataListener.msCurrentItem = MISSIONCOMPLETED
+            findNavController().navigate(R.id.historyFragment)
+        }
+
+        binding.fragmentAgentSurveyViewDetailsTv.setOnClickListener {
+            // Setting currentItem value for mission-survey-history viewpager
+            DataListener.msCurrentItem = SURVEYCOMPLETED
             findNavController().navigate(R.id.historyFragment)
         }
 
