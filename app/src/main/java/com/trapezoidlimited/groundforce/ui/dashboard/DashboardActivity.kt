@@ -1,30 +1,59 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.RequestManager
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    @Inject
+    lateinit var requestManager: RequestManager
+
+    lateinit var profileImage: ImageView
+
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var drawerLayout: DrawerLayout
+    private var googleAccount: GoogleSignInAccount? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (intent.extras != null) {
+            googleAccount = intent.extras?.getParcelable("googleAccount")
+        }
+
+
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         val view = binding.root
+
         setContentView(view)
+
+        //Inflate the Nav Header
+        val navHeaderView = LayoutInflater.from(this)
+            .inflate(R.layout.nav_header_main, agentDashboard_navigation_view, true)
+
+        profileImage = navHeaderView.nav_header_agent_icon
+
 
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
@@ -34,6 +63,15 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         //Bottom Navigation with Menu
         val bottomNavigator: BottomNavigationView = binding.dashboardActivityBnv
         bottomNavigator.setOnNavigationItemSelectedListener(navListener)
+
+
+        //Load Profile Image to Nav Drawer Header
+        if (googleAccount != null) {
+            requestManager
+                .load(googleAccount?.photoUrl)
+                .into(profileImage)
+        }
+
     }
 
     /**navigating between different fragment in the bottom navigation**/
@@ -102,8 +140,10 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
 
+
     //OnClick Listener on View Profile
     fun openProfile(view: View) {
+//        var action = Da
         drawer.closeDrawer(GravityCompat.START)
         Navigation.findNavController(this, R.id.dashboard_activity_nhf)
             .navigate(R.id.userProfileFragment)

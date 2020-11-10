@@ -1,142 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.profile.CreateProfileFragmentTwo">
+    tools:context=".ui.profile.CreateProfileFragmentTwo"
+    android:fillViewport="true"
+    >
 
-<!--    Include to tool bar -->
-    <include
-        android:id="@+id/fragment_create_profile_two_ic"
-        layout="@layout/toolbar_fragment"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-<!--  Contact detail text view details  -->
-    <TextView
-        android:id="@+id/fragment_create_profile_two_contact_details_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/contact_details_str"
-        android:textStyle="bold"
-        style="@style/colorPrimaryBlackMediumText"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="35.22dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_ic" />
+        <!--    Include to tool bar -->
+        <include
+            android:id="@+id/fragment_create_profile_two_ic"
+            layout="@layout/toolbar_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--  Email text text view   -->
-    <TextView
-        android:id="@+id/fragment_create_profile_two_email_address_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email_address_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        android:layout_marginTop="22.88dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_details_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
+        <!--  Contact detail text view details  -->
+        <TextView
+            android:id="@+id/fragment_create_profile_two_contact_details_tv"
+            style="@style/colorPrimaryBlackMediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35.22dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/contact_details_str"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_ic" />
 
-
-<!--    Edit text for email address -->
-    <EditText
-        android:id="@+id/fragment_create_profile_two_email_address_placeholder_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:inputType="text"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_tv" />
+        <!--  Email text text view   -->
+        <TextView
+            android:id="@+id/fragment_create_profile_two_email_address_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22.88dp"
+            android:text="@string/email_address_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_details_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
 
 
-<!--    Text view for Additional phone number -->
-    <TextView
-        android:id="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/additional_phone_number_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_email_address_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_placeholder_et" />
-
-<!--    Edit text for Additional phone number -->
-    <EditText
-        android:id="@+id/fragment_create_profile_two_phone_number_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:inputType="phone"
-        android:maxLength="14"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv" />
+        <!--    Edit text for email address -->
+        <EditText
+            android:id="@+id/fragment_create_profile_two_email_address_placeholder_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_tv" />
 
 
-<!--    Residence text view -->
-    <TextView
-        android:id="@+id/fragment_create_profile_two_residence_address_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:text="@string/residence_address_str"
-        style="@style/colorTertiaryGreyExtraSmallText"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_phone_number_et" />
+        <!--    Text view for Additional phone number -->
+        <TextView
+            android:id="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/additional_phone_number_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_email_address_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_email_address_placeholder_et" />
 
-<!--    Edit text for residence -->
-    <EditText
-        android:id="@+id/fragment_create_profile_two_address_placeholder_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_residence_address_tv" />
-
-<!-- Text view for error   -->
-    <TextView
-        android:id="@+id/fragment_create_profile_error_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_residence_address_tv"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_address_placeholder_et" />
-
-<!--   Button to go to next profile page  -->
-    <Button
-        android:id="@+id/fragment_create_profile_two_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/curved_primary_fill_button"
-        android:fontFamily="@font/roboto"
-        android:text="@string/next_step_str"
-        android:enabled="false"
-        android:textAllCaps="false"
-        style="@style/colorWhiteSmallText"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        <!--    Edit text for Additional phone number -->
+        <EditText
+            android:id="@+id/fragment_create_profile_two_phone_number_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:inputType="phone"
+            android:maxLength="14"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    Residence text view -->
+        <TextView
+            android:id="@+id/fragment_create_profile_two_residence_address_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:text="@string/residence_address_str"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_two_phone_number_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_phone_number_et" />
+
+        <!--    Edit text for residence -->
+        <EditText
+            android:id="@+id/fragment_create_profile_two_address_placeholder_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_residence_address_tv" />
+
+        <!-- Text view for error   -->
+        <TextView
+            android:id="@+id/fragment_create_profile_error_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_residence_address_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_address_placeholder_et" />
+
+        <!--   Button to go to next profile page  -->
+        <Button
+            android:id="@+id/fragment_create_profile_two_btn"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/curved_primary_fill_button"
+            android:enabled="false"
+            android:fontFamily="@font/roboto"
+            android:text="@string/next_step_str"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_error_tv"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

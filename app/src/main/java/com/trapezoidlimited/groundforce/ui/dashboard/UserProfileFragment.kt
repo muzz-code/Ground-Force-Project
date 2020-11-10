@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.profile
+package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.app.DatePickerDialog
 import android.os.Build
@@ -11,6 +11,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
 import java.util.*
@@ -20,10 +22,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var _binding: FragmentUserProfileBinding? = null
 
     val binding get() = _binding!!
-
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
-
     private lateinit var date: String
+
+    private var googleAccount: GoogleSignInAccount? = null
 
     /** onCreateView over ride function **/
     override fun onCreateView(
@@ -84,7 +86,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.fragmentUserProfileFirstNamePlaceholderEt.isEnabled = false
         binding.fragmentUserProfileLastNamePlaceholderEt.isEnabled = false
-        binding.fragmentUserProfileAccountNumberEt.isEnabled =false
+        binding.fragmentUserProfileAccountNumberEt.isEnabled = false
         binding.fragmentUserProfileResidentialAddressEt.isEnabled = false
 
 
@@ -137,6 +139,13 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             dateSetListener, year, month, day
         )
         dialog.show()
+
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
 
     }
 

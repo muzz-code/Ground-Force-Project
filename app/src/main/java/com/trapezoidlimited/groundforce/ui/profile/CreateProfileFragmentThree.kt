@@ -9,15 +9,11 @@ import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileThreeBinding
-import com.trapezoidlimited.groundforce.validator.AllFormValidator
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
-
+import com.trapezoidlimited.groundforce.validator.*
 
 class CreateProfileFragmentThree : Fragment() {
 
-    private var _binding : FragmentCreateProfileThreeBinding? = null
+    private var _binding: FragmentCreateProfileThreeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,7 +39,7 @@ class CreateProfileFragmentThree : Fragment() {
             requireContext(),
             R.array.bank,
             android.R.layout.simple_spinner_item
-        ).also {sexAdapter ->
+        ).also { sexAdapter ->
             // Specify the layout to use when the list of choices appears
             sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -56,7 +52,7 @@ class CreateProfileFragmentThree : Fragment() {
 
         /** validate account number field **/
         accountEditText.watchToValidator(EditFieldType.ACCOUNTNUMBER)
-        AllFormValidator.watchAllMyFields(
+        watchAllMyFields(
             mutableMapOf(
                 accountEditText to EditFieldType.ACCOUNTNUMBER
             ),
@@ -68,9 +64,9 @@ class CreateProfileFragmentThree : Fragment() {
             findNavController().navigate(R.id.locationVerificationFragment)
         }
 
-            /** set navigation to go to the previous screen on click of navigation arrow **/
-            binding.fragmentCreateProfileThreeIc.toolbarFragment.setNavigationOnClickListener {
-                findNavController().popBackStack()
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentCreateProfileThreeIc.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
         super.onViewCreated(view, savedInstanceState)
     }

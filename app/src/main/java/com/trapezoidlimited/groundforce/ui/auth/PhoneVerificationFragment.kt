@@ -18,9 +18,10 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.utils.showStatusBar
-import com.trapezoidlimited.groundforce.validator.AllFormValidator
 import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
+import com.trapezoidlimited.groundforce.validator.clearFieldsArray
+import com.trapezoidlimited.groundforce.validator.watchAllMyFields
+import com.trapezoidlimited.groundforce.validator.watchToValidator
 
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
@@ -86,7 +87,7 @@ class PhoneVerificationFragment : Fragment() {
 
 
         otpField.watchToValidator(EditFieldType.OTP)
-        AllFormValidator.watchAllMyFields(
+        watchAllMyFields(
             mutableMapOf(
                 otpField to EditFieldType.OTP
             ),
@@ -97,7 +98,7 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifConfirmBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentOne)
             otpField.text.clear()
-            AllFormValidator.clearFieldsArray()
+            clearFieldsArray()
         }
 
 

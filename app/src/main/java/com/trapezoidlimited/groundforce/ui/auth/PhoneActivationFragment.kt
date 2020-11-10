@@ -16,14 +16,11 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
-
-
-import com.trapezoidlimited.groundforce.validator.ValidationPhoneNumber.Companion.validatePhoneNumber
-
 import com.trapezoidlimited.groundforce.utils.showStatusBar
-import com.trapezoidlimited.groundforce.validator.AllFormValidator
 import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.FormFieldValidator.watchToValidator
+import com.trapezoidlimited.groundforce.validator.clearFieldsArray
+import com.trapezoidlimited.groundforce.validator.watchAllMyFields
+import com.trapezoidlimited.groundforce.validator.watchToValidator
 
 
 class PhoneActivationFragment : Fragment() {
@@ -104,7 +101,7 @@ class PhoneActivationFragment : Fragment() {
 
         phoneEditText.watchToValidator(EditFieldType.PHONE)
 
-        AllFormValidator.watchAllMyFields(
+        watchAllMyFields(
             mutableMapOf(
                 phoneEditText to EditFieldType.PHONE
             ),
@@ -120,7 +117,7 @@ class PhoneActivationFragment : Fragment() {
         binding.phoneActivContinueBtn.setOnClickListener {
             findNavController().navigate(R.id.phoneVerificationFragment)
             phoneEditText.text.clear()
-            AllFormValidator.clearFieldsArray()
+            clearFieldsArray()
         }
     }
 

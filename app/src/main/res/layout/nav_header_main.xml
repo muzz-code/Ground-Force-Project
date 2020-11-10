@@ -5,10 +5,12 @@
     android:layout_height="wrap_content"
     android:background="@color/colorBgSecondary">
 
-    <ImageView
-        android:id="@+id/agent_icon"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nav_header_agent_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        app:civ_border_color="@color/colorMission"
+        app:civ_border_width="4dp"
         android:layout_marginStart="17dp"
         android:layout_marginTop="48dp"
         android:src="@drawable/agent_icon"
@@ -17,15 +19,15 @@
 
     <TextView
         android:id="@+id/agentDashboardframent_user_name_tv"
+        style="@style/colorWhiteHeaderText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/agentDashboard_user_name"
-        style="@style/colorWhiteHeaderText"
-        app:layout_constraintBottom_toBottomOf="@+id/agent_icon"
-        app:layout_constraintStart_toEndOf="@id/agent_icon"
-        app:layout_constraintTop_toTopOf="@id/agent_icon" />
+        app:layout_constraintBottom_toBottomOf="@+id/nav_header_agent_icon"
+        app:layout_constraintStart_toEndOf="@id/nav_header_agent_icon"
+        app:layout_constraintTop_toTopOf="@id/nav_header_agent_icon" />
 
     <Button
         android:id="@+id/agentDashboardFragment_drawer_header_btn"
@@ -43,8 +45,8 @@
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/agentDashboardframent_user_name_tv"
-        app:layout_constraintStart_toStartOf="@id/agent_icon"
-        app:layout_constraintTop_toBottomOf="@+id/agent_icon"
+        app:layout_constraintStart_toStartOf="@id/nav_header_agent_icon"
+        app:layout_constraintTop_toBottomOf="@+id/nav_header_agent_icon"
         app:layout_constraintVertical_bias="0.0"
         app:strokeColor="@android:color/white" />
 
