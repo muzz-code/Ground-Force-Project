@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -25,10 +26,7 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.utils.ErrorUtils
-import com.trapezoidlimited.groundforce.utils.handleApiError
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
@@ -146,9 +144,14 @@ class PhoneVerificationFragment : Fragment() {
             when (it) {
 
                 is Resource.Success -> {
-                    showSnackBar(requireView(), it.value.message!!)
+
+                    /** Navigating to create profile fragment onSuccess*/
+                    findNavController().navigate(R.id.createProfileFragmentOne)
+                    clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
+                    /** Hiding progressbar and enabling button */
+                    binding.phoneVerificationPb.hide(binding.phoneVerifConfirmBtn)
                     handleApiError(it, retrofit, requireView())
                 }
             }
@@ -159,11 +162,14 @@ class PhoneVerificationFragment : Fragment() {
 
             val otp = otpField.text.toString()
             val confirmPhone = ConfirmPhone(phoneNumber, otp)
+
+            /** Making network call*/
             viewModel.confirmPhone(confirmPhone)
 
-            //findNavController().navigate(R.id.createProfileFragmentOne)
-            // otpField.text.clear()
-            //clearFieldsArray()
+            /** Setting Progress bar to visible and disabling button*/
+            binding.phoneVerificationPb.show(it as Button)
+
+
         }
 
 
@@ -171,6 +177,11 @@ class PhoneVerificationFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel._confirmPhoneResponse.value = null
     }
 
     override fun onDestroy() {

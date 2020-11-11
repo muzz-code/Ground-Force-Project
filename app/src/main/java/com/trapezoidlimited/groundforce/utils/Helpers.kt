@@ -2,6 +2,8 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.api.Resource
@@ -31,3 +33,16 @@ fun Fragment.handleApiError(
 
 }
 
+//Hide and Show Progress Bars
+fun ProgressBar.hide(button: Button? = null) {
+    visibility = View.GONE
+    if (button != null) {
+        button.isEnabled = true
+    }
+}
+fun ProgressBar.show(button: Button? = null) {
+    visibility = View.VISIBLE
+    if (button != null) {
+        button.isEnabled = false
+    }
+}

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -23,10 +24,7 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.utils.ErrorUtils
-import com.trapezoidlimited.groundforce.utils.handleApiError
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
@@ -51,6 +49,8 @@ class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var number: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -142,9 +142,17 @@ class PhoneActivationFragment : Fragment() {
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    showSnackBar(requireView(), it.value.message!!)
+
+                    /** Navigating to phone verification fragment onSuccess*/
+                    val action = PhoneActivationFragmentDirections
+                        .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+                    findNavController().navigate(action)
+
+                    clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
+                    /** Hiding progressbar and enabling button */
+                    binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
                     handleApiError(it, retrofit, requireView())
                 }
             }
@@ -158,20 +166,23 @@ class PhoneActivationFragment : Fragment() {
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
 
-            val number = "+234" + phoneEditText.text.toString()
+            number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
-            val action = PhoneActivationFragmentDirections
-                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-
-            Log.i("number", number)
+            /** Making network call*/
             viewModel.verifyPhone(phoneNumber)
 
-            findNavController().navigate(action)
-            phoneEditText.text.clear()
-            clearFieldsArray()
+            /** Setting Progress bar to visible and disabling button*/
+            binding.phoneActivationPb.show(it as Button?)
+
         }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        /** Code under construction: Beware!*/
+        viewModel._verifyPhoneResponse.value = null
     }
 
 }

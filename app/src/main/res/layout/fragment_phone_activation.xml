@@ -128,5 +128,15 @@
             app:layout_constraintEnd_toEndOf="@+id/phone_activ_terms_condition_tv"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_activ_terms_condition_tv" />
+
+        <ProgressBar
+            android:id="@+id/phone_activation_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_continue_btn"
+            app:layout_constraintEnd_toEndOf="@+id/phone_activ_continue_btn"
+            app:layout_constraintStart_toStartOf="@+id/phone_activ_continue_btn"
+            app:layout_constraintTop_toTopOf="@+id/phone_activ_continue_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
