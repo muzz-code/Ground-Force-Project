@@ -9,24 +9,30 @@ import retrofit2.http.*
 
 interface LoginAuthApi {
 
+    //Retrofit Login
     @FormUrlEncoded
     @POST("login")
     suspend fun login(
         @Field("email") email: String,
-        @Field("pin") pin: String
+        @Field("password") password: String
     ): LoginResponse
 
 
-    /**
-     * Query to make a network call to the forgot endpoint */
-    @FormUrlEncoded
-    @POST("endpoint")
-    suspend fun forgotPassword (
-        @Field("email") email: String
-    ): ForgotPasswordResponse
-
-//    @GET
-//    suspend fun profile(
-//        @Header("Authorization") header: String
-//    ): LoginResponse
+    @POST("https://gforceapi-heroku.herokuapp.com/api/v1/Auth/verify-phone")
+    suspend fun verifyPhone(
+        @Body phone: VerifyPhone
+    ): VerifyPhoneResponse
 }
+
+
+
+
+data class VerifyPhoneResponse(
+    val message: String?,
+    val data: Any?
+)
+
+
+data class VerifyPhone(
+    val phoneNumber: String
+)

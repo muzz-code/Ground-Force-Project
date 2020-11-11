@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.repository
 
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.VerifyPhone
 import javax.inject.Inject
 
 /**
@@ -10,17 +11,20 @@ class AuthRepositoryImpl
 @Inject
 constructor(
     private val api: LoginAuthApi
-) : BaseRepository(), AuthRepository {
+) : BaseRepository() {
 
 
-    override suspend fun login(email: String, pin: String) = safeApiCall {
+    suspend fun login(email: String, pin: String) = safeApiCall {
         api.login(email, pin)
     }
 
-    override suspend fun forgotPassword(email: String)= safeApiCall{
-        api.forgotPassword(email)
+    suspend fun verifyPhone(phone: VerifyPhone) = safeApiCall {
+        api.verifyPhone(phone)
     }
 
+//    override suspend fun forgotPassword(email: String)= safeApiCall{
+//        api.forgotPassword(email)
+//    }
 
 
 }

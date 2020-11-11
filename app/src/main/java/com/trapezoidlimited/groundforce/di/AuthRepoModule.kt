@@ -14,6 +14,6 @@ import dagger.hilt.android.components.ApplicationComponent
 @InstallIn(ApplicationComponent::class)
 @Module
 abstract class AuthRepoModule {
-    @Binds
-    abstract fun bindAuthRepo(loginImpl: AuthRepositoryImpl):AuthRepository
+//    @Binds
+//    abstract fun bindAuthRepo(loginImpl: AuthRepositoryImpl):AuthRepository
 }

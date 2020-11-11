@@ -11,18 +11,18 @@ fun Fragment.handleApiError(
     failure: Resource.Failure
 ){
 
-    when{
-        failure.isNetworkError -> Snackbar.make(requireView(), "Please confirm network connection", Snackbar.LENGTH_LONG)
-        failure.errorCode == 401 -> {
-            if (this is LoginFragment) {
-                Snackbar.make(requireView(), "Incorrect password or email.", Snackbar.LENGTH_LONG)
-            }
-        }
-        else -> {
-            val error = failure.errorBody?.string().toString()
-            Snackbar.make(requireView(), error, Snackbar.LENGTH_LONG)
-        }
-    }
+//    when{
+//        failure.isNetworkError -> Snackbar.make(requireView(), "Please confirm network connection", Snackbar.LENGTH_LONG)
+//        failure.errorCode == 401 -> {
+//            if (this is LoginFragment) {
+//                Snackbar.make(requireView(), "Incorrect password or email.", Snackbar.LENGTH_LONG)
+//            }
+//        }
+//        else -> {
+//            val error = failure.errorBody?.string().toString()
+//            Snackbar.make(requireView(), error, Snackbar.LENGTH_LONG)
+//        }
+//    }
 
 
 }

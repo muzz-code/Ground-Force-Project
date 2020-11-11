@@ -6,24 +6,46 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.api.VerifyPhone
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.utils.ErrorUtils
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
 import com.trapezoidlimited.groundforce.validator.watchToValidator
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class PhoneActivationFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var errorUtils: ErrorUtils
+
+    private lateinit var viewModel: LoginAuthViewModel
+
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
 
@@ -35,7 +57,8 @@ class PhoneActivationFragment : Fragment() {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
         /** setting toolbar text **/
-        binding.fragmentPhoneActivationTb.toolbarTitle.text = getString(R.string.phone_activation_title_str)
+        binding.fragmentPhoneActivationTb.toolbarTitle.text =
+            getString(R.string.phone_activation_title_str)
 
         /** set navigation arrow from drawable **/
         binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
@@ -59,6 +82,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -71,6 +95,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -86,14 +111,37 @@ class PhoneActivationFragment : Fragment() {
         binding.phoneActivTermsConditionTv.movementMethod = LinkMovementMethod.getInstance()
 
 
+        val repository: AuthRepositoryImpl = AuthRepositoryImpl(loginApiService)
+
+        val factory = ViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
         // Inflate the layout for this fragment
         return view
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
+        viewModel.phoneVerifyResponse.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    val message = it.value.message
+                    if (message != null) {
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                        Log.i("Response", message)
+                    }
+
+                }
+                is Resource.Failure -> {
+                    val error = it.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+                    Toast.makeText(requireContext(), error?.message, Toast.LENGTH_SHORT).show()
+                    error?.message?.let { it1 -> Log.i("Response", it1) }
+                }
+            }
+        })
 
         /** Validating the phone number field**/
 
@@ -109,15 +157,18 @@ class PhoneActivationFragment : Fragment() {
         )
 
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }
 
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
-            findNavController().navigate(R.id.phoneVerificationFragment)
-            phoneEditText.text.clear()
-            clearFieldsArray()
+
+            val phoneVerify = VerifyPhone("+234" + phoneEditText.text.toString())
+            viewModel.verifyPhone(phoneVerify)
+//            findNavController().navigate(R.id.phoneVerificationFragment)
+//            phoneEditText.text.clear()
+//            clearFieldsArray()
         }
     }
 
