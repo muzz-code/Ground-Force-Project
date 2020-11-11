@@ -24,6 +24,7 @@ import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBindi
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.ErrorUtils
+import com.trapezoidlimited.groundforce.utils.handleApiError
 import com.trapezoidlimited.groundforce.utils.showSnackBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 import com.trapezoidlimited.groundforce.validator.EditFieldType
@@ -33,6 +34,7 @@ import com.trapezoidlimited.groundforce.validator.watchToValidator
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
 import javax.inject.Inject
 
 
@@ -42,6 +44,9 @@ class PhoneActivationFragment : Fragment() {
     lateinit var loginApiService: LoginAuthApi
     @Inject
     lateinit var errorUtils: ErrorUtils
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
@@ -137,14 +142,10 @@ class PhoneActivationFragment : Fragment() {
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    showSnackBar(binding.phoneActivContinueBtn, it.value.message!!)
+                    showSnackBar(requireView(), it.value.message!!)
                 }
                 is Resource.Failure -> {
-
-                    val error = it.errorBody?.let { it1 -> errorUtils.parseError(it1) }
-                    showSnackBar(binding.phoneActivContinueBtn, "${error?.message}")
-
-                    //handleApiError(it)
+                    handleApiError(it, retrofit, requireView())
                 }
             }
 
