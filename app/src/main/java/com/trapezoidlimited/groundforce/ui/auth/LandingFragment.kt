@@ -58,7 +58,7 @@ class LandingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.landingCreateAccBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.phoneActivationFragment)
+            it.findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
         }
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -77,8 +77,12 @@ class LandingFragment : Fragment() {
                 binding.landingSignUpGoogleBtn to binding.landingSignUpGoogleBtn.transitionName
             )
 
-            findNavController().navigate(R.id.loginFragment, null, null, extra)
-
+            findNavController().navigate(
+                R.id.action_landingFragment_to_loginFragment,
+                null,
+                null,
+                extra
+            )
         }
 
 
@@ -87,8 +91,6 @@ class LandingFragment : Fragment() {
             val signInIntent: Intent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-
-
     }
 
     override fun onStart() {
@@ -118,8 +120,8 @@ class LandingFragment : Fragment() {
         try {
 
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
-            val action = LandingFragmentDirections
-                .actionLandingFragmentToCreateProfileFragmentOne(account)
+            val action =
+                LandingFragmentDirections.actionLandingFragmentToCreateProfileFragmentOne(account)
 
             // Signed in successfully, show authenticated UI.
             findNavController().navigate(action)
