@@ -100,6 +100,16 @@ class PhoneVerificationFragment : Fragment() {
                 ds.isUnderlineText = false
             }
         }
+
+        /** encrypting the phone number to set the phone verification text **/
+
+        val numberFirstString = phoneNumber.substring(4, 7)
+        val numberSecondString = phoneNumber.substring(10, phoneNumber.length)
+        val phoneVerificationText =
+            "Please enter the 4 digit code sent to you at 0$numberFirstString****$numberSecondString"
+
+        binding.phoneVerifVerifyTv.text = phoneVerificationText
+
         // Set the span text
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
