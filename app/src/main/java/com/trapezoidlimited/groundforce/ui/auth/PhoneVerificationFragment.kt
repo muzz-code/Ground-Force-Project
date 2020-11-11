@@ -26,6 +26,7 @@ import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBin
 import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.ErrorUtils
+import com.trapezoidlimited.groundforce.utils.showSnackBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
@@ -128,13 +129,13 @@ class PhoneVerificationFragment : Fragment() {
             when (it) {
 
                 is Resource.Success -> {
-                    Toast.makeText(this.context, it.value.message, Toast.LENGTH_SHORT).show()
+                    showSnackBar(binding.phoneVerifConfirmBtn, it.value.message!!)
                 }
                 is Resource.Failure -> {
 
                     val error = it.errorBody?.let { it1 -> errorUtils.parseError(it1) }
 
-                    Toast.makeText(requireContext(), "${error?.message}", Toast.LENGTH_SHORT).show()
+                    showSnackBar(binding.phoneVerifConfirmBtn, "${error?.message}")
 
                     //handleApiError(it)
                 }
