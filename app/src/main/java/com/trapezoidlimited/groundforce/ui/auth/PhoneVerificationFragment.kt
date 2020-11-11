@@ -126,6 +126,7 @@ class PhoneVerificationFragment : Fragment() {
 
         viewModel.confirmPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
+
                 is Resource.Success -> {
                     Toast.makeText(this.context, it.value.message, Toast.LENGTH_SHORT).show()
                 }
