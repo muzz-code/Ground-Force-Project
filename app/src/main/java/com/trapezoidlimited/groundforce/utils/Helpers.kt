@@ -1,37 +1,33 @@
 package com.trapezoidlimited.groundforce.utils
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.ui.auth.LoginFragment
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
 fun Fragment.handleApiError(
-    failure: Resource.Failure
+    failure: Resource.Failure,
+    retrofit: Retrofit,
+    view: View
 ){
+    val errorUtils = ErrorUtils(retrofit)
 
     when{
-        failure.isNetworkError -> Snackbar.make(requireView(), "Please confirm network connection", Snackbar.LENGTH_LONG)
-        failure.errorCode == 401 -> {
-            if (this is LoginFragment) {
-                Snackbar.make(requireView(), "Incorrect password or email.", Snackbar.LENGTH_LONG)
-            }
+        failure.isNetworkError -> {
+            showSnackBar(view, "Please confirm network connection" )
         }
+
         else -> {
-            val error = failure.errorBody?.string().toString()
-            Snackbar.make(requireView(), error, Snackbar.LENGTH_LONG)
+            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+            error?.message?.let { showSnackBar(view, it) }
         }
     }
 
 
 }
 
-
-fun showSnackBar(view: View, message: String) {
-    Snackbar.make(
-        view,
-        message,
-        Snackbar.LENGTH_LONG
-    ).setAction("Ok") {}.show()
-}

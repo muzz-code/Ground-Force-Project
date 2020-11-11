@@ -39,19 +39,17 @@
 
         <TextView
             android:id="@+id/phone_verif_verify_tv"
+            style="@style/colorTertiaryGreyLargeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_verif_text_verify_str"
             android:textAlignment="center"
-            style="@style/colorTertiaryGreyLargeText"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/phone_verif_phone_iv"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_verif_phone_iv"
-            app:layout_constraintTop_toBottomOf="@+id/phone_verif_phone_iv"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_verif_phone_iv" />
 
 
 

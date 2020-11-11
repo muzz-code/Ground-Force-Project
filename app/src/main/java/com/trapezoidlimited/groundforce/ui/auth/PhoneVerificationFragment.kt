@@ -6,6 +6,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,20 +15,49 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat.getColor
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
+import com.trapezoidlimited.groundforce.model.ConfirmPhone
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.utils.ErrorUtils
+import com.trapezoidlimited.groundforce.utils.handleApiError
+import com.trapezoidlimited.groundforce.utils.showSnackBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
 import com.trapezoidlimited.groundforce.validator.watchToValidator
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
 
+    @Inject
+    lateinit var errorUtils: ErrorUtils
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private lateinit var viewModel: LoginAuthViewModel
+
+
+    private val args: PhoneVerificationFragmentArgs by navArgs()
+    private lateinit var phoneNumber: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +65,15 @@ class PhoneVerificationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneVerificationBinding.inflate(inflater, container, false)
 
+        phoneNumber = args.phoneNumber
+
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
         /** setting toolbar text **/
-        binding.fragmentPhoneVerificationTb.toolbarTitle.text = getString(R.string.phone_verification_title_str)
+        binding.fragmentPhoneVerificationTb.toolbarTitle.text =
+            getString(R.string.phone_verification_title_str)
 
         /** set navigation arrow from drawable **/
         binding.fragmentPhoneVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
@@ -63,6 +100,16 @@ class PhoneVerificationFragment : Fragment() {
                 ds.isUnderlineText = false
             }
         }
+
+        /** encrypting the phone number to set the phone verification text **/
+
+        val numberFirstString = phoneNumber.substring(4, 7)
+        val numberSecondString = phoneNumber.substring(10, phoneNumber.length)
+        val phoneVerificationText =
+            "Please enter the 4 digit code sent to you at 0$numberFirstString****$numberSecondString"
+
+        binding.phoneVerifVerifyTv.text = phoneVerificationText
+
         // Set the span text
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
@@ -94,15 +141,33 @@ class PhoneVerificationFragment : Fragment() {
             binding.phoneVerifConfirmBtn
         )
 
+
+        viewModel.confirmPhoneResponse.observe(viewLifecycleOwner, Observer {
+            when (it) {
+
+                is Resource.Success -> {
+                    showSnackBar(requireView(), it.value.message!!)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
         //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
-            findNavController().navigate(R.id.createProfileFragmentOne)
-            otpField.text.clear()
-            clearFieldsArray()
+
+            val otp = otpField.text.toString()
+            val confirmPhone = ConfirmPhone(phoneNumber, otp)
+            viewModel.confirmPhone(confirmPhone)
+
+            //findNavController().navigate(R.id.createProfileFragmentOne)
+            // otpField.text.clear()
+            //clearFieldsArray()
         }
 
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().popBackStack()
         }
 

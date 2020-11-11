@@ -6,6 +6,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,26 +14,55 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
+import com.trapezoidlimited.groundforce.model.VerifyPhone
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.utils.ErrorUtils
+import com.trapezoidlimited.groundforce.utils.handleApiError
+import com.trapezoidlimited.groundforce.utils.showSnackBar
 import com.trapezoidlimited.groundforce.utils.showStatusBar
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
 import com.trapezoidlimited.groundforce.validator.watchToValidator
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class PhoneActivationFragment : Fragment() {
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+    @Inject
+    lateinit var errorUtils: ErrorUtils
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var viewModel: LoginAuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
+
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
+
 
         /** setting toolbar text **/
         binding.fragmentPhoneActivationTb.toolbarTitle.text = getString(R.string.phone_activation_title_str)
@@ -95,6 +125,7 @@ class PhoneActivationFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         /** Validating the phone number field**/
 
         val phoneEditText = binding.phoneActivPhoneNoEt
@@ -108,6 +139,17 @@ class PhoneActivationFragment : Fragment() {
             binding.phoneActivContinueBtn
         )
 
+        viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    showSnackBar(requireView(), it.value.message!!)
+                }
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+
+        })
 
         requireActivity().onBackPressedDispatcher.addCallback{
             findNavController().navigate(R.id.landingFragment)
@@ -115,10 +157,21 @@ class PhoneActivationFragment : Fragment() {
 
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
-            findNavController().navigate(R.id.phoneVerificationFragment)
+
+            val number = "+234" + phoneEditText.text.toString()
+            val phoneNumber = VerifyPhone(number)
+
+            val action = PhoneActivationFragmentDirections
+                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+
+            Log.i("number", number)
+            viewModel.verifyPhone(phoneNumber)
+
+            findNavController().navigate(action)
             phoneEditText.text.clear()
             clearFieldsArray()
         }
+
     }
 
 }

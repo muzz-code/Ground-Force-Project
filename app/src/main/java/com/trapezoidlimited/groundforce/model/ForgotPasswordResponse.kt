@@ -7,7 +7,6 @@ data class ForgotPasswordResponse(
 
 data class ResponseClass<T>(
     val status:Long,
-    val message : String = "",
-    val payload:T
-
+    val message : String?,
+    val payload:T?
 )

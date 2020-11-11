@@ -1,6 +1,10 @@
 package com.trapezoidlimited.groundforce.repository
 
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.model.ConfirmPhone
+import com.trapezoidlimited.groundforce.model.GenericResponseClass
+import com.trapezoidlimited.groundforce.model.VerifyPhone
 import javax.inject.Inject
 
 /**
@@ -17,10 +21,17 @@ constructor(
         api.login(email, pin)
     }
 
-    override suspend fun forgotPassword(email: String)= safeApiCall{
+    override suspend fun forgotPassword(email: String) = safeApiCall {
         api.forgotPassword(email)
     }
 
+    override suspend fun verifyPhone(phone: VerifyPhone) = safeApiCall {
+        api.verifyPhone(phone)
+    }
+
+    override suspend fun confirmPhone(confirmPhone: ConfirmPhone): Resource<GenericResponseClass> = safeApiCall {
+        api.confirmPhone(confirmPhone)
+    }
 
 
 }

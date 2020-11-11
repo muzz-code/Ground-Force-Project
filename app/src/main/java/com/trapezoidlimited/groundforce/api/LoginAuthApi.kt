@@ -1,7 +1,6 @@
 package com.trapezoidlimited.groundforce.api
 
-import com.trapezoidlimited.groundforce.model.ForgotPasswordResponse
-import com.trapezoidlimited.groundforce.model.LoginResponse
+import com.trapezoidlimited.groundforce.model.*
 import retrofit2.http.*
 
 /**
@@ -25,8 +24,21 @@ interface LoginAuthApi {
         @Field("email") email: String
     ): ForgotPasswordResponse
 
+
+    @POST("Auth/verify-phone")
+    suspend fun verifyPhone(
+        @Body phone: VerifyPhone
+    ): GenericResponseClass
+
+    @POST("Auth/confirm-otp")
+    suspend fun confirmPhone(
+        @Body confirmPhone: ConfirmPhone
+    ): GenericResponseClass
+
 //    @GET
 //    suspend fun profile(
 //        @Header("Authorization") header: String
 //    ): LoginResponse
+
+
 }
