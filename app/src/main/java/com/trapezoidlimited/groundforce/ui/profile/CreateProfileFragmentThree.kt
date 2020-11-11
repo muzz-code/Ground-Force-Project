@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileThreeBinding
 import com.trapezoidlimited.groundforce.validator.*
 
@@ -61,6 +62,11 @@ class CreateProfileFragmentThree : Fragment() {
 
         /** navigate to location verification screen **/
         binding.fragmentCreateProfileThreeDoneBtn.setOnClickListener {
+
+            AgentObject.bankName = binding.fragmentCreateProfileBankNameSp.selectedItem.toString()
+            AgentObject.accountNumber =
+                binding.fragmentCreateProfileThreeAccountNumberEt.text.toString()
+
             findNavController().navigate(R.id.locationVerificationFragment)
         }
 
@@ -71,11 +77,8 @@ class CreateProfileFragmentThree : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

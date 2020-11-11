@@ -1,7 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
 import com.trapezoidlimited.groundforce.api.VerifyPhoneResponse
-import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Response

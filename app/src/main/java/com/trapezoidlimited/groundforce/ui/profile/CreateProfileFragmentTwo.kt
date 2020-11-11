@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
@@ -55,6 +56,15 @@ class CreateProfileFragmentTwo : Fragment() {
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
+
+            AgentObject.additionalPhoneNumber =
+                binding.fragmentCreateProfileTwoPhoneNumberEt.text.toString()
+            AgentObject.email =
+                binding.fragmentCreateProfileTwoEmailAddressPlaceholderEt.text.toString()
+            AgentObject.homeAddress =
+                binding.fragmentCreateProfileTwoAddressPlaceholderEt.text.toString()
+
+
             findNavController().navigate(R.id.createProfileFragmentThree)
         }
 
