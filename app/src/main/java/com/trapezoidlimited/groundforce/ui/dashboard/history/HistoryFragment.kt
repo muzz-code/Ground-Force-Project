@@ -43,11 +43,11 @@ class HistoryFragment : Fragment() {
         /** setting the viewPager item to Missions History and Surveys History depending on the button clicked  */
 
         if(DataListener.msCurrentItem == SURVEYCOMPLETED){
-            Log.d("historySurveyCompleted", "$SURVEYCOMPLETED")
+
             binding.fragmentHistoryTabViewPagerVp.currentItem = SURVEYCOMPLETED
         }
         else{
-            Log.d("missionSurveyCompleted", "$MISSIONCOMPLETED ")
+
             binding.fragmentHistoryTabViewPagerVp.currentItem = MISSIONCOMPLETED
         }
 

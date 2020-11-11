@@ -1,12 +1,9 @@
 package com.trapezoidlimited.groundforce.viewmodel
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.model.ForgotPasswordResponse
-import com.trapezoidlimited.groundforce.model.LoginResponse
-import com.trapezoidlimited.groundforce.repository.AuthRepository
+import com.trapezoidlimited.groundforce.model.*
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import kotlinx.coroutines.launch
 
 
@@ -16,11 +13,8 @@ import kotlinx.coroutines.launch
  * to authorize user as appropriate. */
 
 
-class LoginAuthViewModel
-@ViewModelInject
-constructor(
-    private val repository: AuthRepository,
-    @Assisted private val savedStateHandle: SavedStateHandle
+class LoginAuthViewModel(
+    private val repository: AuthRepositoryImpl
 ) : ViewModel() {
 
     private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
@@ -34,6 +28,15 @@ constructor(
     val forgotPasswordResponse : LiveData<Resource<ForgotPasswordResponse>>
         get() = _forgotPasswordResponse
 
+
+    private val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
+    val verifyPhoneResponse: LiveData<Resource<GenericResponseClass>>
+        get() = _verifyPhoneResponse
+
+    private val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
+    val confirmPhoneResponse: LiveData<Resource<GenericResponseClass>>
+        get() = _confirmPhoneResponse
+
     /** launch coroutine in viewModel scope for forgot password */
     fun forgotPassword (email : String) = viewModelScope.launch {
         _forgotPasswordResponse.value = repository.forgotPassword(email)
@@ -44,5 +47,14 @@ constructor(
         _loginResponse.value = repository.login(email, pin)
     }
 
+    /***/
+
+    fun verifyPhone(phone: VerifyPhone) = viewModelScope.launch {
+        _verifyPhoneResponse.value = repository.verifyPhone(phone)
+    }
+
+    fun confirmPhone(confirmPhone: ConfirmPhone) = viewModelScope.launch {
+        _confirmPhoneResponse.value = repository.confirmPhone(confirmPhone)
+    }
 
 }

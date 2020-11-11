@@ -4,6 +4,7 @@ import com.trapezoidlimited.groundforce.api.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import retrofit2.Response
 
 abstract class BaseRepository {
 
@@ -16,7 +17,10 @@ abstract class BaseRepository {
             } catch (throwable: Throwable){
                 when(throwable) {
                     is HttpException -> {
-                        Resource.Failure(false, throwable.code(), throwable.response()?.errorBody())
+                        Resource.Failure(
+                            false,
+                            throwable.code(),
+                            throwable.response() as Response<Any>)
                     }
                     else -> {
                         Resource.Failure(true, null, null)
