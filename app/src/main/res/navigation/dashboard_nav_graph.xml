@@ -25,8 +25,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_agentDashboardFragment_to_surveyListFragment2"
@@ -34,24 +33,21 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_agentDashboardFragment_to_historyFragment"
             app:destination="@id/historyFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_agentDashboardFragment_to_paymentHistory"
             app:destination="@id/paymentHistory"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -63,29 +59,27 @@
         android:id="@+id/surveyListFragment2"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyListFragment"
         android:label="fragment_survey_list"
-        tools:layout="@layout/fragment_survey_list" >
+        tools:layout="@layout/fragment_survey_list">
         <action
             android:id="@+id/action_surveyListFragment2_to_beginSurveyFragment2"
             app:destination="@id/beginSurveyFragment2"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/beginSurveyFragment2"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.BeginSurveyFragment"
         android:label="fragment_begin_survey"
-        tools:layout="@layout/fragment_begin_survey" >
+        tools:layout="@layout/fragment_begin_survey">
         <action
             android:id="@+id/action_beginSurveyFragment2_to_surveyQuestionsFragment2"
             app:destination="@id/surveyQuestionsFragment2"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/surveyQuestionsFragment2"
@@ -109,7 +103,15 @@
         android:id="@+id/notificationsFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.notifications.NotificationsFragment"
         android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+        <action
+            android:id="@+id/action_notificationsFragment_to_agentDashboardFragment"
+            app:destination="@id/agentDashboardFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
 
     <fragment
         android:id="@+id/paymentHistory"
