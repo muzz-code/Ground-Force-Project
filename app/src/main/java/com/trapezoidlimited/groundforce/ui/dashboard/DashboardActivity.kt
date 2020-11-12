@@ -26,9 +26,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DashboardActivity : AppCompatActivity() {
-
-//    , NavigationView.OnNavigationItemSelectedListener
+class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var requestManager: RequestManager
@@ -61,8 +59,8 @@ class DashboardActivity : AppCompatActivity() {
 
 
         //Initialize Bottom Nav Listener
-//        val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
-//        navigationView.setNavigationItemSelectedListener(this)
+        val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         drawerLayout = binding.drawer
 
@@ -109,33 +107,33 @@ class DashboardActivity : AppCompatActivity() {
         }
 
 
-//    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-//        when (menuItem.itemId) {
-//            R.id.nav_home -> {
-//                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.agentDashboardFragment)
-//                selectActiveIcon()
-//            }
-//            R.id.nav_payment -> {
-//
-//                showToast("Payment")
-//            }
-//            R.id.nav_security -> {
-//                showToast("Security")
-//            }
-//            R.id.nav_help -> {
-//                showToast("Help")
-//            }
-//            R.id.nav_contact -> {
-//                showToast("Contact")
-//            }
-//            R.id.nav_logout -> {
-//                showToast("Logout")
-//            }
-//        }
-//
-//        drawer.closeDrawer(GravityCompat.START)
-//        return true
-//    }
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.nav_home -> {
+                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.agentDashboardFragment)
+                selectActiveIcon()
+            }
+            R.id.nav_payment -> {
+
+                showToast("Payment")
+            }
+            R.id.nav_security -> {
+                showToast("Security")
+            }
+            R.id.nav_help -> {
+                showToast("Help")
+            }
+            R.id.nav_contact -> {
+                showToast("Contact")
+            }
+            R.id.nav_logout -> {
+                showToast("Logout")
+            }
+        }
+
+        drawer.closeDrawer(GravityCompat.START)
+        return true
+    }
 
 
     //If Drawer is open, close it on back button pressed
