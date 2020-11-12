@@ -58,7 +58,7 @@ class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemS
         profileImage = navHeaderView.nav_header_agent_icon
 
 
-        //Initialize Bottom Nav Listener
+        //Initialize Drawer Menu Listener
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
 
