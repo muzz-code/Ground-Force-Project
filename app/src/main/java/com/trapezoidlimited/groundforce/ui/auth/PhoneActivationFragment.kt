@@ -151,7 +151,7 @@ class PhoneActivationFragment : Fragment() {
                     clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
-                    /** Hiding progressbar and enabling button */
+                    /** Hiding progressbar and enabling button */ 
                     binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
                     handleApiError(it, retrofit, requireView())
                 }
