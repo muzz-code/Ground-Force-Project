@@ -1,13 +1,47 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentSender
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Looper
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
+import com.trapezoidlimited.groundforce.utils.crossShow
+import com.trapezoidlimited.groundforce.utils.setSuccessDialog
+import com.trapezoidlimited.groundforce.utils.showSnackBar
+import java.util.concurrent.TimeUnit
+
 
 class LocationsVerificationFragment : Fragment() {
+
+    private var _binding: FragmentLocationsVerificationBinding? = null
+    private val binding get() = _binding!!
+    private val LOCATION_PERMISSION_REQUEST = 1
+    private val LOCATION_REQUEST_CODE = 1
+
+
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private var currentLocation: Location? = null
+    private var shortAnimationDuration: Int = 0
 
 
     override fun onCreateView(
@@ -15,8 +49,213 @@ class LocationsVerificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_locations_verification, container, false)
+        _binding = FragmentLocationsVerificationBinding.inflate(inflater, container, false)
+
+        /** setting toolbar text **/
+        binding.fragmentLocationVerificationTb.toolbarTitle.text =
+            getString(R.string.location_verification_title_str)
+
+        binding.fragmentLocationVerificationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+
+
+        /**
+         * Get the duration of the animation
+         */
+        shortAnimationDuration = resources.getInteger(android.R.integer.config_longAnimTime)
+
+        /**
+         * Starts the animation for the textview
+         */
+        binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
+
+        return binding.root
     }
 
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
+        /** Getting the current location **/
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        locationRequest = LocationRequest().apply {
+            interval = TimeUnit.SECONDS.toMillis(6000)
+            fastestInterval = TimeUnit.SECONDS.toMillis(4000)
+            maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                super.onLocationResult(locationResult)
+
+                if (locationResult?.lastLocation != null) {
+                    var lat = locationResult.lastLocation.latitude
+                    var long = locationResult.lastLocation.longitude
+                    currentLocation = locationResult.lastLocation
+
+                    binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
+
+                    setSuccessDialog()
+
+                } else {
+                    Log.d("LOCATION", "Location missing in callback.")
+                }
+            }
+        }
+
+        /** requesting location permission **/
+        requestLocationPermission()
+
+
+    }
+
+    /** method to subscribe to location updates **/
+    private fun subscribeToLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.requestLocationUpdates(
+            locationRequest, locationCallback, Looper.getMainLooper()
+        )
+    }
+
+    /** method to unsubscribe to location updates **/
+    fun unsubscribeToLocationUpdates() {
+        val removeTask = fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+
+        removeTask.addOnCompleteListener {
+            if (it.isSuccessful) {
+                onStop()
+            } else {
+                Log.d("UNSUBSCRIBE", "Unable to unsubscribe location updates")
+            }
+        }
+    }
+
+    /** method to request location permission **/
+    private fun requestLocationPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST
+        )
+    }
+
+    /** method to check if GPS is enabled and request user to turn on gps **/
+
+    private fun checkGPSEnabled() {
+        val builder = LocationSettingsRequest.Builder()
+            .addLocationRequest(locationRequest)
+
+
+        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
+        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+
+        task.addOnSuccessListener { locationSettingsResponse ->
+            subscribeToLocationUpdates()
+        }
+
+        task.addOnFailureListener { exception ->
+            if (exception is ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    /** Make alert dialog to request user to turn on GPS**/
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("GPS Settings")
+                        .setMessage("GPS is off. App requires location turned on for verification.")
+                        .setPositiveButton(
+                            "SETTINGS",
+                            DialogInterface.OnClickListener { dialogInterface, i ->
+                               val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                                    startActivityForResult(intent, LOCATION_REQUEST_CODE )
+
+                            })
+                        .setNegativeButton("Cancel",
+                            DialogInterface.OnClickListener { dialogInterface, i ->
+                                dialogInterface.cancel()
+                            }
+                        )
+                        .create()
+                        .show()
+
+                } catch (sendEx: IntentSender.SendIntentException) {
+                    // Ignore the error.
+                }
+            }
+        }
+
+    }
+
+    /** if the GPS is turned on, location update is subscribed to **/
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            subscribeToLocationUpdates()
+
+        } else {
+            showSnackBar(requireView(), "Something is wrong! GPS is off.")
+        }
+
+    }
+
+
+    /** method to observe the result request location permission **/
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST -> when {
+                grantResults.isEmpty() -> Toast.makeText(requireContext(), "Access not granted", Toast.LENGTH_LONG).show()
+                grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
+                    checkGPSEnabled()
+                }
+                else -> {
+
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Permission For Location")
+                        .setMessage("App requires permission to use the device's location to verify location.")
+                        .setPositiveButton(
+                            "OK",
+                            DialogInterface.OnClickListener { dialogInterface, i ->
+                                requestPermissions(
+                                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                                    LOCATION_PERMISSION_REQUEST
+                                )
+                            }).create()
+                        .show()
+
+                }
+            }
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
+
+

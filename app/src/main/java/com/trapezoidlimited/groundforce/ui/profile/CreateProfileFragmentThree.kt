@@ -61,7 +61,7 @@ class CreateProfileFragmentThree : Fragment() {
 
         /** navigate to location verification screen **/
         binding.fragmentCreateProfileThreeDoneBtn.setOnClickListener {
-            findNavController().navigate(R.id.locationVerificationFragment)
+            findNavController().navigate(R.id.locationsVerificationFragment)
         }
 
         /** set navigation to go to the previous screen on click of navigation arrow **/

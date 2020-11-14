@@ -79,10 +79,10 @@
 
 
     <fragment
-        android:id="@+id/locationVerificationFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.auth.LocationVerificationFragment"
+        android:id="@+id/locationsVerificationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment"
         android:label="fragment_location_verification"
-        tools:layout="@layout/fragment_location_verification" />
+        tools:layout="@layout/fragment_locations_verification" />
 
     <fragment
         android:id="@+id/loginFragment"

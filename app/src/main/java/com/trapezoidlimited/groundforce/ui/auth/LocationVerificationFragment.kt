@@ -27,7 +27,7 @@ import com.trapezoidlimited.groundforce.data.GpsState
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationVerificationBinding
 import com.trapezoidlimited.groundforce.utils.AppConstants
 import com.trapezoidlimited.groundforce.utils.crossShow
-import com.trapezoidlimited.groundforce.utils.onLogin
+import com.trapezoidlimited.groundforce.utils.setSuccessDialog
 import com.trapezoidlimited.groundforce.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_location_verification.*
 
@@ -79,7 +79,7 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
          */
         binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
 
-        onLogin()
+        setSuccessDialog()
 
         return binding.root
     }
@@ -226,7 +226,7 @@ class LocationVerificationFragment : Fragment(), GoogleApiClient.ConnectionCallb
                 getString(R.string.latLong, this?.longitude, this?.latitude)
             this?.let {
                 //get the custom alert dialog to display success since location is gotten
-                onLogin()
+                setSuccessDialog()
             }
         }
     }
