@@ -9,17 +9,11 @@ const val ONGOING = 1
 const val MISSIONCOMPLETED = 0
 const val SURVEYCOMPLETED = 1
 
-const val LOCATION_ACCESS_DENIED = 0
-const val LOCATION_ACCESS_ACCEPT = 1
 
 object DataListener {
 
     var currentItem = MISSION
     var msCurrentItem = MISSIONCOMPLETED
-
-    var mlocationListener = MutableLiveData<Boolean>()
-    val locationListener: LiveData<Boolean>
-            get() = mlocationListener
 
     var mSetTabIndicator = MutableLiveData<Boolean>()
     val setTabIndicator : LiveData<Boolean>

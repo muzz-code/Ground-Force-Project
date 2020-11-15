@@ -32,14 +32,17 @@ fun validateDateOfBirth(date: String): Boolean {
     return date.trim().isNotEmpty()
 }
 
+/** Validating Gender field */
 fun validateGender(genderSelected: String): Boolean {
     return genderSelected == "Male" || genderSelected == "Female" || genderSelected == "Others"
 }
 
+/** Validating Religion field */
 fun validateReligion(religionSelected: String): Boolean {
     return religionSelected == "Christian" || religionSelected == "Muslim" || religionSelected == "Others"
 }
 
+/** Validating Email field */
 fun validateEmail(email: String): Boolean {
     val pattern: Pattern =
         Pattern.compile("^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+)\\.([a-zA-Z]{2,5})\$");
@@ -49,10 +52,12 @@ fun validateEmail(email: String): Boolean {
     return email.trim().isNotEmpty() && matchFound
 }
 
+/** Validating Address field */
 fun validateAddress(address: String): Boolean {
     return address.trim().length > 1
 }
 
+/** Validating Additional Phone field */
 fun validateAdditionalPhone(number: String): Boolean {
     val pattern: Pattern = Pattern.compile("(\\+?234|0)[789][01][0-9]{8}")
     val matcher: Matcher = pattern.matcher(number)
@@ -60,6 +65,7 @@ fun validateAdditionalPhone(number: String): Boolean {
     return !(number.isEmpty() || !matchFound)
 }
 
+/** Validating AccountNumber field */
 fun validateAccountNumber(number: String): Boolean {
     val pattern: Pattern = Pattern.compile("[0-9]{10}")
     val matcher: Matcher = pattern.matcher(number)
