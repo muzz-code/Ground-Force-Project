@@ -26,14 +26,14 @@ class EmailVerificationOne : Fragment() {
 
         /** setting toolbar text **/
         binding.fragmentEmailVerificationTb.toolbarTitle.text =
-            getString(R.string.location_verification_title_str)
+            getString(R.string.email_verification_title_bar_str)
 
 
         /** set navigation arrow from drawable **/
-        binding.fragmentEmailVerificationTb.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+        binding.fragmentEmailVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentEmailVerificationTb.toolbarFragment.setNavigationOnClickListener {
+        binding.fragmentEmailVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
@@ -43,6 +43,10 @@ class EmailVerificationOne : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        binding.fragmentEmailVerificationSubmitBtn.setOnClickListener {
+            findNavController().navigate(R.id.emailVerificationTwo)
+        }
 
     }
 

@@ -14,11 +14,14 @@
     <string name="landing_sign_up_str">I\'m Not New Here</string>
     <string name="landing_sign_up_with_google_str">Sign Up With Google</string>
     <string name="phone_verif_text_verify_str">Please enter the 4 digit code sent to you at 0801 **** 678</string>
+    <string name="email_verification_title_str">Please enter the 4 digit code sent to you at kehinde@gmail.com</string>
     <string name="phone_verif_didnt_get_code_text_str">Didn\'t get the code? Resend.</string>
+    <string name="email_verify_didnt_get_code_text_str">Didn\'t get the code? Resend.</string>
     <string name="phone_verif_phone_sms_str">Phone SMS</string>
     <string name="phone_verif_tool_bar_arrow_str">tool bar arrow for phone verification screen</string>
     <string name="phone_activ_tool_bar_arrow_str">tool bar arrow for phone activation screen</string>
     <string name="phone_verif_confirm_str">Confirm</string>
+    <string name="email_verify_confirm_str">Confirm</string>
     <string name="phone_verif_phone_activation_str">Phone Activation</string>
     <string name="phone_activ_phone_verification_str">Phone Verification</string>
     <string name="phone_activ_phone_phone_number_str">Enter Phone Number</string>
@@ -257,7 +260,7 @@
     <string name="phone_activation_title_str">Phone Activation</string>
     <string name="create_profile_title_str">Create Profile</string>
     <string name="location_verification_title_str">Location Verification</string>
-    <string name="email_verification_title_str">Email Verification</string>
+    <string name="email_verification_title_bar_str">Email Verification</string>
     <string name="create_pin_title_str">Create Pin</string>
     <string name="mission_report_title_str">Mission Report</string>
     <string name="one_of_ten_title_str">"1 0f 10"</string>
@@ -269,6 +272,7 @@
     <string name="sign_in_with_google">Sign in With Google</string>
     <string name="email_instruction_str">Please enter your email address.</string>
     <string name="email_confirm_btn_str">Confirm</string>
+    <string name="change_email_str">Change Email</string>
 
 
 </resources>
