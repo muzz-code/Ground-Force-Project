@@ -58,7 +58,7 @@ class LandingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.landingCreateAccBtn.setOnClickListener {
-            it.findNavController().navigate(R.id.createProfileFragmentThree)
+            it.findNavController().navigate(R.id.emailVerificationOne)
         }
 
         // Build a GoogleSignInClient with the options specified by gso.

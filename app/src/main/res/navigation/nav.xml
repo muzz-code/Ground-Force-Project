@@ -121,6 +121,11 @@
         android:id="@+id/createPinFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.CreatePinFragment"
         android:label="CreatePinFragment" />
+    <fragment
+        android:id="@+id/emailVerificationOne"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationOne"
+        android:label="fragment_email_verification_one"
+        tools:layout="@layout/fragment_email_verification_one" />
 
 
 </navigation>

@@ -257,6 +257,7 @@
     <string name="phone_activation_title_str">Phone Activation</string>
     <string name="create_profile_title_str">Create Profile</string>
     <string name="location_verification_title_str">Location Verification</string>
+    <string name="email_verification_title_str">Email Verification</string>
     <string name="create_pin_title_str">Create Pin</string>
     <string name="mission_report_title_str">Mission Report</string>
     <string name="one_of_ten_title_str">"1 0f 10"</string>
@@ -266,6 +267,8 @@
     <string name="you_have_received_n100_str">You have received N100</string>
     <string name="_18th_sept_2020_str">18th Sept, 2020</string>
     <string name="sign_in_with_google">Sign in With Google</string>
+    <string name="email_instruction_str">Please enter your email address.</string>
+    <string name="email_confirm_btn_str">Confirm</string>
 
 
 </resources>

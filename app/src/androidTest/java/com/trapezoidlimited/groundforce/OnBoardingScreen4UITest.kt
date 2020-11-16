@@ -13,24 +13,24 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class OnBoardingScreen4UITest {
-    @Test
-    fun testTitleTextDisplayedOnFragment() {
-        /**
-         * Checks if the Title text is displayed on the fragment.
-         **/
-        val scenario = launchFragmentInContainer<OnBoardingScreen4Fragment>()
-        onView(withId(R.id.onBoardingScreen4_Fragment_headerText_tv))
-            .check(matches(withText(R.string.screen_4_text1)))
-    }
-    @Test
-    fun testSubTextDisplayedOnFragment() {
-        /**
-         * Checks if the subtitle text is displayed on the fragment.
-         **/
-        val scenario = launchFragmentInContainer<OnBoardingScreen4Fragment>()
-        onView(withId(R.id.onBoardingScreen4_subTitleText_tv))
-            .check(matches(withText(R.string.screen_4_text2)))
-    }
+//    @Test
+//    fun testTitleTextDisplayedOnFragment() {
+//        /**
+//         * Checks if the Title text is displayed on the fragment.
+//         **/
+//        val scenario = launchFragmentInContainer<OnBoardingScreen4Fragment>()
+//        onView(withId(R.id.onBoardingScreen4_Fragment_headerText_tv))
+//            .check(matches(withText(R.string.screen_4_text1)))
+//    }
+//    @Test
+//    fun testSubTextDisplayedOnFragment() {
+//        /**
+//         * Checks if the subtitle text is displayed on the fragment.
+//         **/
+//        val scenario = launchFragmentInContainer<OnBoardingScreen4Fragment>()
+//        onView(withId(R.id.onBoardingScreen4_subTitleText_tv))
+//            .check(matches(withText(R.string.screen_4_text2)))
+//    }
     @Test
     fun testIfFragmentInView() {
         /**

@@ -43,11 +43,11 @@ class CreateProfileFragmentTwo : Fragment() {
         addressEditText.watchToValidator(EditFieldType.ADDRESS)
         additionalPhoneEditText.watchToValidator(EditFieldType.ADDITIONALPHONE)
 
+
         watchAllMyFields(
             mutableMapOf(
                 emailEditText to EditFieldType.EMAIL,
-                addressEditText to EditFieldType.ADDRESS,
-                additionalPhoneEditText to EditFieldType.ADDITIONALPHONE
+                addressEditText to EditFieldType.ADDRESS
             ),
             binding.fragmentCreateProfileTwoBtn
         )

@@ -2,11 +2,14 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -89,9 +92,9 @@ class LocationsVerificationFragment : Fragment() {
             LocationServices.getFusedLocationProviderClient(requireActivity())
 
         locationRequest = LocationRequest().apply {
-            interval = TimeUnit.SECONDS.toMillis(6000)
-            fastestInterval = TimeUnit.SECONDS.toMillis(4000)
-            maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+            interval = TimeUnit.SECONDS.toMillis(1000)
+            fastestInterval = TimeUnit.SECONDS.toMillis(2000)
+            maxWaitTime = TimeUnit.MINUTES.toMillis(1)
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
@@ -111,6 +114,10 @@ class LocationsVerificationFragment : Fragment() {
                 } else {
                     Log.d("LOCATION", "Location missing in callback.")
                 }
+            }
+
+            override fun onLocationAvailability(p0: LocationAvailability?) {
+                Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
             }
         }
 
@@ -183,8 +190,8 @@ class LocationsVerificationFragment : Fragment() {
                         .setPositiveButton(
                             "SETTINGS",
                             DialogInterface.OnClickListener { dialogInterface, i ->
-                               val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                                    startActivityForResult(intent, LOCATION_REQUEST_CODE )
+                                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                                startActivityForResult(intent, LOCATION_REQUEST_CODE)
 
                             })
                         .setNegativeButton("Cancel",
@@ -227,7 +234,11 @@ class LocationsVerificationFragment : Fragment() {
 
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> when {
-                grantResults.isEmpty() -> Toast.makeText(requireContext(), "Access not granted", Toast.LENGTH_LONG).show()
+                grantResults.isEmpty() -> Toast.makeText(
+                    requireContext(),
+                    "Access not granted",
+                    Toast.LENGTH_LONG
+                ).show()
                 grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
                     checkGPSEnabled()
                 }
@@ -251,6 +262,20 @@ class LocationsVerificationFragment : Fragment() {
         }
     }
 
+//    fun isLocationEnabled(context: Context): Boolean? {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            // This is new method provided in API 28
+//            val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//            lm.isLocationEnabled
+//        } else {
+//            // This is Deprecated in API 28
+//            val mode = Settings.Secure.getInt(
+//                context.contentResolver, Settings.Secure.LOCATION_MODE,
+//                Settings.Secure.LOCATION_MODE_OFF
+//            )
+//            mode != Settings.Secure.LOCATION_MODE_OFF
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

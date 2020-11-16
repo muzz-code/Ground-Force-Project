@@ -4,6 +4,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import com.trapezoidlimited.groundforce.validator.Validation.validateAccountNumber
+import com.trapezoidlimited.groundforce.validator.Validation.validateAdditionalPhone
+import com.trapezoidlimited.groundforce.validator.Validation.validateAddress
+import com.trapezoidlimited.groundforce.validator.Validation.validateEmail
+import com.trapezoidlimited.groundforce.validator.Validation.validateName
+import com.trapezoidlimited.groundforce.validator.Validation.validateOTP
+import com.trapezoidlimited.groundforce.validator.Validation.validatePhoneNumber
+import com.trapezoidlimited.groundforce.validator.Validation.validatePin
 
 
 private lateinit var globalFieldsToWatch: MutableMap<EditText, EditFieldType>

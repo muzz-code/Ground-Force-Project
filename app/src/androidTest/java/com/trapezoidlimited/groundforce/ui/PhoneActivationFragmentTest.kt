@@ -32,12 +32,12 @@ class PhoneActivationFragmentTest {
             .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_phone_number_str)))
     }
     // Test for toolbar text display
-    @Test
-    fun testToolbarTextDisplayedFragment() {
-        val scenario = launchFragmentInContainer<PhoneActivationFragment>()
-        Espresso.onView(ViewMatchers.withId(R.id.phone_verif_app_bar_tv))
-            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_verification_str)))
-    }
+//    @Test
+//    fun testToolbarTextDisplayedFragment() {
+//        val scenario = launchFragmentInContainer<PhoneActivationFragment>()
+//        Espresso.onView(ViewMatchers.withId(R.id.phone_verif_app_bar_tv))
+//            .check(ViewAssertions.matches(ViewMatchers.withText(R.string.phone_activ_phone_verification_str)))
+//    }
     // Test for the "verify" text display
     @Test
     fun testVerifyTextDisplayedFragment() {

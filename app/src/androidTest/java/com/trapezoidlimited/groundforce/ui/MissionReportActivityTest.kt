@@ -26,7 +26,7 @@ class MissionReportActivityTest{
 
     @Test
     fun test_visibility_of_appbar(){
-        onView(withId(R.id.activity_mission_report_ic)).check(matches(isDisplayed()))
+        onView(withId(R.id.fragment_login_tb)).check(matches(isDisplayed()))
     }
 
     @Test

@@ -132,13 +132,13 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         /** Navigate to contact details page **/
         binding.fragmentCreateProfileOneBtn.setOnClickListener {
 
-            if (!validateDateOfBirth(dateOfBirth.text.toString())) {
+            if (!Validation.validateDateOfBirth(dateOfBirth.text.toString())) {
                 dateOfBirth.error = "Please specify a date of birth"
-            } else if (!validateGender(genderField.selectedItem.toString())) {
+            } else if (!Validation.validateGender(genderField.selectedItem.toString())) {
 
                 showSnackBar(binding.fragmentCreateProfileOneBtn, "Gender field is required.")
 
-            } else if (!validateReligion(religionField.selectedItem.toString())) {
+            } else if (!Validation.validateReligion(religionField.selectedItem.toString())) {
 
                 showSnackBar(binding.fragmentCreateProfileOneBtn, "Religion field is required.")
 

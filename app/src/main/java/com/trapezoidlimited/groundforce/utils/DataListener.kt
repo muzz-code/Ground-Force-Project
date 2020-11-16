@@ -19,9 +19,9 @@ object DataListener {
     val setTabIndicator : LiveData<Boolean>
         get() = mSetTabIndicator
 
+
     init {
         mSetTabIndicator.value = false
-
     }
 
 }

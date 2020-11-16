@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.repository
+package com.trapezoidlimited.groundforce
 
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
