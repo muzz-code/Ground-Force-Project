@@ -280,7 +280,8 @@
     <string name="zipcode_str">Zip code</string>
     <string name="lga_label_str">LGA</string>
     <string name="state_label_str">State</string>
-
+    <string name="welcome_account_successfully_created_str">Account Successfully Created!</string>
+    <string name="skip_for_now_btn_str">Skip For Now</string>
 
 
 </resources>

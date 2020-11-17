@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.ui.dialog.VerifiedDialog
+import com.trapezoidlimited.groundforce.ui.dialog.WelcomeDialog
 
 
 /**
@@ -103,6 +104,15 @@ fun View.crossfade(duration: Long) {
 fun Fragment.setSuccessDialog() {
     var frag = parentFragmentManager.beginTransaction()
     VerifiedDialog().show(frag, "This")
+}
+
+/**
+ * Inflate the welcome fragment that shows welcome to users
+ **/
+
+fun Fragment.showWelcomeDialog() {
+    val fragment = parentFragmentManager.beginTransaction()
+    WelcomeDialog().show(fragment, "Welcome")
 }
 
 /**

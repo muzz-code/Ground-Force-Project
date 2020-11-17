@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/location_verifcation_status"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_location_verification_skip_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -149,10 +149,10 @@
         app:tint="#FFFFFF" />
 
     <Button
-        android:id="@+id/materialButton"
+        android:id="@+id/fragment_location_verification_skip_btn"
         style="?attr/materialButtonOutlinedStyle"
         app:cornerRadius="20dp"
-        android:text="Skip For Now"
+        android:text="@string/skip_for_now_btn_str"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
         app:strokeColor= "@color/colorWhite"
