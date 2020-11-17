@@ -1,25 +1,21 @@
 package com.trapezoidlimited.groundforce.utils
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.ui.auth.LoginFragment
 import retrofit2.Retrofit
-import javax.inject.Inject
 
 
 fun Fragment.handleApiError(
     failure: Resource.Failure,
     retrofit: Retrofit,
     view: View
-){
+) {
     val errorUtils = ErrorUtils(retrofit)
 
-    when{
+    when {
         failure.isNetworkError -> {
-            showSnackBar(view, "Please confirm network connection" )
+            showSnackBar(view, "Please confirm network connection")
         }
 
         else -> {
@@ -30,4 +26,3 @@ fun Fragment.handleApiError(
 
 
 }
-

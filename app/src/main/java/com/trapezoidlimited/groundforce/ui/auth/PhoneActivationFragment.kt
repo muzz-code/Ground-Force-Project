@@ -171,7 +171,6 @@ class PhoneActivationFragment : Fragment() {
             phoneEditText.text.clear()
             clearFieldsArray()
         }
-
     }
 
 }

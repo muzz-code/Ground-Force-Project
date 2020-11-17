@@ -6,9 +6,10 @@ import com.trapezoidlimited.groundforce.repository.AuthRepository
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.repository.BaseRepository
 
+
 class ViewModelFactory(
     private val repository: BaseRepository
-):ViewModelProvider.NewInstanceFactory() {
+) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
@@ -22,4 +23,5 @@ class ViewModelFactory(
         }
     }
 }
+
 

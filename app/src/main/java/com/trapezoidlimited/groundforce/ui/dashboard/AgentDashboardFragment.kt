@@ -38,38 +38,35 @@ class AgentDashboardFragment : Fragment() {
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             DataListener.currentItem = MISSION
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSurveysButtonIb.setOnClickListener {
-            findNavController().navigate(R.id.surveyListFragment2)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_surveyListFragment2)
         }
 
         /** setting mutableLiveData value controlling where the tab will start on the mission fragment  */
 
         binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
-
             DataListener.currentItem = ONGOING
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
-            findNavController().navigate(R.id.paymentHistory)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_paymentHistory)
         }
 
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = MISSIONCOMPLETED
-            findNavController().navigate(R.id.historyFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
 
         binding.fragmentAgentSurveyViewDetailsTv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = SURVEYCOMPLETED
-            findNavController().navigate(R.id.historyFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
-
-
     }
 
 

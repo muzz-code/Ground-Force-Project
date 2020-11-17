@@ -110,7 +110,7 @@ class LoginFragment : Fragment() {
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 view.setOnClickListener {
-                    findNavController().navigate(R.id.phoneActivationFragment)
+                    findNavController().navigate(R.id.phoneVerificationFragment)
                 }
             }
 

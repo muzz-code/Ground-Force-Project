@@ -69,7 +69,7 @@ class OnBoardingFragment : Fragment() {
          */
         binding.fragmentOnBoardingGetStartedBtn.setOnClickListener {
             saveToSharedPreference(requireActivity(), ONBOARD, "true")
-            findNavController().navigate(R.id.landingFragment)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_landingFragment)
         }
 
     }
