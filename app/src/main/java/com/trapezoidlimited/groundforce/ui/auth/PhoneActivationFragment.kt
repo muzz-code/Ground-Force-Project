@@ -176,7 +176,6 @@ class PhoneActivationFragment : Fragment() {
             binding.phoneActivationPb.show(it as Button?)
 
         }
-
     }
 
     override fun onDestroyView() {

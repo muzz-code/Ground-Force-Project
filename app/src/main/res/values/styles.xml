@@ -1,4 +1,4 @@
- <resources>
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -82,62 +82,73 @@
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
 
-<!--    <style name="PrimaryGreenExtraSmallText"  parent="PrimaryDarkGreenMiniSmallText">-->
+    <!--    <style name="PrimaryGreenExtraSmallText"  parent="PrimaryDarkGreenMiniSmallText">-->
 
-     <style name="colorPrimaryStyle">
-         <item name="android:textColor">@color/colorPrimary</item>
-     </style>
+    <style name="colorPrimaryStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
 
     <style name="colorPrimaryMiniSmallText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorPrimaryExtraSmallText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorPrimarySmallText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorPrimaryMediumText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorPrimaryLargeText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorPrimaryExtraLargeText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorPrimarySuperLargeText" parent="colorPrimaryStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
 
 
-
     <!--   DarkGreen text Styles -->
 
-     <style name="colorPrimaryDarkStyle">
-         <item name="android:textColor">@color/colorPrimaryDark</item>
-     </style>
+    <style name="colorPrimaryDarkStyle">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
 
 
     <style name="PrimaryDarkMiniSmallText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="PrimaryDarkExtraSmallText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="PrimaryDarkSmallText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="PrimaryDarkMediumText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="PrimaryDarkLargeText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="PrimaryDarkExtraLargeText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="PrimaryDarkSuperLargeText" parent="colorPrimaryDarkStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
@@ -145,148 +156,182 @@
 
     <!--   Text primary text Styles -->
 
-     <style name="colorPrimaryBlackStyle">
-         <item name="android:textColor">@color/colorPrimaryBlack</item>
-         <item name="android:textSize">@dimen/mini_small_text</item>
-     </style>
+    <style name="colorPrimaryBlackStyle">
+        <item name="android:textColor">@color/colorPrimaryBlack</item>
+        <item name="android:textSize">@dimen/mini_small_text</item>
+    </style>
 
     <style name="colorPrimaryBlackMiniSmallText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorPrimaryBlackExtraSmallText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorPrimaryBlackSmallText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorPrimaryBlackMediumText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorPrimaryBlackLargeText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorPrimaryBlackExtraLargeText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorPrimaryBlackSuperLargeText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
+
     <style name="colorPrimaryBlackHeaderText" parent="colorPrimaryBlackStyle">
         <item name="android:textSize">@dimen/header_text</item>
     </style>
 
 
     <!--   Text primary text Styles -->
-     <style name="colorSecondaryGreyStyle">
-         <item name="android:textColor">@color/colorSecondaryGrey</item>
-     </style>
+    <style name="colorSecondaryGreyStyle">
+        <item name="android:textColor">@color/colorSecondaryGrey</item>
+    </style>
+
     <style name="colorSecondaryGreyMiniSmallText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorSecondaryGreyExtraSmallText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorSecondaryGreySmallText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorSecondaryGreyMediumText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorSecondaryGreyLargeText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorSecondaryGreyExtraLargeText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorSecondaryGreySuperLargeText" parent="colorSecondaryGreyStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
 
 
     <!--   Text primaryDark text Styles -->
-     <style name="colorTertiaryGreyStyle">
-         <item name="android:textColor">@color/colorTertiaryGrey</item>
-     </style>
+    <style name="colorTertiaryGreyStyle">
+        <item name="android:textColor">@color/colorTertiaryGrey</item>
+    </style>
 
     <style name="colorTertiaryGreyMiniSmallText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorTertiaryGreyExtraSmallText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorTertiaryGreySmallText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorTertiaryGreyMediumText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorTertiaryGreyLargeText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorTertiaryGreyExtraLargeText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorTertiaryGreySuperLargeText" parent="colorTertiaryGreyStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
 
     <!--   Text primaryDark text Styles -->
 
-     <style name="colorPrimaryGreyStyle">
-         <item name="android:textColor">@color/colorPrimaryGrey</item>
-     </style>
+    <style name="colorPrimaryGreyStyle">
+        <item name="android:textColor">@color/colorPrimaryGrey</item>
+    </style>
 
     <style name="colorPrimaryGreyMiniSmallText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorPrimaryGreyExtraSmallText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorPrimaryGreySmallText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorPrimaryGreyMediumText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorPrimaryGreyLargeText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorPrimaryGreyExtraLargeText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorPrimaryGreySuperLargeText" parent="colorPrimaryGreyStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
 
     <!--   Text primaryDark text Styles -->
-     <style name="colorWhiteStyle">
-         <item name="android:textColor">@color/colorWhite</item>
-     </style>
+    <style name="colorWhiteStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 
     <style name="colorWhiteMiniSmallText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/mini_small_text</item>
     </style>
+
     <style name="colorWhiteExtraSmallText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/extra_small_text</item>
     </style>
+
     <style name="colorWhiteSmallText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/small_text</item>
     </style>
+
     <style name="colorWhiteMediumText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/medium_text</item>
     </style>
+
     <style name="colorWhiteLargeText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/large_text</item>
     </style>
+
     <style name="colorWhiteExtraLargeText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/extra_large_text</item>
     </style>
+
     <style name="colorWhiteSuperLargeText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/super_large_text</item>
     </style>
+
     <style name="colorWhiteHeaderText" parent="colorWhiteStyle">
         <item name="android:textSize">@dimen/header_text</item>
     </style>
+
 
 
      <!--   colorBlue styles -->
@@ -317,5 +362,15 @@
      <style name="colorBlueHeaderText" parent="colorBlueStyle">
          <item name="android:textSize">@dimen/header_text</item>
      </style>
+
+    <!--     Anim Style-->
+    <style name="FragmentTransitionNormal">
+        <item name="enterAnim">@anim/slide_in_right</item>
+        <item name="exitAnim">@anim/slide_out_left</item>
+        <item name="popEnterAnim">@anim/slide_in_left</item>
+        <item name="popExitAnim">@anim/slide_out_right</item>
+
+    </style>
+
 
 </resources>

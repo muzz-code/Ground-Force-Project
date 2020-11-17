@@ -28,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.trapezoidlimited.groundforce.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
 import com.trapezoidlimited.groundforce.validator.*
 import java.util.*
@@ -135,6 +136,11 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             if (!Validation.validateDateOfBirth(dateOfBirth.text.toString())) {
                 dateOfBirth.error = "Please specify a date of birth"
             } else {
+                AgentObject.firstName =
+                    binding.fragmentCreateProfileFirstNamePlaceholderEt.text.toString()
+                AgentObject.lastName = binding.fragmentCreateProfileOneLastNameEt.text.toString()
+                AgentObject.dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
+
                 findNavController().navigate(R.id.createProfileFragmentTwo)
                 clearFieldsArray()
             }
