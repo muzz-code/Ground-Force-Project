@@ -112,6 +112,9 @@ class CreateProfileFragmentOne : Fragment() {
             dateOfBirth.error = null
         }
 
+        binding.fragmentCreateProfileOneBtn.setOnClickListener {
+            findNavController().navigate(R.id.createProfileFragmentTwo)
+        }
 
     }
 

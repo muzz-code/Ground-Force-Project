@@ -274,6 +274,11 @@
     <string name="email_confirm_btn_str">Confirm</string>
     <string name="change_email_str">Change Email</string>
     <string name="password_str">Password</string>
+    <string name="residential_information_title_str">Residential Information</string>
+    <string name="street_title_str">Street</string>
+    <string name="zipcode_str">Zip code</string>
+    <string name="lga_label_str">LGA</string>
+    <string name="state_label_str">State</string>
 
 
 </resources>

@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.watchAllMyFields
-import com.trapezoidlimited.groundforce.validator.watchToValidator
+
 
 class CreateProfileFragmentTwo : Fragment() {
 
@@ -35,35 +34,23 @@ class CreateProfileFragmentTwo : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val emailEditText = binding.fragmentCreateProfileTwoEmailAddressPlaceholderEt
-        val addressEditText = binding.fragmentCreateProfileTwoAddressPlaceholderEt
-        val additionalPhoneEditText = binding.fragmentCreateProfileTwoPhoneNumberEt
+        val zipCodes = listOf("110000", "102010", "100000", "103040")
+        val adapterZipCode = ArrayAdapter(requireContext(), R.layout.list_item, zipCodes)
+        (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(adapterZipCode)
 
-        /** validating email and residential address fields **/
-        emailEditText.watchToValidator(EditFieldType.EMAIL)
-        addressEditText.watchToValidator(EditFieldType.ADDRESS)
-        additionalPhoneEditText.watchToValidator(EditFieldType.ADDITIONALPHONE)
+        val lga = listOf("Alimosho", "Ikorodu", "Oshodi-Isolo", "Lagos-Island")
+        val adapterLGA = ArrayAdapter(requireContext(), R.layout.list_item, lga)
+        (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)?.setAdapter(adapterLGA)
+
+        val states = listOf("Lagos", "Oyo", "Ogun", "Ondo")
+        val adapterState = ArrayAdapter(requireContext(), R.layout.list_item, states)
+        (binding.fragmentCreateProfileTwoStateTf.editText as? AutoCompleteTextView)?.setAdapter(adapterState)
 
 
-        watchAllMyFields(
-            mutableMapOf(
-                emailEditText to EditFieldType.EMAIL,
-                addressEditText to EditFieldType.ADDRESS
-            ),
-            binding.fragmentCreateProfileTwoBtn
-        )
 
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
-
-            AgentObject.additionalPhoneNumber =
-                binding.fragmentCreateProfileTwoPhoneNumberEt.text.toString()
-            AgentObject.email =
-                binding.fragmentCreateProfileTwoEmailAddressPlaceholderEt.text.toString()
-            AgentObject.homeAddress =
-                binding.fragmentCreateProfileTwoAddressPlaceholderEt.text.toString()
-
 
             findNavController().navigate(R.id.createProfileFragmentThree)
         }
