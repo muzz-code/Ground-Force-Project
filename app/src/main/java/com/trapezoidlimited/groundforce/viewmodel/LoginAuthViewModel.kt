@@ -29,11 +29,11 @@ class LoginAuthViewModel(
         get() = _forgotPasswordResponse
 
 
-    private val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
+    val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
     val verifyPhoneResponse: LiveData<Resource<GenericResponseClass>>
         get() = _verifyPhoneResponse
 
-    private val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
+    val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
     val confirmPhoneResponse: LiveData<Resource<GenericResponseClass>>
         get() = _confirmPhoneResponse
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -19,16 +20,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.utils.ErrorUtils
-import com.trapezoidlimited.groundforce.utils.handleApiError
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
@@ -132,23 +131,19 @@ class PhoneVerificationFragment : Fragment() {
 
         val otpField = binding.phoneVerifPinView as EditText
 
-
-        otpField.watchToValidator(EditFieldType.OTP)
-        watchAllMyFields(
-            mutableMapOf(
-                otpField to EditFieldType.OTP
-            ),
-            binding.phoneVerifConfirmBtn
-        )
+        validateFields()
 
 
         viewModel.confirmPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
 
                 is Resource.Success -> {
-                    showSnackBar(requireView(), it.value.message!!)
+                    /** Navigating to create profile fragment onSuccess*/
+                    findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
                 }
                 is Resource.Failure -> {
+                    /** Hiding progressbar and enabling button */
+                    binding.phoneVerificationPb.hide(binding.phoneVerifConfirmBtn)
                     handleApiError(it, retrofit, requireView())
                 }
             }
@@ -158,12 +153,15 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
             val otp = otpField.text.toString()
-            val confirmPhone = ConfirmPhone(phoneNumber, otp)
-            viewModel.confirmPhone(confirmPhone)
+//            val confirmPhone = ConfirmPhone(phoneNumber, otp)
 
-            //findNavController().navigate(R.id.createProfileFragmentOne)
-            // otpField.text.clear()
-            //clearFieldsArray()
+            /** Making network call*/
+//            viewModel.confirmPhone(confirmPhone)
+
+            /** Setting Progress bar to visible and disabling button*/
+//            binding.phoneVerificationPb.show(it as Button)
+1
+            findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
         }
 
 
@@ -171,6 +169,31 @@ class PhoneVerificationFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+    }
+
+    private fun validateFields() {
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.phoneVerifPinView,
+                editTextInputLayout = null,
+                errorMessage = JDErrorConstants.OTP_ERROR,
+                validator = { it.jdValidateOTP(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.phoneVerifConfirmBtn))
+            .watchWhileTyping(true)
+            .build()
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel._confirmPhoneResponse.value = null
     }
 
     override fun onDestroy() {

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -19,16 +20,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.utils.ErrorUtils
-import com.trapezoidlimited.groundforce.utils.handleApiError
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.utils.showStatusBar
+import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.validator.EditFieldType
 import com.trapezoidlimited.groundforce.validator.clearFieldsArray
 import com.trapezoidlimited.groundforce.validator.watchAllMyFields
@@ -55,6 +54,7 @@ class PhoneActivationFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
     private lateinit var phoneNumberTil: TextInputLayout
+    private lateinit var number: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,21 +137,22 @@ class PhoneActivationFragment : Fragment() {
         val phoneEditText = binding.phoneActivPhoneNoEt
         phoneNumberTil = binding.phoneActivPhoneNoTil
 
-        phoneEditText.watchToValidator(EditFieldType.PHONE, phoneNumberTil)
-
-        watchAllMyFields(
-            mutableMapOf(
-                phoneEditText to EditFieldType.PHONE
-            ),
-            binding.phoneActivContinueBtn
-        )
+        validateFields()
 
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    showSnackBar(requireView(), it.value.message!!)
+
+                    /** Navigating to phone verification fragment onSuccess*/
+                    val action = PhoneActivationFragmentDirections
+                        .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+                    findNavController().navigate(action)
+
+                    clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
+                    /** Hiding progressbar and enabling button */
+                    binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
                     handleApiError(it, retrofit, requireView())
                 }
             }
@@ -165,18 +166,45 @@ class PhoneActivationFragment : Fragment() {
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
 
-            val number = "+234" + phoneEditText.text.toString()
+            number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
             val action = PhoneActivationFragmentDirections
                 .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-
-            viewModel.verifyPhone(phoneNumber)
-
             findNavController().navigate(action)
-            phoneEditText.text.clear()
-            clearFieldsArray()
+
+            /** Making network call*/
+//            viewModel.verifyPhone(phoneNumber)
+
+            /** Setting Progress bar to visible and disabling button*/
+//            binding.phoneActivationPb.show(it as Button?)
+
         }
+    }
+
+
+    private fun validateFields() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.phoneActivPhoneNoEt,
+                editTextInputLayout = binding.phoneActivPhoneNoTil,
+                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
+                validator = { it.jdValidatePhoneNumber(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.phoneActivContinueBtn))
+            .watchWhileTyping(true)
+            .build()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        /** Code under construction: Beware!*/
+        viewModel._verifyPhoneResponse.value = null
     }
 
 }

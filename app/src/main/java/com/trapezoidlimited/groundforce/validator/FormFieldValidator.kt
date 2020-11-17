@@ -4,6 +4,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
+import com.trapezoidlimited.groundforce.validator.Validation.validateAccountNumber
+import com.trapezoidlimited.groundforce.validator.Validation.validateAdditionalPhone
+import com.trapezoidlimited.groundforce.validator.Validation.validateAddress
+import com.trapezoidlimited.groundforce.validator.Validation.validateEmail
+import com.trapezoidlimited.groundforce.validator.Validation.validateName
+import com.trapezoidlimited.groundforce.validator.Validation.validateOTP
+import com.trapezoidlimited.groundforce.validator.Validation.validatePhoneNumber
+import com.trapezoidlimited.groundforce.validator.Validation.validatePin
 
 fun EditText.watchToValidator(
     editFieldType: EditFieldType,

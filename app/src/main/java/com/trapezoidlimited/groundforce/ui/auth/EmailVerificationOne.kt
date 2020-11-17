@@ -9,13 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationOneBinding
-import com.trapezoidlimited.groundforce.databinding.FragmentForgetPasswordBinding
-import com.trapezoidlimited.groundforce.utils.showStatusBar
 
-
-class ForgetPasswordFragment : Fragment() {
-
-    private var _binding: FragmentForgetPasswordBinding? = null
+class EmailVerificationOne : Fragment() {
+    private var _binding: FragmentEmailVerificationOneBinding? = null
     private val binding get() = _binding!!
 
 
@@ -23,36 +19,43 @@ class ForgetPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
-        _binding = FragmentForgetPasswordBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentEmailVerificationOneBinding.inflate(layoutInflater, container, false)
 
         /** setting toolbar text **/
-        binding.fragmentForgetPasswordToolbar.toolbarTitle.text =
-            getString(R.string.password_reset_title_bar_str)
+        binding.fragmentEmailVerificationTb.toolbarTitle.text =
+            getString(R.string.email_verification_title_bar_str)
 
-        //Set Toolbar Back Arrow Icon
-        binding.fragmentForgetPasswordToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        /** set navigation arrow from drawable **/
+        binding.fragmentEmailVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentForgetPasswordToolbar.toolbarFragment.setNavigationOnClickListener {
+        binding.fragmentEmailVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
 
-
-        showStatusBar()
-
         return binding.root
-    }
 
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        validateFields()
+
+        binding.fragmentEmailVerificationSubmitBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
+        }
+
+    }
+
+    private fun validateFields() {
+
         val fields: MutableList<JDataClass> = mutableListOf(
             JDataClass(
-                editText = binding.fragmentForgetPasswordEmailEt,
-                editTextInputLayout = binding.fragmentForgetPasswordEmailTil,
+                editText = binding.fragmentEmailVerificationEt,
+                editTextInputLayout = binding.fragmentEmailVerificationTil,
                 errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
                 validator = { it.jdValidateEmail(it.text.toString()) }
             )
@@ -61,12 +64,10 @@ class ForgetPasswordFragment : Fragment() {
         JDFormValidator.Builder()
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
-            .viewsToEnable(mutableListOf(binding.forgetPasswordResetBtn))
+            .viewsToEnable(mutableListOf(binding.fragmentEmailVerificationSubmitBtn))
             .watchWhileTyping(true)
             .build()
-
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
