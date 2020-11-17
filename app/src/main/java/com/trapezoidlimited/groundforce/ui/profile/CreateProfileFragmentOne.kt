@@ -63,10 +63,8 @@ class CreateProfileFragmentOne : Fragment() {
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
 
 
-
         return binding.root
     }
-
 
 
 
@@ -75,8 +73,10 @@ class CreateProfileFragmentOne : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         /**Validating the Name fields*/
         validateNameFields()
+
 
         val dateOfBirth = binding.fragmentCreateProfileOneDateBirthEt
 
@@ -112,13 +112,12 @@ class CreateProfileFragmentOne : Fragment() {
             dateOfBirth.error = null
         }
 
+
         binding.fragmentCreateProfileOneBtn.setOnClickListener {
             findNavController().navigate(R.id.createProfileFragmentTwo)
         }
 
     }
-
-
 
 
     /** Show Date picker Dialog Function **/

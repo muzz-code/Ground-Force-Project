@@ -24,6 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--    text view for first name -->
+
         <TextView
             android:id="@+id/fragment_create_profile_one_basic_tv"
             style="@style/colorPrimaryBlackMediumText"
@@ -135,8 +136,6 @@
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
 
-
-        <!--    next profile  page click button -->
 
         <EditText
             android:id="@+id/fragment_create_profile_one_password_et"
