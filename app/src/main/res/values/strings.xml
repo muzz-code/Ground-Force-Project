@@ -273,6 +273,7 @@
     <string name="email_instruction_str">Please enter your email address.</string>
     <string name="email_confirm_btn_str">Confirm</string>
     <string name="change_email_str">Change Email</string>
+    <string name="password_str">Password</string>
 
 
 </resources>

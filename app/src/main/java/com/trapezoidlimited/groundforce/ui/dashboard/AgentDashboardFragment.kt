@@ -10,23 +10,24 @@ import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
+import com.trapezoidlimited.groundforce.ui.dashboard.notifications.NotificationsFragmentDirections
 import com.trapezoidlimited.groundforce.utils.*
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class AgentDashboardFragment : Fragment() {
 
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentAgentDashboardBinding.inflate(inflater, container, false)
-
-        /** setting toolbar text **/
-        binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
+        if (_binding == null) {
+            _binding = FragmentAgentDashboardBinding.inflate(inflater, container, false)
+            /** setting toolbar text **/
+            binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
+        }
 
         // Inflate the layout for this fragment
         return binding.root
@@ -38,37 +39,45 @@ class AgentDashboardFragment : Fragment() {
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             DataListener.currentItem = MISSION
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSurveysButtonIb.setOnClickListener {
-            findNavController().navigate(R.id.surveyListFragment2)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_surveyListFragment2)
         }
 
         /** setting mutableLiveData value controlling where the tab will start on the mission fragment  */
 
         binding.fragmentAgentDashboardActiveButtonIb.setOnClickListener {
-
             DataListener.currentItem = ONGOING
-            findNavController().navigate(R.id.tasksFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_tasksFragment)
         }
 
         binding.fragmentAgentDashboardSeeDetailsButton.setOnClickListener {
-            findNavController().navigate(R.id.paymentHistory)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_paymentHistory)
         }
 
         binding.fragmentAgentViewDetailsTv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = MISSIONCOMPLETED
-            findNavController().navigate(R.id.historyFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
 
         binding.fragmentAgentSurveyViewDetailsTv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = SURVEYCOMPLETED
-            findNavController().navigate(R.id.historyFragment)
+            findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
 
+
+        // Navigate to Home on Back Press
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (findNavController().currentDestination?.id == R.id.agentDashboardFragment) {
+                activity?.finish()
+            } else {
+                findNavController().popBackStack()
+            }
+        }
 
     }
 

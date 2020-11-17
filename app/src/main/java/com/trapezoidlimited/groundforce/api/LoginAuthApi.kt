@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.api
 
+
 import com.trapezoidlimited.groundforce.model.*
 import retrofit2.http.*
 
@@ -20,7 +21,7 @@ interface LoginAuthApi {
      * Query to make a network call to the forgot endpoint */
     @FormUrlEncoded
     @POST("endpoint")
-    suspend fun forgotPassword (
+    suspend fun forgotPassword(
         @Field("email") email: String
     ): ForgotPasswordResponse
 
@@ -34,11 +35,5 @@ interface LoginAuthApi {
     suspend fun confirmPhone(
         @Body confirmPhone: ConfirmPhone
     ): GenericResponseClass
-
-//    @GET
-//    suspend fun profile(
-//        @Header("Authorization") header: String
-//    ): LoginResponse
-
 
 }
