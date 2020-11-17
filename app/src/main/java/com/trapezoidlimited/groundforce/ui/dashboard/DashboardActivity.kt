@@ -10,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
+import com.trapezoidlimited.groundforce.utils.checkItem
+import com.trapezoidlimited.groundforce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -23,7 +26,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var requestManager: RequestManager
@@ -55,6 +58,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         profileImage = navHeaderView.nav_header_agent_icon
 
 
+        //Initialize Bottom Nav Listener
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -100,50 +104,66 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Navigation.findNavController(this, R.id.dashboard_activity_nhf).navigate(fragment)
             }
             true
-
         }
 
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.nav_home -> {
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
+                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.agentDashboardFragment)
+                selectActiveIcon()
             }
             R.id.nav_payment -> {
-                Toast.makeText(this, "Make Payment", Toast.LENGTH_SHORT).show()
+
+                showToast("Payment")
             }
             R.id.nav_security -> {
-                Toast.makeText(this, "Protect Your App", Toast.LENGTH_SHORT).show()
+                showToast("Security")
             }
             R.id.nav_help -> {
-                Toast.makeText(this, "Get Help", Toast.LENGTH_SHORT).show()
+                showToast("Help")
             }
             R.id.nav_contact -> {
-                Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                showToast("Contact")
             }
             R.id.nav_logout -> {
-                Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show()
+                showToast("Logout")
             }
         }
+
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
 
 
     //If Drawer is open, close it on back button pressed
+    //
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
+            selectActiveIcon()
         } else {
             super.onBackPressed()
         }
     }
 
 
+    /**
+     * Change the Selected Menu Icon back to the current fragment
+     */
+    private fun selectActiveIcon() {
+        val currentDestination =
+            findNavController(R.id.dashboard_activity_nhf).currentDestination?.id
+        if (currentDestination == R.id.agentDashboardFragment) {
+            dashboardActivity_bnv.checkItem(R.id.agentDashboard_home)
+        } else if (currentDestination == R.id.notificationsFragment) {
+            dashboardActivity_bnv.checkItem(R.id.agentDashboard_notification)
+        }
+    }
+
 
     //OnClick Listener on View Profile
     fun openProfile(view: View) {
-//        var action = Da
         drawer.closeDrawer(GravityCompat.START)
         Navigation.findNavController(this, R.id.dashboard_activity_nhf)
             .navigate(R.id.userProfileFragment)
