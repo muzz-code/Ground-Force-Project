@@ -15,6 +15,7 @@
     <color name="colorOffWhite">#FAFAFA</color>
     <color name="colorBgSecondary">#57C5CC</color>
     <color name="colorMission">#fafafa</color>
+    <color name="colorRed">#E35948</color>
 
     <color name="colorDialogText">#363636</color>
     <color name="colorDividerDialogVerification">#707070</color>

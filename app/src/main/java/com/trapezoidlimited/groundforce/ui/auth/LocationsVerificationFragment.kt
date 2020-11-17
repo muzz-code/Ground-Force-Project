@@ -26,10 +26,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
-import com.trapezoidlimited.groundforce.utils.crossShow
-import com.trapezoidlimited.groundforce.utils.setSuccessDialog
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import com.trapezoidlimited.groundforce.utils.showWelcomeDialog
+import com.trapezoidlimited.groundforce.utils.*
 import java.util.concurrent.TimeUnit
 
 
@@ -128,7 +125,8 @@ class LocationsVerificationFragment : Fragment() {
         /** setting the welcome dialog when user clicks skip for now **/
 
          binding.fragmentLocationVerificationSkipBtn.setOnClickListener {
-             showWelcomeDialog()
+             //showWelcomeDialog()
+             showFailedDialog()
          }
 
     }

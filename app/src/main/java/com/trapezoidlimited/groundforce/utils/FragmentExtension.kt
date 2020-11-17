@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.ui.dialog.FailedDialog
 import com.trapezoidlimited.groundforce.ui.dialog.VerifiedDialog
 import com.trapezoidlimited.groundforce.ui.dialog.WelcomeDialog
 
@@ -113,6 +114,15 @@ fun Fragment.setSuccessDialog() {
 fun Fragment.showWelcomeDialog() {
     val fragment = parentFragmentManager.beginTransaction()
     WelcomeDialog().show(fragment, "Welcome")
+}
+
+/**
+ * Inflate the welcome fragment that shows welcome to users
+ **/
+
+fun Fragment.showFailedDialog() {
+    val fragment = parentFragmentManager.beginTransaction()
+    FailedDialog().show(fragment, "Failed")
 }
 
 /**
