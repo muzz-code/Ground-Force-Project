@@ -66,22 +66,22 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
 
 
-        if (googleAccount != null) {
-            setProfileDetailsFromGoogle()
-        }
+//        if (googleAccount != null) {
+//            setProfileDetailsFromGoogle()
+//        }
 
         return binding.root
     }
 
-    private fun setProfileDetailsFromGoogle() {
-
-        //Injected requestManager returns Glide Instance
-        if (googleAccount!!.photoUrl != null) {
-            requestManager
-                .load(googleAccount!!.photoUrl)
-                .into(binding.fragmentCreateProfileOneProfileImageIv)
-        }
-    }
+//    private fun setProfileDetailsFromGoogle() {
+//
+//        //Injected requestManager returns Glide Instance
+//        if (googleAccount!!.photoUrl != null) {
+//            requestManager
+//                .load(googleAccount!!.photoUrl)
+//                .into(binding.fragmentCreateProfileOneProfileImageIv)
+//        }
+//    }
 
 
     /** onActivityCreated **/
@@ -91,42 +91,42 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
 
         /** Array adapter for spinner drop down for sex **/
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.sex,
-            android.R.layout.simple_spinner_item
-        ).also { sexAdapter ->
-            // Specify the layout to use when the list of choices appears
-            sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            binding.fragmentCreateProfileOneGenderSp.adapter = sexAdapter
-        }
+//        ArrayAdapter.createFromResource(
+//            requireContext(),
+//            R.array.sex,
+//            android.R.layout.simple_spinner_item
+//        ).also { sexAdapter ->
+//            // Specify the layout to use when the list of choices appears
+//            sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//            // Apply the adapter to the spinner
+//            binding.fragmentCreateProfileOneGenderSp.adapter = sexAdapter
+//        }
 
         /** Array adapter for spinner drop down for religion **/
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.religion,
-            android.R.layout.simple_spinner_item
-        ).also { religionAdapter ->
-            // Specify the layout to use when the list of choices appears
-            religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-
-            binding.fragmentCreateProfileOneReligionSp.adapter = religionAdapter
-        }
+//        ArrayAdapter.createFromResource(
+//            requireContext(),
+//            R.array.religion,
+//            android.R.layout.simple_spinner_item
+//        ).also { religionAdapter ->
+//            // Specify the layout to use when the list of choices appears
+//            religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//            // Apply the adapter to the spinner
+//
+//            binding.fragmentCreateProfileOneReligionSp.adapter = religionAdapter
+//        }
 
         /** listener for sex option **/
-        binding.fragmentCreateProfileOneGenderSp.onItemSelectedListener = this
+        //binding.fragmentCreateProfileOneGenderSp.onItemSelectedListener = this
 
         /** listener for religion option **/
-        binding.fragmentCreateProfileOneReligionSp.onItemSelectedListener = this
+        //binding.fragmentCreateProfileOneReligionSp.onItemSelectedListener = this
 
 
         /**Validating the Name fields*/
         validateNameFields()
 
-        val genderField = binding.fragmentCreateProfileOneGenderSp
-        val religionField = binding.fragmentCreateProfileOneReligionSp
+//        val genderField = binding.fragmentCreateProfileOneGenderSp
+//        val religionField = binding.fragmentCreateProfileOneReligionSp
         val dateOfBirth = binding.fragmentCreateProfileOneDateBirthEt
 
         /** Navigate to contact details page **/
@@ -134,14 +134,6 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
 
             if (!Validation.validateDateOfBirth(dateOfBirth.text.toString())) {
                 dateOfBirth.error = "Please specify a date of birth"
-            } else if (!Validation.validateGender(genderField.selectedItem.toString())) {
-
-                showSnackBar(binding.fragmentCreateProfileOneBtn, "Gender field is required.")
-
-            } else if (!Validation.validateReligion(religionField.selectedItem.toString())) {
-
-                showSnackBar(binding.fragmentCreateProfileOneBtn, "Religion field is required.")
-
             } else {
                 findNavController().navigate(R.id.createProfileFragmentTwo)
                 clearFieldsArray()
@@ -165,37 +157,37 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         }
 
 
-        val cameraButton = binding.fragmentCreateProfileOneIb
+        //val cameraButton = binding.fragmentCreateProfileOneIb
 
         /** On click on camera button, check if permission is granted, if granted take picture or request other wise **/
-        cameraButton.setOnClickListener {
-            if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
-        }
+//        cameraButton.setOnClickListener {
+//            if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
+//        }
     }
 
 
     /** Take picture function **/
 
-    private fun dispatchTakePictureIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
-            // display error state to the user
-        }
-    }
+//    private fun dispatchTakePictureIntent() {
+//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        try {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+//        } catch (e: ActivityNotFoundException) {
+//            // display error state to the user
+//        }
+//    }
 
     /** onActivityResult function place the captured image on the image view place holder **/
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            binding.fragmentCreateProfileOneProfileImageIv
-
-            val imagePlaceHolder = binding.fragmentCreateProfileOneProfileImageIv
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            //imageView.setImageBitmap(imageBitmap)
-            imagePlaceHolder.setImageBitmap(imageBitmap)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            binding.fragmentCreateProfileOneProfileImageIv
+//
+//            val imagePlaceHolder = binding.fragmentCreateProfileOneProfileImageIv
+//            val imageBitmap = data?.extras?.get("data") as Bitmap
+//            //imageView.setImageBitmap(imageBitmap)
+//            imagePlaceHolder.setImageBitmap(imageBitmap)
+//        }
+//    }
 
 
     /** Check for user permission to access phone camera **/
@@ -232,10 +224,10 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                 ) {
 
-                    dispatchTakePictureIntent()
+                    //dispatchTakePictureIntent()
 
                 } else {
-                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
                 }
                 return
             }

@@ -75,6 +75,10 @@ class EmailVerificationTwo : Fragment() {
             Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_SHORT).show()
         }
 
+        binding.fragmentEmailVerificationTwoConfirmBtn.setOnClickListener {
+            findNavController().navigate(R.id.createProfileFragmentOne)
+        }
+
     }
 
     override fun onDestroy() {
