@@ -1,469 +1,470 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorWhite"
+tools:context=".ui.dashboard.AgentDashboardFragment">
+
+
+<!--    Tool bar -->
+<include
+    android:id="@+id/dashboard_tool_bar_ly"
+    layout="@layout/toolbar_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorWhite"
-    tools:context=".ui.dashboard.AgentDashboardFragment">
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!--    Tool bar -->
-    <include
-        android:id="@+id/dashboard_tool_bar_ly"
-        layout="@layout/toolbar_fragment"
-        android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/agent_notification_vw"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="17dp"
+    android:layout_marginEnd="17dp"
+    android:background="@drawable/red_rounded_corner_bg"
+    app:layout_constraintTop_toBottomOf="@+id/dashboard_tool_bar_ly"
+    >
+
+    <TextView
+        android:id="@+id/agent_dashboard_info_tv"
+        style="@style/colorWhiteSmallText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:fontFamily="@font/roboto"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:lineHeight="20dp"
+        android:text="@string/notification_info_dash_str"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<ScrollView
+    android:id="@+id/dashboard_nested_scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="12dp"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/agent_notification_vw">
+
+    <!-- Scrollable content -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/agent_notification_vw"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:layout_marginStart="17dp"
-        android:layout_marginEnd="17dp"
-        android:background="@drawable/red_rounded_corner_bg"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_tool_bar_ly"
-        >
+        android:layout_marginEnd="16dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/agentDashboardFragment_summary_container_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardCornerRadius="17dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--Start Name-->
+                <TextView
+                    android:id="@+id/agentDashboardFragment_name_tv"
+                    style="@style/colorWhiteSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="17dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/agentDashboard_name_str"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <!--End Name-->
+
+                <!--Start Date-->
+                <TextView
+                    android:id="@+id/agentDashFragment_date_tv"
+                    style="@style/colorWhiteSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="17dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/agentDashboard_date_str"
+                    app:layout_constraintBottom_toBottomOf="@+id/agentDashboardFragment_name_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/agentDashboardFragment_name_tv" />
+                <!--End Date-->
+
+
+                <TextView
+                    android:id="@+id/agentDashboardFragment_total_earning_tv"
+                    style="@style/colorWhiteSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/agentDashboard_totalearning_str"
+                    app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
+                    app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
+                    app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_name_tv" />
+
+                <TextView
+                    android:id="@+id/agentDashboardFragment_sum_tv"
+                    style="@style/colorWhiteLargeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/agentDashboard_amount_str"
+                    app:layout_constraintEnd_toEndOf="@id/agentDashboardFragment_total_earning_tv"
+                    app:layout_constraintStart_toStartOf="@id/agentDashboardFragment_total_earning_tv"
+                    app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_total_earning_tv" />
+
+                <TextView
+                    android:id="@+id/agentDashboardFragment_next_pay_day_tv"
+                    style="@style/colorWhiteMiniSmallText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/agentDashboard_next_pay_day_str"
+                    app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_sum_tv"
+                    app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_sum_tv"
+                    app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_sum_tv" />
+
+                <Button
+                    android:id="@+id/fragment_agent_dashboard_see_details_button"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="15dp"
+                    android:padding="14dp"
+                    android:text="@string/agentDashboard_details_str"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/small_text"
+                    app:cornerRadius="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
+                    app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
+                    app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_next_pay_day_tv"
+                    app:strokeColor="@color/colorWhite" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/agent_dashboard_info_tv"
-            style="@style/colorWhiteSmallText"
-            android:layout_width="wrap_content"
+            android:id="@+id/agentDashboardFragment_tasks_tv"
+            style="@style/colorPrimaryBlackMediumText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:lineHeight="20dp"
-            android:text="@string/notification_info_dash_str"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="22dp"
+            android:fontFamily="@font/titillium_web_bold"
+            android:text="@string/agentDashboard_tasks_str"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_summary_container_cv" />
 
-        <ImageView
-            android:id="@+id/imageView4"
+        <ImageButton
+            android:id="@+id/fragment_agent_dashboard_missions_button_ib"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/dashboard_task_btn"
+            android:clickable="true"
+            android:elevation="3dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/flag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_tasks_tv" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/colorPrimaryBlackExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
-            android:src="@drawable/ic_close"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/agentDashboard_mission_str"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib" />
+
+        <ImageButton
+            android:id="@+id/fragment_agent_dashboard_surveys_button_ib"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="37dp"
+            android:background="@drawable/dashboard_task_btn"
+            android:clickable="true"
+            android:elevation="3dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/poll"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib"
+            app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
+            app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_missions_button_ib"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/colorPrimaryBlackExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/agentDashboard_survey_str"
+            app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib" />
+
+        <ImageButton
+            android:id="@+id/fragment_agent_dashboard_active_button_ib"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="25dp"
+            android:background="@drawable/dashboard_task_btn"
+            android:clickable="true"
+            android:elevation="3dp"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/bolt"
+            app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/colorPrimaryBlackExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/agentDashboard_active_str"
+            app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_active_button_ib"
+            app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_active_button_ib"
+            app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_active_button_ib" />
+
+        <View
+            android:id="@+id/agentDashboardFragment_divider_v"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/listDivider"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/agentDashboardFragment_activity_tv"
+            style="@style/colorPrimaryBlackMediumText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/titillium_web_bold"
+            android:text="@string/agentDashboard_activity_str"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_divider_v" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/agentDashboardFragment_completed_task_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:padding="10dp"
+            app:cardBackgroundColor="@color/colorOffWhite"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_activity_tv">
+
+            <TextView
+                style="@style/colorPrimaryBlackLargeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_mission_completed_str"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/colorPrimaryBlackSuperLargeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginVertical="23dp"
+                android:layout_marginEnd="31dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_mission_completed_num_str" />
+
+            <TextView
+                android:id="@+id/fragment_agent_view_details_tv"
+                style="@style/PrimaryDarkExtraSmallText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_view_details_str" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/agentDashboardFragment_survey_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="16dp"
+            android:padding="10dp"
+            app:cardBackgroundColor="@color/colorOffWhite"
+            app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_completed_task_cv">
+
+            <TextView
+                style="@style/colorPrimaryBlackLargeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_survey_completed_str"
+                android:textColor="@color/colorPrimaryBlack"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/colorPrimaryBlackSuperLargeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginVertical="23dp"
+                android:layout_marginEnd="31dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_mission_survey_num_str" />
+
+            <TextView
+                android:id="@+id/fragment_agent_survey_view_details_tv"
+                style="@style/PrimaryDarkExtraSmallText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="@string/agentDashboard_view_details_str" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/fragment_missions_missions_notif_icon_tv"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/colorPrimaryOrange"
+            android:elevation="4dp"
+            android:text="2"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_missions_button_ib"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
+            app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib" />
+
+        <TextView
+            android:id="@+id/fragment_missions_surveys_notif_icon_tv"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/colorPrimaryOrange"
+            android:elevation="4dp"
+            android:text="4"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
+            app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib" />
+
+        <TextView
+            android:id="@+id/fragment_agent_dashboard_missions_indicator_cv"
+            style="@style/colorWhiteExtraSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/badge_number_six" />
+
+
+        <TextView
+            android:id="@+id/fragment_missions_active_notif_icon_tv"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/round_corner"
+            android:backgroundTint="@color/colorPrimaryOrange"
+            android:elevation="4dp"
+            android:text="1"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_active_button_ib"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_active_button_ib"
+            app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_active_button_ib" />
+
+        <TextView
+            android:id="@+id/fragment_agent_dashboard_surveys_indicator_cv"
+            style="@style/colorWhiteExtraSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/badge_number_four" />
+
+
+        <TextView
+            android:id="@+id/fragment_agent_dashboard_active_indicator_cv"
+            style="@style/colorWhiteExtraSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/badge_number_two" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
-        android:id="@+id/dashboard_nested_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="12dp"
-        android:fillViewport="true"
-        android:fitsSystemWindows="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/agent_notification_vw">
-
-        <!-- Scrollable content -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="16dp">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/agentDashboardFragment_summary_container_cv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
-                app:cardCornerRadius="17dp"
-                app:cardElevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <!--Start Name-->
-                    <TextView
-                        android:id="@+id/agentDashboardFragment_name_tv"
-                        style="@style/colorWhiteSmallText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginTop="17dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/agentDashboard_name_str"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                    <!--End Name-->
-
-                    <!--Start Date-->
-                    <TextView
-                        android:id="@+id/agentDashFragment_date_tv"
-                        style="@style/colorWhiteSmallText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="17dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/agentDashboard_date_str"
-                        app:layout_constraintBottom_toBottomOf="@+id/agentDashboardFragment_name_tv"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/agentDashboardFragment_name_tv" />
-                    <!--End Date-->
-
-
-                    <TextView
-                        android:id="@+id/agentDashboardFragment_total_earning_tv"
-                        style="@style/colorWhiteSmallText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/agentDashboard_totalearning_str"
-                        app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
-                        app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
-                        app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_name_tv" />
-
-                    <TextView
-                        android:id="@+id/agentDashboardFragment_sum_tv"
-                        style="@style/colorWhiteLargeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="@string/agentDashboard_amount_str"
-                        app:layout_constraintEnd_toEndOf="@id/agentDashboardFragment_total_earning_tv"
-                        app:layout_constraintStart_toStartOf="@id/agentDashboardFragment_total_earning_tv"
-                        app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_total_earning_tv" />
-
-                    <TextView
-                        android:id="@+id/agentDashboardFragment_next_pay_day_tv"
-                        style="@style/colorWhiteMiniSmallText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/agentDashboard_next_pay_day_str"
-                        app:layout_constraintEnd_toEndOf="@+id/agentDashboardFragment_sum_tv"
-                        app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_sum_tv"
-                        app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_sum_tv" />
-
-                    <Button
-                        android:id="@+id/fragment_agent_dashboard_see_details_button"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="19dp"
-                        android:layout_marginBottom="15dp"
-                        android:padding="14dp"
-                        android:text="@string/agentDashboard_details_str"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/small_text"
-                        app:cornerRadius="50dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/agentDashFragment_date_tv"
-                        app:layout_constraintStart_toStartOf="@+id/agentDashboardFragment_name_tv"
-                        app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_next_pay_day_tv"
-                        app:strokeColor="@color/colorWhite" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/agentDashboardFragment_tasks_tv"
-                style="@style/colorPrimaryBlackMediumText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="22dp"
-                android:fontFamily="@font/titillium_web_bold"
-                android:text="@string/agentDashboard_tasks_str"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_summary_container_cv" />
-
-            <ImageButton
-                android:id="@+id/fragment_agent_dashboard_missions_button_ib"
-                android:layout_width="53dp"
-                android:layout_height="53dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/dashboard_task_btn"
-                android:clickable="true"
-                android:elevation="3dp"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/flag"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_tasks_tv" />
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/colorPrimaryBlackExtraSmallText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/agentDashboard_mission_str"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib" />
-
-            <ImageButton
-                android:id="@+id/fragment_agent_dashboard_surveys_button_ib"
-                android:layout_width="53dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="37dp"
-                android:background="@drawable/dashboard_task_btn"
-                android:clickable="true"
-                android:elevation="3dp"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/poll"
-                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_missions_button_ib"
-                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
-                app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_missions_button_ib"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/colorPrimaryBlackExtraSmallText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/agentDashboard_survey_str"
-                app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib" />
-
-            <ImageButton
-                android:id="@+id/fragment_agent_dashboard_active_button_ib"
-                android:layout_width="53dp"
-                android:layout_height="53dp"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/dashboard_task_btn"
-                android:clickable="true"
-                android:elevation="3dp"
-                android:padding="8dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/bolt"
-                app:layout_constraintBottom_toBottomOf="@id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintTop_toTopOf="@id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/colorPrimaryBlackExtraSmallText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/agentDashboard_active_str"
-                app:layout_constraintEnd_toEndOf="@id/fragment_agent_dashboard_active_button_ib"
-                app:layout_constraintStart_toStartOf="@id/fragment_agent_dashboard_active_button_ib"
-                app:layout_constraintTop_toBottomOf="@id/fragment_agent_dashboard_active_button_ib" />
-
-            <View
-                android:id="@+id/agentDashboardFragment_divider_v"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="20dp"
-                android:background="?android:attr/listDivider"
-                android:elevation="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/agentDashboardFragment_activity_tv"
-                style="@style/colorPrimaryBlackMediumText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="11dp"
-                android:fontFamily="@font/titillium_web_bold"
-                android:text="@string/agentDashboard_activity_str"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/agentDashboardFragment_divider_v" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/agentDashboardFragment_completed_task_cv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:padding="10dp"
-                app:cardBackgroundColor="@color/colorOffWhite"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_activity_tv">
-
-                <TextView
-                    style="@style/colorPrimaryBlackLargeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_mission_completed_str"
-                    android:textColor="@color/colorPrimaryBlack"
-                    android:textSize="18sp" />
-
-                <TextView
-                    style="@style/colorPrimaryBlackSuperLargeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginVertical="23dp"
-                    android:layout_marginEnd="31dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_mission_completed_num_str" />
-
-                <TextView
-                    android:id="@+id/fragment_agent_view_details_tv"
-                    style="@style/PrimaryDarkExtraSmallText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_view_details_str" />
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/agentDashboardFragment_survey_cv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:layout_marginBottom="16dp"
-                android:padding="10dp"
-                app:cardBackgroundColor="@color/colorOffWhite"
-                app:cardCornerRadius="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/agentDashboardFragment_completed_task_cv">
-
-                <TextView
-                    style="@style/colorPrimaryBlackLargeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_survey_completed_str"
-                    android:textColor="@color/colorPrimaryBlack"
-                    android:textSize="18sp" />
-
-                <TextView
-                    style="@style/colorPrimaryBlackSuperLargeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginVertical="23dp"
-                    android:layout_marginEnd="31dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_mission_survey_num_str" />
-
-                <TextView
-                    android:id="@+id/fragment_agent_survey_view_details_tv"
-                    style="@style/PrimaryDarkExtraSmallText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="@string/agentDashboard_view_details_str" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/fragment_missions_missions_notif_icon_tv"
-                style="@style/colorWhiteSmallText"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/round_corner"
-                android:backgroundTint="@color/colorPrimaryOrange"
-                android:elevation="4dp"
-                android:text="2"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_missions_button_ib"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib"
-                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_missions_button_ib" />
-
-            <TextView
-                android:id="@+id/fragment_missions_surveys_notif_icon_tv"
-                style="@style/colorWhiteSmallText"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/round_corner"
-                android:backgroundTint="@color/colorPrimaryOrange"
-                android:elevation="4dp"
-                android:text="4"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib"
-                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_surveys_button_ib" />
-
-            <TextView
-                android:id="@+id/fragment_agent_dashboard_missions_indicator_cv"
-                style="@style/colorWhiteExtraSmallText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/badge_number_six" />
-
-
-            <TextView
-                android:id="@+id/fragment_missions_active_notif_icon_tv"
-                style="@style/colorWhiteSmallText"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/round_corner"
-                android:backgroundTint="@color/colorPrimaryOrange"
-                android:elevation="4dp"
-                android:text="1"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/fragment_agent_dashboard_active_button_ib"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_agent_dashboard_active_button_ib"
-                app:layout_constraintStart_toEndOf="@+id/fragment_agent_dashboard_active_button_ib" />
-
-            <TextView
-                android:id="@+id/fragment_agent_dashboard_surveys_indicator_cv"
-                style="@style/colorWhiteExtraSmallText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/badge_number_four" />
-
-
-            <TextView
-                android:id="@+id/fragment_agent_dashboard_active_indicator_cv"
-                style="@style/colorWhiteExtraSmallText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/badge_number_two" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+</ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
