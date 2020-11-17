@@ -333,7 +333,6 @@
     </style>
 
 
-
      <!--   colorBlue styles -->
      <style name="colorBlueStyle">
          <item name="android:textColor">@color/colorBlue</item>

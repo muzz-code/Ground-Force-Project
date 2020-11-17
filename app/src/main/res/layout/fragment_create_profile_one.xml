@@ -23,21 +23,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
+        <!--    text view for first name -->
 
         <TextView
             android:id="@+id/fragment_create_profile_one_basic_tv"
             style="@style/colorPrimaryBlackMediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:text="@string/just_the_basics_str"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic" />
 
-        <!--    text view for first name -->
         <TextView
             android:id="@+id/fragment_create_profile_one_first_name_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
@@ -137,10 +136,7 @@
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
 
-        <!--    Edit text for last name -->
 
-
-        <!--    next profile  page click button -->
         <EditText
             android:id="@+id/fragment_create_profile_one_password_et"
             style="@style/colorPrimaryBlackSmallText"
