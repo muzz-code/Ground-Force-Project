@@ -21,7 +21,6 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -29,14 +28,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputLayout
+import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
 import com.trapezoidlimited.groundforce.validator.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
-
 
 class LoginFragment : Fragment() {
 
@@ -44,7 +42,9 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private var googleAccount: GoogleSignInAccount? = null
     private lateinit var emailAddressEt: EditText
+    private lateinit var emailAddressTil: TextInputLayout
     private lateinit var pinEt: EditText
+    private lateinit var pinTil: TextInputLayout
     private lateinit var loginButton: Button
 
     private val RC_SIGN_IN: Int = 1
@@ -52,9 +52,6 @@ class LoginFragment : Fragment() {
     var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
-
-    private val viewModel: LoginAuthViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +77,9 @@ class LoginFragment : Fragment() {
          * Initialize Views Here
          */
         emailAddressEt = binding.editTextTextEmailAddressEt
+        emailAddressTil = binding.editTextTextEmailAddressTil
         pinEt = binding.editTextNumberPinEt
+        pinTil = binding.editTextNumberPinTil
         loginButton = binding.loginLoginBtn
 
 
@@ -160,16 +159,29 @@ class LoginFragment : Fragment() {
 
     /** Validate form fields **/
     private fun validateFields() {
-        emailAddressEt.watchToValidator(EditFieldType.EMAIL)
-        pinEt.watchToValidator(EditFieldType.PIN)
 
-        watchAllMyFields(
-            mutableMapOf(
-                emailAddressEt to EditFieldType.ADDRESS,
-                pinEt to EditFieldType.PIN
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.editTextTextEmailAddressEt,
+                editTextInputLayout = binding.editTextTextEmailAddressTil,
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
             ),
-            loginButton
+            JDataClass(
+                editText = binding.editTextNumberPinEt,
+                editTextInputLayout = binding.editTextNumberPinTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            )
         )
+
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.loginLoginBtn))
+            .watchWhileTyping(true)
+            .build()
     }
 
 
@@ -208,23 +220,8 @@ class LoginFragment : Fragment() {
 
                 Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.resetPasswordFragment)
-
             }
         }
-
-        /** USE CODE WHEN API IS READY: observe the loginResponse to authorize  user to navigate to the next page
-         * or handle error */
-
-//        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-//            when(it) {
-//                is Resource.Success -> {
-//                    findNavController().navigate(R.id.dashBoardFragment)
-//                }
-//                is Resource.Failure -> {
-//                    handleApiError(it)
-//                }
-//            }
-//        })
 
 
         /**This code add clickListener to the login button and it move to a new activity **/

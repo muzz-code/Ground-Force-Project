@@ -72,71 +72,87 @@
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_basic_tv" />
 
         <!--    edit text for first name -->
-        <EditText
-            android:id="@+id/fragment_create_profile_first_name_placeholder_et"
-            style="@style/colorPrimaryBlackSmallText"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_create_profile_first_name_placeholder_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/colorTertiaryGrey"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_first_name_tv">
 
-        </EditText>
+            <EditText
+                android:id="@+id/fragment_create_profile_first_name_placeholder_et"
+                style="@style/colorPrimaryBlackSmallText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!--    Text view for last name -->
+
         <TextView
             android:id="@+id/fragment_create_profile_one_last_name_tv"
             style="@style/colorPrimaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="@string/last_name_str"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_et" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_til" />
 
-        <!--    Edit text for last name -->
-        <EditText
-            android:id="@+id/fragment_create_profile_one_last_name_et"
-            style="@style/colorPrimaryBlackSmallText"
-            android:layout_width="match_parent"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_create_profile_one_last_name_til"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/colorTertiaryGrey"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv" />
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_first_name_placeholder_til"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_first_name_placeholder_til"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_tv">
+
+
+            <EditText
+                android:id="@+id/fragment_create_profile_one_last_name_et"
+                style="@style/colorPrimaryBlackSmallText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <!--    Birth date text view -->
         <TextView
             android:id="@+id/fragment_create_profile_one_date_birth_tv"
-            style="@style/colorTertiaryGreyExtraSmallText"
+            style="@style/colorPrimaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:text="@string/date_of_birth_str"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_et" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_til" />
 
         <!--    Birth day edit text -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_create_profile_one_date_birth_til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <EditText
             android:id="@+id/fragment_create_profile_one_date_birth_et"
             style="@style/colorPrimaryBlackSmallText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:backgroundTint="@color/colorTertiaryGrey"
             android:drawableEnd="@drawable/calender_asset"
             android:editable="false"
@@ -144,26 +160,22 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:textSize="@dimen/small_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_tv" />
+            tools:layout_editor_absoluteY="503dp" />
 
         <!--   Text view for sex  -->
         <TextView
             android:id="@+id/fragment_create_profile_one_gender_tv"
-            style="@style/colorTertiaryGreyExtraSmallText"
+            style="@style/colorPrimaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
             android:text="@string/gender_str"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_et" />
+            tools:layout_editor_absoluteY="598dp" />
 
         <!--    Text view for religion -->
         <TextView
             android:id="@+id/fragment_create_profile_one_religious_tv"
-            style="@style/colorTertiaryGreyExtraSmallText"
+            style="@style/colorPrimaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="37dp"

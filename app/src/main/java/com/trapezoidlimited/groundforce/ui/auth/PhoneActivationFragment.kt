@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
@@ -42,6 +44,7 @@ import javax.inject.Inject
 class PhoneActivationFragment : Fragment() {
     @Inject
     lateinit var loginApiService: LoginAuthApi
+
     @Inject
     lateinit var errorUtils: ErrorUtils
 
@@ -51,6 +54,7 @@ class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var phoneNumberTil: TextInputLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,9 +67,9 @@ class PhoneActivationFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
 
 
-
         /** setting toolbar text **/
-        binding.fragmentPhoneActivationTb.toolbarTitle.text = getString(R.string.phone_activation_title_str)
+        binding.fragmentPhoneActivationTb.toolbarTitle.text =
+            getString(R.string.phone_activation_title_str)
 
         /** set navigation arrow from drawable **/
         binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
@@ -78,6 +82,7 @@ class PhoneActivationFragment : Fragment() {
 
         /**show status bar**/
         showStatusBar()
+
         val view = binding.root
 
         // Get Test from String Resource
@@ -89,6 +94,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -101,6 +107,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -121,7 +128,6 @@ class PhoneActivationFragment : Fragment() {
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -129,8 +135,9 @@ class PhoneActivationFragment : Fragment() {
         /** Validating the phone number field**/
 
         val phoneEditText = binding.phoneActivPhoneNoEt
+        phoneNumberTil = binding.phoneActivPhoneNoTil
 
-        phoneEditText.watchToValidator(EditFieldType.PHONE)
+        phoneEditText.watchToValidator(EditFieldType.PHONE, phoneNumberTil)
 
         watchAllMyFields(
             mutableMapOf(
@@ -151,7 +158,7 @@ class PhoneActivationFragment : Fragment() {
 
         })
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }
 
@@ -164,7 +171,6 @@ class PhoneActivationFragment : Fragment() {
             val action = PhoneActivationFragmentDirections
                 .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
 
-            Log.i("number", number)
             viewModel.verifyPhone(phoneNumber)
 
             findNavController().navigate(action)
