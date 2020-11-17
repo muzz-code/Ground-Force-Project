@@ -115,5 +115,15 @@
             app:layout_constraintEnd_toEndOf="@+id/phone_verif_resend_tv"
             app:layout_constraintStart_toStartOf="@+id/phone_verif_resend_tv" />
 
+        <ProgressBar
+            android:id="@+id/phone_verification_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_verif_confirm_btn"
+            app:layout_constraintEnd_toEndOf="@+id/phone_verif_confirm_btn"
+            app:layout_constraintStart_toStartOf="@+id/phone_verif_confirm_btn"
+            app:layout_constraintTop_toTopOf="@+id/phone_verif_confirm_btn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
+import com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment
 
 
 class VerifiedDialog : DialogFragment() {
@@ -23,7 +24,10 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         _binding = VerificationResultPageBinding.inflate(inflater, container, false)
 
+        val locationsVerification = LocationsVerificationFragment()
+
         binding.locationVerifiedDialogTv.setOnClickListener {
+           //locationsVerification.unsubscribeToLocationUpdates()
           findNavController().navigate(R.id.createPinFragment)
             dismiss()
         }

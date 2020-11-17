@@ -100,7 +100,7 @@ fun View.crossfade(duration: Long) {
 /**
  * Inflate the dialog fragment that shows location has been verified
  **/
-fun Fragment.onLogin() {
+fun Fragment.setSuccessDialog() {
     var frag = parentFragmentManager.beginTransaction()
     VerifiedDialog().show(frag, "This")
 }
@@ -134,3 +134,5 @@ fun Fragment.showSnackBar(view: View, message: String) {
         Snackbar.LENGTH_LONG
     ).setAction("Ok") {}.show()
 }
+
+

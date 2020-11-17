@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <!--The Base ViewGroup-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/phone_verification_cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.auth.PhoneVerificationFragment">
+        <!--    Tool bar -->
+        <include
+            android:id="@+id/fragment_email_verification_two_tb"
+            layout="@layout/toolbar_transparent_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <TextView
+            android:id="@+id/fragment_email_verification_two_instruction_tv"
+            style="@style/colorTertiaryGreyLargeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="146dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/email_verification_title_str"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_email_verification_two_tb" />
+
+        <com.mukesh.OtpView
+            android:id="@+id/fragment_email_verification_two_pin_view"
+            style="@style/OtpWidget.OtpView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="124dp"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:paddingBottom="10dp"
+            android:singleLine="false"
+            android:textColor="@color/colorTertiaryGrey"
+            app:itemSpacing="25dp"
+            app:itemWidth="45dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_email_verification_two_instruction_tv"
+            app:lineColor="#363636"
+            app:lineWidth="2dp"
+            app:viewType="line" />
+
+        <TextView
+            android:id="@+id/fragment_email_verification_two_resend_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/email_verify_didnt_get_code_text_str"
+            android:textAlignment="center"
+            android:textColor="@color/colorSecondaryBlack"
+            android:textSize="@dimen/medium_text"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_email_verification_two_pin_view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/fragment_email_verification_two_pin_view"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_email_verification_two_pin_view" />
+
+        <TextView
+            android:id="@+id/fragment_email_verification_two_change_email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/change_email_str"
+            style="@style/colorBlueMediumText"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_email_verification_two_confirm_btn"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_email_verification_two_resend_tv"
+            app:layout_constraintStart_toStartOf="@+id/fragment_email_verification_two_resend_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_email_verification_two_resend_tv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/fragment_email_verification_two_confirm_btn"
+            style="@style/colorWhiteSmallText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/btn_primary_shapes"
+            android:enabled="true"
+            android:text="@string/email_verify_confirm_str"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/phone_verification_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_email_verification_two_confirm_btn"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_email_verification_two_confirm_btn"
+            app:layout_constraintStart_toStartOf="@+id/fragment_email_verification_two_confirm_btn"
+            app:layout_constraintTop_toTopOf="@+id/fragment_email_verification_two_confirm_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
