@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dialog
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
 import com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment
+import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 
 
 class VerifiedDialog : DialogFragment() {
@@ -24,11 +26,13 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         _binding = VerificationResultPageBinding.inflate(inflater, container, false)
 
-        val locationsVerification = LocationsVerificationFragment()
 
         binding.locationVerifiedDialogTv.setOnClickListener {
-           //locationsVerification.unsubscribeToLocationUpdates()
-          findNavController().navigate(R.id.createPinFragment)
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                startActivity(it)
+                requireActivity().finish()
+            }
+
             dismiss()
         }
         return binding.root
@@ -41,7 +45,4 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setLayout(width, height)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 }

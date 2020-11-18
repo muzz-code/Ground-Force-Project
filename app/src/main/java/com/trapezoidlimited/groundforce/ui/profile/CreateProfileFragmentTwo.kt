@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.navigation.fragment.findNavController
+import com.misterjedu.jdformvalidator.JDErrorConstants
+import com.misterjedu.jdformvalidator.JDFormValidator
+import com.misterjedu.jdformvalidator.JDataClass
+import com.misterjedu.jdformvalidator.jdValidateName
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
 
@@ -32,27 +36,36 @@ class CreateProfileFragmentTwo : Fragment() {
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         val zipCodes = listOf("110000", "102010", "100000", "103040")
         val adapterZipCode = ArrayAdapter(requireContext(), R.layout.list_item, zipCodes)
-        (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(adapterZipCode)
+        (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(
+            adapterZipCode
+        )
 
         val lga = listOf("Alimosho", "Ikorodu", "Oshodi-Isolo", "Lagos-Island")
         val adapterLGA = ArrayAdapter(requireContext(), R.layout.list_item, lga)
-        (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)?.setAdapter(adapterLGA)
+        (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)?.setAdapter(
+            adapterLGA
+        )
 
         val states = listOf("Lagos", "Oyo", "Ogun", "Ondo")
         val adapterState = ArrayAdapter(requireContext(), R.layout.list_item, states)
-        (binding.fragmentCreateProfileTwoStateTf.editText as? AutoCompleteTextView)?.setAdapter(adapterState)
-
-
+        (binding.fragmentCreateProfileTwoStateTf.editText as? AutoCompleteTextView)?.setAdapter(
+            adapterState
+        )
 
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
-
-            findNavController().navigate(R.id.createProfileFragmentThree)
+            validateFields()
+            if (!validateFields()) {
+                return@setOnClickListener
+            } else {
+                findNavController().navigate(R.id.action_createProfileFragmentTwo_to_locationsVerificationFragment)
+            }
         }
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
@@ -60,13 +73,49 @@ class CreateProfileFragmentTwo : Fragment() {
             findNavController().popBackStack()
         }
 
-        super.onViewCreated(view, savedInstanceState)
     }
+
+    private fun validateFields(): Boolean {
+
+        val fields = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentCreateProfileTwoStreetEt,
+                editTextInputLayout = binding.fragmentCreateProfileTwoStreetTil,
+                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateProfileTwoStateTf.editText!!,
+                editTextInputLayout = binding.fragmentCreateProfileTwoStateTf,
+                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateProfileTwoLgaTf.editText!!,
+                editTextInputLayout = binding.fragmentCreateProfileTwoLgaTf,
+                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateProfileTwoZipCodeTf.editText!!,
+                editTextInputLayout = binding.fragmentCreateProfileTwoZipCodeTf,
+                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            )
+        )
+
+
+        val validator = JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .build()
+
+        return validator.areAllFieldsValidated
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
 }

@@ -136,10 +136,10 @@ android {
         //Glide
 
         implementation 'com.github.bumptech.glide:glide:4.11.0'
-        kapt  'com.github.bumptech.glide:compiler:4.11.0'
+        kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
         //Form Validator
-        implementation 'com.github.misterjedu:jd-android-form-validator:0.1.0'
+        implementation 'com.github.misterjedu:jd-android-form-validator:0.3.0'
 
     }
 }

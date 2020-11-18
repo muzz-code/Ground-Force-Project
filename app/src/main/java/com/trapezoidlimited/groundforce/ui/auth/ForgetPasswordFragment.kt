@@ -53,8 +53,8 @@ class ForgetPasswordFragment : Fragment() {
             JDataClass(
                 editText = binding.fragmentForgetPasswordEmailEt,
                 editTextInputLayout = binding.fragmentForgetPasswordEmailTil,
-                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
-                validator = { it.jdValidateEmail(it.text.toString()) }
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
             )
         )
 
@@ -65,6 +65,10 @@ class ForgetPasswordFragment : Fragment() {
             .watchWhileTyping(true)
             .build()
 
+
+        binding.forgetPasswordResetBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_forgetPasswordFragment_to_resetPasswordFragment)
+        }
     }
 
 

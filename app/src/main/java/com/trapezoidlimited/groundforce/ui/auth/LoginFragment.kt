@@ -51,12 +51,12 @@ class LoginFragment : Fragment() {
     private lateinit var pinEt: EditText
     private lateinit var pinTil: TextInputLayout
     private lateinit var loginButton: Button
-
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
-    var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,9 +86,6 @@ class LoginFragment : Fragment() {
         pinEt = binding.editTextNumberPinEt
         pinTil = binding.editTextNumberPinTil
         loginButton = binding.loginLoginBtn
-
-
-        validateFields()
 
 
         /** setting toolbar text **/
@@ -162,6 +159,41 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        validateFields()
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigate(R.id.landingFragment)
+        }
+
+
+        //Google Sign Up
+        binding.loginSignUpGoogleBtn.setOnClickListener {
+            val signInIntent: Intent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+
+        /**This code add clickListener to the login button and it move to a new activity **/
+        binding.loginLoginBtn.setOnClickListener {
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                it.putExtra("googleAccount", googleAccount)
+                startActivity(it)
+                requireActivity().finish()
+            }
+
+            requireActivity().finish()
+        }
+
+    }
+
     /** Validate form fields **/
     private fun validateFields() {
 
@@ -187,60 +219,6 @@ class LoginFragment : Fragment() {
             .viewsToEnable(mutableListOf(binding.loginLoginBtn))
             .watchWhileTyping(true)
             .build()
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(R.id.landingFragment)
-        }
-
-
-        //Google Sign Up
-        binding.loginSignUpGoogleBtn.setOnClickListener {
-            val signInIntent: Intent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
-
-        /**move to Home **/
-        binding.loginLoginBtn.setOnClickListener {
-
-            val email = binding.editTextTextEmailAddressEt.text.toString()
-            val pin = binding.editTextNumberPinEt.text.toString()
-
-            if (!validateEmailAndPin(email, pin)) {
-                return@setOnClickListener
-            } else {
-
-                /** USE CODE WHEN API IS READY: set the email and pin to the login method in the viewModel to make the post request */
-
-                //viewModel.login(email, pin)
-
-                Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.resetPasswordFragment)
-            }
-        }
-
-
-        /**This code add clickListener to the login button and it move to a new activity **/
-        binding.loginLoginBtn.setOnClickListener {
-
-            Intent(requireContext(), DashboardActivity::class.java).also {
-                it.putExtra("googleAccount", googleAccount)
-                startActivity(it)
-                requireActivity().finish()
-            }
-
-            requireActivity().finish()
-        }
-
     }
 
 
@@ -281,24 +259,10 @@ class LoginFragment : Fragment() {
             Log.w(ContentValues.TAG, "signInResult:failed code=" + e.statusCode)
 //            showSnackBar(binding.landingSignUpGoogleBtn, "signInResult:failed code=" + e.statusCode)
         }
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-
-    private fun validateEmailAndPin(email: String, pin: String): Boolean {
-        if (!validateEmail(email)) {
-            binding.editTextTextEmailAddressEt.error = "Invalid email"
-            return false
-        } else if (!validatePin(pin)) {
-            binding.editTextNumberPinEt.error = "Invalid password"
-            return false
-        }
-
-        return true
     }
 }
