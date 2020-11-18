@@ -272,6 +272,16 @@
     <string name="change_email_str">Change Email</string>
     <string name="password_str">Password</string>
 
+    <string name="residential_information_title_str">Residential Information</string>
+    <string name="street_title_str">Street</string>
+    <string name="zipcode_str">Zip code</string>
+    <string name="lga_label_str">LGA</string>
+    <string name="state_label_str">State</string>
+    <string name="welcome_account_successfully_created_str">Account Successfully Created!</string>
+    <string name="skip_for_now_btn_str">Skip For Now</string>
+    <string name="please_try_again_shortly_str">Please try again shortly</string>
+    <string name="failed_title_str">Failed!</string>
+
 
 </resources>
 

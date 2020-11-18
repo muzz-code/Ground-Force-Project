@@ -59,6 +59,7 @@ class LandingFragment : Fragment() {
 
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
+
         }
 
         // Build a GoogleSignInClient with the options specified by gso.

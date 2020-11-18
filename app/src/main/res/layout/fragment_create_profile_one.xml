@@ -23,20 +23,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--    text view for first name -->
 
         <TextView
             android:id="@+id/fragment_create_profile_one_basic_tv"
             style="@style/colorPrimaryBlackMediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:text="@string/just_the_basics_str"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_ic" />
 
-        <!--    text view for first name -->
         <TextView
             android:id="@+id/fragment_create_profile_one_first_name_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
@@ -59,26 +59,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_first_name_tv">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/fragment_create_profile_first_name_placeholder_et"
                 style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:inputType="text" />
+                android:backgroundTint="@color/colorWhite"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:layout_editor_absoluteY="180dp">
+
+            </EditText>
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <!--    Text view for last name -->
         <TextView
             android:id="@+id/fragment_create_profile_one_last_name_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/last_name_str"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_first_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_first_name_placeholder_til" />
 
+        <!--    Edit text for last name -->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_create_profile_one_last_name_til"
@@ -93,22 +100,25 @@
                 style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
+                android:backgroundTint="@color/colorWhite"
                 android:inputType="text"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--    Birth day edit text -->
+
+        <!--    Birth date text view -->
         <TextView
             android:id="@+id/fragment_create_profile_one_date_birth_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/date_of_birth_str"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_last_name_til" />
+
+        <!--    Birth day edit text -->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_create_profile_one_date_birth_til"
@@ -118,33 +128,34 @@
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_last_name_til"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_tv">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/fragment_create_profile_one_date_birth_et"
                 style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
+                android:backgroundTint="@color/colorWhite"
                 android:drawableEnd="@drawable/calender_asset"
                 android:editable="false"
                 android:inputType="none"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:textSize="@dimen/small_text"
-                tools:layout_editor_absoluteY="503dp" />
+                tools:layout_editor_absoluteY="369dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <!--   Text view for sex  -->
+
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/fragment_create_profile_one_gender_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/password_str"
-            android:textColor="@color/colorPrimaryBlack"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_tv"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_date_birth_til" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_create_profile_one_password_til"
@@ -152,17 +163,20 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_til"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_til"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_gender_tv">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/fragment_create_profile_one_password_et"
-                style="@style/colorTertiaryGreyExtraSmallText"
+                style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorWhite"
                 android:inputType="textPassword"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp" />
+                android:paddingEnd="16dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="482dp" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -172,7 +186,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/curved_primary_fill_button"
             android:enabled="false"
             android:fontFamily="@font/roboto"
@@ -181,10 +195,12 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_password_til"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_password_til"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_password_til"
             app:layout_constraintVertical_bias="1.0" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

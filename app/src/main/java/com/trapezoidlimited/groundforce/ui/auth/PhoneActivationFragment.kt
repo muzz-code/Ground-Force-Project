@@ -148,7 +148,6 @@ class PhoneActivationFragment : Fragment() {
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
                     findNavController().navigate(action)
 
-                    clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */

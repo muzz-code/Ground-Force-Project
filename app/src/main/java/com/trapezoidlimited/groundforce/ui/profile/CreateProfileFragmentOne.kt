@@ -1,32 +1,22 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.Activity.RESULT_OK
+
 import android.app.DatePickerDialog
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.misterjedu.jdformvalidator.*
-import com.trapezoidlimited.groundforce.utils.showSnackBar
+import com.misterjedu.jdformvalidator.JDErrorConstants
+import com.misterjedu.jdformvalidator.JDFormValidator
+import com.misterjedu.jdformvalidator.JDataClass
+import com.misterjedu.jdformvalidator.jdValidateName
 import dagger.hilt.android.AndroidEntryPoint
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.AgentObject
@@ -36,7 +26,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener {
+class CreateProfileFragmentOne : Fragment() {
 
     private var _binding: FragmentCreateProfileOneBinding? = null
     private val binding get() = _binding!!
@@ -63,6 +53,7 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
         // Inflate the layout for this fragment
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 
@@ -72,11 +63,11 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /**Validating the Name fields*/
-        validateNameFields()
 
-//        val genderField = binding.fragmentCreateProfileOneGenderSp
-//        val religionField = binding.fragmentCreateProfileOneReligionSp
+        /**Validating the Name fields*/
+        validateFields()
+
+
         val dateOfBirth = binding.fragmentCreateProfileOneDateBirthEt
 
         /** Navigate to contact details page **/
@@ -90,8 +81,9 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
                 AgentObject.lastName = binding.fragmentCreateProfileOneLastNameEt.text.toString()
                 AgentObject.dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
 
-                findNavController().navigate(R.id.action_createProfileFragmentOne_to_createProfileFragmentTwo)
+                findNavController().navigate(R.id.createProfileFragmentTwo)
             }
+
         }
 
 
@@ -108,6 +100,12 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             dateButton.setText(date)
             dateOfBirth.error = null
         }
+
+
+        binding.fragmentCreateProfileOneBtn.setOnClickListener {
+            findNavController().navigate(R.id.createProfileFragmentTwo)
+        }
+
     }
 
 
@@ -127,18 +125,11 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
             dateSetListener, year, month, day
         )
         dialog.show()
+
     }
 
 
-    /** on spinner item selected get item position override method**/
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        parent?.getItemAtPosition(position)
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
-
-
-    private fun validateNameFields() {
+    private fun validateFields() {
 
         val fields: MutableList<JDataClass> = mutableListOf(
             JDataClass(
@@ -176,3 +167,4 @@ class CreateProfileFragmentOne : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
 }
+
