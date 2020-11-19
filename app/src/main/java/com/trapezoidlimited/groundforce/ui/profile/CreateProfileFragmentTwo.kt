@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.navigation.fragment.findNavController
-import com.misterjedu.jdformvalidator.JDErrorConstants
-import com.misterjedu.jdformvalidator.JDFormValidator
-import com.misterjedu.jdformvalidator.JDataClass
-import com.misterjedu.jdformvalidator.jdValidateName
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
+import com.trapezoidlimited.groundforce.utils.JDErrorConstants
+import com.trapezoidlimited.groundforce.utils.JDFormValidator
+import com.trapezoidlimited.groundforce.utils.JDataClass
+import com.trapezoidlimited.groundforce.utils.jdValidateName
 
 
 class CreateProfileFragmentTwo : Fragment() {
@@ -72,7 +72,6 @@ class CreateProfileFragmentTwo : Fragment() {
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
     }
 
     private fun validateFields(): Boolean {
@@ -81,25 +80,25 @@ class CreateProfileFragmentTwo : Fragment() {
             JDataClass(
                 editText = binding.fragmentCreateProfileTwoStreetEt,
                 editTextInputLayout = binding.fragmentCreateProfileTwoStreetTil,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
                 editText = binding.fragmentCreateProfileTwoStateTf.editText!!,
                 editTextInputLayout = binding.fragmentCreateProfileTwoStateTf,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
                 editText = binding.fragmentCreateProfileTwoLgaTf.editText!!,
                 editTextInputLayout = binding.fragmentCreateProfileTwoLgaTf,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
                 editText = binding.fragmentCreateProfileTwoZipCodeTf.editText!!,
                 editTextInputLayout = binding.fragmentCreateProfileTwoZipCodeTf,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             )
         )

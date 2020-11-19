@@ -282,7 +282,7 @@
     <string name="please_try_again_shortly_str">Please try again shortly</string>
     <string name="failed_title_str">Failed!</string>
     <string name="confirm">Confirm</string>
-
+    <string name="notification_info_dash_str">Please complete your profile before you can accept new tasks.</string>
 
 </resources>
 

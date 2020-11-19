@@ -20,18 +20,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
-import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.clearFieldsArray
-import com.trapezoidlimited.groundforce.validator.watchAllMyFields
-import com.trapezoidlimited.groundforce.validator.watchToValidator
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +36,7 @@ import javax.inject.Inject
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
+    private var email_from_google = ""
 
     @Inject
     lateinit var loginApiService: LoginAuthApi
@@ -115,6 +110,10 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifResendTv.text = ssText
         binding.phoneVerifResendTv.movementMethod = LinkMovementMethod.getInstance()
 
+
+        //Load Email from google shared preference
+        email_from_google = loadFromSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE)
+
         // Inflate the layout for this fragment
         return view
     }
@@ -160,8 +159,16 @@ class PhoneVerificationFragment : Fragment() {
 
             /** Setting Progress bar to visible and disabling button*/
 //            binding.phoneVerificationPb.show(it as Button)
-1
-            findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
+
+            if (email_from_google.isEmpty()) {
+                findNavController().navigate(
+                    R.id.action_phoneVerificationFragment_to_emailVerificationOne
+                )
+            } else {
+                findNavController().navigate(
+                    R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
+                )
+            }
         }
 
 

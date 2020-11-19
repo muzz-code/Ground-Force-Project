@@ -15,6 +15,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
+import com.trapezoidlimited.groundforce.utils.*
 import java.util.*
 
 
@@ -35,7 +36,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
         // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_user_profile, container, false)
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
         /** setting toolbar text **/
@@ -83,15 +83,15 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /** listener for religion option **/
         binding.fragmentUserProfileReligiousSp.onItemSelectedListener = this
 
-
-        binding.fragmentUserProfileFirstNamePlaceholderEt.isEnabled = false
-        binding.fragmentUserProfileLastNamePlaceholderEt.isEnabled = false
+        binding.fragmentUserProfileFirstNameEt.isEnabled = false
+        binding.fragmentUserProfileLastNameEt.isEnabled = false
         binding.fragmentUserProfileAccountNumberEt.isEnabled = false
         binding.fragmentUserProfileResidentialAddressEt.isEnabled = false
 
 
         return binding.root
     }
+
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         parent?.getItemAtPosition(position)
@@ -107,6 +107,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        validateFields()
+
         val dateButton = binding.fragmentUserProfileDateBirthEt
 
         /** Show the date button on click of date button **/
@@ -120,6 +122,59 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             dateButton.setText(date)
         }
 
+    }
+
+    private fun validateFields() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentUserProfileFirstNameEt,
+                editTextInputLayout = binding.fragmentUserProfileFirstNameTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileLastNameEt,
+                editTextInputLayout = binding.fragmentUserProfileLastNameTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileDateBirthEt,
+                editTextInputLayout = binding.fragmentUserProfileDateBirthTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileEmailAddressEt,
+                editTextInputLayout = binding.fragmentUserProfileEmailAddressTil,
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileAdditionalNumberEt,
+                editTextInputLayout = binding.fragmentUserProfileAdditionalNumberTil,
+                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
+                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileResidentialAddressEt,
+                editTextInputLayout = binding.fragmentUserProfileResidentialAddressTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileAccountNumberEt,
+                editTextInputLayout = binding.fragmentUserProfileAccountNumberTil,
+                errorMessage = JDErrorConstants.BANK_ACCOUNT_NUMBER_ERROR,
+                validator = { it.jdValidateAccountNumber(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .watchWhileTyping(true)
+            .build()
     }
 
 

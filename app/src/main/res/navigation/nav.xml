@@ -68,6 +68,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_phoneVerificationFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
     </fragment>
 
     <fragment
@@ -83,6 +86,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="google_account"
+            android:defaultValue="@null"
+            app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
+            app:nullable="true" />
     </fragment>
 
 

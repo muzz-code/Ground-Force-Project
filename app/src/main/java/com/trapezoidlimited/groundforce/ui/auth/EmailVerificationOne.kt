@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationOneBinding
+import com.trapezoidlimited.groundforce.utils.JDErrorConstants
+import com.trapezoidlimited.groundforce.utils.JDFormValidator
+import com.trapezoidlimited.groundforce.utils.JDataClass
+import com.trapezoidlimited.groundforce.utils.jdValidateEmail
 
 class EmailVerificationOne : Fragment() {
     private var _binding: FragmentEmailVerificationOneBinding? = null

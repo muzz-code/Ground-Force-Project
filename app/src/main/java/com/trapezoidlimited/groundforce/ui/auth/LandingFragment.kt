@@ -20,7 +20,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
+import com.trapezoidlimited.groundforce.utils.EMAIL_FROM_GOOGLE
 import com.trapezoidlimited.groundforce.utils.hideStatusBar
+import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
 import com.trapezoidlimited.groundforce.utils.showSnackBar
 
 
@@ -121,11 +123,10 @@ class LandingFragment : Fragment() {
         try {
 
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
-            val action =
-                LandingFragmentDirections.actionLandingFragmentToCreateProfileFragmentOne(account)
 
-            // Signed in successfully, show authenticated UI.
-            findNavController().navigate(action)
+            saveToSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE, account?.email!!)
+
+            findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.

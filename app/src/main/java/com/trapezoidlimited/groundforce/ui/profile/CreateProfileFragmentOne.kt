@@ -13,14 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.misterjedu.jdformvalidator.JDErrorConstants
-import com.misterjedu.jdformvalidator.JDFormValidator
-import com.misterjedu.jdformvalidator.JDataClass
-import com.misterjedu.jdformvalidator.jdValidateName
 import dagger.hilt.android.AndroidEntryPoint
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
+import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.utils.jdValidateName
 import com.trapezoidlimited.groundforce.validator.*
 import java.util.*
 import javax.inject.Inject
@@ -135,20 +133,20 @@ class CreateProfileFragmentOne : Fragment() {
             JDataClass(
                 editText = binding.fragmentCreateProfileFirstNamePlaceholderEt,
                 editTextInputLayout = binding.fragmentCreateProfileFirstNamePlaceholderTil,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
                 editText = binding.fragmentCreateProfileOneLastNameEt,
                 editTextInputLayout = binding.fragmentCreateProfileOneLastNameTil,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
                 editText = binding.fragmentCreateProfileOnePasswordEt,
                 editTextInputLayout = binding.fragmentCreateProfileOnePasswordTil,
-                errorMessage = JDErrorConstants.EMPTYFIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
             )
         )
 

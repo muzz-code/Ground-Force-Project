@@ -13,9 +13,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
+import com.trapezoidlimited.groundforce.utils.JDFormValidator
+import com.trapezoidlimited.groundforce.utils.JDataClass
+import com.trapezoidlimited.groundforce.utils.jdValidateOTP
 
 class EmailVerificationTwo : Fragment() {
 

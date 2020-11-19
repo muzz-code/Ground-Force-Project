@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentForgetPasswordBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentResetPasswordBinding
+import com.trapezoidlimited.groundforce.utils.*
 
 class ResetPasswordFragment : Fragment() {
 
@@ -46,21 +46,29 @@ class ResetPasswordFragment : Fragment() {
 
         val fields: MutableList<JDataClass> = mutableListOf(
             JDataClass(
-                editText = binding.fragmentResetNewPasswordEt ,
-                editTextInputLayout = binding.fragmentResetNewPasswordTil ,
+                editText = binding.fragmentResetNewPasswordEt,
+                editTextInputLayout = binding.fragmentResetNewPasswordTil,
                 errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
                 validator = { it.jdValidatePin(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentResetConfirmNewPasswordEt,
+                editTextInputLayout = binding.fragmentResetConfirmNewPasswordTil,
+                errorMessage = JDErrorConstants.PASSWORD_DOES_NOT_MATCH,
+                validator = {
+                    it.jdValidateConfirmPassword(
+                        binding.fragmentResetNewPasswordEt,
+                        it.text.toString()
+                    )
+                }
             )
-
         )
 
         JDFormValidator.Builder()
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
-            .viewsToEnable(mutableListOf(binding.forgetResetConfirmBtn ))
+            .viewsToEnable(mutableListOf(binding.forgetResetConfirmBtn))
             .watchWhileTyping(true)
             .build()
     }
-
-
 }

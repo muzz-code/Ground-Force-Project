@@ -17,7 +17,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,16 +28,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
-import com.misterjedu.jdformvalidator.*
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
-import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.validator.*
-import com.trapezoidlimited.groundforce.validator.Validation.validateEmail
-import com.trapezoidlimited.groundforce.validator.Validation.validatePin
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class LoginFragment : Fragment() {
