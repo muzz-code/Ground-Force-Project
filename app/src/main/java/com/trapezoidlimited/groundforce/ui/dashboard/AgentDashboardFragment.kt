@@ -70,6 +70,11 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
+        binding.fragmentAgentDashboardCloseIconIv.setOnClickListener {
+            binding.fragmentAgentDashboardIncompleteProfileCl.visibility = View.GONE
+        }
+
+
         // Navigate to Home on Back Press
         requireActivity().onBackPressedDispatcher.addCallback {
             if (findNavController().currentDestination?.id == R.id.agentDashboardFragment) {

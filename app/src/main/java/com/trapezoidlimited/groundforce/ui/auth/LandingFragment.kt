@@ -20,10 +20,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
-import com.trapezoidlimited.groundforce.utils.EMAIL_FROM_GOOGLE
-import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
-import com.trapezoidlimited.groundforce.utils.showSnackBar
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class LandingFragment : Fragment() {
@@ -125,6 +122,7 @@ class LandingFragment : Fragment() {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
 
             saveToSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE, account?.email!!)
+            saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "true")
 
             findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
 

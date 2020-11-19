@@ -10,10 +10,7 @@ import android.widget.AutoCompleteTextView
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
-import com.trapezoidlimited.groundforce.utils.JDErrorConstants
-import com.trapezoidlimited.groundforce.utils.JDFormValidator
-import com.trapezoidlimited.groundforce.utils.JDataClass
-import com.trapezoidlimited.groundforce.utils.jdValidateName
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class CreateProfileFragmentTwo : Fragment() {
@@ -60,8 +57,8 @@ class CreateProfileFragmentTwo : Fragment() {
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
-            validateFields()
             if (!validateFields()) {
+                showSnackBar(binding.fragmentCreateProfileTwoBtn, "Field(s) should not be empty")
                 return@setOnClickListener
             } else {
                 findNavController().navigate(R.id.action_createProfileFragmentTwo_to_locationsVerificationFragment)

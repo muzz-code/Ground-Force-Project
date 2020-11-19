@@ -22,7 +22,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/agent_notification_vw"
+    android:id="@+id/fragment_agent_dashboard_incomplete_profile_cl"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_marginTop="12dp"
@@ -35,29 +35,30 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
     <TextView
         android:id="@+id/agent_dashboard_info_tv"
         style="@style/colorWhiteSmallText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
+        android:lineHeight="20dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
-        android:lineHeight="20dp"
         android:text="@string/notification_info_dash_str"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_agent_dashboard_close_icon_iv"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/fragment_agent_dashboard_close_icon_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/agent_dashboard_info_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/agent_dashboard_info_tv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -74,7 +75,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/agent_notification_vw">
+    app:layout_constraintTop_toBottomOf="@+id/fragment_agent_dashboard_incomplete_profile_cl">
 
     <!-- Scrollable content -->
     <androidx.constraintlayout.widget.ConstraintLayout
