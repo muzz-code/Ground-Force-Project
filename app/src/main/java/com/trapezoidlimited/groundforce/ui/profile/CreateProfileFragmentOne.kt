@@ -1,35 +1,24 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.Activity.RESULT_OK
+
 import android.app.DatePickerDialog
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.trapezoidlimited.groundforce.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileOneBinding
+import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.utils.jdValidateName
 import com.trapezoidlimited.groundforce.validator.*
 import java.util.*
 import javax.inject.Inject
@@ -67,7 +56,6 @@ class CreateProfileFragmentOne : Fragment() {
     }
 
 
-
     /** onActivityCreated **/
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -75,7 +63,7 @@ class CreateProfileFragmentOne : Fragment() {
 
 
         /**Validating the Name fields*/
-        validateNameFields()
+        validateFields()
 
 
         val dateOfBirth = binding.fragmentCreateProfileOneDateBirthEt
@@ -92,7 +80,6 @@ class CreateProfileFragmentOne : Fragment() {
                 AgentObject.dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
 
                 findNavController().navigate(R.id.createProfileFragmentTwo)
-                clearFieldsArray()
             }
 
         }
@@ -140,21 +127,35 @@ class CreateProfileFragmentOne : Fragment() {
     }
 
 
-    private fun validateNameFields() {
+    private fun validateFields() {
 
-        val firstNameEditText = binding.fragmentCreateProfileFirstNamePlaceholderEt
-        val lastNameEditText = binding.fragmentCreateProfileOneLastNameEt
-
-        firstNameEditText.watchToValidator(EditFieldType.NAME)
-        lastNameEditText.watchToValidator(EditFieldType.NAME)
-
-        watchAllMyFields(
-            mutableMapOf(
-                firstNameEditText to EditFieldType.NAME,
-                lastNameEditText to EditFieldType.NAME,
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentCreateProfileFirstNamePlaceholderEt,
+                editTextInputLayout = binding.fragmentCreateProfileFirstNamePlaceholderTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
             ),
-            binding.fragmentCreateProfileOneBtn
+            JDataClass(
+                editText = binding.fragmentCreateProfileOneLastNameEt,
+                editTextInputLayout = binding.fragmentCreateProfileOneLastNameTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateProfileOnePasswordEt,
+                editTextInputLayout = binding.fragmentCreateProfileOnePasswordTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            )
         )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.fragmentCreateProfileOneBtn))
+            .watchWhileTyping(true)
+            .build()
 
     }
 
@@ -164,3 +165,4 @@ class CreateProfileFragmentOne : Fragment() {
     }
 
 }
+

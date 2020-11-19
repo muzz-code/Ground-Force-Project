@@ -10,10 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
-import com.trapezoidlimited.groundforce.utils.ONBOARD
-import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.loadFromSharedPreference
-import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
+import com.trapezoidlimited.groundforce.utils.*
 
 class OnBoardingFragment : Fragment() {
 
@@ -78,7 +75,12 @@ class OnBoardingFragment : Fragment() {
     //If User has already gone through OnBoarding once, Move straight to Landing Fragment
     override fun onStart() {
         super.onStart()
-        if (loadFromSharedPreference(requireActivity(), ONBOARD) == "true") {
+
+        //Move to Login Fragment if user logs out from the dashboard
+        if (loadFromSharedPreference(requireActivity(), LOG_OUT) == "true") {
+            findNavController().navigate(R.id.loginFragment)
+            saveToSharedPreference(requireActivity(), LOG_OUT, "false")
+        } else if (loadFromSharedPreference(requireActivity(), ONBOARD) == "true") {
             findNavController().navigate(R.id.landingFragment)
         }
     }

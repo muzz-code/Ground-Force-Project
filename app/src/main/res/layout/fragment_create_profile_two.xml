@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.CreateProfileFragmentTwo"
     android:fillViewport="true"
-    >
+    tools:context=".ui.profile.CreateProfileFragmentTwo">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +13,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        >
+        android:focusableInTouchMode="true">
 
         <!--    Include to tool bar -->
         <include
@@ -54,39 +52,44 @@
 
 
         <!--    Edit text for email address -->
-        <EditText
-            android:id="@+id/fragment_create_profile_two_street_et"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_create_profile_two_street_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_tv">
+
+            <EditText
+                android:id="@+id/fragment_create_profile_two_street_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <!--   Button to go to next profile page  -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_create_profile_two_state_tf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:hint="@string/state_label_str"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_et">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_two_street_til"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_street_til"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_til">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                />
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,10 +99,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/lga_label_str"
-            android:layout_marginTop="32dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:hint="@string/lga_label_str"
+            android:paddingTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_state_tf">
@@ -121,13 +125,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:hint="@string/zipcode_str"
-            app:layout_constraintBottom_toTopOf="@+id/fragment_create_profile_two_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_lga_tf"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_lga_tf">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -143,7 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="37dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="37dp"
             android:layout_marginBottom="21dp"
             android:background="@drawable/curved_primary_fill_button"
@@ -155,6 +156,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_zip_code_tf"
             app:layout_constraintVertical_bias="1.0" />
 
 

@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -17,7 +18,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
+import com.trapezoidlimited.groundforce.utils.LOG_OUT
 import com.trapezoidlimited.groundforce.utils.checkItem
+import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
 import com.trapezoidlimited.groundforce.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -26,7 +30,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
+class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     lateinit var requestManager: RequestManager
@@ -58,7 +62,7 @@ class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemS
         profileImage = navHeaderView.nav_header_agent_icon
 
 
-        //Initialize Bottom Nav Listener
+        //Initialize Drawer Menu Listener
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
         navigationView.setNavigationItemSelectedListener(this)
 
@@ -127,7 +131,11 @@ class DashboardActivity : AppCompatActivity(),  NavigationView.OnNavigationItemS
                 showToast("Contact")
             }
             R.id.nav_logout -> {
-                showToast("Logout")
+                Intent(this, MainActivity::class.java).also {
+                    saveToSharedPreference(this, LOG_OUT, "true")
+                    startActivity(it)
+                    finish()
+                }
             }
         }
 

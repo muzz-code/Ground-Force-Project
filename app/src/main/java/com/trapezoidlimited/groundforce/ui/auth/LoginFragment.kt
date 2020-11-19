@@ -17,11 +17,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -29,15 +27,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
-import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.validator.*
-import com.trapezoidlimited.groundforce.validator.Validation.validateEmail
-import com.trapezoidlimited.groundforce.validator.Validation.validatePin
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class LoginFragment : Fragment() {
@@ -46,16 +40,15 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     private var googleAccount: GoogleSignInAccount? = null
     private lateinit var emailAddressEt: EditText
+    private lateinit var emailAddressTil: TextInputLayout
     private lateinit var pinEt: EditText
+    private lateinit var pinTil: TextInputLayout
     private lateinit var loginButton: Button
-
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
-    var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
-
-    private val viewModel: LoginAuthViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -82,11 +75,10 @@ class LoginFragment : Fragment() {
          * Initialize Views Here
          */
         emailAddressEt = binding.editTextTextEmailAddressEt
+        emailAddressTil = binding.editTextTextEmailAddressTil
         pinEt = binding.editTextNumberPinEt
+        pinTil = binding.editTextNumberPinTil
         loginButton = binding.loginLoginBtn
-
-
-        validateFields()
 
 
         /** setting toolbar text **/
@@ -160,23 +152,11 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    /** Validate form fields **/
-    private fun validateFields() {
-        emailAddressEt.watchToValidator(EditFieldType.EMAIL)
-        pinEt.watchToValidator(EditFieldType.PIN)
-
-        watchAllMyFields(
-            mutableMapOf(
-                emailAddressEt to EditFieldType.ADDRESS,
-                pinEt to EditFieldType.PIN
-            ),
-            loginButton
-        )
-    }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        validateFields()
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
@@ -194,44 +174,8 @@ class LoginFragment : Fragment() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        /**move to Home **/
-        binding.loginLoginBtn.setOnClickListener {
-
-            val email = binding.editTextTextEmailAddressEt.text.toString()
-            val pin = binding.editTextNumberPinEt.text.toString()
-
-            if (!validateEmailAndPin(email, pin)) {
-                return@setOnClickListener
-            } else {
-
-                /** USE CODE WHEN API IS READY: set the email and pin to the login method in the viewModel to make the post request */
-
-                //viewModel.login(email, pin)
-
-                Toast.makeText(requireContext(), "login successful", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.resetPasswordFragment)
-
-            }
-        }
-
-        /** USE CODE WHEN API IS READY: observe the loginResponse to authorize  user to navigate to the next page
-         * or handle error */
-
-//        viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-//            when(it) {
-//                is Resource.Success -> {
-//                    findNavController().navigate(R.id.dashBoardFragment)
-//                }
-//                is Resource.Failure -> {
-//                    handleApiError(it)
-//                }
-//            }
-//        })
-
-
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
-
             Intent(requireContext(), DashboardActivity::class.java).also {
                 it.putExtra("googleAccount", googleAccount)
                 startActivity(it)
@@ -241,6 +185,33 @@ class LoginFragment : Fragment() {
             requireActivity().finish()
         }
 
+    }
+
+    /** Validate form fields **/
+    private fun validateFields() {
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.editTextTextEmailAddressEt,
+                editTextInputLayout = binding.editTextTextEmailAddressTil,
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.editTextNumberPinEt,
+                editTextInputLayout = binding.editTextNumberPinTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            )
+        )
+
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.loginLoginBtn))
+            .watchWhileTyping(true)
+            .build()
     }
 
 
@@ -281,24 +252,10 @@ class LoginFragment : Fragment() {
             Log.w(ContentValues.TAG, "signInResult:failed code=" + e.statusCode)
 //            showSnackBar(binding.landingSignUpGoogleBtn, "signInResult:failed code=" + e.statusCode)
         }
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-
-    private fun validateEmailAndPin(email: String, pin: String): Boolean {
-        if (!validateEmail(email)) {
-            binding.editTextTextEmailAddressEt.error = "Invalid email"
-            return false
-        } else if (!validatePin(pin)) {
-            binding.editTextNumberPinEt.error = "Invalid password"
-            return false
-        }
-
-        return true
     }
 }

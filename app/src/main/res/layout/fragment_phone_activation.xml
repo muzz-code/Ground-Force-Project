@@ -11,10 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.auth.PhoneActivationFragment">
-        <!--Tool bar arrow-->
-        <!--Tool bar title-->
-        <!--Enter phone number-->
-
         <!--    Tool bar -->
         <include
             android:id="@+id/fragment_phone_activation_tb"
@@ -28,6 +24,7 @@
 
         <TextView
             android:id="@+id/phone_activ_enter_phone_no_tv"
+            style="@style/colorPrimaryBlackLargeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_margin_dim"
@@ -35,95 +32,101 @@
             android:layout_marginRight="@dimen/common_margin_dim"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_activ_phone_phone_number_str"
-            style="@style/colorPrimaryBlackLargeText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_phone_activation_tb"
             app:layout_goneMarginTop="90dp" />
         <!--The Country list-->
+
+
+        <!--Phone number edit text-->
+
         <com.hbb20.CountryCodePicker
             android:id="@+id/phone_activ_country_picker_sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/phone_activ_hbb_background"
             app:ccpDialog_fastScroller_bubbleColor="@color/colorAccent"
+            app:ccpDialog_showCloseIcon="true"
             app:ccp_defaultNameCode="NG"
             app:ccp_showNameCode="false"
             app:ccp_textSize="@dimen/medium_text"
-            app:ccpDialog_showCloseIcon="true"
-            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_phone_no_et"
             app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv"
-            app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_et" />
+            app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_til" />
 
-
-        <!--Phone number edit text-->
-        <EditText
-            android:id="@+id/phone_activ_phone_no_et"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phone_activ_phone_no_til"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/colorPrimaryBlack"
-            android:digits="0123456789"
-            android:fontFamily="@font/roboto"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:paddingBottom="13dp"
-            android:singleLine="true"
-            android:textCursorDrawable="@null"
-            style="@style/colorPrimaryBlackMediumText"
+            app:errorIconDrawable="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_country_picker_sp"
             app:layout_constraintEnd_toEndOf="@+id/phone_activ_enter_phone_no_tv"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/phone_activ_country_picker_sp"
-            app:layout_constraintTop_toBottomOf="@+id/phone_activ_enter_phone_no_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_activ_enter_phone_no_tv">
 
-        <!--Info to the user-->
+            <EditText
+                android:id="@+id/phone_activ_phone_no_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:digits="0123456789"
+                android:fontFamily="@font/roboto"
+                android:inputType="phone"
+                android:maxLength="10"
+                app:layout_constraintEnd_toEndOf="@+id/phone_activ_enter_phone_no_tv"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/phone_activ_country_picker_sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/phone_activ_verify_text_tv"
+            style="@style/colorPrimaryBlackLargeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:paddingLeft="15dp"
             android:paddingTop="11dp"
             android:paddingRight="15dp"
             android:text="@string/phone_activ_info_user_str"
             android:textAlignment="center"
-            style="@style/colorPrimaryBlackLargeText"
-            app:layout_constraintEnd_toEndOf="@+id/phone_activ_phone_no_et"
+            app:layout_constraintEnd_toEndOf="@+id/phone_activ_phone_no_til"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_activ_country_picker_sp"
-            app:layout_constraintTop_toBottomOf="@+id/phone_activ_phone_no_et" />
-        <!--Terms and Conditions-->
-        <!--Continue Button-->
+            app:layout_constraintTop_toBottomOf="@+id/phone_activ_phone_no_til" />
 
         <TextView
             android:id="@+id/phone_activ_terms_condition_tv"
-            android:layout_width="match_parent"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_margin_dim"
-            android:layout_marginEnd="@dimen/common_margin_dim"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_activ_t_and_c_str"
             android:textAlignment="center"
-            style="@style/colorTertiaryGreyExtraSmallText"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/phone_activ_continue_btn"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/phone_activ_verify_text_tv"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/phone_activ_verify_text_tv"
+            app:layout_constraintTop_toBottomOf="@+id/phone_activ_verify_text_tv"
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/phone_activ_continue_btn"
+            style="@style/colorWhiteMediumText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:background="@drawable/btn_primary_shapes"
-            android:text="@string/phone_activ_continue_str"
             android:enabled="false"
+            android:text="@string/phone_activ_continue_str"
             android:textAllCaps="false"
-            style="@style/colorWhiteMediumText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/phone_activ_terms_condition_tv"
             app:layout_constraintHorizontal_bias="0.0"

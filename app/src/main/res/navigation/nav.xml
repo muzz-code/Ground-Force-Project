@@ -45,7 +45,11 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_landingFragment_to_phoneActivationFragment2"
-            app:destination="@id/phoneActivationFragment" />
+            app:destination="@id/phoneActivationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -56,13 +60,17 @@
         <argument
             android:name="phoneNumber"
             app:argType="string" />
+
         <action
-            android:id="@+id/action_phoneVerificationFragment_to_createProfileFragmentOne"
-            app:destination="@id/createProfileFragmentOne"
+            android:id="@+id/action_phoneVerificationFragment_to_emailVerificationOne"
+            app:destination="@id/emailVerificationOne"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_phoneVerificationFragment_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
     </fragment>
 
     <fragment
@@ -70,6 +78,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneActivationFragment"
         android:label="fragment_phone_activation"
         tools:layout="@layout/fragment_phone_activation">
+
         <action
             android:id="@+id/action_phoneActivationFragment_to_phoneVerificationFragment"
             app:destination="@id/phoneVerificationFragment"
@@ -77,6 +86,12 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="google_account"
+            android:defaultValue="@null"
+            app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
+            app:nullable="true" />
     </fragment>
 
 
@@ -91,9 +106,14 @@
             android:defaultValue="@null"
             app:argType="com.google.android.gms.auth.api.signin.GoogleSignInAccount"
             app:nullable="true" />
+
         <action
             android:id="@+id/action_createProfileFragmentOne_to_createProfileFragmentTwo"
-            app:destination="@id/createProfileFragmentTwo" />
+            app:destination="@id/createProfileFragmentTwo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -102,18 +122,12 @@
         android:label="fragment_create_profile_two"
         tools:layout="@layout/fragment_create_profile_two">
         <action
-            android:id="@+id/action_createProfileFragmentTwo_to_createProfileFragmentThree"
-            app:destination="@id/createProfileFragmentThree" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/createProfileFragmentThree"
-        android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentThree"
-        android:label="fragment_create_profile_three"
-        tools:layout="@layout/fragment_create_profile_three">
-        <action
-            android:id="@+id/action_createProfileFragmentThree_to_locationVerificationFragment"
-            app:destination="@id/locationsVerificationFragment" />
+            android:id="@+id/action_createProfileFragmentTwo_to_locationsVerificationFragment"
+            app:destination="@id/locationsVerificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 
@@ -147,46 +161,36 @@
 
     </fragment>
 
-
-    <fragment
-        android:id="@+id/dashBoardFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.dashboard.DashBoardFragment"
-        android:label="fragment_dash_board"
-        tools:layout="@layout/fragment_dash_board" />
-
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ForgetPasswordFragment"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
 
     <fragment
-        android:id="@+id/resetPasswordFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
-        android:label="ResetPasswordFragment"
-        tools:layout="@layout/fragment_reset_password">
+        android:id="@+id/emailVerificationOne"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationOne"
+        android:label="fragment_email_verification_one"
+        tools:layout="@layout/fragment_email_verification_one">
         <action
-            android:id="@+id/action_resetPasswordFragment_to_createProfileFragmentOne"
-            app:destination="@id/createProfileFragmentOne"
+            android:id="@+id/action_emailVerificationOne_to_emailVerificationTwo"
+            app:destination="@id/emailVerificationTwo"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
-    <fragment
-        android:id="@+id/createPinFragment"
-        android:name="com.trapezoidlimited.groundforce.ui.auth.CreatePinFragment"
-        android:label="CreatePinFragment" />
-    <fragment
-        android:id="@+id/emailVerificationOne"
-        android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationOne"
-        android:label="fragment_email_verification_one"
-        tools:layout="@layout/fragment_email_verification_one" >
-        <action
-            android:id="@+id/action_emailVerificationOne_to_emailVerificationTwo"
-            app:destination="@id/emailVerificationTwo" />
-    </fragment>
+
     <fragment
         android:id="@+id/emailVerificationTwo"
         android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationTwo"
@@ -195,7 +199,15 @@
         <argument
             android:name="email"
             app:argType="string" />
+        <action
+            android:id="@+id/action_emailVerificationTwo_to_createProfileFragmentOne"
+            app:destination="@id/createProfileFragmentOne" />
     </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
 
 
 </navigation>

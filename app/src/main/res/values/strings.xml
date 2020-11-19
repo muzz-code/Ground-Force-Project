@@ -93,10 +93,6 @@
     </string-array>
 
 
-    <!--display location latitude and longitude-->
-    <string name="latLong">Longitude: %.3f, Latitude: %.3f</string>
-
-
     <string name="login_sub_title_str">Login to continue</string>
     <string name="login_str">Login</string>
     <string name="pin_text_str">Pin</string>
@@ -261,6 +257,7 @@
     <string name="create_profile_title_str">Create Profile</string>
     <string name="location_verification_title_str">Location Verification</string>
     <string name="email_verification_title_bar_str">Email Verification</string>
+    <string name="password_reset_title_bar_str">PassWord Reset</string>
     <string name="create_pin_title_str">Create Pin</string>
     <string name="mission_report_title_str">Mission Report</string>
     <string name="one_of_ten_title_str">"1 0f 10"</string>
@@ -284,8 +281,8 @@
     <string name="skip_for_now_btn_str">Skip For Now</string>
     <string name="please_try_again_shortly_str">Please try again shortly</string>
     <string name="failed_title_str">Failed!</string>
+    <string name="confirm">Confirm</string>
     <string name="notification_info_dash_str">Please complete your profile before you can accept new tasks.</string>
-
 
 </resources>
 

@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -54,6 +55,11 @@ android {
         testImplementation 'junit:junit:4.13'
         androidTestImplementation 'androidx.test.ext:junit:1.1.2'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+        //Firebase
+        implementation platform('com.google.firebase:firebase-bom:26.1.0')
+        implementation 'com.google.firebase:firebase-analytics-ktx'
 
         //navigation controller
         implementation "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
@@ -126,17 +132,17 @@ android {
         // Date picker
         implementation 'com.afollestad:date-picker:0.6.1'
 
-
         //Lottie animation
         implementation "com.airbnb.android:lottie:$versions.lottieVersion"
 
         //Google Play services
-        implementation 'com.google.android.gms:play-services-auth:18.1.0'
+        implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
 
         //Glide
-
         implementation 'com.github.bumptech.glide:glide:4.11.0'
-        kapt  'com.github.bumptech.glide:compiler:4.11.0'
+        kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
 
     }
 }

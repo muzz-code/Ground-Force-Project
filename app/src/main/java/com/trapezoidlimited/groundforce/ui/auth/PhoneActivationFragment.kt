@@ -6,18 +6,17 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
@@ -25,10 +24,6 @@ import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBindi
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.clearFieldsArray
-import com.trapezoidlimited.groundforce.validator.watchAllMyFields
-import com.trapezoidlimited.groundforce.validator.watchToValidator
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +35,7 @@ import javax.inject.Inject
 class PhoneActivationFragment : Fragment() {
     @Inject
     lateinit var loginApiService: LoginAuthApi
+
     @Inject
     lateinit var errorUtils: ErrorUtils
 
@@ -49,8 +45,8 @@ class PhoneActivationFragment : Fragment() {
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var phoneNumberTil: TextInputLayout
     private lateinit var number: String
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,9 +59,9 @@ class PhoneActivationFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
 
 
-
         /** setting toolbar text **/
-        binding.fragmentPhoneActivationTb.toolbarTitle.text = getString(R.string.phone_activation_title_str)
+        binding.fragmentPhoneActivationTb.toolbarTitle.text =
+            getString(R.string.phone_activation_title_str)
 
         /** set navigation arrow from drawable **/
         binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
@@ -78,6 +74,7 @@ class PhoneActivationFragment : Fragment() {
 
         /**show status bar**/
         showStatusBar()
+
         val view = binding.root
 
         // Get Test from String Resource
@@ -89,6 +86,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -101,6 +99,7 @@ class PhoneActivationFragment : Fragment() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
+
             // Change color and remove underline
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
@@ -121,7 +120,6 @@ class PhoneActivationFragment : Fragment() {
     }
 
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -129,15 +127,9 @@ class PhoneActivationFragment : Fragment() {
         /** Validating the phone number field**/
 
         val phoneEditText = binding.phoneActivPhoneNoEt
+        phoneNumberTil = binding.phoneActivPhoneNoTil
 
-        phoneEditText.watchToValidator(EditFieldType.PHONE)
-
-        watchAllMyFields(
-            mutableMapOf(
-                phoneEditText to EditFieldType.PHONE
-            ),
-            binding.phoneActivContinueBtn
-        )
+        validateFields()
 
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
@@ -148,10 +140,9 @@ class PhoneActivationFragment : Fragment() {
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
                     findNavController().navigate(action)
 
-                    clearFieldsArray() // clearing validationArray
                 }
                 is Resource.Failure -> {
-                    /** Hiding progressbar and enabling button */ 
+                    /** Hiding progressbar and enabling button */
                     binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
                     handleApiError(it, retrofit, requireView())
                 }
@@ -159,7 +150,7 @@ class PhoneActivationFragment : Fragment() {
 
         })
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().navigate(R.id.landingFragment)
         }
 
@@ -169,13 +160,36 @@ class PhoneActivationFragment : Fragment() {
             number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
+            val action = PhoneActivationFragmentDirections
+                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+            findNavController().navigate(action)
+
             /** Making network call*/
-            viewModel.verifyPhone(phoneNumber)
+//            viewModel.verifyPhone(phoneNumber)
 
             /** Setting Progress bar to visible and disabling button*/
-            binding.phoneActivationPb.show(it as Button?)
+//            binding.phoneActivationPb.show(it as Button?)
 
         }
+    }
+
+
+    private fun validateFields() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.phoneActivPhoneNoEt,
+                editTextInputLayout = binding.phoneActivPhoneNoTil,
+                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
+                validator = { it.jdValidatePhoneNumber(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.phoneActivContinueBtn))
+            .watchWhileTyping(true)
+            .build()
     }
 
     override fun onDestroyView() {

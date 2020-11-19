@@ -103,7 +103,7 @@ fun View.crossfade(duration: Long) {
  * Inflate the dialog fragment that shows location has been verified
  **/
 fun Fragment.setSuccessDialog() {
-    var frag = parentFragmentManager.beginTransaction()
+    val frag = parentFragmentManager.beginTransaction()
     VerifiedDialog().show(frag, "This")
 }
 

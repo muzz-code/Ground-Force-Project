@@ -15,6 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
+import com.trapezoidlimited.groundforce.utils.JDFormValidator
+import com.trapezoidlimited.groundforce.utils.JDataClass
+import com.trapezoidlimited.groundforce.utils.jdValidateOTP
 
 class EmailVerificationTwo : Fragment() {
 
@@ -47,6 +50,8 @@ class EmailVerificationTwo : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        validateFields()
+
         // Get Test from String Resource
         val codeText = getText(R.string.email_verify_didnt_get_code_text_str)
         // Get an instance of SpannableString
@@ -69,7 +74,8 @@ class EmailVerificationTwo : Fragment() {
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Make the text spannable and clickable
         binding.fragmentEmailVerificationTwoResendTv.text = ssText
-        binding.fragmentEmailVerificationTwoResendTv.movementMethod = LinkMovementMethod.getInstance()
+        binding.fragmentEmailVerificationTwoResendTv.movementMethod =
+            LinkMovementMethod.getInstance()
 
         binding.fragmentEmailVerificationTwoChangeEmailTv.setOnClickListener {
             Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_SHORT).show()
@@ -79,6 +85,25 @@ class EmailVerificationTwo : Fragment() {
             findNavController().navigate(R.id.createProfileFragmentOne)
         }
 
+    }
+
+    private fun validateFields() {
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentEmailVerificationTwoPinView,
+                editTextInputLayout = null,
+                errorMessage = "Error: Code must be 4 digits",
+                validator = { it.jdValidateOTP(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.fragmentEmailVerificationTwoConfirmBtn))
+            .watchWhileTyping(true)
+            .build()
     }
 
     override fun onDestroy() {

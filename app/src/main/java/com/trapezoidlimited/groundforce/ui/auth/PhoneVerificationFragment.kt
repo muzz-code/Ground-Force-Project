@@ -24,13 +24,8 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
-import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.validator.EditFieldType
-import com.trapezoidlimited.groundforce.validator.clearFieldsArray
-import com.trapezoidlimited.groundforce.validator.watchAllMyFields
-import com.trapezoidlimited.groundforce.validator.watchToValidator
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,6 +36,7 @@ import javax.inject.Inject
 class PhoneVerificationFragment : Fragment() {
     private var _binding: FragmentPhoneVerificationBinding? = null
     private val binding get() = _binding!!
+    private var sign_up_with_google = ""
 
     @Inject
     lateinit var loginApiService: LoginAuthApi
@@ -114,6 +110,10 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifResendTv.text = ssText
         binding.phoneVerifResendTv.movementMethod = LinkMovementMethod.getInstance()
 
+
+        //Load Email from google shared preference
+        sign_up_with_google = loadFromSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE)
+
         // Inflate the layout for this fragment
         return view
     }
@@ -130,24 +130,15 @@ class PhoneVerificationFragment : Fragment() {
 
         val otpField = binding.phoneVerifPinView as EditText
 
-
-        otpField.watchToValidator(EditFieldType.OTP)
-        watchAllMyFields(
-            mutableMapOf(
-                otpField to EditFieldType.OTP
-            ),
-            binding.phoneVerifConfirmBtn
-        )
+        validateFields()
 
 
         viewModel.confirmPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
 
                 is Resource.Success -> {
-
                     /** Navigating to create profile fragment onSuccess*/
-                    findNavController().navigate(R.id.createProfileFragmentOne)
-                    clearFieldsArray() // clearing validationArray
+                    findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
@@ -161,21 +152,51 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
             val otp = otpField.text.toString()
-            val confirmPhone = ConfirmPhone(phoneNumber, otp)
+//            val confirmPhone = ConfirmPhone(phoneNumber, otp)
 
             /** Making network call*/
-            viewModel.confirmPhone(confirmPhone)
+//            viewModel.confirmPhone(confirmPhone)
 
             /** Setting Progress bar to visible and disabling button*/
-            binding.phoneVerificationPb.show(it as Button)
+//            binding.phoneVerificationPb.show(it as Button)
 
+            if (sign_up_with_google != "true") {
+                findNavController().navigate(
+                    R.id.action_phoneVerificationFragment_to_emailVerificationOne
+                )
 
+            } else {
+                findNavController().navigate(
+                    R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
+                )
+                saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
+            }
         }
 
 
         requireActivity().onBackPressedDispatcher.addCallback {
             findNavController().popBackStack()
         }
+
+    }
+
+    private fun validateFields() {
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.phoneVerifPinView,
+                editTextInputLayout = null,
+                errorMessage = JDErrorConstants.OTP_ERROR,
+                validator = { it.jdValidateOTP(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.phoneVerifConfirmBtn))
+            .watchWhileTyping(true)
+            .build()
 
     }
 

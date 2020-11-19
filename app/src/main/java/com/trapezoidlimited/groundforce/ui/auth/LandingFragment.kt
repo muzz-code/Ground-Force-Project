@@ -20,8 +20,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
-import com.trapezoidlimited.groundforce.utils.hideStatusBar
-import com.trapezoidlimited.groundforce.utils.showSnackBar
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class LandingFragment : Fragment() {
@@ -58,8 +57,7 @@ class LandingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.landingCreateAccBtn.setOnClickListener {
-
-            it.findNavController().navigate(R.id.emailVerificationOne)
+            it.findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
 
         }
 
@@ -98,6 +96,7 @@ class LandingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())
@@ -122,11 +121,11 @@ class LandingFragment : Fragment() {
         try {
 
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
-            val action =
-                LandingFragmentDirections.actionLandingFragmentToCreateProfileFragmentOne(account)
 
-            // Signed in successfully, show authenticated UI.
-            findNavController().navigate(action)
+            saveToSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE, account?.email!!)
+            saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "true")
+
+            findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.

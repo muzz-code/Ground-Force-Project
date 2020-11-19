@@ -1,57 +1,85 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentForgetPasswordBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentResetPasswordBinding
-import com.trapezoidlimited.groundforce.validator.ResetPasswordValidator
+import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
+import com.trapezoidlimited.groundforce.utils.*
 
 class ResetPasswordFragment : Fragment() {
 
-    private var _binding:FragmentResetPasswordBinding?=null
+    private var _binding: FragmentResetPasswordBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       _binding= FragmentResetPasswordBinding.inflate(inflater, container, false)
+        _binding = FragmentResetPasswordBinding.inflate(layoutInflater, container, false)
+
+
+        /** setting toolbar text **/
+        binding.fragmentResetPasswordToolbar.toolbarTitle.text =
+            getString(R.string.password_reset_title_bar_str)
+
+        //Set Toolbar Back Arrow Icon
+        binding.fragmentResetPasswordToolbar.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentResetPasswordToolbar.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
 
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.resetpasswordConfirmBtn.setOnClickListener {
-            var newPassword=binding.newpasswordEt.text.toString()
-            var confirmPassword=binding.confirmpasswordEt.text.toString()
-            if(ResetPasswordValidator.isNotEmpty(newPassword) && ResetPasswordValidator.isNotEmpty(confirmPassword)){
-                if(ResetPasswordValidator.isEqual(newPassword,confirmPassword)) {
-                    //implementation should handle new password send to the database via api
-                    Toast.makeText(requireContext(),"Password is equal with confirm password",Toast.LENGTH_LONG).show()
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentResetNewPasswordEt,
+                editTextInputLayout = binding.fragmentResetNewPasswordTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentResetConfirmNewPasswordEt,
+                editTextInputLayout = binding.fragmentResetConfirmNewPasswordTil,
+                errorMessage = JDErrorConstants.PASSWORD_DOES_NOT_MATCH,
+                validator = {
+                    it.jdValidateConfirmPassword(
+                        binding.fragmentResetNewPasswordEt,
+                        it.text.toString()
+                    )
                 }
-                else{
-                    Toast.makeText(requireContext(),"New password and Confirm password must be equal",Toast.LENGTH_LONG).show()
-                }
-            }
-            else{
-                Toast.makeText(requireContext(),"Both New Password and Confirm Password must be entered",Toast.LENGTH_LONG).show()
-            }
-        }
+            )
+        )
 
-        binding.resetpasswordArrowBackIv.setOnClickListener {
-            //should go back to login fragment, since the user is not ready to enter his new password and current password
-            findNavController().navigate(R.id.loginFragment)
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.forgetResetConfirmBtn))
+            .watchWhileTyping(true)
+            .build()
+
+
+
+        binding.forgetResetConfirmBtn.setOnClickListener {
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                startActivity(it)
+                requireActivity().finish()
+            }
         }
     }
-
-
-
 }

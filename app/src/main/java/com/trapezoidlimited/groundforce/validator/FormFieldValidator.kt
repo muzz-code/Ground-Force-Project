@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.validator
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.validator.Validation.validateAccountNumber
 import com.trapezoidlimited.groundforce.validator.Validation.validateAdditionalPhone
 import com.trapezoidlimited.groundforce.validator.Validation.validateAddress
@@ -13,7 +14,8 @@ import com.trapezoidlimited.groundforce.validator.Validation.validatePhoneNumber
 import com.trapezoidlimited.groundforce.validator.Validation.validatePin
 
 fun EditText.watchToValidator(
-    editFieldType: EditFieldType
+    editFieldType: EditFieldType,
+    inputLayer: TextInputLayout? = null,
 ) {
     addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -22,87 +24,110 @@ fun EditText.watchToValidator(
 
         override fun afterTextChanged(editText: Editable?) {
             if (editText.toString().trim().isEmpty()) {
-                error = null
+                if (inputLayer != null) {
+                    error = null
+                    inputLayer.error = null
+                }
             } else {
                 when (editFieldType) {
                     EditFieldType.PHONE -> {
-                        error = if (validatePhoneNumber(editText.toString())) {
-                            null
+                        if (validatePhoneNumber(editText.toString())) {
+                            setValidate()
                         } else {
                             if (editText.toString().length < 10) {
-                                "Phone number must be 10 digits"
+                                setInvalidate("Phone number must be 10 digits")
                             } else {
-                                "Invalid phone number"
+                                setInvalidate("I")
                             }
                         }
                     }
 
                     EditFieldType.OTP -> {
-                        error = if (validateOTP(editText.toString())) {
-                            null
+                        if (validateOTP(editText.toString())) {
+                            setValidate()
                         } else {
-                            "OTP must be 4 digits"
+                            setInvalidate("OTP must be 4 digits")
+
                         }
                     }
 
                     EditFieldType.NAME -> {
-                        error = if (validateName(editText.toString())) {
-                            null
+                        if (validateName(editText.toString())) {
+                            setValidate()
                         } else {
-                            "Name must be more than one character long."
+                            setInvalidate("Error: Name too short!")
                         }
                     }
 
                     EditFieldType.EMAIL -> {
-                        error = if (validateEmail(editText.toString())) {
-                            null
+                        if (validateEmail(editText.toString())) {
+                            setValidate()
                         } else {
-                            "Please provide a valid email address."
+                            setInvalidate("Error: Please provide a valid email address.")
                         }
                     }
 
                     EditFieldType.ADDRESS -> {
-                        error = if (validateAddress(editText.toString())) {
-                            null
+                        if (validateAddress(editText.toString())) {
+                            setValidate()
                         } else {
-                            "Please provide a valid address."
+                            setInvalidate("Error: Please provide a valid address.")
                         }
                     }
 
                     EditFieldType.ADDITIONALPHONE -> {
                         if (editText?.trim().toString().isNotEmpty()) {
-                            error = if (validateAdditionalPhone(editText.toString())) {
-                                null
+                            if (validateAdditionalPhone(editText.toString())) {
+                                setValidate()
                             } else {
                                 if (editText.toString().length < 11) {
-                                    "Phone number must be at least 11 digits"
+                                    setInvalidate("Error: Phone number must be at least 11 digits")
                                 } else {
-                                    "Invalid phone number"
+                                    setInvalidate("Error: Invalid Phone Number")
                                 }
                             }
                         }
                     }
 
                     EditFieldType.ACCOUNTNUMBER -> {
-                        error = if (validateAccountNumber(editText.toString())) {
-                            null
+                        if (validateAccountNumber(editText.toString())) {
+                            setValidate()
                         } else {
                             if (editText.toString().length < 10) {
-                                "Account number must be 10 digits"
+                                setInvalidate("Error: Phone number must be at least 11 digits")
                             } else {
-                                "Invalid account number"
+                                setInvalidate("Error: Invalid account number")
                             }
                         }
                     }
 
                     EditFieldType.PIN -> {
-                        error = if (validatePin(editText.toString())) {
-                            null
+                        if (validatePin(editText.toString())) {
+                            setValidate()
                         } else {
-                            "Phone number must be 4 digits"
+                            setInvalidate("Error: Pin must be 4 digits")
                         }
                     }
                 }
+            }
+        }
+
+
+        //When Field is validated
+        private fun setValidate() {
+            if (inputLayer != null) { //Works for Material Edit text with Input layer
+                inputLayer.error = null
+            } else { // Works for only Edit Text
+                error = null
+            }
+        }
+
+        //When Field is invalidated
+        private fun setInvalidate(message: String) {
+            if (inputLayer != null) { //Works for Material Edit text with Input layer
+                inputLayer.error = message
+            } else { // Works for only Edit Text
+                error = message
             }
         }
     })
