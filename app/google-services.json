@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "952735585250",
+    "firebase_url": "https://groundforce-1604920691936.firebaseio.com",
+    "project_id": "groundforce-1604920691936",
+    "storage_bucket": "groundforce-1604920691936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952735585250:android:00eb408033765528299fbb",
+        "android_client_info": {
+          "package_name": "com.trapezoidlimited.groundforce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952735585250-eqovuts7qb2f5odoehns4hu4jctmijcf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trapezoidlimited.groundforce",
+            "certificate_hash": "82659b1411eb065186613c14b73f1dac2b3701a1"
+          }
+        },
+        {
+          "client_id": "952735585250-pdh23eg61rsr8v16dnkv3n1v48g8epgp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6Gb89uT9g9SmTMOnx6WZfyX24G5Cn-BU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952735585250-pdh23eg61rsr8v16dnkv3n1v48g8epgp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
