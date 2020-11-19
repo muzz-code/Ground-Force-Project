@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentForgetPasswordBinding
 import com.trapezoidlimited.groundforce.databinding.FragmentResetPasswordBinding
+import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
 
 class ResetPasswordFragment : Fragment() {
@@ -70,5 +72,14 @@ class ResetPasswordFragment : Fragment() {
             .viewsToEnable(mutableListOf(binding.forgetResetConfirmBtn))
             .watchWhileTyping(true)
             .build()
+
+
+
+        binding.forgetResetConfirmBtn.setOnClickListener {
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                startActivity(it)
+                requireActivity().finish()
+            }
+        }
     }
 }

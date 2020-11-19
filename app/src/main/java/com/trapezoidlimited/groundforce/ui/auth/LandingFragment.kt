@@ -96,6 +96,7 @@ class LandingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         val account = GoogleSignIn.getLastSignedInAccount(requireContext())

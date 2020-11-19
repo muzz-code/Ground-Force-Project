@@ -47,14 +47,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/phone_activ_hbb_background"
             app:ccpDialog_fastScroller_bubbleColor="@color/colorAccent"
             app:ccpDialog_showCloseIcon="true"
             app:ccp_defaultNameCode="NG"
             app:ccp_showNameCode="false"
             app:ccp_textSize="@dimen/medium_text"
-            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_phone_no_til"
-            app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv" />
+            app:layout_constraintStart_toStartOf="@+id/phone_activ_enter_phone_no_tv"
+            app:layout_constraintTop_toTopOf="@+id/phone_activ_phone_no_til" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phone_activ_phone_no_til"
@@ -63,6 +64,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:errorIconDrawable="@null"
+            app:layout_constraintBottom_toBottomOf="@+id/phone_activ_country_picker_sp"
             app:layout_constraintEnd_toEndOf="@+id/phone_activ_enter_phone_no_tv"
             app:layout_constraintStart_toEndOf="@+id/phone_activ_country_picker_sp"
             app:layout_constraintTop_toBottomOf="@+id/phone_activ_enter_phone_no_tv">

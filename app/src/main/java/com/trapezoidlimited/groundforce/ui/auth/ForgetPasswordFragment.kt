@@ -51,8 +51,8 @@ class ForgetPasswordFragment : Fragment() {
             JDataClass(
                 editText = binding.fragmentForgetPasswordEmailEt,
                 editTextInputLayout = binding.fragmentForgetPasswordEmailTil,
-                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
-                validator = { it.jdValidatePin(it.text.toString()) }
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
             )
         )
 
