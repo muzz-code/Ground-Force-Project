@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="42dp"
             app:errorIconDrawable="@null"
             app:layout_constraintBottom_toBottomOf="@+id/phone_activ_country_picker_sp"
             app:layout_constraintEnd_toEndOf="@+id/phone_activ_enter_phone_no_tv"
