@@ -105,6 +105,7 @@
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto"
             android:text="@string/phone_activ_t_and_c_str"

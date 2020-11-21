@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -134,7 +135,6 @@ class PhoneActivationFragment : Fragment() {
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-
                     /** Navigating to phone verification fragment onSuccess*/
                     val action = PhoneActivationFragmentDirections
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
@@ -147,7 +147,6 @@ class PhoneActivationFragment : Fragment() {
                     handleApiError(it, retrofit, requireView())
                 }
             }
-
         })
 
         requireActivity().onBackPressedDispatcher.addCallback {
@@ -160,15 +159,15 @@ class PhoneActivationFragment : Fragment() {
             number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
-            val action = PhoneActivationFragmentDirections
-                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-            findNavController().navigate(action)
+//            val action = PhoneActivationFragmentDirections
+//                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+//            findNavController().navigate(action)
 
             /** Making network call*/
-//            viewModel.verifyPhone(phoneNumber)
+            viewModel.verifyPhone(phoneNumber)
 
             /** Setting Progress bar to visible and disabling button*/
-//            binding.phoneActivationPb.show(it as Button?)
+            binding.phoneActivationPb.show(it as Button?)
 
         }
     }
