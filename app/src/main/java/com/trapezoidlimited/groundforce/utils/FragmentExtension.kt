@@ -4,8 +4,10 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.DialogInterface
 import android.graphics.Color
+import android.os.Build
 import android.view.View
 import android.view.Window
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +30,7 @@ fun Fragment.showStatusBar() {
  * hide status bar
  */
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun Fragment.hideStatusBar(){
     // Hide the status bar.
     activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
