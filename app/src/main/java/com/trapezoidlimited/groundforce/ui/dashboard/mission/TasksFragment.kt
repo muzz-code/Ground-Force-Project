@@ -1,17 +1,13 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,11 +17,14 @@ import com.trapezoidlimited.groundforce.databinding.FragmentTasksBinding
 import com.trapezoidlimited.groundforce.utils.DataListener
 import com.trapezoidlimited.groundforce.utils.MISSION
 import com.trapezoidlimited.groundforce.utils.ONGOING
+import kotlinx.android.synthetic.main.custom_tab_heading.view.*
 
 
 class TasksFragment : Fragment() {
     private lateinit var binding: FragmentTasksBinding
     private lateinit var adapter: GenericViewPagerAdapter
+    private lateinit var customTabLinearLayout: LinearLayout
+    private lateinit var customTabTextView: TextView
 
 
     override fun onCreateView(
@@ -61,6 +60,10 @@ class TasksFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        /** Inflating the custom tab layout and get a reference to its textView  */
+        customTabLinearLayout = LayoutInflater.from(this.context).inflate(R.layout.custom_tab_heading, null) as LinearLayout
+        customTabTextView = customTabLinearLayout.customTabTV
+
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentTasksToolbar.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -72,27 +75,10 @@ class TasksFragment : Fragment() {
 
             if (it == true) {
 
-                val image: Drawable? = ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.custom_tab_indicator_active,
-                    null
-                )
+                customTabTextView.text = "Ongoing    "
+                customTabTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.custom_tab_indicator_active, 0)
 
-                image?.setBounds(0, 0, image.intrinsicWidth, image.intrinsicHeight)
-
-                val sb = SpannableString("Ongoing" + "     ")
-
-                val imageSpan = ImageSpan(image!!, ImageSpan.ALIGN_CENTER)
-
-
-                sb.setSpan(
-                    imageSpan,
-                    sb.length - 2,
-                    sb.length - 1,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-                binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = SpannableString(sb)
+                binding.fragmentTasksTabLayoytTl.getTabAt(1)!!.customView = customTabTextView
 
                 DataListener.mSetTabIndicator.value = false
             }
@@ -148,7 +134,11 @@ class TasksFragment : Fragment() {
 
                 if (tab?.position == 1) {
 
-                    binding.fragmentTasksTabLayoytTl.getTabAt(1)?.text = "Ongoing"
+                    customTabTextView.text = "Ongoing"
+
+                    customTabTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+
+                    binding.fragmentTasksTabLayoytTl.getTabAt(1)!!.customView = customTabTextView
 
                 }
 
