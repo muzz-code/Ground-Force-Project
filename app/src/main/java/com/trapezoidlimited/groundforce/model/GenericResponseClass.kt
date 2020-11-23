@@ -1,7 +1,8 @@
 package com.trapezoidlimited.groundforce.model
 
 data class GenericResponseClass(
-    val message: String?,
+    val title: String?,
+    val errors: String?,
     val data: Any?
 )
 
