@@ -18,12 +18,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -42,6 +45,7 @@ class PhoneActivationFragment : Fragment() {
 
     @Inject
     lateinit var retrofit: Retrofit
+
 
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
@@ -170,6 +174,7 @@ class PhoneActivationFragment : Fragment() {
             binding.phoneActivationPb.show(it as Button?)
 
         }
+
     }
 
 
