@@ -19,7 +19,7 @@ constructor
         error = try {
             converter.convert(response.errorBody())!!
         } catch (e: IOException) {
-            return GenericResponseClass(null, null)
+            return GenericResponseClass("null", "null", null)
         }
         return error
     }

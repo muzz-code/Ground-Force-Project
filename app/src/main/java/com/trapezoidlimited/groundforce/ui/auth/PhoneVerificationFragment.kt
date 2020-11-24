@@ -24,6 +24,7 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
+import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
@@ -137,8 +138,22 @@ class PhoneVerificationFragment : Fragment() {
             when (it) {
 
                 is Resource.Success -> {
+
                     /** Navigating to create profile fragment onSuccess*/
-                    findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
+                    //findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
+
+                    if (sign_up_with_google != "true") {
+                        findNavController().navigate(
+                            R.id.action_phoneVerificationFragment_to_emailVerificationOne
+                        )
+
+                    } else {
+                        findNavController().navigate(
+                            R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
+                        )
+                        saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
+                    }
+
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
@@ -152,25 +167,20 @@ class PhoneVerificationFragment : Fragment() {
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
             val otp = otpField.text.toString()
-//            val confirmPhone = ConfirmPhone(phoneNumber, otp)
+            val confirmPhone = ConfirmPhone(phoneNumber, otp)
+
+//
+//            findNavController().navigate(
+//                R.id.action_phoneVerificationFragment_to_emailVerificationOne
+//            )
 
             /** Making network call*/
-//            viewModel.confirmPhone(confirmPhone)
+            viewModel.confirmPhone(confirmPhone)
 
             /** Setting Progress bar to visible and disabling button*/
-//            binding.phoneVerificationPb.show(it as Button)
+            binding.phoneVerificationPb.show(it as Button)
 
-            if (sign_up_with_google != "true") {
-                findNavController().navigate(
-                    R.id.action_phoneVerificationFragment_to_emailVerificationOne
-                )
 
-            } else {
-                findNavController().navigate(
-                    R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
-                )
-                saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
-            }
         }
 
 

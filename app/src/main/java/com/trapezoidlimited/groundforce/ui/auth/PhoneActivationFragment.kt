@@ -6,10 +6,12 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -20,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -133,8 +136,8 @@ class PhoneActivationFragment : Fragment() {
 
         viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Success -> {
 
+                is Resource.Success -> {
                     /** Navigating to phone verification fragment onSuccess*/
                     val action = PhoneActivationFragmentDirections
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
@@ -160,15 +163,20 @@ class PhoneActivationFragment : Fragment() {
             number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
-            val action = PhoneActivationFragmentDirections
-                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-            findNavController().navigate(action)
+            /** Saving phone in sharedPreference*/
+
+            saveToSharedPreference(requireActivity(), PHONE, number)
+
+//            val action = PhoneActivationFragmentDirections
+//                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+//            findNavController().navigate(action)
+
 
             /** Making network call*/
-//            viewModel.verifyPhone(phoneNumber)
+            viewModel.verifyPhone(phoneNumber)
 
             /** Setting Progress bar to visible and disabling button*/
-//            binding.phoneActivationPb.show(it as Button?)
+            binding.phoneActivationPb.show(it as Button?)
 
         }
     }

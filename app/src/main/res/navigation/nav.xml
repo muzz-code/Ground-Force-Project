@@ -57,6 +57,8 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.PhoneVerificationFragment"
         android:label="fragment_phone_verification"
         tools:layout="@layout/fragment_phone_verification">
+
+
         <argument
             android:name="phoneNumber"
             app:argType="string" />
@@ -101,6 +103,7 @@
         android:label="fragment_create_profile_one"
         tools:layout="@layout/fragment_create_profile_one">
 
+
         <argument
             android:name="google_account"
             android:defaultValue="@null"
@@ -121,6 +124,8 @@
         android:name="com.trapezoidlimited.groundforce.ui.profile.CreateProfileFragmentTwo"
         android:label="fragment_create_profile_two"
         tools:layout="@layout/fragment_create_profile_two">
+
+
         <action
             android:id="@+id/action_createProfileFragmentTwo_to_locationsVerificationFragment"
             app:destination="@id/locationsVerificationFragment"
@@ -135,7 +140,11 @@
         android:id="@+id/locationsVerificationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment"
         android:label="fragment_location_verification"
-        tools:layout="@layout/fragment_locations_verification" />
+        tools:layout="@layout/fragment_locations_verification"
+        >
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -181,6 +190,8 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationOne"
         android:label="fragment_email_verification_one"
         tools:layout="@layout/fragment_email_verification_one">
+
+
         <action
             android:id="@+id/action_emailVerificationOne_to_emailVerificationTwo"
             app:destination="@id/emailVerificationTwo"
@@ -196,13 +207,14 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.EmailVerificationTwo"
         android:label="EmailVerificationTwo"
         tools:layout="@layout/fragment_email_verification_two">
-        <argument
-            android:name="email"
-            app:argType="string" />
+
+
         <action
             android:id="@+id/action_emailVerificationTwo_to_createProfileFragmentOne"
             app:destination="@id/createProfileFragmentOne" />
     </fragment>
+
+
     <fragment
         android:id="@+id/resetPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"

@@ -1,17 +1,18 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentData
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationOneBinding
-import com.trapezoidlimited.groundforce.utils.JDErrorConstants
-import com.trapezoidlimited.groundforce.utils.JDFormValidator
-import com.trapezoidlimited.groundforce.utils.JDataClass
-import com.trapezoidlimited.groundforce.utils.jdValidateEmail
+import com.trapezoidlimited.groundforce.utils.*
 
 class EmailVerificationOne : Fragment() {
     private var _binding: FragmentEmailVerificationOneBinding? = null
@@ -24,6 +25,7 @@ class EmailVerificationOne : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEmailVerificationOneBinding.inflate(layoutInflater, container, false)
+
 
         /** setting toolbar text **/
         binding.fragmentEmailVerificationTb.toolbarTitle.text =
@@ -48,6 +50,14 @@ class EmailVerificationOne : Fragment() {
         validateFields()
 
         binding.fragmentEmailVerificationSubmitBtn.setOnClickListener {
+
+           val email = binding.fragmentEmailVerificationEt.text.toString()
+
+
+            /** Saving EMAIL in sharedPreference*/
+            saveToSharedPreference(requireActivity(), EMAIL, email)
+
+
             findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
         }
 

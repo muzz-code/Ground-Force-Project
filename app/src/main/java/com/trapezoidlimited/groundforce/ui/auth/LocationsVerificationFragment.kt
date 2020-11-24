@@ -20,18 +20,37 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LocationsVerificationFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private lateinit var viewModel: LoginAuthViewModel
 
     private var _binding: FragmentLocationsVerificationBinding? = null
     private val binding get() = _binding!!
@@ -53,6 +72,10 @@ class LocationsVerificationFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentLocationsVerificationBinding.inflate(inflater, container, false)
 
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
         /** setting toolbar text **/
         binding.fragmentLocationVerificationTb.toolbarTitle.text =
             getString(R.string.location_verification_title_str)
@@ -73,12 +96,14 @@ class LocationsVerificationFragment : Fragment() {
          */
         binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
 
+
         return binding.root
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
@@ -102,11 +127,17 @@ class LocationsVerificationFragment : Fragment() {
                 super.onLocationResult(locationResult)
 
                 if (locationResult?.lastLocation != null) {
-                    var lat = locationResult.lastLocation.latitude
-                    var long = locationResult.lastLocation.longitude
+                    var lat = locationResult.lastLocation.latitude.toString()
+                    var long = locationResult.lastLocation.longitude.toString()
                     currentLocation = locationResult.lastLocation
 
                     binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
+
+
+                    /** Saving LAT and LONG in sharedPreference*/
+
+                    saveToSharedPreference(requireActivity(), LATITUDE, lat)
+                    saveToSharedPreference(requireActivity(), LONGITUDE, long)
 
                     setSuccessDialog()
 

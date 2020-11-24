@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.trapezoidlimited.groundforce.R
 import dagger.hilt.EntryPoint
 import androidx.appcompat.app.AppCompatActivity
+import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
     }
+
 }
 

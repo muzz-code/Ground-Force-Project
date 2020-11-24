@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.repository
 
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.model.GenericResponseClass
 import com.trapezoidlimited.groundforce.model.VerifyPhone
@@ -33,5 +34,8 @@ constructor(
         api.confirmPhone(confirmPhone)
     }
 
+    override suspend fun registerAgent(agent: AgentData): Resource<GenericResponseClass> = safeApiCall {
+        api.registerAgent(agent)
+    }
 
 }
