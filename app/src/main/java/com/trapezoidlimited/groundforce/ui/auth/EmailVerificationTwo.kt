@@ -13,11 +13,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentData
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
-import com.trapezoidlimited.groundforce.utils.JDFormValidator
-import com.trapezoidlimited.groundforce.utils.JDataClass
-import com.trapezoidlimited.groundforce.utils.jdValidateOTP
+import com.trapezoidlimited.groundforce.utils.*
 
 class EmailVerificationTwo : Fragment() {
 
@@ -30,6 +31,7 @@ class EmailVerificationTwo : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEmailVerificationTwoBinding.inflate(layoutInflater, container, false)
+
 
         /** setting toolbar text **/
         binding.fragmentEmailVerificationTwoTb.toolbarTitle.text =
@@ -51,6 +53,11 @@ class EmailVerificationTwo : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         validateFields()
+
+
+        val email = loadFromSharedPreference(requireActivity(), EMAIL)
+
+        binding.fragmentEmailVerificationTwoInstructionTv.text = "Please enter the 4 digit code sent to you at $email"
 
         // Get Test from String Resource
         val codeText = getText(R.string.email_verify_didnt_get_code_text_str)
