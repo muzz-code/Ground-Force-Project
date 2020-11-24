@@ -22,7 +22,7 @@ fun Fragment.handleApiError(
 
         else -> {
             val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
-            error?.message?.let { showSnackBar(view, it) }
+            error?.errors?.let { showSnackBar(view, it) }
         }
     }
 

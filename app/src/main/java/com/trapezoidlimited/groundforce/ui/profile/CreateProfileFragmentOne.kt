@@ -4,6 +4,7 @@ package com.trapezoidlimited.groundforce.ui.profile
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,8 @@ class CreateProfileFragmentOne : Fragment() {
 
     private var _binding: FragmentCreateProfileOneBinding? = null
     private val binding get() = _binding!!
-
+    private var yearPicked = 0
+    private var currentYear = 0
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var date: String
 
@@ -73,11 +75,23 @@ class CreateProfileFragmentOne : Fragment() {
 
             if (!Validation.validateDateOfBirth(dateOfBirth.text.toString())) {
                 dateOfBirth.error = "Please specify a date of birth"
+            } else if (currentYear - yearPicked !in 18..120) {
+                showSnackBar(requireView(), "Age must be between 18 - 120")
             } else {
-                AgentObject.firstName =
-                    binding.fragmentCreateProfileFirstNamePlaceholderEt.text.toString()
-                AgentObject.lastName = binding.fragmentCreateProfileOneLastNameEt.text.toString()
-                AgentObject.dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
+                val firstName = binding.fragmentCreateProfileFirstNamePlaceholderEt.text.toString()
+                val lastName = binding.fragmentCreateProfileOneLastNameEt.text.toString()
+                val dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
+                val password = binding.fragmentCreateProfileOnePasswordEt.text.toString()
+
+                /** Saving USER PROFILE Details in sharedPreference*/
+
+                saveToSharedPreference(requireActivity(), FIRSTNAME, firstName)
+                saveToSharedPreference(requireActivity(), LASTNAME, lastName)
+                saveToSharedPreference(requireActivity(), DOB, dob)
+                saveToSharedPreference(requireActivity(), PASSWORD, password)
+
+
+                Log.i("DOB", loadFromSharedPreference(requireActivity(), DOB))
 
                 findNavController().navigate(R.id.createProfileFragmentTwo)
             }
@@ -95,14 +109,11 @@ class CreateProfileFragmentOne : Fragment() {
         /** Date set listener **/
         dateSetListener = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             date = "${month + 1}/$day/$year"
+            yearPicked = year
             dateButton.setText(date)
             dateOfBirth.error = null
         }
 
-
-        binding.fragmentCreateProfileOneBtn.setOnClickListener {
-            findNavController().navigate(R.id.createProfileFragmentTwo)
-        }
 
     }
 
@@ -113,6 +124,7 @@ class CreateProfileFragmentOne : Fragment() {
         // Use the current date as the default date in the picker
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
+        currentYear = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 

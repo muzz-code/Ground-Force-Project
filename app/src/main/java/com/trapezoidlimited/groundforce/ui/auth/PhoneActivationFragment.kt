@@ -18,15 +18,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
-import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.VerifyPhone
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -45,7 +42,6 @@ class PhoneActivationFragment : Fragment() {
 
     @Inject
     lateinit var retrofit: Retrofit
-
 
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
@@ -143,7 +139,6 @@ class PhoneActivationFragment : Fragment() {
                     val action = PhoneActivationFragmentDirections
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
                     findNavController().navigate(action)
-
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
@@ -160,12 +155,16 @@ class PhoneActivationFragment : Fragment() {
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
 
+            //            val action = PhoneActivationFragmentDirections
+            //              .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+            //            findNavController().navigate(action)
+
+
             number = "+234" + phoneEditText.text.toString()
             val phoneNumber = VerifyPhone(number)
 
-//            val action = PhoneActivationFragmentDirections
-//                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-//            findNavController().navigate(action)
+            /** Saving phone in sharedPreference*/
+            saveToSharedPreference(requireActivity(), PHONE, number)
 
             /** Making network call*/
             viewModel.verifyPhone(phoneNumber)

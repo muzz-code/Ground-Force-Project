@@ -138,6 +138,7 @@ class PhoneVerificationFragment : Fragment() {
             when (it) {
 
                 is Resource.Success -> {
+
                     /** Navigating to create profile fragment onSuccess*/
                     if (sign_up_with_google != "true") {
                         findNavController().navigate(
@@ -150,7 +151,6 @@ class PhoneVerificationFragment : Fragment() {
                         saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
                     }
                 }
-
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
                     binding.phoneVerificationPb.hide(binding.phoneVerifConfirmBtn)
@@ -162,26 +162,19 @@ class PhoneVerificationFragment : Fragment() {
         //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
+            //            findNavController().navigate(
+//                R.id.action_phoneVerificationFragment_to_emailVerificationOne
+//            )
+
             val otp = otpField.text.toString()
             val confirmPhone = ConfirmPhone(phoneNumber, otp)
+
 
             /** Making network call*/
             viewModel.confirmPhone(confirmPhone)
 
             /** Setting Progress bar to visible and disabling button*/
             binding.phoneVerificationPb.show(it as Button)
-
-//            if (sign_up_with_google != "true") {
-//                findNavController().navigate(
-//                    R.id.action_phoneVerificationFragment_to_emailVerificationOne
-//                )
-//
-//            } else {
-//                findNavController().navigate(
-//                    R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
-//                )
-//                saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
-//            }
         }
 
 

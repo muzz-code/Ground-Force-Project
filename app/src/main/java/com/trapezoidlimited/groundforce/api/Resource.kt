@@ -14,3 +14,4 @@ sealed class Resource<out T> {
     ) : Resource<Nothing>()
 
 }
+

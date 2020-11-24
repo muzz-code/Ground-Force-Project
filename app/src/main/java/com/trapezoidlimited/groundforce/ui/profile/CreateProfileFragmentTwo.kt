@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
 import com.trapezoidlimited.groundforce.utils.*
 
@@ -61,6 +63,20 @@ class CreateProfileFragmentTwo : Fragment() {
                 showSnackBar(binding.fragmentCreateProfileTwoBtn, "Field(s) should not be empty")
                 return@setOnClickListener
             } else {
+
+                val residentialAddress = binding.fragmentCreateProfileTwoStreetEt.text.toString()
+                val zipCode = binding.fragmentCreateProfileTwoZipCodeTf.editText?.text.toString()
+                val lga = binding.fragmentCreateProfileTwoLgaTf.editText?.text.toString()
+                val state = binding.fragmentCreateProfileTwoStateTf.editText?.text.toString()
+
+                /** Saving USER PROFILE DETAILS in sharedPreference*/
+
+                saveToSharedPreference(requireActivity(), ADDRESS,residentialAddress)
+                saveToSharedPreference(requireActivity(), ZIPCODE, zipCode)
+                saveToSharedPreference(requireActivity(), LGA, lga)
+                saveToSharedPreference(requireActivity(), STATE, state)
+                saveToSharedPreference(requireActivity(), GENDER, "m")
+
                 findNavController().navigate(R.id.action_createProfileFragmentTwo_to_locationsVerificationFragment)
             }
         }

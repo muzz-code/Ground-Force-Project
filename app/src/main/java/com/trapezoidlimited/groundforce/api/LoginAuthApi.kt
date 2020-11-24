@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.api
 
 
+import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.model.*
 import retrofit2.http.*
 
@@ -34,6 +35,11 @@ interface LoginAuthApi {
     @POST("Auth/confirm-otp")
     suspend fun confirmPhone(
         @Body confirmPhone: ConfirmPhone
+    ): GenericResponseClass
+
+    @POST("Auth/register")
+    suspend fun registerAgent(
+        @Body agent: AgentData
     ): GenericResponseClass
 
 }
