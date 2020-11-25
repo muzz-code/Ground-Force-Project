@@ -25,9 +25,6 @@ fun Fragment.handleApiError(
             error?.errors?.let { showSnackBar(view, it) }
         }
     }
-
-
-
 }
 
 //Hide and Show Progress Bars

@@ -22,12 +22,9 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 @Module
 class NetworkModule {
-
-
     /**
      * Creates the api service
      */
-
 
     @Provides
     @Singleton

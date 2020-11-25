@@ -18,10 +18,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -31,12 +33,29 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.data.LoginSuccessResponse
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.model.mission.LoginRequest
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_locations_verification.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -46,8 +65,10 @@ class LoginFragment : Fragment() {
     private lateinit var pinEt: EditText
     private lateinit var pinTil: TextInputLayout
     private lateinit var loginButton: Button
+    private lateinit var loginProgress: ProgressBar
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var viewModel: LoginAuthViewModel
     private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
@@ -69,7 +90,6 @@ class LoginFragment : Fragment() {
             duration = 750
         }
 
-
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
@@ -82,7 +102,7 @@ class LoginFragment : Fragment() {
         pinEt = binding.editTextNumberPinEt
         pinTil = binding.editTextNumberPinTil
         loginButton = binding.loginLoginBtn
-
+        loginProgress = binding.fragmentLoginProgressBar
 
         /** setting toolbar text **/
         binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
@@ -97,61 +117,6 @@ class LoginFragment : Fragment() {
         // Build a GoogleSignInClient with the options specified by gso.
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
-        /**Get Test from String Resource**/
-        val codeText = getText(R.string.new_user_register_here_str)
-
-        /**Get an instance of SpannableString**/
-        val ssText = SpannableString(codeText)
-
-        /**Implement ClickableSpan**/
-        val clickableSpan: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                view.setOnClickListener {
-                    findNavController().navigate(R.id.phoneVerificationFragment)
-                }
-            }
-
-            /**Change color and remove underline**/
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
-                ds.isUnderlineText = false
-            }
-        }
-        /**Set the span text**/
-        ssText.setSpan(clickableSpan, 10, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        /**Make the text spannable and clickable**/
-        binding.loginNewUserTv.text = ssText
-        binding.loginNewUserTv.movementMethod = LinkMovementMethod.getInstance()
-
-
-        /**Get Test from String Resource**/
-        val codeText2 = getText(R.string.forgot_password_str)
-
-        /**Get an instance of SpannableString**/
-        val ssText2 = SpannableString(codeText2)
-
-        /**Implement ClickableSpan**/
-        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                view.setOnClickListener {
-                    findNavController().navigate(R.id.forgetPasswordFragment)
-                }
-            }
-
-            /**Change color and remove underline**/
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryBlack)
-                ds.isUnderlineText = false
-            }
-        }
-        /**Set the span text**/
-        ssText2.setSpan(clickableSpan2, 0, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        /**Make the text spannable and clickable**/
-        binding.loginForgetPasswordTv.text = ssText2
-        binding.loginForgetPasswordTv.movementMethod = LinkMovementMethod.getInstance()
-
         return binding.root
     }
 
@@ -159,7 +124,35 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        handleSpannable()
         validateFields()
+
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+
+        //Instantiate View Model
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
+        //Observe View Model
+        viewModel.loginResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+                    binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
+                    val successResponse: LoginSuccessResponse = it.value.data!!
+                    //On Login Success, Save token to sharedPref and go to dashboard
+//                    SessionManager.save(requireContext(), TOKEN, successResponse.token)
+                    saveToSharedPreference(requireActivity(), TOKEN, successResponse.token!!)
+                    Log.i("Login Response", successResponse.token!!)
+                    goToDashboard()
+                }
+                is Resource.Failure -> {
+                    binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
@@ -170,7 +163,6 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.landingFragment)
         }
 
-
         //Google Sign Up
         binding.loginSignUpGoogleBtn.setOnClickListener {
             val signInIntent: Intent = googleSignInClient.signInIntent
@@ -179,15 +171,9 @@ class LoginFragment : Fragment() {
 
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
-
-
-            Intent(requireContext(), DashboardActivity::class.java).also {
-                it.putExtra("googleAccount", googleAccount)
-                startActivity(it)
-                requireActivity().finish()
-            }
-
-            requireActivity().finish()
+            val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
+            binding.fragmentLoginProgressBar.show(it as Button?)
+            viewModel.login(loginRequest)
         }
 
     }
@@ -243,6 +229,7 @@ class LoginFragment : Fragment() {
     //Google Sign Up result
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
+            requireActivity().finish()
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             Intent(requireContext(), DashboardActivity::class.java).also {
                 it.putExtra("googleAccount", account)
@@ -255,6 +242,73 @@ class LoginFragment : Fragment() {
             Log.w(ContentValues.TAG, "signInResult:failed code = " + e.statusCode)
             showSnackBar(requireView(), "signInResult:failed code=" + e.statusCode)
         }
+    }
+
+
+    private fun handleSpannable() {
+        /**Get Test from String Resource**/
+        val codeText = getText(R.string.new_user_register_here_str)
+
+        /**Get an instance of SpannableString**/
+        val ssText = SpannableString(codeText)
+
+        /**Implement ClickableSpan**/
+        val clickableSpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                view.setOnClickListener {
+                    findNavController().navigate(R.id.phoneVerificationFragment)
+                }
+            }
+
+            /**Change color and remove underline**/
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
+                ds.isUnderlineText = false
+            }
+        }
+        /**Set the span text**/
+        ssText.setSpan(clickableSpan, 10, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        /**Make the text spannable and clickable**/
+        binding.loginNewUserTv.text = ssText
+        binding.loginNewUserTv.movementMethod = LinkMovementMethod.getInstance()
+
+
+        /**Get Test from String Resource**/
+        val codeText2 = getText(R.string.forgot_password_str)
+
+        /**Get an instance of SpannableString**/
+        val ssText2 = SpannableString(codeText2)
+
+        /**Implement ClickableSpan**/
+        val clickableSpan2: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                view.setOnClickListener {
+                    findNavController().navigate(R.id.forgetPasswordFragment)
+                }
+            }
+
+            /**Change color and remove underline**/
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryBlack)
+                ds.isUnderlineText = false
+            }
+        }
+        /**Set the span text**/
+        ssText2.setSpan(clickableSpan2, 0, 16, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        /**Make the text spannable and clickable**/
+        binding.loginForgetPasswordTv.text = ssText2
+        binding.loginForgetPasswordTv.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    private fun goToDashboard() {
+        Intent(requireContext(), DashboardActivity::class.java).also { intent ->
+            intent.putExtra("googleAccount", googleAccount)
+            startActivity(intent)
+            requireActivity().finish()
+        }
+        requireActivity().finish()
     }
 
     override fun onDestroy() {

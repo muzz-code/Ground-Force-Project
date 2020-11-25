@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.api
 
 import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.model.*
+import com.trapezoidlimited.groundforce.model.mission.LoginRequest
 import retrofit2.http.*
 
 /**
@@ -10,12 +11,18 @@ import retrofit2.http.*
 
 interface LoginAuthApi {
 
-    @FormUrlEncoded
-    @POST("login")
+//    @FormUrlEncoded
+//    @POST("Auth/login")
+//    suspend fun login(
+//        @Field("email") email: String,
+//        @Field("pin") pin: String
+//    ):  GenericResponseClass
+
+
+    @POST("Auth/login")
     suspend fun login(
-        @Field("email") email: String,
-        @Field("pin") pin: String
-    ):  GenericResponseClass
+        @Body loginRequest: LoginRequest
+    ): GenericResponseClass
 
 
     /**

@@ -1,0 +1,3 @@
+package com.trapezoidlimited.groundforce.data
+
+interface ParentResponse

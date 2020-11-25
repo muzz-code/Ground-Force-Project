@@ -6,6 +6,7 @@ import com.trapezoidlimited.groundforce.data.AgentData
 import com.trapezoidlimited.groundforce.model.ConfirmPhone
 import com.trapezoidlimited.groundforce.model.GenericResponseClass
 import com.trapezoidlimited.groundforce.model.VerifyPhone
+import com.trapezoidlimited.groundforce.model.mission.LoginRequest
 import javax.inject.Inject
 
 /**
@@ -17,8 +18,8 @@ constructor(
     private val api: LoginAuthApi
 ) : BaseRepository(), AuthRepository {
 
-    override suspend fun login(email: String, pin: String) = safeApiCall {
-        api.login(email, pin)
+    override suspend fun login(loginRequest: LoginRequest) = safeApiCall {
+        api.login(loginRequest)
     }
 
     override suspend fun forgotPassword(email: String) = safeApiCall {
@@ -29,12 +30,14 @@ constructor(
         api.verifyPhone(phone)
     }
 
-    override suspend fun confirmPhone(confirmPhone: ConfirmPhone): Resource<GenericResponseClass> = safeApiCall {
-        api.confirmPhone(confirmPhone)
-    }
+    override suspend fun confirmPhone(confirmPhone: ConfirmPhone): Resource<GenericResponseClass> =
+        safeApiCall {
+            api.confirmPhone(confirmPhone)
+        }
 
-    override suspend fun registerAgent(agent: AgentData): Resource<GenericResponseClass> = safeApiCall {
-        api.registerAgent(agent)
-    }
+    override suspend fun registerAgent(agent: AgentData): Resource<GenericResponseClass> =
+        safeApiCall {
+            api.registerAgent(agent)
+        }
 
 }
