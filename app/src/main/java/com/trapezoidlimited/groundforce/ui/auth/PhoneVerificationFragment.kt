@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,7 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
-import com.trapezoidlimited.groundforce.model.ConfirmPhone
+import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
@@ -167,7 +166,7 @@ class PhoneVerificationFragment : Fragment() {
 //            )
 
             val otp = otpField.text.toString()
-            val confirmPhone = ConfirmPhone(phoneNumber, otp)
+            val confirmPhone = ConfirmPhoneRequest(phoneNumber, otp)
 
 
             /** Making network call*/

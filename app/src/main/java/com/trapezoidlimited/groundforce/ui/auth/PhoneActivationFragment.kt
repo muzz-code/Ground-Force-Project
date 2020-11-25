@@ -22,7 +22,7 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
-import com.trapezoidlimited.groundforce.model.VerifyPhone
+import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
@@ -161,7 +161,7 @@ class PhoneActivationFragment : Fragment() {
 
 
             number = "+234" + phoneEditText.text.toString()
-            val phoneNumber = VerifyPhone(number)
+            val phoneNumber = VerifyPhoneRequest(number)
 
             /** Saving phone in sharedPreference*/
             saveToSharedPreference(requireActivity(), PHONE, number)

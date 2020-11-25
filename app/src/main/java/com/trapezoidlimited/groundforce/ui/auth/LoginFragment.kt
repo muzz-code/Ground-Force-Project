@@ -35,16 +35,15 @@ import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.LoginSuccessResponse
+import com.trapezoidlimited.groundforce.model.response.LoginResponse
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
-import com.trapezoidlimited.groundforce.model.mission.LoginRequest
+import com.trapezoidlimited.groundforce.model.request.LoginRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_locations_verification.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -139,11 +138,11 @@ class LoginFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
-                    val successResponse: LoginSuccessResponse = it.value.data!!
+                    val successResponse: LoginResponse = it.value.data!!
                     //On Login Success, Save token to sharedPref and go to dashboard
 //                    SessionManager.save(requireContext(), TOKEN, successResponse.token)
-                    saveToSharedPreference(requireActivity(), TOKEN, successResponse.token!!)
-                    Log.i("Login Response", successResponse.token!!)
+                    saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
+                    Log.i("Login Response", successResponse.token)
                     goToDashboard()
                 }
                 is Resource.Failure -> {

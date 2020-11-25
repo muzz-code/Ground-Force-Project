@@ -2,9 +2,12 @@ package com.trapezoidlimited.groundforce.viewmodel
 
 import androidx.lifecycle.*
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.AgentData
-import com.trapezoidlimited.groundforce.model.*
-import com.trapezoidlimited.groundforce.model.mission.LoginRequest
+import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
+import com.trapezoidlimited.groundforce.model.response.ParentResponse
+import com.trapezoidlimited.groundforce.model.request.LoginRequest
+import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
+import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
+import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import kotlinx.coroutines.launch
 
@@ -19,8 +22,9 @@ class LoginAuthViewModel(
     private val repository: AuthRepositoryImpl
 ) : ViewModel() {
 
-    private val _loginResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
-    val loginResponse: LiveData<Resource<GenericResponseClass>>
+    private val _loginResponse: MutableLiveData<Resource<GenericResponseClass<LoginResponse>>> =
+        MutableLiveData()
+    val loginResponse: LiveData<Resource<GenericResponseClass<LoginResponse>>>
         get() = _loginResponse
 
     /** forgot password mutable live data*/
@@ -32,18 +36,21 @@ class LoginAuthViewModel(
         get() = _forgotPasswordResponse
 
 
-    val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
-    val verifyPhoneResponse: LiveData<Resource<GenericResponseClass>>
+    val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>> =
+        MutableLiveData()
+    val verifyPhoneResponse: LiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>>
         get() = _verifyPhoneResponse
 
-    val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
-    val confirmPhoneResponse: LiveData<Resource<GenericResponseClass>>
+    val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>> =
+        MutableLiveData()
+    val confirmPhoneResponse: LiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>>
         get() = _confirmPhoneResponse
 
     /** response for agent creation */
 
-    val _agentCreationResponse: MutableLiveData<Resource<GenericResponseClass>> = MutableLiveData()
-    val agentCreationResponse: LiveData<Resource<GenericResponseClass>>
+    val _agentCreationResponse: MutableLiveData<Resource<GenericResponseClass<AgentDataResponse>>> =
+        MutableLiveData()
+    val agentCreationResponse: LiveData<Resource<GenericResponseClass<AgentDataResponse>>>
         get() = _agentCreationResponse
 
     /** launch coroutine in viewModel scope for forgot password */
@@ -56,16 +63,15 @@ class LoginAuthViewModel(
         _loginResponse.value = repository.login(loginRequest)
     }
 
-
-    fun verifyPhone(phone: VerifyPhone) = viewModelScope.launch {
+    fun verifyPhone(phone: VerifyPhoneRequest) = viewModelScope.launch {
         _verifyPhoneResponse.value = repository.verifyPhone(phone)
     }
 
-    fun confirmPhone(confirmPhone: ConfirmPhone) = viewModelScope.launch {
+    fun confirmPhone(confirmPhone: ConfirmPhoneRequest) = viewModelScope.launch {
         _confirmPhoneResponse.value = repository.confirmPhone(confirmPhone)
     }
 
-    fun registerAgent(agent: AgentData) = viewModelScope.launch {
+    fun registerAgent(agent: AgentDataRequest) = viewModelScope.launch {
         _agentCreationResponse.value = repository.registerAgent(agent)
     }
 

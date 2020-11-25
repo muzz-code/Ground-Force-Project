@@ -22,7 +22,7 @@ fun Fragment.handleApiError(
 
         else -> {
             val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
-            error?.errors?.let { showSnackBar(view, it) }
+            error?.errors?.let { showSnackBar(view, it.message!!) }
         }
     }
 }
@@ -34,6 +34,7 @@ fun ProgressBar.hide(button: Button? = null) {
         button.isEnabled = true
     }
 }
+
 fun ProgressBar.show(button: Button? = null) {
     visibility = View.VISIBLE
     if (button != null) {

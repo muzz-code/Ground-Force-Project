@@ -1,6 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
-import com.trapezoidlimited.groundforce.model.GenericResponseClass
+import com.trapezoidlimited.groundforce.model.response.GenericResponseClass
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Response
@@ -12,14 +12,14 @@ class ErrorUtils
 @Inject
 constructor
     (var retrofit: Retrofit) {
-    fun parseError(response: Response<*>): GenericResponseClass {
-        val converter: Converter<ResponseBody, GenericResponseClass> = retrofit
+    fun parseError(response: Response<*>): GenericResponseClass<String> {
+        val converter: Converter<ResponseBody, GenericResponseClass<String>> = retrofit
             .responseBodyConverter(GenericResponseClass::class.java, arrayOfNulls<Annotation>(0))
-        val error: GenericResponseClass
+        val error: GenericResponseClass<String>
         error = try {
-            converter.convert(response.errorBody())!!
+            converter.convert(response.errorBody()!!)!!
         } catch (e: IOException) {
-            return GenericResponseClass("null", "null", null)
+            return GenericResponseClass("null", null, null)
         }
         return error
     }

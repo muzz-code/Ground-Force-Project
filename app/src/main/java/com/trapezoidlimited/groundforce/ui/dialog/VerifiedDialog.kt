@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.AgentData
+import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
@@ -33,7 +33,7 @@ class VerifiedDialog : DialogFragment() {
     private var _binding: VerificationResultPageBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
-    private lateinit var agentData: AgentData
+    private lateinit var agentData: AgentDataRequest
 
 
     override fun onCreateView(
@@ -92,7 +92,7 @@ class VerifiedDialog : DialogFragment() {
             val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
             val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
 
-            agentData = AgentData(
+            agentData = AgentDataRequest(
                 lastName = lastName,
                 firstName = firstName,
                 phoneNumber = phoneNumber,
