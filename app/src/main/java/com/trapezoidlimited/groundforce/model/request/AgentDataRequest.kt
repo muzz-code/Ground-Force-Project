@@ -1,6 +1,6 @@
-package com.trapezoidlimited.groundforce.data
+package com.trapezoidlimited.groundforce.model.request
 
-data class AgentData(
+data class AgentDataRequest(
     var lastName: String,
     var firstName: String,
     var phoneNumber: String,

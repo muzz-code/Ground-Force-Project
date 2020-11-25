@@ -19,10 +19,7 @@ import com.google.android.material.navigation.NavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
-import com.trapezoidlimited.groundforce.utils.LOG_OUT
-import com.trapezoidlimited.groundforce.utils.checkItem
-import com.trapezoidlimited.groundforce.utils.saveToSharedPreference
-import com.trapezoidlimited.groundforce.utils.showToast
+import com.trapezoidlimited.groundforce.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -131,6 +128,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 showToast("Contact")
             }
             R.id.nav_logout -> {
+
+                SessionManager.save(this, TOKEN, "")
                 Intent(this, MainActivity::class.java).also {
                     saveToSharedPreference(this, LOG_OUT, "true")
                     startActivity(it)
@@ -167,6 +166,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         } else if (currentDestination == R.id.notificationsFragment) {
             dashboardActivity_bnv.checkItem(R.id.agentDashboard_notification)
         }
+
     }
 
 

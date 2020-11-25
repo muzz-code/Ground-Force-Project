@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,7 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
-import com.trapezoidlimited.groundforce.model.ConfirmPhone
+import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
@@ -140,20 +139,16 @@ class PhoneVerificationFragment : Fragment() {
                 is Resource.Success -> {
 
                     /** Navigating to create profile fragment onSuccess*/
-                    //findNavController().navigate(R.id.action_phoneVerificationFragment_to_emailVerificationOne)
-
                     if (sign_up_with_google != "true") {
                         findNavController().navigate(
                             R.id.action_phoneVerificationFragment_to_emailVerificationOne
                         )
-
                     } else {
                         findNavController().navigate(
                             R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
                         )
                         saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
                     }
-
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
@@ -166,21 +161,19 @@ class PhoneVerificationFragment : Fragment() {
         //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
-            val otp = otpField.text.toString()
-            val confirmPhone = ConfirmPhone(phoneNumber, otp)
-
-//
-//            findNavController().navigate(
+            //            findNavController().navigate(
 //                R.id.action_phoneVerificationFragment_to_emailVerificationOne
 //            )
+
+            val otp = otpField.text.toString()
+            val confirmPhone = ConfirmPhoneRequest(phoneNumber, otp)
+
 
             /** Making network call*/
             viewModel.confirmPhone(confirmPhone)
 
             /** Setting Progress bar to visible and disabling button*/
             binding.phoneVerificationPb.show(it as Button)
-
-
         }
 
 

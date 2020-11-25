@@ -99,7 +99,7 @@ object DummyData {
     )
 
 
-    var paymentList = mutableListOf<PaymentData>(
+    var paymentList = mutableListOf(
         PaymentData(100, "You received NGN 100 ", "13 Sept, 2020"),
         PaymentData(200, "You received NGN 200 ", "14 Sept, 2020"),
         PaymentData(300, "You received NGN 300 ", "15 Sept, 2020"),

@@ -13,10 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.data.AgentData
-import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
 import com.trapezoidlimited.groundforce.utils.*
 

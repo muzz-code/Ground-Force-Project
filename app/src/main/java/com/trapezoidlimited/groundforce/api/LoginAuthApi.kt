@@ -1,8 +1,12 @@
 package com.trapezoidlimited.groundforce.api
 
 
-import com.trapezoidlimited.groundforce.data.AgentData
-import com.trapezoidlimited.groundforce.model.*
+import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
+import com.trapezoidlimited.groundforce.model.response.ParentResponse
+import com.trapezoidlimited.groundforce.model.request.LoginRequest
+import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
+import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
+import com.trapezoidlimited.groundforce.model.response.*
 import retrofit2.http.*
 
 /**
@@ -10,12 +14,10 @@ import retrofit2.http.*
 
 interface LoginAuthApi {
 
-    @FormUrlEncoded
-    @POST("login")
+    @POST("Auth/login")
     suspend fun login(
-        @Field("email") email: String,
-        @Field("pin") pin: String
-    ): LoginResponse
+        @Body loginRequest: LoginRequest
+    ): GenericResponseClass<LoginResponse>
 
 
     /**
@@ -26,20 +28,19 @@ interface LoginAuthApi {
         @Field("email") email: String
     ): ForgotPasswordResponse
 
-
     @POST("Auth/verify-phone")
     suspend fun verifyPhone(
-        @Body phone: VerifyPhone
-    ): GenericResponseClass
+        @Body phone: VerifyPhoneRequest
+    ): GenericResponseClass<VerifyPhoneResponse>
 
     @POST("Auth/confirm-otp")
     suspend fun confirmPhone(
-        @Body confirmPhone: ConfirmPhone
-    ): GenericResponseClass
+        @Body confirmPhone: ConfirmPhoneRequest
+    ): GenericResponseClass<ConfirmOtpResponse>
 
     @POST("Auth/register")
     suspend fun registerAgent(
-        @Body agent: AgentData
-    ): GenericResponseClass
+        @Body agent: AgentDataRequest
+    ): GenericResponseClass<AgentDataResponse>
 
 }

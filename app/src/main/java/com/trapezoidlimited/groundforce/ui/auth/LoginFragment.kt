@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.content.ContentValues
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -17,9 +18,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -29,12 +33,28 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.model.response.LoginResponse
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
+import com.trapezoidlimited.groundforce.model.request.LoginRequest
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -44,13 +64,16 @@ class LoginFragment : Fragment() {
     private lateinit var pinEt: EditText
     private lateinit var pinTil: TextInputLayout
     private lateinit var loginButton: Button
+    private lateinit var loginProgress: ProgressBar
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var viewModel: LoginAuthViewModel
     private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +89,6 @@ class LoginFragment : Fragment() {
             duration = 750
         }
 
-
         /** Inflate the layout for this fragment**/
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
@@ -79,7 +101,7 @@ class LoginFragment : Fragment() {
         pinEt = binding.editTextNumberPinEt
         pinTil = binding.editTextNumberPinTil
         loginButton = binding.loginLoginBtn
-
+        loginProgress = binding.fragmentLoginProgressBar
 
         /** setting toolbar text **/
         binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
@@ -94,6 +116,135 @@ class LoginFragment : Fragment() {
         // Build a GoogleSignInClient with the options specified by gso.
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
+        return binding.root
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        handleSpannable()
+        validateFields()
+
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+
+        //Instantiate View Model
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
+        //Observe View Model
+        viewModel.loginResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+                    binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
+                    val successResponse: LoginResponse = it.value.data!!
+                    //On Login Success, Save token to sharedPref and go to dashboard
+//                    SessionManager.save(requireContext(), TOKEN, successResponse.token)
+                    saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
+                    Log.i("Login Response", successResponse.token)
+                    goToDashboard()
+                }
+                is Resource.Failure -> {
+                    binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
+
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            findNavController().navigate(R.id.landingFragment)
+        }
+
+        //Google Sign Up
+        binding.loginSignUpGoogleBtn.setOnClickListener {
+            val signInIntent: Intent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+
+        /**This code add clickListener to the login button and it move to a new activity **/
+        binding.loginLoginBtn.setOnClickListener {
+            val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
+            binding.fragmentLoginProgressBar.show(it as Button?)
+            viewModel.login(loginRequest)
+        }
+
+    }
+
+    /** Validate form fields **/
+    private fun validateFields() {
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.editTextTextEmailAddressEt,
+                editTextInputLayout = binding.editTextTextEmailAddressTil,
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.editTextNumberPinEt,
+                editTextInputLayout = binding.editTextNumberPinTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.loginLoginBtn))
+            .watchWhileTyping(true)
+            .build()
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            handleSignInResult(task)
+        }
+    }
+
+    //Google Sign Up result
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            requireActivity().finish()
+            val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
+            Intent(requireContext(), DashboardActivity::class.java).also {
+                it.putExtra("googleAccount", account)
+                startActivity(it)
+                requireActivity().finish()
+            }
+
+        } catch (e: ApiException) {
+            // The ApiException status code indicates the detailed failure reason.
+            Log.w(ContentValues.TAG, "signInResult:failed code = " + e.statusCode)
+            showSnackBar(requireView(), "signInResult:failed code=" + e.statusCode)
+        }
+    }
+
+
+    private fun handleSpannable() {
         /**Get Test from String Resource**/
         val codeText = getText(R.string.new_user_register_here_str)
 
@@ -148,110 +299,15 @@ class LoginFragment : Fragment() {
         /**Make the text spannable and clickable**/
         binding.loginForgetPasswordTv.text = ssText2
         binding.loginForgetPasswordTv.movementMethod = LinkMovementMethod.getInstance()
-
-        return binding.root
     }
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        validateFields()
-
-        /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().navigate(R.id.landingFragment)
-        }
-
-
-        //Google Sign Up
-        binding.loginSignUpGoogleBtn.setOnClickListener {
-            val signInIntent: Intent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
-
-        /**This code add clickListener to the login button and it move to a new activity **/
-        binding.loginLoginBtn.setOnClickListener {
-            Intent(requireContext(), DashboardActivity::class.java).also {
-                it.putExtra("googleAccount", googleAccount)
-                startActivity(it)
-                requireActivity().finish()
-            }
-
+    private fun goToDashboard() {
+        Intent(requireContext(), DashboardActivity::class.java).also { intent ->
+            intent.putExtra("googleAccount", googleAccount)
+            startActivity(intent)
             requireActivity().finish()
         }
-
-    }
-
-    /** Validate form fields **/
-    private fun validateFields() {
-
-        val fields: MutableList<JDataClass> = mutableListOf(
-            JDataClass(
-                editText = binding.editTextTextEmailAddressEt,
-                editTextInputLayout = binding.editTextTextEmailAddressTil,
-                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
-                validator = { it.jdValidateEmail(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.editTextNumberPinEt,
-                editTextInputLayout = binding.editTextNumberPinTil,
-                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
-                validator = { it.jdValidatePin(it.text.toString()) }
-            )
-        )
-
-
-        JDFormValidator.Builder()
-            .addFieldsToValidate(fields)
-            .removeErrorIcon(true)
-            .viewsToEnable(mutableListOf(binding.loginLoginBtn))
-            .watchWhileTyping(true)
-            .build()
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
-        //     updateUI(account)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-
-            handleSignInResult(task)
-        }
-    }
-
-    //Google Sign Up result
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
-            Intent(requireContext(), DashboardActivity::class.java).also {
-                it.putExtra("googleAccount", account)
-                startActivity(it)
-                requireActivity().finish()
-            }
-
-        } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            Log.w(ContentValues.TAG, "signInResult:failed code=" + e.statusCode)
-//            showSnackBar(binding.landingSignUpGoogleBtn, "signInResult:failed code=" + e.statusCode)
-        }
+        requireActivity().finish()
     }
 
     override fun onDestroy() {

@@ -1,15 +1,19 @@
 package com.trapezoidlimited.groundforce.ui.onboarding
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentOnBoardingBinding
+import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
 
 class OnBoardingFragment : Fragment() {
@@ -18,6 +22,7 @@ class OnBoardingFragment : Fragment() {
     private val binding get() = _binding!!
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,12 +81,26 @@ class OnBoardingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        //Move to Login Fragment if user logs out from the dashboard
-        if (loadFromSharedPreference(requireActivity(), LOG_OUT) == "true") {
-            findNavController().navigate(R.id.loginFragment)
-            saveToSharedPreference(requireActivity(), LOG_OUT, "false")
-        } else if (loadFromSharedPreference(requireActivity(), ONBOARD) == "true") {
-            findNavController().navigate(R.id.landingFragment)
+
+        when {
+            SessionManager.load(requireContext(), TOKEN).isNotEmpty() -> {
+                Intent(requireContext(), DashboardActivity::class.java).also { intent ->
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                requireActivity().finish()
+            }
+
+            //Move to Login Fragment if user logs out from the dashboard
+            loadFromSharedPreference(requireActivity(), LOG_OUT) == "true" -> {
+                findNavController().navigate(R.id.loginFragment)
+                saveToSharedPreference(requireActivity(), LOG_OUT, "false")
+            }
+
+            loadFromSharedPreference(requireActivity(), ONBOARD) == "true" -> {
+                findNavController().navigate(R.id.landingFragment)
+            }
+
         }
     }
 

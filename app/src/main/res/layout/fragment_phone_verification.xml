@@ -89,31 +89,32 @@
             android:fontFamily="@font/roboto"
             android:text="@string/phone_verif_didnt_get_code_text_str"
             android:textAlignment="center"
-            android:textSize="@dimen/medium_text"
             android:textColor="@color/colorSecondaryBlack"
-            app:layout_constraintBottom_toTopOf="@+id/phone_verif_confirm_btn"
+            android:textSize="@dimen/medium_text"
             app:layout_constraintEnd_toEndOf="@+id/phone_verif_pin_view"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_verif_pin_view"
-            app:layout_constraintTop_toBottomOf="@+id/phone_verif_pin_view"
-            app:layout_constraintVertical_bias="0.100000024" />
+            app:layout_constraintTop_toBottomOf="@+id/phone_verif_pin_view" />
 
         <Button
             android:id="@+id/phone_verif_confirm_btn"
+            style="@style/colorWhiteSmallText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/common_margin_dim"
+            android:layout_marginTop="32dp"
             android:layout_marginRight="@dimen/common_margin_dim"
             android:layout_marginBottom="32dp"
             android:background="@drawable/btn_primary_shapes"
+            android:enabled="false"
             android:text="@string/phone_verif_confirm_str"
             android:textAlignment="center"
             android:textAllCaps="false"
-            style="@style/colorWhiteSmallText"
-            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/phone_verif_resend_tv"
-            app:layout_constraintStart_toStartOf="@+id/phone_verif_resend_tv" />
+            app:layout_constraintStart_toStartOf="@+id/phone_verif_resend_tv"
+            app:layout_constraintTop_toBottomOf="@+id/phone_verif_resend_tv"
+            app:layout_constraintVertical_bias="0.98" />
 
         <ProgressBar
             android:id="@+id/phone_verification_pb"
