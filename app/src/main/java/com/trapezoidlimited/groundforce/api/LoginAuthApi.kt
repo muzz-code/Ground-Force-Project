@@ -15,7 +15,7 @@ interface LoginAuthApi {
     suspend fun login(
         @Field("email") email: String,
         @Field("pin") pin: String
-    ): LoginResponse
+    ):  GenericResponseClass
 
 
     /**

@@ -6,8 +6,10 @@ data class GenericResponseClass(
     val data: Any?
 )
 
-class Data (
+class Data(
 
-): Parent
+) : Parent
 
 interface Parent
+
+

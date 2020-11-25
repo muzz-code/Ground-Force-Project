@@ -17,7 +17,6 @@ constructor(
     private val api: LoginAuthApi
 ) : BaseRepository(), AuthRepository {
 
-
     override suspend fun login(email: String, pin: String) = safeApiCall {
         api.login(email, pin)
     }

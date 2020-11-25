@@ -167,6 +167,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         } else if (currentDestination == R.id.notificationsFragment) {
             dashboardActivity_bnv.checkItem(R.id.agentDashboard_notification)
         }
+
     }
 
 

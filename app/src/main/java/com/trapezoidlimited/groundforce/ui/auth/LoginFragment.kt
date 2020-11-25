@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.content.ContentValues
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -18,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -51,6 +53,7 @@ class LoginFragment : Fragment() {
         .build()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -176,6 +179,8 @@ class LoginFragment : Fragment() {
 
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
+
+
             Intent(requireContext(), DashboardActivity::class.java).also {
                 it.putExtra("googleAccount", googleAccount)
                 startActivity(it)
@@ -205,7 +210,6 @@ class LoginFragment : Fragment() {
             )
         )
 
-
         JDFormValidator.Builder()
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
@@ -221,7 +225,6 @@ class LoginFragment : Fragment() {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
-        //     updateUI(account)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -249,8 +252,8 @@ class LoginFragment : Fragment() {
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
-            Log.w(ContentValues.TAG, "signInResult:failed code=" + e.statusCode)
-//            showSnackBar(binding.landingSignUpGoogleBtn, "signInResult:failed code=" + e.statusCode)
+            Log.w(ContentValues.TAG, "signInResult:failed code = " + e.statusCode)
+            showSnackBar(requireView(), "signInResult:failed code=" + e.statusCode)
         }
     }
 
