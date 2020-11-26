@@ -235,7 +235,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ) {
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
-
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                 ) {
