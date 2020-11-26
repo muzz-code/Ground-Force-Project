@@ -41,15 +41,13 @@ class TasksFragment : Fragment() {
 
         /** Setting up tabs and handling indicator behavior*/
         setUpTabs()
-        handleTabIndicator()
 
 
         /** setting the viewPager item to Ongoing and Missions depending on the currentItem value and the button clicked */
 
-        if(DataListener.currentItem == ONGOING){
+        if (DataListener.currentItem == ONGOING) {
             binding.fragmentTasksTabViewPagerVp.currentItem = ONGOING
-        }
-        else{
+        } else {
             binding.fragmentTasksTabViewPagerVp.currentItem = MISSION
         }
 
@@ -61,8 +59,11 @@ class TasksFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         /** Inflating the custom tab layout and get a reference to its textView  */
-        customTabLinearLayout = LayoutInflater.from(this.context).inflate(R.layout.custom_tab_heading, null) as LinearLayout
+        customTabLinearLayout = LayoutInflater.from(this.context)
+            .inflate(R.layout.custom_tab_heading, null) as LinearLayout
         customTabTextView = customTabLinearLayout.customTabTV
+
+        handleTabIndicator()
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentTasksToolbar.toolbarFragment.setNavigationOnClickListener {
@@ -76,7 +77,12 @@ class TasksFragment : Fragment() {
             if (it == true) {
 
                 customTabTextView.text = "Ongoing    "
-                customTabTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.custom_tab_indicator_active, 0)
+                customTabTextView.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.custom_tab_indicator_active,
+                    0
+                )
 
                 binding.fragmentTasksTabLayoytTl.getTabAt(1)!!.customView = customTabTextView
 
