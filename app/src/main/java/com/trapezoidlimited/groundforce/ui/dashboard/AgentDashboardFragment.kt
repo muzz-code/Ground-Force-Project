@@ -6,18 +6,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
-import com.trapezoidlimited.groundforce.ui.dashboard.notifications.NotificationsFragmentDirections
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import retrofit2.Retrofit
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AgentDashboardFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel: LoginAuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +54,33 @@ class AgentDashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
+        val repository = AuthRepositoryImpl(loginApiService)
+        val factory = ViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+
+
+        viewModel.getUserResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+
+                    Log.i("USER", it.value.data?.firstName!!)
+                    Log.i("USER", it.value.data?.lastName!!)
+                    Log.i("USER", it.value.data?.email!!)
+
+                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT).show()
+
+                }
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
+
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             DataListener.currentItem = MISSION
@@ -72,6 +117,10 @@ class AgentDashboardFragment : Fragment() {
 
         binding.fragmentAgentDashboardCloseIconIv.setOnClickListener {
             binding.fragmentAgentDashboardIncompleteProfileCl.visibility = View.GONE
+
+            val userId = loadFromSharedPreference(requireActivity(), USERID)
+
+            viewModel.getUser(userId)
         }
 
 

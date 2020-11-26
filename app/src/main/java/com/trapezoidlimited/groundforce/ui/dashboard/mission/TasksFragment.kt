@@ -41,7 +41,7 @@ class TasksFragment : Fragment() {
 
         /** Setting up tabs and handling indicator behavior*/
         setUpTabs()
-        handleTabIndicator()
+
 
 
         /** setting the viewPager item to Ongoing and Missions depending on the currentItem value and the button clicked */
@@ -63,6 +63,8 @@ class TasksFragment : Fragment() {
         /** Inflating the custom tab layout and get a reference to its textView  */
         customTabLinearLayout = LayoutInflater.from(this.context).inflate(R.layout.custom_tab_heading, null) as LinearLayout
         customTabTextView = customTabLinearLayout.customTabTV
+
+        handleTabIndicator()
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentTasksToolbar.toolbarFragment.setNavigationOnClickListener {

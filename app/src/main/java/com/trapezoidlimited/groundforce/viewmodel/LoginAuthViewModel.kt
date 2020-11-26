@@ -2,11 +2,8 @@ package com.trapezoidlimited.groundforce.viewmodel
 
 import androidx.lifecycle.*
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
+import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.ParentResponse
-import com.trapezoidlimited.groundforce.model.request.LoginRequest
-import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
-import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import kotlinx.coroutines.launch
@@ -46,6 +43,12 @@ class LoginAuthViewModel(
     val confirmPhoneResponse: LiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>>
         get() = _confirmPhoneResponse
 
+    private val _getUserResponse: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> = MutableLiveData()
+    val getUserResponse: LiveData<Resource<GenericResponseClass<UserResponse>>>
+        get() = _getUserResponse
+
+
+
     /** response for agent creation */
 
     val _agentCreationResponse: MutableLiveData<Resource<GenericResponseClass<AgentDataResponse>>> =
@@ -57,6 +60,7 @@ class LoginAuthViewModel(
     fun forgotPassword(email: String) = viewModelScope.launch {
         _forgotPasswordResponse.value = repository.forgotPassword(email)
     }
+
 
     /** launch coroutine in viewModel scope for login */
     fun login(loginRequest: LoginRequest) = viewModelScope.launch {
@@ -73,6 +77,10 @@ class LoginAuthViewModel(
 
     fun registerAgent(agent: AgentDataRequest) = viewModelScope.launch {
         _agentCreationResponse.value = repository.registerAgent(agent)
+    }
+
+    fun getUser(id: String) = viewModelScope.launch {
+        _getUserResponse.value = repository.getUser(id)
     }
 
 }

@@ -220,6 +220,11 @@
         android:name="com.trapezoidlimited.groundforce.ui.auth.ResetPasswordFragment"
         android:label="fragment_reset_password"
         tools:layout="@layout/fragment_reset_password" />
+    <fragment
+        android:id="@+id/waitingFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.WaitingFragment"
+        android:label="fragment_waiting"
+        tools:layout="@layout/fragment_waiting" />
 
 
 </navigation>

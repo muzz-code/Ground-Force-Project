@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
@@ -34,6 +36,7 @@ class VerifiedDialog : DialogFragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginAuthViewModel
     private lateinit var agentData: AgentDataRequest
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(
@@ -55,20 +58,25 @@ class VerifiedDialog : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        progressBar = binding.locationVerifiedDialogPb
+
 
         viewModel.agentCreationResponse.observe(viewLifecycleOwner, Observer {
 
             when (it) {
                 is Resource.Success -> {
 
-                    it.value.title?.let { it1 -> showSnackBar(requireActivity().view, it1) }
+                    val userId = it.value.data?.id
 
-                    Log.i("SUCCESS", "${it.value.data}")
+                    /**Saving user's id to sharedPreference */
+                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+                    setInVisibility(progressBar)
+                    findNavController().navigate(R.id.waitingFragment)
 
-                    showWelcomeDialog()
                     dismiss()
                 }
                 is Resource.Failure -> {
+                    setInVisibility(progressBar)
                     handleApiError(it, retrofit, requireActivity().view)
                     dismiss()
                 }
@@ -108,6 +116,8 @@ class VerifiedDialog : DialogFragment() {
                 latitude = latitude,
                 roles = listOf("agent")
             )
+
+            setVisibility(progressBar)
 
             viewModel.registerAgent(agentData)
 
