@@ -1,15 +1,27 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,8 +37,12 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     val binding get() = _binding!!
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var date: String
+    private val PERMISSION_REQUEST_CODE: Int = 101
+    private val REQUEST_IMAGE_CAPTURE = 1
 
     private var googleAccount: GoogleSignInAccount? = null
+
+    private lateinit var profileImageView: ImageView
 
     /** onCreateView over ride function **/
     override fun onCreateView(
@@ -44,7 +60,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** set navigation arrow from drawable **/
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
-
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
@@ -80,15 +95,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         /** listener for sex option **/
         binding.fragmentUserProfileGenderSp.onItemSelectedListener = this
 
-        /** listener for religion option **/
-        binding.fragmentUserProfileReligiousSp.onItemSelectedListener = this
-
-        binding.fragmentUserProfileFirstNameEt.isEnabled = false
-        binding.fragmentUserProfileLastNameEt.isEnabled = false
-        binding.fragmentUserProfileAccountNumberEt.isEnabled = false
-        binding.fragmentUserProfileResidentialAddressEt.isEnabled = false
-
-
         return binding.root
     }
 
@@ -106,6 +112,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        profileImageView = binding.fragmentCreateProfileOneProfileImageIv
 
         validateFields()
 
@@ -122,6 +129,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             dateButton.setText(date)
         }
 
+        //Open Camera and capture Image
+        profileImageView.setOnClickListener {
+            if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
+        }
     }
 
     private fun validateFields() {
@@ -178,6 +189,67 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
+    /** Take picture function **/
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
+            e.message?.let { showSnackBar(requireView(), it) }
+        }
+    }
+
+    /** onActivityResult function place the captured image on the image view place holder **/
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            profileImageView.setImageBitmap(imageBitmap)
+        }
+    }
+
+
+    /** Check for user permission to access phone camera **/
+    private fun checkPermission(): Boolean {
+        return (ContextCompat.checkSelfPermission(
+            requireContext(), CAMERA
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            requireContext(), READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED)
+    }
+
+    /** requestPermission for user permission to access phone camera **/
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(), arrayOf(READ_EXTERNAL_STORAGE, CAMERA),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+
+    /** On request permission result grant user permission or show a permission denied message **/
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                ) {
+                    dispatchTakePictureIntent()
+                } else {
+                    Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+            else -> {
+            }
+        }
+    }
+
+
     /** Show Date picker Dialog Function **/
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showDatePickerDialog(v: View) {
@@ -201,8 +273,5 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onStart() {
         super.onStart()
         googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
-
     }
-
-
 }
