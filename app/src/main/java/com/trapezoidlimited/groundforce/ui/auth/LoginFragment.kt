@@ -171,8 +171,9 @@ class LoginFragment : Fragment() {
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
             val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
-            binding.fragmentLoginProgressBar.show(it as Button?)
-            viewModel.login(loginRequest)
+//            binding.fragmentLoginProgressBar.show(it as Button?)
+//            viewModel.login(loginRequest)
+            goToDashboard()
         }
 
     }
