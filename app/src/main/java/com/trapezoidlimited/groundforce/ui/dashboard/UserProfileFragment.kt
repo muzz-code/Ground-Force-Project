@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,20 +26,24 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
 import com.trapezoidlimited.groundforce.utils.*
+import java.io.File
 import java.util.*
 
 
 class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    private var _binding: FragmentUserProfileBinding? = null
 
+    private var _binding: FragmentUserProfileBinding? = null
     val binding get() = _binding!!
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var date: String
     private val PERMISSION_REQUEST_CODE: Int = 101
     private val REQUEST_IMAGE_CAPTURE = 1
+
+    private val genericRepository by lazy { EntryApplication.groundForceRepository }
 
     private var googleAccount: GoogleSignInAccount? = null
 
@@ -49,8 +54,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         // Inflate the layout for this fragment
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
@@ -66,47 +69,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             findNavController().popBackStack()
         }
 
-        /** Array adapter for spinner drop down for sex **/
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.sex,
-            android.R.layout.simple_spinner_item
-        ).also { sexAdapter ->
-            // Specify the layout to use when the list of choices appears
-            sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            binding.fragmentUserProfileGenderSp.adapter = sexAdapter
-
-        }
-
-        /** Array adapter for spinner drop down for religion **/
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.religion,
-            android.R.layout.simple_spinner_item
-        ).also { religionAdapter ->
-            // Specify the layout to use when the list of choices appears
-            religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-
-            binding.fragmentUserProfileReligiousSp.adapter = religionAdapter
-        }
-
-        /** listener for sex option **/
-        binding.fragmentUserProfileGenderSp.onItemSelectedListener = this
+        setArrayAdapters()
 
         return binding.root
     }
-
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        parent?.getItemAtPosition(position)
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
-    }
-
 
     /** onActivityCreated **/
     @RequiresApi(Build.VERSION_CODES.M)
@@ -133,61 +99,67 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         profileImageView.setOnClickListener {
             if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
-    }
 
-    private fun validateFields() {
-        val fields: MutableList<JDataClass> = mutableListOf(
-            JDataClass(
-                editText = binding.fragmentUserProfileFirstNameEt,
-                editTextInputLayout = binding.fragmentUserProfileFirstNameTil,
-                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileLastNameEt,
-                editTextInputLayout = binding.fragmentUserProfileLastNameTil,
-                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileDateBirthEt,
-                editTextInputLayout = binding.fragmentUserProfileDateBirthTil,
-                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileEmailAddressEt,
-                editTextInputLayout = binding.fragmentUserProfileEmailAddressTil,
-                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
-                validator = { it.jdValidateEmail(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileAdditionalNumberEt,
-                editTextInputLayout = binding.fragmentUserProfileAdditionalNumberTil,
-                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
-                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileResidentialAddressEt,
-                editTextInputLayout = binding.fragmentUserProfileResidentialAddressTil,
-                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
-            ),
-            JDataClass(
-                editText = binding.fragmentUserProfileAccountNumberEt,
-                editTextInputLayout = binding.fragmentUserProfileAccountNumberTil,
-                errorMessage = JDErrorConstants.BANK_ACCOUNT_NUMBER_ERROR,
-                validator = { it.jdValidateAccountNumber(it.text.toString()) }
+
+        if (!agentImageIsSaved()) {
+            genericRepository.saveImageFromServer(
+                "https://picsum.photos/id/237/200/300",
+                profileImageView,
+                requireActivity()
             )
-        )
-
-        JDFormValidator.Builder()
-            .addFieldsToValidate(fields)
-            .removeErrorIcon(true)
-            .watchWhileTyping(true)
-            .build()
+        } else {
+            genericRepository.getImageFromStorage(requireActivity(), profileImageView)
+        }
     }
 
+    private fun agentImageIsSaved(): Boolean {
+//        File(requireActivity().getDir() , GROUND_FORCE_IMAGE_NAME)
+//        val file = File(requireActivity().externalMediaDirs.first(), GROUND_FORCE_IMAGE_NAME)
+        val path = File(requireActivity().filesDir, "GroundForce${File.separator}Images")
+
+        val file = File(path, GROUND_FORCE_IMAGE_NAME)
+        return file.exists()
+    }
+
+
+    private fun setArrayAdapters() {
+        /** Array adapter for spinner drop down for sex **/
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.sex,
+            android.R.layout.simple_spinner_item
+        ).also { sexAdapter ->
+            // Specify the layout to use when the list of choices appears
+            sexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.fragmentUserProfileGenderSp.adapter = sexAdapter
+
+        }
+
+        /** Array adapter for spinner drop down for religion **/
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.religion,
+            android.R.layout.simple_spinner_item
+        ).also { religionAdapter ->
+            // Specify the layout to use when the list of choices appears
+            religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            binding.fragmentUserProfileReligiousSp.adapter = religionAdapter
+        }
+
+        /** listener for sex option **/
+        binding.fragmentUserProfileGenderSp.onItemSelectedListener = this
+    }
+
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        parent?.getItemAtPosition(position)
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
 
     /** Take picture function **/
     private fun dispatchTakePictureIntent() {
@@ -267,6 +239,59 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
         dialog.show()
 
+    }
+
+    private fun validateFields() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentUserProfileFirstNameEt,
+                editTextInputLayout = binding.fragmentUserProfileFirstNameTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileLastNameEt,
+                editTextInputLayout = binding.fragmentUserProfileLastNameTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileDateBirthEt,
+                editTextInputLayout = binding.fragmentUserProfileDateBirthTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileEmailAddressEt,
+                editTextInputLayout = binding.fragmentUserProfileEmailAddressTil,
+                errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
+                validator = { it.jdValidateEmail(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileAdditionalNumberEt,
+                editTextInputLayout = binding.fragmentUserProfileAdditionalNumberTil,
+                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
+                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileResidentialAddressEt,
+                editTextInputLayout = binding.fragmentUserProfileResidentialAddressTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateName(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentUserProfileAccountNumberEt,
+                editTextInputLayout = binding.fragmentUserProfileAccountNumberTil,
+                errorMessage = JDErrorConstants.BANK_ACCOUNT_NUMBER_ERROR,
+                validator = { it.jdValidateAccountNumber(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .watchWhileTyping(true)
+            .build()
     }
 
 

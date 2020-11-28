@@ -21,3 +21,6 @@ const val ZIPCODE: String = "zipcode"
 const val LONGITUDE: String = "longitude"
 const val LATITUDE: String = "latitude"
 const val TOKEN: String = "token"
+
+
+const val GROUND_FORCE_IMAGE_NAME = "ground_force_profile_picture.jpg"
