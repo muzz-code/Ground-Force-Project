@@ -2,7 +2,6 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -23,18 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
-import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
-import com.trapezoidlimited.groundforce.model.request.UserRequest
-import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
-import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
-import dagger.hilt.android.AndroidEntryPoint
-import retrofit2.Retrofit
-import javax.inject.Inject
 
 class LandingFragment : Fragment() {
 

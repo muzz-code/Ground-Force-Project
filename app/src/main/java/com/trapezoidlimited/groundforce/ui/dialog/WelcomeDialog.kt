@@ -8,24 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.WelcomeDialogBinding
-import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
-import com.trapezoidlimited.groundforce.model.request.LoginRequest
-import com.trapezoidlimited.groundforce.model.request.UserRequest
-import com.trapezoidlimited.groundforce.model.response.LoginResponse
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -42,7 +35,7 @@ class WelcomeDialog : DialogFragment() {
 
     private var _binding: WelcomeDialogBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
     private lateinit var progressBar : ProgressBar
     private lateinit var oKTextView: TextView
 
@@ -69,7 +62,7 @@ class WelcomeDialog : DialogFragment() {
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
 
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
         viewModel.getUserResponse.observe(viewLifecycleOwner, Observer {

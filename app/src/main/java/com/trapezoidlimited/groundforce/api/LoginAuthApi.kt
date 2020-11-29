@@ -36,7 +36,7 @@ interface LoginAuthApi {
     ): GenericResponseClass<ConfirmOtpResponse>
 
     @POST("Auth/register")
-    suspend fun registerAgent(
+    suspend fun registerUser(
         @Body agent: AgentDataRequest
     ): GenericResponseClass<AgentDataResponse>
 
@@ -44,5 +44,15 @@ interface LoginAuthApi {
     suspend fun getUser(
         @Path("id") id: String
     ): GenericResponseClass<UserResponse>
+
+    @PUT("User")
+    suspend fun putUser(
+        @Body user: PutUserRequest
+    ): GenericResponseClass<PutUserResponse>
+
+    @PATCH("User/change-password")
+    suspend fun changePassword(
+        @Body changePasswordRequest: ChangePasswordRequest
+    ): GenericResponseClass<ChangePasswordResponse>
 
 }

@@ -41,7 +41,7 @@ import com.trapezoidlimited.groundforce.model.request.LoginRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -67,7 +67,7 @@ class LoginFragment : Fragment() {
     private lateinit var loginProgress: ProgressBar
     private val RC_SIGN_IN: Int = 1
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
     private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
@@ -130,7 +130,7 @@ class LoginFragment : Fragment() {
         val factory = ViewModelFactory(repository)
 
         //Instantiate View Model
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         //Observe View Model
         viewModel.loginResponse.observe(viewLifecycleOwner, {
@@ -171,8 +171,9 @@ class LoginFragment : Fragment() {
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
             val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
-            binding.fragmentLoginProgressBar.show(it as Button?)
-            viewModel.login(loginRequest)
+//            binding.fragmentLoginProgressBar.show(it as Button?)
+//            viewModel.login(loginRequest)
+            goToDashboard()
         }
 
     }

@@ -25,7 +25,7 @@ import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBindi
 import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -45,7 +45,7 @@ class PhoneActivationFragment : Fragment() {
 
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
     private lateinit var phoneNumberTil: TextInputLayout
     private lateinit var number: String
 
@@ -57,7 +57,7 @@ class PhoneActivationFragment : Fragment() {
 
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
         /** setting toolbar text **/

@@ -16,10 +16,9 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_dashboard.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -35,7 +34,7 @@ class AgentDashboardFragment : Fragment() {
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +58,7 @@ class AgentDashboardFragment : Fragment() {
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
 
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
         viewModel.getUserResponse.observe(viewLifecycleOwner, {

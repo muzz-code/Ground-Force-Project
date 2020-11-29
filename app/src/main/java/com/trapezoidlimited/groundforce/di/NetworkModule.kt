@@ -57,8 +57,6 @@ class NetworkModule {
 
             override fun intercept(chain: Interceptor.Chain): Response {
 
-                Log.i("LOGIN RESPONSE", token)
-
                 val requestBuilder = chain.request().newBuilder()
                 requestBuilder.addHeader("Authorization", "Bearer $token")
                 return chain.proceed(requestBuilder.build())

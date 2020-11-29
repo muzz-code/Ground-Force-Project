@@ -36,12 +36,22 @@ constructor(
 
     override suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>> =
         safeApiCall {
-            api.registerAgent(agent)
+            api.registerUser(agent)
         }
 
     override suspend fun getUser(id: String): Resource<GenericResponseClass<UserResponse>> =
         safeApiCall {
             api.getUser(id)
         }
+
+    override suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>> =
+        safeApiCall {
+            api.putUser(user)
+        }
+
+    override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest)
+            : Resource<GenericResponseClass<ChangePasswordResponse>> = safeApiCall {
+        api.changePassword(changePasswordRequest)
+    }
 
 }

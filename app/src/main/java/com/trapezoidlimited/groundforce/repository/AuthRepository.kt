@@ -3,6 +3,7 @@ package com.trapezoidlimited.groundforce.repository
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
+import retrofit2.http.Body
 import retrofit2.http.Field
 
 /**
@@ -15,4 +16,6 @@ interface AuthRepository {
     suspend fun confirmPhone(confirmPhone: ConfirmPhoneRequest): Resource<GenericResponseClass<ConfirmOtpResponse>>
     suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>>
     suspend fun getUser(id: String): Resource<GenericResponseClass<UserResponse>>
+    suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>>
+    suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): Resource<GenericResponseClass<ChangePasswordResponse>>
 }

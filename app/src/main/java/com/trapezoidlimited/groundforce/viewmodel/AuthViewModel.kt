@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 
 
 /**
- * LoginAuthViewModel class launches methods in the AuthRepository to make network calls
+ * AuthViewModel class launches methods in the AuthRepository to make network calls
  * in the background and exposes loginResponse LiveData to be observed in the login fragment
  * to authorize user as appropriate. */
 
 
-class LoginAuthViewModel(
+class AuthViewModel(
     private val repository: AuthRepositoryImpl
 ) : ViewModel() {
 
@@ -33,20 +33,36 @@ class LoginAuthViewModel(
         get() = _forgotPasswordResponse
 
 
+    /** verify phone number response */
+
     val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>> =
         MutableLiveData()
     val verifyPhoneResponse: LiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>>
         get() = _verifyPhoneResponse
+
+    /** confirm phone number response */
 
     val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>> =
         MutableLiveData()
     val confirmPhoneResponse: LiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>>
         get() = _confirmPhoneResponse
 
+    /** get user details response */
+
     private val _getUserResponse: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> = MutableLiveData()
     val getUserResponse: LiveData<Resource<GenericResponseClass<UserResponse>>>
         get() = _getUserResponse
 
+    /** updating user details response */
+
+    private val _putUserResponse: MutableLiveData<Resource<GenericResponseClass<PutUserResponse>>> = MutableLiveData()
+    val putUserResponse: LiveData<Resource<GenericResponseClass<PutUserResponse>>>
+        get() = _putUserResponse
+
+    /** change password response */
+    private val _changePasswordResponse: MutableLiveData<Resource<GenericResponseClass<ChangePasswordResponse>>> = MutableLiveData()
+    val changePasswordResponse: LiveData<Resource<GenericResponseClass<ChangePasswordResponse>>>
+        get() = _changePasswordResponse
 
 
     /** response for agent creation */
@@ -81,6 +97,14 @@ class LoginAuthViewModel(
 
     fun getUser(id: String) = viewModelScope.launch {
         _getUserResponse.value = repository.getUser(id)
+    }
+
+    fun putUser(user: PutUserRequest) = viewModelScope.launch {
+        _putUserResponse.value = repository.putUser(user)
+    }
+
+    fun changePassword(changePasswordRequest: ChangePasswordRequest) = viewModelScope.launch {
+        _changePasswordResponse.value = repository.changePassword(changePasswordRequest)
     }
 
 }
