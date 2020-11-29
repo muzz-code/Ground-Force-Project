@@ -8,16 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
-import com.trapezoidlimited.groundforce.ui.dashboard.notifications.NotificationsFragmentDirections
+import com.trapezoidlimited.groundforce.room.RoomAgent
 import com.trapezoidlimited.groundforce.utils.*
-import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class AgentDashboardFragment : Fragment() {
 
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,8 +86,33 @@ class AgentDashboardFragment : Fragment() {
             }
         }
 
-    }
+        val roomAgent = RoomAgent(
+            1,
+            "Oladokun",
+            "Oladapo",
+            "08090930021",
+            "m",
+            "11/05/1993",
+            "ola@gmail.com",
+            "1234",
+            "Ibadan",
+            "Oyo",
+            "Ibadan",
+            "200201",
+            "1993 N",
+            "902903"
 
+        )
+
+        roomViewModel.addAgent(roomAgent)
+
+        roomViewModel.agentObject.observe(requireActivity(), {
+            if (it.isNotEmpty()) {
+                showSnackBar(requireView(), it[it.lastIndex].firstName)
+                Log.i("Agent From Room", it[it.lastIndex].firstName)
+            }
+        })
+    }
 
     override fun onDestroy() {
         super.onDestroy()
