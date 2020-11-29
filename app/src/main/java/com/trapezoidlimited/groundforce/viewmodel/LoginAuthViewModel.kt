@@ -10,8 +10,6 @@ import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import kotlinx.coroutines.launch
-
-
 /**
  * LoginAuthViewModel class launches methods in the AuthRepository to make network calls
  * in the background and exposes loginResponse LiveData to be observed in the login fragment
