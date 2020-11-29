@@ -68,8 +68,6 @@ fun Fragment.hideStatusBar(){
  */
 
 fun View.crossShow(duration: Long) {
-
-
     // Animate the loading view to 0% opacity. After the animation ends,
     // set its visibility to GONE as an optimization step (it won't
     // participate in layout passes, etc.)
@@ -78,7 +76,6 @@ fun View.crossShow(duration: Long) {
         .setDuration(duration)
         .setListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-
                 crossfade(duration)
             }
         })

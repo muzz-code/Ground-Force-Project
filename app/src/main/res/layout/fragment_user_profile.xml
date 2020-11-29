@@ -7,6 +7,18 @@
     android:layout_height="match_parent">
 
 
+    <ProgressBar
+        android:id="@+id/fragment_user_profile_image_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="3dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_profile_image_iv" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_user_profile_header_background_cl"
         android:layout_width="match_parent"
@@ -440,7 +452,7 @@
         android:id="@+id/fragment_create_profile_one_profile_image_iv"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/zaria_boy"
+        android:src="@drawable/groundforce_default_profile_image"
         android:translationZ="2dp"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="4dp"

@@ -89,7 +89,6 @@ class LocationsVerificationFragment : Fragment() {
          */
         binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
 
-
         return binding.root
     }
 
@@ -217,17 +216,16 @@ class LocationsVerificationFragment : Fragment() {
                         .setTitle("GPS Settings")
                         .setMessage("GPS is off. App requires location turned on for verification.")
                         .setPositiveButton(
-                            "SETTINGS",
-                            DialogInterface.OnClickListener { dialogInterface, i ->
-                                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                                startActivityForResult(intent, LOCATION_REQUEST_CODE)
-
-                            })
-                        .setNegativeButton("Cancel",
-                            DialogInterface.OnClickListener { dialogInterface, i ->
-                                dialogInterface.cancel()
-                            }
-                        )
+                            "SETTINGS"
+                        ) { dialogInterface, i ->
+                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            startActivityForResult(intent, LOCATION_REQUEST_CODE)
+                        }
+                        .setNegativeButton(
+                            "Cancel"
+                        ) { dialogInterface, i ->
+                            dialogInterface.cancel()
+                        }
                         .create()
                         .show()
 
@@ -249,7 +247,6 @@ class LocationsVerificationFragment : Fragment() {
         } else {
             showSnackBar(requireView(), "Something is wrong! GPS is off.")
         }
-
     }
 
 
@@ -285,7 +282,6 @@ class LocationsVerificationFragment : Fragment() {
                                 )
                             }).create()
                         .show()
-
                 }
             }
         }
