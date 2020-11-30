@@ -42,7 +42,6 @@ class TasksFragment : Fragment() {
         /** Setting up tabs and handling indicator behavior*/
         setUpTabs()
 
-
         /** setting the viewPager item to Ongoing and Missions depending on the currentItem value and the button clicked */
 
         if (DataListener.currentItem == ONGOING) {

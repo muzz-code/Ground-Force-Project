@@ -26,7 +26,7 @@ import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBin
 import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -47,7 +47,7 @@ class PhoneVerificationFragment : Fragment() {
     @Inject
     lateinit var retrofit: Retrofit
 
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
 
 
     private val args: PhoneVerificationFragmentArgs by navArgs()
@@ -63,7 +63,7 @@ class PhoneVerificationFragment : Fragment() {
 
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         /** setting toolbar text **/
         binding.fragmentPhoneVerificationTb.toolbarTitle.text =

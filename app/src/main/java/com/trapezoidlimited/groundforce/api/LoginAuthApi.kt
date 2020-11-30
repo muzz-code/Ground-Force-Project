@@ -1,11 +1,8 @@
 package com.trapezoidlimited.groundforce.api
 
 
-import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
+import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.ParentResponse
-import com.trapezoidlimited.groundforce.model.request.LoginRequest
-import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
-import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.model.response.*
 import retrofit2.http.*
 
@@ -39,8 +36,23 @@ interface LoginAuthApi {
     ): GenericResponseClass<ConfirmOtpResponse>
 
     @POST("Auth/register")
-    suspend fun registerAgent(
+    suspend fun registerUser(
         @Body agent: AgentDataRequest
     ): GenericResponseClass<AgentDataResponse>
+
+    @GET("User/{id}")
+    suspend fun getUser(
+        @Path("id") id: String
+    ): GenericResponseClass<UserResponse>
+
+    @PUT("User")
+    suspend fun putUser(
+        @Body user: PutUserRequest
+    ): GenericResponseClass<PutUserResponse>
+
+    @PATCH("User/change-password")
+    suspend fun changePassword(
+        @Body changePasswordRequest: ChangePasswordRequest
+    ): GenericResponseClass<ChangePasswordResponse>
 
 }

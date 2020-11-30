@@ -2,14 +2,11 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -20,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
@@ -28,13 +24,10 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
-import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
@@ -50,7 +43,7 @@ class LocationsVerificationFragment : Fragment() {
     @Inject
     lateinit var retrofit: Retrofit
 
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
 
     private var _binding: FragmentLocationsVerificationBinding? = null
     private val binding get() = _binding!!
@@ -74,7 +67,7 @@ class LocationsVerificationFragment : Fragment() {
 
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         /** setting toolbar text **/
         binding.fragmentLocationVerificationTb.toolbarTitle.text =
