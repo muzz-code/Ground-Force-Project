@@ -1,13 +1,15 @@
 package com.trapezoidlimited.groundforce.ui.dialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
@@ -15,7 +17,7 @@ import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.LoginAuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_locations_verification.*
@@ -32,8 +34,10 @@ class VerifiedDialog : DialogFragment() {
     lateinit var retrofit: Retrofit
     private var _binding: VerificationResultPageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: LoginAuthViewModel
+    private lateinit var viewModel: AuthViewModel
     private lateinit var agentData: AgentDataRequest
+    private lateinit var progressBar: ProgressBar
+    private lateinit var okTextView: TextView
 
 
     override fun onCreateView(
@@ -47,7 +51,7 @@ class VerifiedDialog : DialogFragment() {
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
 
-        viewModel = ViewModelProvider(this, factory).get(LoginAuthViewModel::class.java)
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         return binding.root
     }
@@ -55,20 +59,27 @@ class VerifiedDialog : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        progressBar = binding.locationVerifiedDialogPb
+        okTextView = binding.locationVerifiedDialogTv
+
 
         viewModel.agentCreationResponse.observe(viewLifecycleOwner, Observer {
 
             when (it) {
                 is Resource.Success -> {
 
-                    it.value.title?.let { it1 -> showSnackBar(requireActivity().view, it1) }
+                    val userId = it.value.data?.id
 
-                    Log.i("SUCCESS", "${it.value.data}")
+                    /**Saving user's id to sharedPreference */
+                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+                    setInVisibility(progressBar)
+                    findNavController().navigate(R.id.waitingFragment)
 
-                    showWelcomeDialog()
                     dismiss()
                 }
                 is Resource.Failure -> {
+                    setInVisibility(progressBar)
+                    setVisibility(okTextView)
                     handleApiError(it, retrofit, requireActivity().view)
                     dismiss()
                 }
@@ -76,7 +87,7 @@ class VerifiedDialog : DialogFragment() {
 
         })
 
-        binding.locationVerifiedDialogTv.setOnClickListener {
+        okTextView.setOnClickListener {
 
             val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
             val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
@@ -108,6 +119,9 @@ class VerifiedDialog : DialogFragment() {
                 latitude = latitude,
                 roles = listOf("agent")
             )
+
+            setVisibility(progressBar)
+            setInVisibility(okTextView)
 
             viewModel.registerAgent(agentData)
 

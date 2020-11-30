@@ -2,7 +2,6 @@ package com.trapezoidlimited.groundforce.ui.auth
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +23,6 @@ import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentLandingBinding
 import com.trapezoidlimited.groundforce.utils.*
-
 
 class LandingFragment : Fragment() {
 
@@ -62,7 +60,6 @@ class LandingFragment : Fragment() {
 
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
-
         }
 
         // Build a GoogleSignInClient with the options specified by gso.
