@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
@@ -20,6 +23,7 @@ class AgentDashboardFragment : Fragment() {
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private lateinit var dashBoardCard: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +42,8 @@ class AgentDashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             DataListener.currentItem = MISSION
@@ -76,7 +82,6 @@ class AgentDashboardFragment : Fragment() {
             binding.fragmentAgentDashboardIncompleteProfileCl.visibility = View.GONE
         }
 
-
         // Navigate to Home on Back Press
         requireActivity().onBackPressedDispatcher.addCallback {
             if (findNavController().currentDestination?.id == R.id.agentDashboardFragment) {
@@ -104,11 +109,12 @@ class AgentDashboardFragment : Fragment() {
 
         )
 
-        roomViewModel.addAgent(roomAgent)
+//        roomViewModel.addAgent(roomAgent)
 
         roomViewModel.agentObject.observe(requireActivity(), {
             if (it.isNotEmpty()) {
-                showSnackBar(requireView(), it[it.lastIndex].firstName)
+                Toast.makeText(requireActivity(), it[it.lastIndex].firstName, Toast.LENGTH_SHORT)
+                    .show()
                 Log.i("Agent From Room", it[it.lastIndex].firstName)
             }
         })
