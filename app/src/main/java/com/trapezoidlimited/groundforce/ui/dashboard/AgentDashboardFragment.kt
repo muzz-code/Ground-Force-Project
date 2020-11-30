@@ -65,24 +65,6 @@ class AgentDashboardFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
-        viewModel.getUserResponse.observe(viewLifecycleOwner, {
-
-            when (it) {
-                is Resource.Success -> {
-
-                    Log.i("USER", it.value.data?.firstName!!)
-                    Log.i("USER", it.value.data?.lastName!!)
-                    Log.i("USER", it.value.data?.email!!)
-
-                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT).show()
-
-                }
-                is Resource.Failure -> {
-                    handleApiError(it, retrofit, requireView())
-                }
-            }
-        })
-
 
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
@@ -121,9 +103,9 @@ class AgentDashboardFragment : Fragment() {
         binding.fragmentAgentDashboardCloseIconIv.setOnClickListener {
             binding.fragmentAgentDashboardIncompleteProfileCl.visibility = View.GONE
 
-            val userId = loadFromSharedPreference(requireActivity(), USERID)
-
-            viewModel.getUser(userId)
+//            val userId = loadFromSharedPreference(requireActivity(), USERID)
+//
+//            viewModel.getUser(userId)
         }
 
 
@@ -136,25 +118,6 @@ class AgentDashboardFragment : Fragment() {
             }
         }
 
-        val roomAgent = RoomAgent(
-            1,
-            "Oladokun",
-            "Oladapo",
-            "08090930021",
-            "m",
-            "11/05/1993",
-            "ola@gmail.com",
-            "1234",
-            "Ibadan",
-            "Oyo",
-            "Ibadan",
-            "200201",
-            "1993 N",
-            "902903"
-
-        )
-
-        roomViewModel.addAgent(roomAgent)
 
         roomViewModel.agentObject.observe(requireActivity(), {
             if (it.isNotEmpty()) {

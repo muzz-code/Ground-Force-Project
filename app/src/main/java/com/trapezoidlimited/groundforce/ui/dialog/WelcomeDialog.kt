@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.WelcomeDialogBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.room.RoomAgent
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -38,6 +41,7 @@ class WelcomeDialog : DialogFragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var progressBar : ProgressBar
     private lateinit var oKTextView: TextView
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,18 +69,31 @@ class WelcomeDialog : DialogFragment() {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
-        viewModel.getUserResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.getUserResponse.observe(viewLifecycleOwner, {
 
             when (it) {
                 is Resource.Success -> {
 
-                    Log.i("USER", it.value.data?.firstName!!)
-                    Log.i("USER", it.value.data?.lastName!!)
+                    /** Adding Agent Details to Room Database */
+
+                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT).show()
+
+                    val roomAgent = RoomAgent(
+                        agentId = 1,
+                        id = it.value.data?.id!!,
+                        lastName = it.value.data.lastName,
+                        firstName = it.value.data.firstName,
+                        email = it.value.data.email,
+                        residentialAddress = it.value.data.residentialAddress,
+                        dob = it.value.data.dob,
+                        gender = it.value.data.gender,
+                    )
+
+                    roomViewModel.addAgent(roomAgent)
 
                     setInVisibility(progressBar)
-                    setVisibility(oKTextView)
                     goToDashboard()
-                    dismiss()
+
                 }
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
@@ -90,11 +107,12 @@ class WelcomeDialog : DialogFragment() {
         binding.welcomeDialogOkTv.setOnClickListener {
 
             val userId = loadFromSharedPreference(requireActivity(), USERID)
-            viewModel.getUser(userId)
 
-            setVisibility(progressBar)
             setInVisibility(oKTextView)
+            setVisibility(progressBar)
+            viewModel.getUser(userId)
         }
+
 
     }
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +37,7 @@ class VerifiedDialog : DialogFragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var agentData: AgentDataRequest
     private lateinit var progressBar: ProgressBar
+    private lateinit var okTextView: TextView
 
 
     override fun onCreateView(
@@ -58,6 +60,7 @@ class VerifiedDialog : DialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         progressBar = binding.locationVerifiedDialogPb
+        okTextView = binding.locationVerifiedDialogTv
 
 
         viewModel.agentCreationResponse.observe(viewLifecycleOwner, Observer {
@@ -76,6 +79,7 @@ class VerifiedDialog : DialogFragment() {
                 }
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
+                    setVisibility(okTextView)
                     handleApiError(it, retrofit, requireActivity().view)
                     dismiss()
                 }
@@ -83,7 +87,7 @@ class VerifiedDialog : DialogFragment() {
 
         })
 
-        binding.locationVerifiedDialogTv.setOnClickListener {
+        okTextView.setOnClickListener {
 
             val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
             val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
@@ -117,6 +121,7 @@ class VerifiedDialog : DialogFragment() {
             )
 
             setVisibility(progressBar)
+            setInVisibility(okTextView)
 
             viewModel.registerAgent(agentData)
 
