@@ -8,14 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
-import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.room.RoomAdditionalDetail
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -37,6 +38,7 @@ class AgentDashboardFragment : Fragment() {
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
 
@@ -58,13 +60,12 @@ class AgentDashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
 
         val repository = AuthRepositoryImpl(loginApiService)
         val factory = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
-
-
 
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
@@ -108,7 +109,6 @@ class AgentDashboardFragment : Fragment() {
 //            viewModel.getUser(userId)
         }
 
-
         // Navigate to Home on Back Press
         requireActivity().onBackPressedDispatcher.addCallback {
             if (findNavController().currentDestination?.id == R.id.agentDashboardFragment) {
@@ -118,13 +118,50 @@ class AgentDashboardFragment : Fragment() {
             }
         }
 
-
-        roomViewModel.agentObject.observe(requireActivity(), {
-            if (it.isNotEmpty()) {
-                showSnackBar(requireView(), it[it.lastIndex].firstName)
-                Log.i("Agent From Room", it[it.lastIndex].firstName)
-            }
-        })
+//        val roomAgent = RoomAgent(
+//            1,
+//            "Oladokun",
+//            "Oladapo",
+//            "08090930021",
+//            "m",
+//            "11/05/1993",
+//            "ola@gmail.com",
+//            "1234",
+//        )
+//
+//        val additionalDetail = RoomAdditionalDetail(
+//            1,
+//            "1234090",
+//            "09083003223",
+//            "Islam",
+//            "090093939303",
+//            "m",
+//            "wwww.gooogle.com",
+//            "id",
+//            "Mushin",
+//            "200201",
+//            "839.99 N",
+//            "893922.2 E",
+//            "Lagos",
+//        )
+//
+//        roomViewModel.addAgent(roomAgent)
+//        roomViewModel.addAdditionalDetail(additionalDetail)
+//
+//        roomViewModel.agentObject.observe(viewLifecycleOwner, {
+//            if (it.isNotEmpty()) {
+//                Toast.makeText(requireActivity(), it[it.lastIndex].firstName, Toast.LENGTH_SHORT)
+//                    .show()
+//                Log.i("Agent From Room", it[it.lastIndex].firstName)
+//            }
+//        })
+//
+//        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
+//            if (it.isNotEmpty()) {
+//                showSnackBar(requireView(), it[it.lastIndex].additionalPhoneNumber)
+//                Log.i("Agent From Room", it[it.lastIndex].additionalPhoneNumber)
+//            }
+//        })
     }
 
     override fun onDestroy() {
