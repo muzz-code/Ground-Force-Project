@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -30,6 +31,9 @@ class AgentDashboardFragment : Fragment() {
 
     @Inject
     lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -59,7 +63,7 @@ class AgentDashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
@@ -100,12 +104,44 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
-        binding.fragmentAgentDashboardCloseIconIv.setOnClickListener {
-            binding.fragmentAgentDashboardIncompleteProfileCl.visibility = View.GONE
+        viewModel.getUserResponseA.observe(viewLifecycleOwner, {
 
-//            val userId = loadFromSharedPreference(requireActivity(), USERID)
-//
-//            viewModel.getUser(userId)
+            when (it) {
+                is Resource.Success -> {
+
+                    /** Adding Agent Details to Room Database */
+
+                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
+                        .show()
+
+                    val roomAgent = RoomAgent(
+                        agentId = 1,
+                        id = it.value.data?.id!!,
+                        lastName = it.value.data.lastName,
+                        firstName = it.value.data.firstName,
+                        email = it.value.data.email,
+                        residentialAddress = it.value.data.residentialAddress,
+                        dob = it.value.data.dob,
+                        gender = it.value.data.gender,
+                    )
+
+                    roomViewModel.addAgent(roomAgent)
+
+
+                }
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
+
+        binding.agentDashboardUpdateNowBtn.setOnClickListener {
+            //findNavController().navigate(R.id.updateProfileFragment)
+
+            val userId = loadFromSharedPreference(requireActivity(), USERID)
+            val token = SessionManager.load(requireContext(), TOKEN)
+            viewModel.getUser("Bearer $token", userId)
         }
 
 
@@ -119,9 +155,10 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
-        roomViewModel.agentObject.observe(requireActivity(), {
+        roomViewModel.agentObject.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
-                showSnackBar(requireView(), it[it.lastIndex].firstName)
+                Toast.makeText(requireActivity(), it[it.lastIndex].firstName, Toast.LENGTH_SHORT)
+                    .show()
                 Log.i("Agent From Room", it[it.lastIndex].firstName)
             }
         })

@@ -3,8 +3,10 @@ package com.trapezoidlimited.groundforce.di
 import android.content.Context
 import android.util.Log
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.OtpAuthService
 import com.trapezoidlimited.groundforce.data.BASE_URL
+import com.trapezoidlimited.groundforce.utils.AuthInterceptor
 import com.trapezoidlimited.groundforce.utils.SessionManager
 import com.trapezoidlimited.groundforce.utils.TOKEN
 import dagger.Module
@@ -33,6 +35,7 @@ class NetworkModule {
      * Creates the api service
      */
 
+
     @Provides
     @Singleton
     fun provideLogger(): HttpLoggingInterceptor {
@@ -47,30 +50,18 @@ class NetworkModule {
     }
 
 
-    @Provides
-    @Singleton
-    fun provideAuthInterceptor(@ApplicationContext context: Context): Interceptor {
-
-        return object : Interceptor {
-
-            val token = SessionManager.load(context, TOKEN)
-
-            override fun intercept(chain: Interceptor.Chain): Response {
-
-                val requestBuilder = chain.request().newBuilder()
-                requestBuilder.addHeader("Authorization", "Bearer $token")
-                return chain.proceed(requestBuilder.build())
-            }
-        }
-    }
+//    @Provides
+//    @Singleton
+//    fun provideAuthInterceptor(@ApplicationContext context: Context): AuthInterceptor {
+//        return AuthInterceptor(context)
+//    }
 
 
     @Provides
     @Singleton
-    fun provideClient(logger: HttpLoggingInterceptor, interceptor: Interceptor): OkHttpClient {
+    fun provideClient(logger: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(logger)
-            .addInterceptor(interceptor)
             .build()
     }
 
@@ -94,6 +85,12 @@ class NetworkModule {
     @Singleton
     fun provideLoginApiService(retrofit: Retrofit): LoginAuthApi {
         return retrofit.create(LoginAuthApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMissionApiService(retrofit: Retrofit): MissionsApi {
+        return retrofit.create(MissionsApi::class.java)
     }
 
 

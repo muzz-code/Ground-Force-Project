@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.model.response
 
 data class AgentDataResponse(
-    val id: String
+    val loginToken: LoginToken
 ) : ParentResponse
+

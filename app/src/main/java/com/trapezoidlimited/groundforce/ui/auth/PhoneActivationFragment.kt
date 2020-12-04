@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
 import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
@@ -43,6 +44,9 @@ class PhoneActivationFragment : Fragment() {
     @Inject
     lateinit var retrofit: Retrofit
 
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
     private var _binding: FragmentPhoneActivationBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewModel
@@ -55,7 +59,7 @@ class PhoneActivationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -155,12 +159,14 @@ class PhoneActivationFragment : Fragment() {
         /**Verification button to verify user phone number as nigeria phone number**/
         binding.phoneActivContinueBtn.setOnClickListener {
 
-            //            val action = PhoneActivationFragmentDirections
-            //              .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-            //            findNavController().navigate(action)
-
-
             number = "+234" + phoneEditText.text.toString()
+
+//            val action = PhoneActivationFragmentDirections
+//                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+//            findNavController().navigate(action)
+
+
+
             val phoneNumber = VerifyPhoneRequest(number)
 
             /** Saving phone in sharedPreference*/

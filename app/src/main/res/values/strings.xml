@@ -64,7 +64,6 @@
     <string name="email_address_str">Email Address</string>
 
     <string name="bank_name_str">Bank Name</string>
-    <string name="account_number">Account Number</string>
     <string name="_0801234567890_str">0801234567890</string>
     <string name="done_profile_str">Done</string>
 
@@ -283,6 +282,13 @@
     <string name="failed_title_str">Failed!</string>
     <string name="confirm">Confirm</string>
     <string name="notification_info_dash_str">Please complete your profile before you can accept new tasks.</string>
+    <string name="additional_phone_number">Additional Phone Number</string>
+    <string name="religion">Religion</string>
+    <string name="gender">Gender</string>
+    <string name="update">Update</string>
+    <string name="account_number">Account Number</string>
+    <string name="bank_code">Bank Code</string>
+    <string name="complete_now_str">Complete Now</string>
 
 </resources>
 

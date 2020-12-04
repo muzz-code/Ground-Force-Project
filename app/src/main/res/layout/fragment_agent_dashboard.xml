@@ -24,7 +24,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/fragment_agent_dashboard_incomplete_profile_cl"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="0dp"
     android:layout_marginTop="12dp"
     android:layout_marginStart="17dp"
     android:layout_marginEnd="17dp"
@@ -32,33 +32,50 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
     app:layout_constraintTop_toBottomOf="@+id/dashboard_tool_bar_ly"
     >
 
+
     <TextView
         android:id="@+id/agent_dashboard_info_tv"
         style="@style/colorWhiteSmallText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto"
         android:lineHeight="20dp"
         android:paddingStart="32dp"
         android:paddingEnd="32dp"
         android:text="@string/notification_info_dash_str"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_agent_dashboard_close_icon_iv"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/agent_dashboard_update_now_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/fragment_agent_dashboard_close_icon_iv"
+    <Button
+        android:id="@+id/agent_dashboard_update_now_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:src="@drawable/ic_close"
-        app:layout_constraintBottom_toBottomOf="@+id/agent_dashboard_info_tv"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="32dp"
+        android:paddingEnd="32dp"
+        android:text="@string/complete_now_str"
+        android:textAllCaps="false"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/small_text"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/agent_dashboard_info_tv" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/colorWhite" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

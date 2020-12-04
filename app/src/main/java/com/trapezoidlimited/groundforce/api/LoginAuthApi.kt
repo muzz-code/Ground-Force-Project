@@ -45,6 +45,12 @@ interface LoginAuthApi {
         @Path("id") id: String
     ): GenericResponseClass<UserResponse>
 
+    @GET("User/{id}")
+    suspend fun getUser(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): GenericResponseClass<UserResponse>
+
     @PUT("User")
     suspend fun putUser(
         @Body user: PutUserRequest

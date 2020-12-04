@@ -22,6 +22,9 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AuthViewModel::class.java) ->
                 AuthViewModel(repository as AuthRepositoryImpl) as T
 
+            modelClass.isAssignableFrom(MissionsViewModel::class.java) ->
+                MissionsViewModel(repository as AuthRepositoryImpl) as T
+
             else -> throw IllegalArgumentException("View Model Class Not found")
         }
     }
