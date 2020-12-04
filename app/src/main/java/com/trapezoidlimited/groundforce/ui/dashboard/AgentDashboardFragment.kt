@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
 import javax.inject.Inject
 import com.trapezoidlimited.groundforce.room.RoomAgent
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 
 
 @AndroidEntryPoint
@@ -44,6 +46,7 @@ class AgentDashboardFragment : Fragment() {
 
     private lateinit var viewModel: AuthViewModel
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +57,39 @@ class AgentDashboardFragment : Fragment() {
             binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
         }
 
+        /** Checking and logging user out if user has no authorization **/
+
+        logOut()
+
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val factory = ViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
+
+        val userId = loadFromSharedPreference(requireActivity(), USERID)
+        val token = SessionManager.load(requireContext(), TOKEN)
+
+
+        /** Checking is user object is saved in Room
+         *
+         * Make network if user object in room is empty **/
+
+        roomViewModel.agentObject.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+
+                val name = it[it.lastIndex].firstName
+
+                binding.agentDashboardFragmentNameTv.text = "Hello $name"
+
+            }else {
+                binding.fragmentAgentDashboardCl.visibility = View.GONE
+                binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
+                viewModel.getUser("Bearer $token", userId)
+            }
+        })
+
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -61,13 +97,6 @@ class AgentDashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
-
-        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
-
 
 
 
@@ -109,6 +138,15 @@ class AgentDashboardFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
 
+                    binding.fragmentAgentDashboardLl.visibility = View.GONE
+
+                    val name = it.value.data?.firstName
+
+
+                    binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
+
+                    binding.agentDashboardFragmentNameTv.text = "Hello $name"
+
                     /** Adding Agent Details to Room Database */
 
                     Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
@@ -137,11 +175,7 @@ class AgentDashboardFragment : Fragment() {
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            //findNavController().navigate(R.id.updateProfileFragment)
-
-            val userId = loadFromSharedPreference(requireActivity(), USERID)
-            val token = SessionManager.load(requireContext(), TOKEN)
-            viewModel.getUser("Bearer $token", userId)
+            findNavController().navigate(R.id.updateProfileFragment)
         }
 
 
@@ -162,7 +196,9 @@ class AgentDashboardFragment : Fragment() {
                 Log.i("Agent From Room", it[it.lastIndex].firstName)
             }
         })
+
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
