@@ -1,7 +1,6 @@
 package com.trapezoidlimited.groundforce.room
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +12,10 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     var agentObject: LiveData<List<RoomAgent>> = repository.readAgent()
 
     val additionalDetail: LiveData<List<RoomAdditionalDetail>> = repository.readAdditionalDetail()
+
+    var mission: LiveData<List<RoomMission>> = repository.readAllMissions()
+
+    var ongoingMission: LiveData<List<RoomOngoingMission>> = repository.readAllOngoingMissions()
 
 
     fun addAgent(agent: RoomAgent) {
@@ -36,6 +39,42 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     fun updateAdditionalDetail(additionalDetail: RoomAdditionalDetail) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateAdditionalDetail(additionalDetail)
+        }
+    }
+
+    fun addMission(mission: RoomMission) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addMission(mission)
+        }
+    }
+
+    fun deleteAllMission() {
+        viewModelScope.launch {
+            repository.deleteAllMissions()
+        }
+    }
+
+    fun deleteByMissionId(missionId: String) {
+        viewModelScope.launch {
+            repository.deleteByMissionId(missionId)
+        }
+    }
+
+    fun addOngoingMission(ongoingMission: RoomOngoingMission) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addOngoingMission(ongoingMission)
+        }
+    }
+
+    fun deleteAllOngoingMission() {
+        viewModelScope.launch {
+            repository.deleteAllOngoingMissions()
+        }
+    }
+
+    fun deleteByOngoingMissionId(missionId: String) {
+        viewModelScope.launch {
+            repository.deleteByOngoingMissionId(missionId)
         }
     }
 

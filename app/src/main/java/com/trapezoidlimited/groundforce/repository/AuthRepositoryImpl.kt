@@ -63,15 +63,15 @@ constructor(
     }
 
     override suspend fun
-            getMissions(agentId: String, status: String, page: String):
+            getMissions(token: String, agentId: String, status: String, page: String):
                 Resource<GenericResponseClass<GetMissionResponse>> = safeApiCall {
-                        missionsApi.getMissions(agentId, status, page)
+                        missionsApi.getMissions(token, agentId, status, page)
                 }
 
     override suspend fun
-            updateMissionStatus(missionId: String, status: String):
+            updateMissionStatus(token: String, missionId: String, status: String):
             Resource<GenericResponseClass<UpdateMissionStatusResponse>> = safeApiCall {
-                missionsApi.updateMissionStatus(missionId, status)
+                missionsApi.updateMissionStatus(token, missionId, status)
             }
 
     override suspend fun submitMission(submitMissionRequest: SubmitMissionRequest):

@@ -26,13 +26,13 @@ class MissionAdapter(var missions: MutableList<MissionItem>, var clickListener: 
             /** setting the onclick listener to accept text of every mission item on the recyclerview list */
 
             itemView.mission_accept_tv.setOnClickListener {
-                action.onAcceptClick(mission, adapterPosition)
+                mission.id?.let { it1 -> action.onAcceptClick(mission, adapterPosition, it1) }
             }
 
             /** setting the onclick listener to decline text of every mission item on the recyclerview list */
 
             itemView.mission_decline_tv.setOnClickListener {
-                action.onDeclineClick(mission, adapterPosition)
+                mission.id?.let { it1 -> action.onDeclineClick(mission, adapterPosition, it1) }
             }
         }
 
@@ -60,6 +60,6 @@ class MissionAdapter(var missions: MutableList<MissionItem>, var clickListener: 
 }
 
 interface OnMissionItemClickListener{
-    fun onAcceptClick(mission: MissionItem, position: Int)
-    fun onDeclineClick(mission: MissionItem, position: Int)
+    fun onAcceptClick(mission: MissionItem, position: Int, id: String)
+    fun onDeclineClick(mission: MissionItem, position: Int, id: String)
 }

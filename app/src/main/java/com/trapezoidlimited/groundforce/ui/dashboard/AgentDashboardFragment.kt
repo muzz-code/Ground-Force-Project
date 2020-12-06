@@ -80,13 +80,15 @@ class AgentDashboardFragment : Fragment() {
 
                 val name = it[it.lastIndex].firstName
 
-                binding.agentDashboardFragmentNameTv.text = "Hello $name"
+                saveToSharedPreference(requireActivity(), FIRSTNAME, name)
 
             }else {
+
                 binding.fragmentAgentDashboardCl.visibility = View.GONE
                 binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
                 viewModel.getUser("Bearer $token", userId)
             }
+
         })
 
 
@@ -98,6 +100,14 @@ class AgentDashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+
+        /** Set firstName from shared preference if isn't present  **/
+
+        if (firstName.isNotEmpty()) {
+            val savedName = "Hello $firstName"
+            binding.agentDashboardFragmentNameTv.text = savedName
+        }
 
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
@@ -152,6 +162,8 @@ class AgentDashboardFragment : Fragment() {
                     Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
                         .show()
 
+                    /** TO BE FIXED */
+
                     val roomAgent = RoomAgent(
                         agentId = 1,
                         id = it.value.data?.id!!,
@@ -175,7 +187,9 @@ class AgentDashboardFragment : Fragment() {
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            findNavController().navigate(R.id.updateProfileFragment)
+            //findNavController().navigate(R.id.updateProfileFragment)
+            roomViewModel.deleteAllMission()
+            roomViewModel.deleteAllOngoingMission()
         }
 
 
@@ -188,14 +202,6 @@ class AgentDashboardFragment : Fragment() {
             }
         }
 
-
-        roomViewModel.agentObject.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                Toast.makeText(requireActivity(), it[it.lastIndex].firstName, Toast.LENGTH_SHORT)
-                    .show()
-                Log.i("Agent From Room", it[it.lastIndex].firstName)
-            }
-        })
 
     }
 

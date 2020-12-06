@@ -2,30 +2,57 @@ package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.adapters.mission.MissionAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OnMissionItemClickListener
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentMissionBinding
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
-import com.trapezoidlimited.groundforce.utils.DataListener
-import com.trapezoidlimited.groundforce.utils.DummyData
-import com.trapezoidlimited.groundforce.utils.setInVisibility
-import com.trapezoidlimited.groundforce.utils.setVisibility
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.room.RoomMission
+import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.MissionsViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MissionFragment : Fragment(), OnMissionItemClickListener {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private lateinit var viewModel: MissionsViewModel
 
     private var _binding: FragmentMissionBinding? = null
     private val binding get() = _binding!!
     private var locationTitlesList = DummyData.missionLocationData()
-    private var adapter: MissionAdapter = MissionAdapter(
-        mutableListOf(),
-        this
-    )
+    private lateinit var missionList: MutableList<MissionItem>
+
+    private lateinit var adapter: MissionAdapter
+
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+
+    private lateinit var token: String
+    private lateinit var userId: String
 
 
     override fun onCreateView(
@@ -34,8 +61,13 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     ): View? {
         // Inflate the layout for this fragment
 
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val factory = ViewModelFactory(repository)
 
-        _binding= FragmentMissionBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)
+
+
+        _binding = FragmentMissionBinding.inflate(inflater, container, false)
 
         return binding.root
 
@@ -44,52 +76,132 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        adapter = MissionAdapter(mutableListOf(), this)
+
         /**
-         * Mission location data will be coming from the backend to populate the recyclerview list
-         *
-         * For now: here includes some dummy data*/
+         * Network call to get assigned missions
+         */
+
+        userId = loadFromSharedPreference(requireActivity(), USERID)
+        token = "Bearer ${loadFromSharedPreference(requireActivity(), TOKEN)}"
+
+        viewModel.getMissions(token, userId, "pending", "1")
+
+        missionList = mutableListOf()
 
 
-        adapter.setMyList(locationTitlesList)
+        viewModel.getMissionResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+
+                    val missions = it.value.data?.data
+
+                    /**
+                     * onSuccess add assigned missions to room database
+                     */
+
+                    if (missions != null) {
+                        for (mission in missions) {
+
+                            val title = mission.title
+                            val description = mission.description
+                            val id = mission.missionId
+
+                            val roomMissionItem = RoomMission( id, title, description)
+
+                            roomViewModel.addMission(roomMissionItem)
+
+                        }
+
+                    }
+
+                    /**
+                     * Read from room database
+                     */
+
+                    readMissionsFromRoom()
+                }
+
+                is Resource.Failure -> {
+
+                    handleApiError(it, retrofit, requireView())
+
+                    /**
+                     * Read from room database
+                     */
+
+                    readMissionsFromRoom()
+                }
+            }
+        })
+
 
         binding.fragmentMissionRv.adapter = adapter
         binding.fragmentMissionRv.layoutManager = LinearLayoutManager(this.context)
 
-        if (locationTitlesList.size == 0) {
-            setNoMissionViewVisible()
-        } else {
-            setNoMissionViewInVisible()
-        }
+
+        viewModel.updateMissionStatusResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    it.value.data?.message?.let { it1 -> showSnackBar(requireView(), it1) }
+                }
+
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.fragmentMissionSrl.setOnRefreshListener {
+
+            /**
+             * Network call to get assigned missions
+             */
+
+            viewModel.getMissions(token, userId, "pending", "1")
+            adapter.notifyDataSetChanged()
+
+            binding.fragmentMissionSrl.isRefreshing = false
+        }
+    }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 
 
     /**
      * Method handles the actions onclick of the accept btn */
 
-    override fun onAcceptClick(mission: MissionItem, position: Int) {
+    override fun onAcceptClick(mission: MissionItem, position: Int, id: String) {
 
         /** setting the indicator  on the onGoing tab onclick of the accept btn */
 
         DataListener.mSetTabIndicator.value = true
 
 
-        /** Onclick of the accept btn, the location data at that position will be removed from the Mission's list in the backend
-         * And then, this location data is added to the ongoing list.
-         * For now, this logic here just removes from the dummy list of the locations data */
+        /** Onclick of the accept btn, a network call is made to update the status of the mission
+         * this mission data is removed from the missions list
+         * And then, this mission data is removed from the missions table in Room.
+         **/
 
-        locationTitlesList.removeAt(position)
+        viewModel.updateMissionStatus(token, id, "accepted")
+
+        missionList.removeAt(position)
+
+        roomViewModel.deleteByMissionId(id)
 
         adapter.notifyItemRemoved(position)
 
-        if (locationTitlesList.size == 0) {
+        if (missionList.size == 0) {
             setNoMissionViewVisible()
         }
     }
@@ -97,32 +209,74 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     /**
      * Method handles the actions onclick of the delete btn */
 
-    override fun onDeclineClick(mission: MissionItem, position: Int) {
+    override fun onDeclineClick(mission: MissionItem, position: Int, id: String) {
 
-        /** Onclick of the decline btn, the location data is removed from the Mission's list
-         * For now, this logic here just removes at that position from the dummy list of the locations data*/
+        /** Onclick of the decline btn, a network call is made to update the status of the mission
+         * this mission data is removed from the missions list
+         * And then, this mission data is removed from the missions table in Room.
+         **/
 
-        locationTitlesList.removeAt(position)
+        viewModel.updateMissionStatus(token, id, "declined")
+
+        missionList.removeAt(position)
+
+        roomViewModel.deleteByMissionId(id)
 
         adapter.notifyItemRemoved(position)
 
-        if (locationTitlesList.size == 0) {
+        if (missionList.size == 0) {
             setNoMissionViewVisible()
         }
     }
 
-    private fun setNoMissionViewVisible(){
+    private fun setNoMissionViewVisible() {
         setInVisibility(binding.fragmentMissionRv)
         setVisibility(binding.fragmentEmptyMission.missionShoesIv)
         setVisibility(binding.fragmentEmptyMission.missionNoMissionTv)
         setVisibility(binding.fragmentEmptyMission.missionNoMissionTwoTv)
+        setInVisibility(binding.fragmentEmptyMission.fragmentMissionPb)
     }
 
-    private fun setNoMissionViewInVisible(){
+    private fun setNoMissionViewInVisible() {
         setVisibility(binding.fragmentMissionRv)
         setInVisibility(binding.fragmentEmptyMission.missionShoesIv)
         setInVisibility(binding.fragmentEmptyMission.missionNoMissionTv)
         setInVisibility(binding.fragmentEmptyMission.missionNoMissionTwoTv)
+        setInVisibility(binding.fragmentEmptyMission.fragmentMissionPb)
+    }
+
+    private fun readMissionsFromRoom(){
+        roomViewModel.mission.observe(viewLifecycleOwner, Observer {
+
+            missionList.clear()
+
+            /**
+             * adding assigned missions to recyclerview list
+             */
+
+            for (mission in it) {
+                val title = mission.locationTitle
+                val description = mission.locationSubTitle
+                val missionId = mission.Id
+
+                val missionItem = MissionItem(title,  description, id = missionId)
+
+                missionList.add(missionItem)
+
+                Log.i("TITLE", title)
+
+                adapter.setMyList(missionList)
+                adapter.notifyDataSetChanged()
+            }
+
+            if (missionList.size == 0) {
+                setNoMissionViewVisible()
+                binding.fragmentMissionSrl.isRefreshing = false
+            } else {
+                setNoMissionViewInVisible()
+            }
+
+        })
     }
 
 }

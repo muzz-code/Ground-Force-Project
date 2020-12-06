@@ -143,11 +143,12 @@ class LoginFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
-                    val successResponse: LoginResponse = it.value.data!!
+                    val successResponse = it.value.data?.loginToken!!
 
                     //On Login Success, Save token to sharedPref and go to dashboard
                     SessionManager.save(requireContext(), TOKEN, successResponse.token)
-                    //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
+                    SessionManager.save(requireContext(), USERID, successResponse.id)
+                   //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
                    // Log.i("Login Response", successResponse.token)
                     goToDashboard()
                 }

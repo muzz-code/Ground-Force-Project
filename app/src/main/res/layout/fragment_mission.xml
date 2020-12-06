@@ -8,6 +8,15 @@
     android:padding="16dp"
     tools:context=".ui.dashboard.mission.MissionFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/fragment_mission_srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_mission_rv"
             android:layout_width="match_parent"
@@ -19,17 +28,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/mission_item" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
     <include
         android:id="@+id/fragment_empty_mission"
         layout="@layout/empty_mission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_mission_rv"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_mission_rv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fragment_mission_rv" />
-
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

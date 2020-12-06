@@ -17,7 +17,7 @@ interface AuthRepository {
     suspend fun getUser(token: String, id: String): Resource<GenericResponseClass<UserResponse>>
     suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>>
     suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): Resource<GenericResponseClass<ChangePasswordResponse>>
-    suspend fun getMissions(agentId: String, status: String, page: String): Resource<GenericResponseClass<GetMissionResponse>>
-    suspend fun updateMissionStatus(missionId: String, status: String): Resource<GenericResponseClass<UpdateMissionStatusResponse>>
+    suspend fun getMissions(token: String, agentId: String, status: String, page: String): Resource<GenericResponseClass<GetMissionResponse>>
+    suspend fun updateMissionStatus(token: String, missionId: String, status: String): Resource<GenericResponseClass<UpdateMissionStatusResponse>>
     suspend fun submitMission(submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
 }
