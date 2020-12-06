@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
@@ -18,6 +19,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.room.RoomAdditionalDetail
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -43,6 +45,7 @@ class AgentDashboardFragment : Fragment() {
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
 
@@ -100,9 +103,14 @@ class AgentDashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
+        dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
+
+
         /** Set firstName from shared preference if isn't present  **/
+
 
         if (firstName.isNotEmpty()) {
             val savedName = "Hello $firstName"
@@ -192,7 +200,6 @@ class AgentDashboardFragment : Fragment() {
             roomViewModel.deleteAllOngoingMission()
         }
 
-
         // Navigate to Home on Back Press
         requireActivity().onBackPressedDispatcher.addCallback {
             if (findNavController().currentDestination?.id == R.id.agentDashboardFragment) {
@@ -201,7 +208,6 @@ class AgentDashboardFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }
-
 
     }
 

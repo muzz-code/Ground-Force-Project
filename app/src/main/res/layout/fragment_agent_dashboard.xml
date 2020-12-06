@@ -122,6 +122,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
 
             <!-- Scrollable content -->
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_agent_dashboard_details_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
