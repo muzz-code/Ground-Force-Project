@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.repository
 
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class AuthRepositoryImpl
 @Inject
 constructor(
-    private val api: LoginAuthApi
+    private val api: LoginAuthApi,
+    private val missionsApi: MissionsApi
 ) : BaseRepository(), AuthRepository {
 
     override suspend fun login(loginRequest: LoginRequest): Resource<GenericResponseClass<LoginResponse>> =
@@ -44,6 +46,12 @@ constructor(
             api.getUser(id)
         }
 
+
+    override suspend fun getUser(token: String, id: String): Resource<GenericResponseClass<UserResponse>> =
+        safeApiCall {
+            api.getUser(token, id)
+        }
+
     override suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>> =
         safeApiCall {
             api.putUser(user)
@@ -53,5 +61,23 @@ constructor(
             : Resource<GenericResponseClass<ChangePasswordResponse>> = safeApiCall {
         api.changePassword(changePasswordRequest)
     }
+
+    override suspend fun
+            getMissions(token: String, agentId: String, status: String, page: String):
+                Resource<GenericResponseClass<GetMissionResponse>> = safeApiCall {
+                        missionsApi.getMissions(token, agentId, status, page)
+                }
+
+    override suspend fun
+            updateMissionStatus(token: String, missionId: String, status: String):
+            Resource<GenericResponseClass<UpdateMissionStatusResponse>> = safeApiCall {
+                missionsApi.updateMissionStatus(token, missionId, status)
+            }
+
+    override suspend fun submitMission(submitMissionRequest: SubmitMissionRequest):
+            Resource<GenericResponseClass<SubmitMissionResponse>> = safeApiCall{
+        missionsApi.submitMission(submitMissionRequest)
+    }
+
 
 }

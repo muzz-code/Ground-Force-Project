@@ -49,6 +49,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var profileImageView: ImageView
 
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+
     /** onCreateView over ride function **/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +70,20 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        roomViewModel.agentObject.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+
+                val firstName = it[it.lastIndex].firstName
+                val lastName = it[it.lastIndex].lastName
+                val name = "$firstName $lastName"
+                val email = it[it.lastIndex].email
+
+                binding.fragmentUserProfileUserNameTv.text = name
+                binding.fragmentUserProfileUserEmailTv.text = email
+
+            }
+        })
 
         setArrayAdapters()
 

@@ -24,6 +24,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
@@ -42,6 +43,9 @@ class LocationsVerificationFragment : Fragment() {
 
     @Inject
     lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
 
     private lateinit var viewModel: AuthViewModel
 
@@ -65,7 +69,7 @@ class LocationsVerificationFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentLocationsVerificationBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -295,7 +299,8 @@ class LocationsVerificationFragment : Fragment() {
 //        } else {
 //            // This is Deprecated in API 28
 //            val mode = Settings.Secure.getInt(
-//                context.contentResolver, Settings.Secure.LOCATION_MODE,
+//                context.contentResolver,
+//                Settings.Secure.LOCATION_MODE,
 //                Settings.Secure.LOCATION_MODE_OFF
 //            )
 //            mode != Settings.Secure.LOCATION_MODE_OFF

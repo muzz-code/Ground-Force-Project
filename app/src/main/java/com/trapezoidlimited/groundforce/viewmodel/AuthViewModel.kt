@@ -1,11 +1,13 @@
 package com.trapezoidlimited.groundforce.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.*
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.ParentResponse
 import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.utils.SessionManager
 import kotlinx.coroutines.launch
 /**
  * AuthViewModel class launches methods in the AuthRepository to make network calls
@@ -51,6 +53,12 @@ class AuthViewModel(
     val getUserResponse: LiveData<Resource<GenericResponseClass<UserResponse>>>
         get() = _getUserResponse
 
+    /** get user details response */
+
+    private val _getUserResponseA: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> = MutableLiveData()
+    val getUserResponseA: LiveData<Resource<GenericResponseClass<UserResponse>>>
+        get() = _getUserResponseA
+
     /** updating user details response */
 
     private val _putUserResponse: MutableLiveData<Resource<GenericResponseClass<PutUserResponse>>> = MutableLiveData()
@@ -95,6 +103,10 @@ class AuthViewModel(
 
     fun getUser(id: String) = viewModelScope.launch {
         _getUserResponse.value = repository.getUser(id)
+    }
+
+    fun getUser(token: String, id: String) = viewModelScope.launch {
+        _getUserResponseA.value = repository.getUser(token, id)
     }
 
     fun putUser(user: PutUserRequest) = viewModelScope.launch {

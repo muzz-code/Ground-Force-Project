@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
@@ -47,6 +48,9 @@ class PhoneVerificationFragment : Fragment() {
     @Inject
     lateinit var retrofit: Retrofit
 
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
     private lateinit var viewModel: AuthViewModel
 
 
@@ -61,7 +65,7 @@ class PhoneVerificationFragment : Fragment() {
 
         phoneNumber = args.phoneNumber
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -161,7 +165,7 @@ class PhoneVerificationFragment : Fragment() {
         //navigate to create profile fragment
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
-            //            findNavController().navigate(
+//            findNavController().navigate(
 //                R.id.action_phoneVerificationFragment_to_emailVerificationOne
 //            )
 

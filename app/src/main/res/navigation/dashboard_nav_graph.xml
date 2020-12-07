@@ -123,5 +123,10 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" />
 
 </navigation>

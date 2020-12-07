@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.dialog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
@@ -32,6 +34,10 @@ class VerifiedDialog : DialogFragment() {
 
     @Inject
     lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
     private var _binding: VerificationResultPageBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewModel
@@ -48,7 +54,7 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         _binding = VerificationResultPageBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
@@ -68,10 +74,18 @@ class VerifiedDialog : DialogFragment() {
             when (it) {
                 is Resource.Success -> {
 
-                    val userId = it.value.data?.id
+                    val userId = it.value.data?.loginToken?.id
+                    val userToken = it.value.data?.loginToken?.token
 
                     /**Saving user's id to sharedPreference */
                     saveToSharedPreference(requireActivity(), USERID, userId!!)
+
+                    /** Saving token to sharedPreference */
+
+                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+
+                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
+
                     setInVisibility(progressBar)
                     findNavController().navigate(R.id.waitingFragment)
 
@@ -79,7 +93,7 @@ class VerifiedDialog : DialogFragment() {
                 }
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
-                    setVisibility(okTextView)
+                    //setVisibility(okTextView)
                     handleApiError(it, retrofit, requireActivity().view)
                     dismiss()
                 }
@@ -121,7 +135,7 @@ class VerifiedDialog : DialogFragment() {
             )
 
             setVisibility(progressBar)
-            setInVisibility(okTextView)
+            //setInVisibility(okTextView)
 
             viewModel.registerAgent(agentData)
 

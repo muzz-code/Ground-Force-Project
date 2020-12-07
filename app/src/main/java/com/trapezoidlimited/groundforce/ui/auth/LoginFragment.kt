@@ -35,6 +35,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.response.LoginResponse
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
@@ -56,6 +57,9 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -127,7 +131,7 @@ class LoginFragment : Fragment() {
         handleSpannable()
         validateFields()
 
-        val repository = AuthRepositoryImpl(loginApiService)
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository)
 
         //Instantiate View Model
@@ -139,11 +143,13 @@ class LoginFragment : Fragment() {
             when (it) {
                 is Resource.Success -> {
                     binding.fragmentLoginProgressBar.hide(binding.loginLoginBtn)
-                    val successResponse: LoginResponse = it.value.data!!
+                    val successResponse = it.value.data?.loginToken!!
+
                     //On Login Success, Save token to sharedPref and go to dashboard
-//                    SessionManager.save(requireContext(), TOKEN, successResponse.token)
-                    saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
-                    Log.i("Login Response", successResponse.token)
+                    SessionManager.save(requireContext(), TOKEN, successResponse.token)
+                    SessionManager.save(requireContext(), USERID, successResponse.id)
+                   //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
+                   // Log.i("Login Response", successResponse.token)
                     goToDashboard()
                 }
                 is Resource.Failure -> {
@@ -172,9 +178,9 @@ class LoginFragment : Fragment() {
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
             val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
-//            binding.fragmentLoginProgressBar.show(it as Button?)
-//            viewModel.login(loginRequest)
-            goToDashboard()
+            binding.fragmentLoginProgressBar.show(it as Button?)
+           viewModel.login(loginRequest)
+            //goToDashboard()
         }
 
     }

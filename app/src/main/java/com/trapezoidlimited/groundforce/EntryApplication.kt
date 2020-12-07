@@ -36,6 +36,7 @@ class EntryApplication : Application() {
                 RoomViewModel::class.java
             )
         }
+
     }
 
     override fun onCreate() {
