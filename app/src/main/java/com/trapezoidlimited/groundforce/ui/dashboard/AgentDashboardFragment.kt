@@ -1,8 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +17,6 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.room.RoomAdditionalDetail
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -27,7 +24,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
 import javax.inject.Inject
 import com.trapezoidlimited.groundforce.room.RoomAgent
-import com.trapezoidlimited.groundforce.ui.main.MainActivity
 
 
 @AndroidEntryPoint
@@ -65,14 +61,12 @@ class AgentDashboardFragment : Fragment() {
         logOut()
 
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
         val userId = loadFromSharedPreference(requireActivity(), USERID)
-        val token = SessionManager.load(requireContext(), TOKEN)
-
 
         /** Checking is user object is saved in Room
          *
@@ -89,7 +83,7 @@ class AgentDashboardFragment : Fragment() {
 
                 binding.fragmentAgentDashboardCl.visibility = View.GONE
                 binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
-                viewModel.getUser("Bearer $token", userId)
+                viewModel.getUser(userId)
             }
 
         })
@@ -151,7 +145,7 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
-        viewModel.getUserResponseA.observe(viewLifecycleOwner, {
+        viewModel.getUserDetailsResponse.observe(viewLifecycleOwner, {
 
             when (it) {
                 is Resource.Success -> {
@@ -170,7 +164,6 @@ class AgentDashboardFragment : Fragment() {
                     Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
                         .show()
 
-                    /** TO BE FIXED */
 
                     val roomAgent = RoomAgent(
                         agentId = 1,

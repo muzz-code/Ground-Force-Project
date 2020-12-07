@@ -35,6 +35,11 @@ fun EditText.jdValidateName(name: String): Boolean {
     return name.trim().length > 1
 }
 
+/** Validating Name field */
+fun EditText.jdValidateLongText(text: String): Boolean {
+    return text.trim().length > 3
+}
+
 /** Validating DateOfBirth field */
 fun EditText.jdValidateDateOfBirth(date: String): Boolean {
     return date.trim().isNotEmpty()

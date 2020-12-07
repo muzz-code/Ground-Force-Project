@@ -68,7 +68,7 @@ class WelcomeDialog : DialogFragment() {
 
 
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

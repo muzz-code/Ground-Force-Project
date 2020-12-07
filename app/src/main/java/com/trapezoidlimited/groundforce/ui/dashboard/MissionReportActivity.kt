@@ -1,20 +1,56 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.ActivityMissionReportBinding
-import com.trapezoidlimited.groundforce.utils.MissionReportValidation
+import com.trapezoidlimited.groundforce.model.request.SubmitMissionRequest
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.MissionsViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MissionReportActivity : AppCompatActivity() {
     private val validate = MissionReportValidation()
 
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private lateinit var viewModel: MissionsViewModel
+
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+
+    private lateinit var missionId: String
+    private var missionPosition: Int = 0
+
     /** instantiate values**/
-    lateinit var nearestLandmark: String
-    lateinit var nearestBusStop: String
-    lateinit var typeOfStructure: String
-    lateinit var additionalComments: String
+    private lateinit var nearestLandmark: String
+    private lateinit var nearestBusStop: String
+    private lateinit var typeOfStructure: String
+    private lateinit var additionalComments: String
+    private lateinit var latitude: String
+    private lateinit var longitude: String
 
     private lateinit var binding: ActivityMissionReportBinding
 
@@ -22,9 +58,28 @@ class MissionReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMissionReportBinding.inflate(layoutInflater)
 
-
         val view = binding.root
         setContentView(view)
+
+        /** initializing missionViewModel **/
+
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val factory = ViewModelFactory(repository, this)
+
+        viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)
+
+
+        val bundle: Bundle? = intent.extras
+
+        if (bundle != null) {
+            missionId = bundle.getString("MISSIONID")!!
+            missionPosition = bundle.getInt("POSITION")
+        }
+
+        /** validating fields **/
+
+        validateFields()
+
 
         binding.activityMissionReportGroup1Rg.checkedRadioButtonId
 
@@ -38,21 +93,127 @@ class MissionReportActivity : AppCompatActivity() {
         binding.fragmentMissionReportToolBarLl.toolbarFragment.setNavigationOnClickListener {
             finish()
         }
+        val addressExists = binding.activityMissionReportNoOneRb.isChecked || binding.activityMissionReportYesOneRb.isChecked
 
 
-        /***save mission report**/
+        viewModel.updateMissionStatusResponse.observe(this, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    Toast.makeText(this, "Verified", Toast.LENGTH_SHORT).show()
+
+                    val submitMissionRequest = SubmitMissionRequest(
+                        missionId,
+                        "",
+                        nearestLandmark,
+                        nearestBusStop,
+                        "Green",
+                        addressExists,
+                        typeOfStructure,
+                        longitude,
+                        latitude,
+                        additionalComments
+                    )
+
+                    /*** Making network call to submit mission **/
+
+                    viewModel.submitMission(submitMissionRequest)
+
+                    roomViewModel.deleteByMissionId(missionId)
+
+                    Log.i("MISSIONID", missionId)
+
+                    Log.i("POSITION", "$missionPosition")
+
+                }
+                is Resource.Failure -> {
+                    binding.activityMissionReportPb.visibility = View.GONE
+                    handleApiError(it, retrofit, view)
+                }
+            }
+
+        })
+
+        viewModel.submitMissionResponse.observe(this, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    binding.activityMissionReportPb.visibility = View.GONE
+
+                    Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show()
+
+                    Intent(this, DashboardActivity::class.java).apply {
+                        startActivity(this)
+                        finish()
+                    }
+
+                }
+                is Resource.Failure -> {
+                    binding.activityMissionReportPb.visibility = View.GONE
+                    handleApiError(it, retrofit, view)
+                }
+            }
+        })
+
+
         binding.activityMissionReportSubmitBtn.setOnClickListener {
-            if (!validateDetails()) {
-                return@setOnClickListener
-            } else {
-                Toast.makeText(this, R.string.report_saved_str, Toast.LENGTH_SHORT).show()
+
+            binding.activityMissionReportPb.visibility = View.VISIBLE
+
+            /*** Making network call to verified mission **/
+
+            viewModel.updateMissionStatus(missionId, "verified")
+
+            /*** creating submit mission object **/
+
+            nearestLandmark = binding.activityMissionReportLandmarkTil.editText?.text.toString()
+            nearestBusStop = binding.activityMissionReportBusstopTil.editText?.text.toString()
+            typeOfStructure = binding.activityMissionReportStructureTil.editText?.text.toString()
+            additionalComments =
+                binding.activityMissionReportCommentsTil.editText?.text.toString()
+
+            latitude = loadFromSharedPreference(this, LATITUDE)
+            longitude = loadFromSharedPreference(this, LONGITUDE)
+
+        }
+
+        binding.activityMissionReportCancelBtn.setOnClickListener {
+
+            Intent(this, DashboardActivity::class.java).apply {
+                startActivity(this)
                 finish()
             }
         }
 
-        binding.activityMissionReportCancelBtn.setOnClickListener {
-            finish()
-        }
+
+    }
+
+    private fun validateFields() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.activityMissionReportLandmarkEt,
+                editTextInputLayout = binding.activityMissionReportLandmarkTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateLongText(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.activityMissionReportBusstopEt,
+                editTextInputLayout = binding.activityMissionReportBusstopTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateLongText(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.activityMissionReportStructureEt,
+                editTextInputLayout = binding.activityMissionReportStructureTil,
+                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
+                validator = { it.jdValidateLongText(it.text.toString()) }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.activityMissionReportSubmitBtn))
+            .watchWhileTyping(true)
+            .build()
     }
 
     private fun validateDetails(): Boolean {
@@ -92,4 +253,6 @@ class MissionReportActivity : AppCompatActivity() {
         return true
 
     }
+
+
 }

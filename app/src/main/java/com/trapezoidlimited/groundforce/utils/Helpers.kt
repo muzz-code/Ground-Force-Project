@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.utils
 
+import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.widget.Button
@@ -11,6 +12,25 @@ import retrofit2.Retrofit
 
 
 fun Fragment.handleApiError(
+    failure: Resource.Failure,
+    retrofit: Retrofit,
+    view: View
+) {
+    val errorUtils = ErrorUtils(retrofit)
+
+    when {
+        failure.isNetworkError -> {
+            showSnackBar(view, "Please confirm network connection")
+        }
+
+        else -> {
+            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+            error?.errors?.let { showSnackBar(view, it.message!!) }
+        }
+    }
+}
+
+fun Activity.handleApiError(
     failure: Resource.Failure,
     retrofit: Retrofit,
     view: View

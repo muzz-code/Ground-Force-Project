@@ -21,4 +21,5 @@ const val LATITUDE: String = "latitude"
 const val TOKEN: String = "token"
 const val USERID: String = "id"
 const val GROUND_FORCE_IMAGE_NAME = "ground_force_profile_picture.jpg"
+const val UNAUTHORIZED = 401
 

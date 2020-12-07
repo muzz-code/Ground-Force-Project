@@ -60,7 +60,7 @@ class PhoneActivationFragment : Fragment() {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 

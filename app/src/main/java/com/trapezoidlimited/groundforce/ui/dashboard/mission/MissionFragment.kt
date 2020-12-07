@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.adapters.mission.MissionAdapter
@@ -20,6 +22,7 @@ import com.trapezoidlimited.groundforce.databinding.FragmentMissionBinding
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.room.RoomMission
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.MissionsViewModel
@@ -44,14 +47,12 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     private var _binding: FragmentMissionBinding? = null
     private val binding get() = _binding!!
-    private var locationTitlesList = DummyData.missionLocationData()
     private lateinit var missionList: MutableList<MissionItem>
 
     private lateinit var adapter: MissionAdapter
 
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
-    private lateinit var token: String
     private lateinit var userId: String
 
 
@@ -62,7 +63,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         // Inflate the layout for this fragment
 
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)
 
@@ -83,18 +84,17 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
          */
 
         userId = loadFromSharedPreference(requireActivity(), USERID)
-        token = "Bearer ${loadFromSharedPreference(requireActivity(), TOKEN)}"
 
-        viewModel.getMissions(token, userId, "pending", "1")
+        viewModel.getMissions(userId, "pending", "1")
 
         missionList = mutableListOf()
 
 
-        viewModel.getMissionResponse.observe(viewLifecycleOwner, {
-            when (it) {
+        viewModel.getMissionResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
                 is Resource.Success -> {
 
-                    val missions = it.value.data?.data
+                    val missions = response.value.data?.data
 
                     /**
                      * onSuccess add assigned missions to room database
@@ -124,7 +124,15 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
                 is Resource.Failure -> {
 
-                    handleApiError(it, retrofit, requireView())
+                    if (response.errorCode == UNAUTHORIZED) {
+                        Intent(requireContext(), MainActivity::class.java).also {
+                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+                            startActivity(it)
+                            requireActivity().finish()
+                        }
+                    }
+
+                    handleApiError(response, retrofit, requireView())
 
                     /**
                      * Read from room database
@@ -164,7 +172,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
              * Network call to get assigned missions
              */
 
-            viewModel.getMissions(token, userId, "pending", "1")
+            viewModel.getMissions(userId, "pending", "1")
             adapter.notifyDataSetChanged()
 
             binding.fragmentMissionSrl.isRefreshing = false
@@ -193,7 +201,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
          * And then, this mission data is removed from the missions table in Room.
          **/
 
-        viewModel.updateMissionStatus(token, id, "accepted")
+        viewModel.updateMissionStatus( id, "accepted")
 
         missionList.removeAt(position)
 
@@ -216,7 +224,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
          * And then, this mission data is removed from the missions table in Room.
          **/
 
-        viewModel.updateMissionStatus(token, id, "declined")
+        viewModel.updateMissionStatus(id, "declined")
 
         missionList.removeAt(position)
 

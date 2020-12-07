@@ -11,5 +11,4 @@ data class SubmitMissionRequest(
     val longitude: String,
     val latitude: String,
     val remarks: String
-
 )
