@@ -74,9 +74,9 @@ constructor(
                 missionsApi.updateMissionStatus(token, missionId, status)
             }
 
-    override suspend fun submitMission(submitMissionRequest: SubmitMissionRequest):
+    override suspend fun submitMission(token: String, submitMissionRequest: SubmitMissionRequest):
             Resource<GenericResponseClass<SubmitMissionResponse>> = safeApiCall{
-        missionsApi.submitMission(submitMissionRequest)
+        missionsApi.submitMission(token, submitMissionRequest)
     }
 
 

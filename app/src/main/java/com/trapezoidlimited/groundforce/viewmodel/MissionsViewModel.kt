@@ -52,7 +52,7 @@ class MissionsViewModel(
     fun submitMission(
         submitMissionRequest: SubmitMissionRequest
     ) = viewModelScope.launch {
-        _submitMissionResponse.value = repository.submitMission(submitMissionRequest)
+        _submitMissionResponse.value = repository.submitMission(token, submitMissionRequest)
     }
 
 

@@ -103,10 +103,10 @@ class MissionReportActivity : AppCompatActivity() {
 
                     val submitMissionRequest = SubmitMissionRequest(
                         missionId,
-                        "",
+                        "7facf1a8-dd39-4c56-967d-a24786e31301",
                         nearestLandmark,
                         nearestBusStop,
-                        "Green",
+                        "Dark Green",
                         addressExists,
                         typeOfStructure,
                         longitude,
@@ -117,8 +117,6 @@ class MissionReportActivity : AppCompatActivity() {
                     /*** Making network call to submit mission **/
 
                     viewModel.submitMission(submitMissionRequest)
-
-                    roomViewModel.deleteByMissionId(missionId)
 
                     Log.i("MISSIONID", missionId)
 
@@ -137,8 +135,12 @@ class MissionReportActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Success -> {
                     binding.activityMissionReportPb.visibility = View.GONE
+                    binding.activityMissionReportSubmitBtn.isEnabled = true
 
                     Toast.makeText(this, "Submit", Toast.LENGTH_SHORT).show()
+
+                    /*** Making network call to submit mission **/
+                    roomViewModel.deleteByOngoingMissionId(missionId)
 
                     Intent(this, DashboardActivity::class.java).apply {
                         startActivity(this)
@@ -157,6 +159,8 @@ class MissionReportActivity : AppCompatActivity() {
         binding.activityMissionReportSubmitBtn.setOnClickListener {
 
             binding.activityMissionReportPb.visibility = View.VISIBLE
+
+            binding.activityMissionReportSubmitBtn.isEnabled = false
 
             /*** Making network call to verified mission **/
 
