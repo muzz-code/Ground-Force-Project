@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.dashboard.PaymentHistory" >
+    tools:context=".ui.dashboard.PaymentHistory">
 
     <include
         android:id="@+id/fragment_primary_history_toolbar"
@@ -18,14 +19,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        >
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/fragment_payment_history_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            app:tabTextAppearance="@style/CustomTabStyle"
+            android:background="@drawable/mission_separator_bg">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

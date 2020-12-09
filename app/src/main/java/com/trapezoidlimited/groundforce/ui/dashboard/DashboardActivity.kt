@@ -2,10 +2,12 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -16,6 +18,7 @@ import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
@@ -34,10 +37,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     lateinit var profileImage: ImageView
 
+    private lateinit var profileNameTextView: TextView
+
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var drawerLayout: DrawerLayout
     private var googleAccount: GoogleSignInAccount? = null
 
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +62,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val navHeaderView = LayoutInflater.from(this)
             .inflate(R.layout.nav_header_main, agentDashboard_navigation_view, true)
 
+
         profileImage = navHeaderView.nav_header_agent_icon
+
+        /** Initializing user's profile name **/
+
+        profileNameTextView = navHeaderView.agentDashboardframent_user_name_tv
 
 
         //Initialize Drawer Menu Listener
@@ -76,6 +87,20 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 .load(googleAccount?.photoUrl)
                 .into(profileImage)
         }
+
+        /** Setting user's profile name from room database */
+
+        roomViewModel.agentObject.observe(this, {
+            if (it.isNotEmpty()) {
+
+                val firstName = it[it.lastIndex].firstName
+                val lastName = it[it.lastIndex].lastName
+                val name = "$firstName $lastName"
+
+                profileNameTextView.text = name
+            }
+        })
+
 
     }
 
@@ -115,8 +140,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 selectActiveIcon()
             }
             R.id.nav_payment -> {
-
-                showToast("Payment")
+                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.paymentHistory)
+                //showToast("Payment")
             }
             R.id.nav_security -> {
                 showToast("Security")

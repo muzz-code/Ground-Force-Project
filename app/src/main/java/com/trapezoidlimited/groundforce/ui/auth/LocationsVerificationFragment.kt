@@ -80,8 +80,10 @@ class LocationsVerificationFragment : Fragment() {
         binding.fragmentLocationVerificationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
 
         /** set navigation arrow from drawable **/
-        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
+        if (VERIFICATION_SCREEN == "false") {
+            binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+        }
 
         /**
          * Get the duration of the animation

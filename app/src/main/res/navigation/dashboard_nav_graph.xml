@@ -128,5 +128,10 @@
         android:name="com.trapezoidlimited.groundforce.ui.profile.UpdateProfileFragment"
         android:label="fragment_update_profile"
         tools:layout="@layout/fragment_update_profile" />
+    <fragment
+        android:id="@+id/locationsVerificationFragment2"
+        android:name="com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment"
+        android:label="fragment_locations_verification"
+        tools:layout="@layout/fragment_locations_verification" />
 
 </navigation>

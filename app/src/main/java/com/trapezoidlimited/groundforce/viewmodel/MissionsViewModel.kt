@@ -35,12 +35,14 @@ class MissionsViewModel(
     val submitMissionResponse: LiveData<Resource<GenericResponseClass<SubmitMissionResponse>>>
         get() = _submitMissionResponse
 
+
     fun getMissions(
                     agentId: String,
                     status: String,
                     page: String) = viewModelScope.launch {
         _getMissionResponse.value = repository.getMissions(token, agentId, status, page)
     }
+
 
     fun updateMissionStatus(
         missionId: String,

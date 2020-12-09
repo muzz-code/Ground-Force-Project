@@ -16,10 +16,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import java.io.File
 import java.util.*
@@ -48,6 +46,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var googleAccount: GoogleSignInAccount? = null
 
     private lateinit var profileImageView: ImageView
+    private lateinit var addProfileImageView: ImageView
+
+    private lateinit var verifyLocationTextView: TextView
 
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
@@ -95,6 +96,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         profileImageView = binding.fragmentCreateProfileOneProfileImageIv
+        addProfileImageView = binding.fragmentCreateProfileOneProfileAddPhotoIv
+        verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
 
         validateFields()
 
@@ -112,7 +115,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         //Open Camera and capture Image
-        profileImageView.setOnClickListener {
+        addProfileImageView.setOnClickListener {
             if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
 
@@ -126,6 +129,14 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         } else {
             genericRepository.getImageFromStorage(requireActivity(), profileImageView)
         }
+
+
+        verifyLocationTextView.setOnClickListener {
+            //findNavController().navigate(R.id.locationsVerificationFragment2)
+        }
+
+
+
     }
 
     private fun agentImageIsSaved(): Boolean {

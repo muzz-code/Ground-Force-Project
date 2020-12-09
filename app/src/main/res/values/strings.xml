@@ -269,7 +269,7 @@
     <string name="email_instruction_str">Please enter your email address.</string>
     <string name="email_confirm_btn_str">Confirm</string>
     <string name="change_email_str">Change Email</string>
-    <string name="password_str">Password</string>
+    <string name="password_str">Pin</string>
 
     <string name="residential_information_title_str">Residential Information</string>
     <string name="street_title_str">Street</string>
@@ -289,6 +289,7 @@
     <string name="account_number">Account Number</string>
     <string name="bank_code">Bank Code</string>
     <string name="complete_now_str">Complete Now</string>
+    <string name="confirm_password_str_two">Confirm Pin</string>
 
 </resources>
 

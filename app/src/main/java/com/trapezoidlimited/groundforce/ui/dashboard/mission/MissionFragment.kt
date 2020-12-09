@@ -130,9 +130,9 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                             startActivity(it)
                             requireActivity().finish()
                         }
+                    } else {
+                        handleApiError(response, retrofit, requireView())
                     }
-
-                    handleApiError(response, retrofit, requireView())
 
                     /**
                      * Read from room database

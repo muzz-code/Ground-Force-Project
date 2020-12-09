@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
 import javax.inject.Inject
 import com.trapezoidlimited.groundforce.room.RoomAgent
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 
 
 @AndroidEntryPoint
@@ -145,14 +147,14 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
-        viewModel.getUserDetailsResponse.observe(viewLifecycleOwner, {
+        viewModel.getUserDetailsResponse.observe(viewLifecycleOwner, { response ->
 
-            when (it) {
+            when (response) {
                 is Resource.Success -> {
 
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
 
-                    val name = it.value.data?.firstName
+                    val name = response.value.data?.firstName
 
 
                     binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
@@ -161,19 +163,19 @@ class AgentDashboardFragment : Fragment() {
 
                     /** Adding Agent Details to Room Database */
 
-                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), response.value.data?.firstName!!, Toast.LENGTH_SHORT)
                         .show()
 
 
                     val roomAgent = RoomAgent(
                         agentId = 1,
-                        id = it.value.data?.id!!,
-                        lastName = it.value.data.lastName,
-                        firstName = it.value.data.firstName,
-                        email = it.value.data.email,
-                        residentialAddress = it.value.data.residentialAddress,
-                        dob = it.value.data.dob,
-                        gender = it.value.data.gender,
+                        id = response.value.data?.id!!,
+                        lastName = response.value.data.lastName,
+                        firstName = response.value.data.firstName,
+                        email = response.value.data.email,
+                        residentialAddress = response.value.data.residentialAddress,
+                        dob = response.value.data.dob,
+                        gender = response.value.data.gender,
                     )
 
                     roomViewModel.addAgent(roomAgent)
@@ -181,16 +183,26 @@ class AgentDashboardFragment : Fragment() {
 
                 }
                 is Resource.Failure -> {
-                    handleApiError(it, retrofit, requireView())
+
+                    binding.fragmentAgentDashboardLl.visibility = View.GONE
+
+                    if (response.errorCode == UNAUTHORIZED) {
+                        Intent(requireContext(), MainActivity::class.java).also {
+                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+                            startActivity(it)
+                            requireActivity().finish()
+                        }
+
+                    }else {
+                        handleApiError(response, retrofit, requireView())
+                    }
                 }
             }
         })
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            //findNavController().navigate(R.id.updateProfileFragment)
-            roomViewModel.deleteAllMission()
-            roomViewModel.deleteAllOngoingMission()
+            findNavController().navigate(R.id.updateProfileFragment)
         }
 
         // Navigate to Home on Back Press

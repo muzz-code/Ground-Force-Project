@@ -1,15 +1,17 @@
 package com.trapezoidlimited.groundforce.room
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.trapezoidlimited.groundforce.data.AgentObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
 
 
-    var agentObject: LiveData<List<RoomAgent>> = repository.readAgent()
+    var agentObject: LiveData<List<RoomAgent>> =  repository.readAgent()
 
     val additionalDetail: LiveData<List<RoomAdditionalDetail>> = repository.readAdditionalDetail()
 
@@ -17,6 +19,9 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
 
     var ongoingMission: LiveData<List<RoomOngoingMission>> = repository.readAllOngoingMissions()
 
+    private var _agentObjectA: MutableLiveData<List<RoomAgent>> = MutableLiveData()
+    val agentObjectA: LiveData<List<RoomAgent>>
+        get() = _agentObjectA
 
     fun addAgent(agent: RoomAgent) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -75,6 +80,12 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     fun deleteByOngoingMissionId(missionId: String) {
         viewModelScope.launch {
             repository.deleteByOngoingMissionId(missionId)
+        }
+    }
+
+    fun readAgent(){
+        viewModelScope.launch {
+            _agentObjectA.postValue(repository.readAgentA())
         }
     }
 

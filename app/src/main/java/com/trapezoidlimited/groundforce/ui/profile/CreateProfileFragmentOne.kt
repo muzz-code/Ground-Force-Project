@@ -159,6 +159,13 @@ class CreateProfileFragmentOne : Fragment() {
                 editTextInputLayout = binding.fragmentCreateProfileOnePasswordTil,
                 errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
                 validator = { it.jdValidatePin(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateProfileOneConfirmPasswordEt,
+                editTextInputLayout = binding.fragmentCreateProfileOneConfirmPasswordTil,
+                errorMessage = JDErrorConstants.PASSWORD_DOES_NOT_MATCH,
+                validator = { it.jdValidateConfirmPassword(binding.fragmentCreateProfileOnePasswordEt,
+                    binding.fragmentCreateProfileOneConfirmPasswordEt) }
             )
         )
 

@@ -60,7 +60,7 @@ class ResetPasswordFragment : Fragment() {
                 validator = {
                     it.jdValidateConfirmPassword(
                         binding.fragmentResetNewPasswordEt,
-                        it.text.toString()
+                        binding.fragmentResetConfirmNewPasswordEt
                     )
                 }
             )

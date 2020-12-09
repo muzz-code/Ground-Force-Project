@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.room
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
     override suspend fun addAgent(agent: RoomAgent) {
@@ -39,6 +40,7 @@ class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
         return dao.readAllOngoingMissions()
     }
 
+
     override suspend fun deleteAllMissions(){
         dao.deleteAllMissions()
     }
@@ -57,6 +59,10 @@ class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
 
     override suspend fun deleteByOngoingMissionId(missionId: String) {
         dao.deleteByOngoingMissionId(missionId)
+    }
+
+    override suspend fun readAgentA(): List<RoomAgent> {
+       return dao.readAgentA()
     }
 
 

@@ -13,7 +13,10 @@ fun EditText.jdValidatePassword(password: String): Boolean {
     return password.length >= 6
 }
 
-fun EditText.jdValidateConfirmPassword(password: EditText, confirmPassword: String): Boolean {
+fun EditText.jdValidateConfirmPassword(password: EditText, confirmPasswordEditText: EditText): Boolean {
+
+    val confirmPassword = confirmPasswordEditText.text.toString().trim()
+
     return password.text.toString().trim() == confirmPassword
 }
 

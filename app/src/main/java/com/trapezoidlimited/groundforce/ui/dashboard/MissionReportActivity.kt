@@ -220,43 +220,6 @@ class MissionReportActivity : AppCompatActivity() {
             .build()
     }
 
-    private fun validateDetails(): Boolean {
-
-        nearestLandmark = binding.activityMissionReportLandmarkTil.editText?.text.toString().trim()
-        nearestBusStop = binding.activityMissionReportBusstopTil.editText?.text.toString().trim()
-        typeOfStructure = binding.activityMissionReportStructureTil.editText?.text.toString().trim()
-        additionalComments =
-            binding.activityMissionReportCommentsTil.editText?.text.toString().trim()
-
-        if (!validate.validateTextInput(nearestLandmark)) {
-            binding.activityMissionReportLandmarkTil.error = "Field cannot be empty"
-            return false
-        } else {
-            binding.activityMissionReportLandmarkTil.error = null
-
-        }
-        if (!validate.validateTextInput(nearestBusStop)) {
-            binding.activityMissionReportBusstopTil.error = "Field cannot be empty"
-            return false
-        } else {
-            binding.activityMissionReportBusstopTil.error = null
-        }
-        if (!validate.validateTextInput(typeOfStructure)) {
-            binding.activityMissionReportStructureTil.error = "Field cannot be empty"
-            return false
-        } else {
-            binding.activityMissionReportStructureTil.error = null
-        }
-        if (!validate.validateTextInput(additionalComments)) {
-            binding.activityMissionReportCommentsTil.error = "Field cannot be empty"
-            return false
-        } else {
-            binding.activityMissionReportCommentsTil.error = null
-        }
-
-        return true
-
-    }
 
 
 }
