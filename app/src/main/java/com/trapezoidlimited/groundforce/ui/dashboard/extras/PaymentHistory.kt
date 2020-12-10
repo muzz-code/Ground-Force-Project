@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -42,7 +43,15 @@ class PaymentHistory : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentPrimaryHistoryToolbar.toolbarFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.agentDashboardFragment)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback{
+            if (findNavController().currentDestination?.id == R.id.paymentHistory) {
+                findNavController().navigate(R.id.agentDashboardFragment)
+            } else {
+                findNavController().popBackStack()
+            }
         }
 
         paymentHistoryTabLayout = binding.fragmentPaymentHistoryTabLayout
