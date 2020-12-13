@@ -41,6 +41,15 @@ constructor(
             api.registerUser(agent)
         }
 
+    override suspend fun verifyEmail(email: String): Resource<GenericResponseClass<VerifyEmailResponse>> = safeApiCall {
+        api.verifyEmail(email)
+    }
+
+    override suspend fun confirmEmail(email: String, verificationCode: String):
+            Resource<GenericResponseClass<ConfirmEmailResponse>> = safeApiCall {
+        api.confirmEmail(email, verificationCode)
+    }
+
     override suspend fun getUser(id: String): Resource<GenericResponseClass<UserResponse>> =
         safeApiCall {
             api.getUser(id)

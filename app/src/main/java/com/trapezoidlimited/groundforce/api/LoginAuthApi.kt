@@ -61,4 +61,23 @@ interface LoginAuthApi {
         @Body changePasswordRequest: ChangePasswordRequest
     ): GenericResponseClass<ChangePasswordResponse>
 
+    @Multipart
+    @POST("Auth/verify-email")
+    suspend fun verifyEmail(
+       @Part email: String
+    ): GenericResponseClass<VerifyEmailResponse>
+
+    @Multipart
+    @POST("Auth/verify-email")
+    suspend fun confirmEmail(
+        @Part email: String,
+        @Part verificationCode: String
+    ): GenericResponseClass<ConfirmEmailResponse>
+
+    @POST("Auth/verify-location")
+    suspend fun verifyLocation(
+        @Header("Authorization") token: String,
+
+    )
+
 }

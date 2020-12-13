@@ -48,6 +48,21 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_agentDashboardFragment_to_helpFragment"
+            app:destination="@id/helpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_agentDashboardFragment_to_securityFragment"
+            app:destination="@id/securityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
 
     <fragment
@@ -115,7 +130,7 @@
 
     <fragment
         android:id="@+id/paymentHistory"
-        android:name="com.trapezoidlimited.groundforce.ui.dashboard.PaymentHistory"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.PaymentHistory"
         android:label="fragment_payment_history"
         tools:layout="@layout/fragment_payment_history" />
     <fragment
@@ -129,9 +144,69 @@
         android:label="fragment_update_profile"
         tools:layout="@layout/fragment_update_profile" />
     <fragment
-        android:id="@+id/locationsVerificationFragment2"
-        android:name="com.trapezoidlimited.groundforce.ui.auth.LocationsVerificationFragment"
-        android:label="fragment_locations_verification"
-        tools:layout="@layout/fragment_locations_verification" />
+        android:id="@+id/helpFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help"
+        >
+        <action
+            android:id="@+id/action_helpFragment_to_callCentreFragment"
+            app:destination="@id/callCentreFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_helpFragment_to_FAQFragment"
+            app:destination="@id/FAQFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/callCentreFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.CallCentreFragment"
+        android:label="fragment_call_centre"
+        tools:layout="@layout/fragment_call_centre" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        tools:layout="@layout/fragment_change_password">
+        <action
+            android:id="@+id/action_changePasswordFragment_to_createNewPasswordFragment"
+            app:destination="@id/createNewPasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createNewPasswordFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.CreateNewPasswordFragment"
+        android:label="fragment_create_new_password"
+        tools:layout="@layout/fragment_create_new_password" />
+    <fragment
+        android:id="@+id/securityFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.SecurityFragment"
+        android:label="fragment_security"
+        tools:layout="@layout/fragment_security" >
+        <action
+            android:id="@+id/action_securityFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/FAQFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.FAQFragment"
+        android:label="fragment_f_a_q"
+        tools:layout="@layout/fragment_f_a_q" />
 
 </navigation>

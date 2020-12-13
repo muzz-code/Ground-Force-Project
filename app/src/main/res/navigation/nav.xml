@@ -212,6 +212,14 @@
         <action
             android:id="@+id/action_emailVerificationTwo_to_createProfileFragmentOne"
             app:destination="@id/createProfileFragmentOne" />
+        <argument
+            android:name="verificationCode"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="groundforce.com/email-verification/{otp}" />
     </fragment>
 
 

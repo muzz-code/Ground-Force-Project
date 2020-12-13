@@ -11,12 +11,15 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -52,6 +55,17 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
+    private lateinit var userNameTextView: TextView
+    private lateinit var userEmailAddressTextView: TextView
+    private lateinit var firstNameEditText: EditText
+    private lateinit var lastNameEditText: EditText
+    private lateinit var dateOfBirthEditText: EditText
+    private lateinit var emailAddressEditText: EditText
+    private lateinit var additionalPhoneEditText: EditText
+    private lateinit var residenceAddressEditText: EditText
+
+
+
     /** onCreateView over ride function **/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +73,17 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+
+        /** Initializing views */
+
+        userNameTextView = binding.fragmentUserProfileUserNameTv
+        userEmailAddressTextView = binding.fragmentUserProfileUserEmailTv
+        firstNameEditText = binding.fragmentUserProfileFirstNameEt
+        lastNameEditText = binding.fragmentUserProfileLastNameEt
+        dateOfBirthEditText = binding.fragmentUserProfileDateBirthEt
+        emailAddressEditText = binding.fragmentUserProfileEmailAddressEt
+        additionalPhoneEditText = binding.fragmentUserProfileAdditionalNumberEt
+        residenceAddressEditText = binding.fragmentUserProfileResidentialAddressEt
 
         /** setting toolbar text **/
         binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
@@ -69,7 +94,15 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.agentDashboardFragment)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback{
+            if (findNavController().currentDestination?.id == R.id.userProfileFragment) {
+                findNavController().navigate(R.id.agentDashboardFragment)
+            } else {
+                findNavController().popBackStack()
+            }
         }
 
         roomViewModel.agentObject.observe(viewLifecycleOwner, {
@@ -79,9 +112,32 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val lastName = it[it.lastIndex].lastName
                 val name = "$firstName $lastName"
                 val email = it[it.lastIndex].email
+                val dob = it[it.lastIndex].dob
+                val gender = it[it.lastIndex].gender
+                val residentialAddress = it[it.lastIndex].residentialAddress
 
-                binding.fragmentUserProfileUserNameTv.text = name
-                binding.fragmentUserProfileUserEmailTv.text = email
+                val firstNameEt = SpannableStringBuilder(firstName)
+                val lastNameEt = SpannableStringBuilder(lastName)
+                val emailEt = SpannableStringBuilder(email)
+                val dobEt = SpannableStringBuilder(dob)
+                val residentAddressEt = SpannableStringBuilder(residentialAddress)
+
+                userNameTextView.text = name
+                userEmailAddressTextView.text = email
+                firstNameEditText.text = firstNameEt
+                lastNameEditText.text = lastNameEt
+                emailAddressEditText.text = emailEt
+                dateOfBirthEditText.text = dobEt
+                residenceAddressEditText.text = residentAddressEt
+
+
+                when (gender) {
+                    "m" -> binding.fragmentUserProfileGenderSp.setSelection(1)
+                    "f" -> binding.fragmentUserProfileGenderSp.setSelection(2)
+                    "o" -> binding.fragmentUserProfileGenderSp.setSelection(3)
+                    else -> binding.fragmentUserProfileGenderSp.setSelection(0)
+                }
+
 
             }
         })

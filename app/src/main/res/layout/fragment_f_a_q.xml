@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.extras.FAQFragment">
+
+    <!--    Include to tool bar -->
+    <include
+        android:id="@+id/fragment_FAQ_ict"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:lineHeight="24dp"
+                style="@style/colorPrimaryBlackSmallText"
+                android:text="@string/faq_question_str"
+                />
+
+            <TextView
+                android:id="@+id/fragment_FAQ_reach_us_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="8dp"
+                android:paddingTop="4dp"
+                style="@style/colorPrimaryBlackSmallText"
+                android:text="@string/call_to_action_reach_us_str"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_FAQ_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="#ffffff"
+                tools:listitem="@layout/faq_list_group"/>
+
+        </LinearLayout>
+
+
+</LinearLayout>

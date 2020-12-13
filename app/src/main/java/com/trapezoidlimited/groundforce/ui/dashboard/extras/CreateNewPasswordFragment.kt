@@ -5,56 +5,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.databinding.FragmentCreateNewPasswordBinding
+import com.trapezoidlimited.groundforce.utils.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CreateNewPasswordFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CreateNewPasswordFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentCreateNewPasswordBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_new_password, container, false)
+        _binding = FragmentCreateNewPasswordBinding.inflate(inflater, container, false)
+
+        binding.fragmentCreateNewPasswordIct.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+        binding.fragmentCreateNewPasswordIct.toolbarTitle.text = getString(R.string.create_new_password_title_str)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreateNewPasswordFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CreateNewPasswordFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        /** set navigation to go to the home screen **/
+
+        binding.fragmentCreateNewPasswordIct.toolbarFragment.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentCreateNewPasswordEt,
+                editTextInputLayout = binding.fragmentCreateNewPasswordTil,
+                errorMessage = JDErrorConstants.INVALID_PASSWORD_ERROR,
+                validator = { it.jdValidatePin(it.text.toString()) }
+            ),
+            JDataClass(
+                editText = binding.fragmentCreateRepeatNewPasswordEt,
+                editTextInputLayout = binding.fragmentCreateRepeatNewPasswordTil,
+                errorMessage = JDErrorConstants.PASSWORD_DOES_NOT_MATCH,
+                validator = {
+                    it.jdValidateConfirmPassword(
+                        binding.fragmentCreateNewPasswordEt,
+                        binding.fragmentCreateRepeatNewPasswordEt
+                    )
                 }
-            }
+            )
+        )
+
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(binding.fragmentCreateRepeatNewPasswordConfirmBtn))
+            .watchWhileTyping(true)
+            .build()
+
+
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
+    }
+
+
 }

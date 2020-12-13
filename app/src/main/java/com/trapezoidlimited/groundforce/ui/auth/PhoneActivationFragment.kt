@@ -147,7 +147,11 @@ class PhoneActivationFragment : Fragment() {
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
                     binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
-                    handleApiError(it, retrofit, requireView())
+
+                    val message = "Number is already confirmed"
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne )
+
                 }
             }
         })

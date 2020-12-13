@@ -1,7 +1,6 @@
-package com.trapezoidlimited.groundforce.ui.dashboard
+package com.trapezoidlimited.groundforce.ui.dashboard.extras
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -47,6 +46,13 @@ class HelpFragment : Fragment() {
             }
         }
 
+        binding.fragmentHelpCallLl.setOnClickListener {
+            findNavController().navigate(R.id.action_helpFragment_to_callCentreFragment)
+        }
+
+        binding.fragmentHelpFaqLl.setOnClickListener {
+            findNavController().navigate(R.id.action_helpFragment_to_FAQFragment)
+        }
 
         binding.fragmentHelpIct.toolbarFragment.setNavigationOnClickListener {
             findNavController().navigate(R.id.agentDashboardFragment)

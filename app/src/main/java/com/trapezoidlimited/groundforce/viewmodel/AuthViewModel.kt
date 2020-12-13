@@ -9,6 +9,8 @@ import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.SessionManager
 import com.trapezoidlimited.groundforce.utils.TOKEN
 import kotlinx.coroutines.launch
+import retrofit2.http.Part
+
 /**
  * AuthViewModel class launches methods in the AuthRepository to make network calls
  * in the background and exposes loginResponse LiveData to be observed in the login fragment
@@ -73,6 +75,21 @@ class AuthViewModel(
     val changePasswordResponse: LiveData<Resource<GenericResponseClass<ChangePasswordResponse>>>
         get() = _changePasswordResponse
 
+    /** verify email response */
+
+    private val _verifyEmailResponse: MutableLiveData<Resource<GenericResponseClass<VerifyEmailResponse>>> =
+        MutableLiveData()
+    val verifyEmailResponse: LiveData<Resource<GenericResponseClass<VerifyEmailResponse>>>
+        get() = _verifyEmailResponse
+
+
+    /** confirm email response */
+
+    private val _confirmEmailResponse: MutableLiveData<Resource<GenericResponseClass<ConfirmEmailResponse>>> =
+        MutableLiveData()
+    val confirmEmailResponse: LiveData<Resource<GenericResponseClass<ConfirmEmailResponse>>>
+        get() = _confirmEmailResponse
+
 
     /** response for agent creation */
 
@@ -119,5 +136,14 @@ class AuthViewModel(
     fun changePassword(changePasswordRequest: ChangePasswordRequest) = viewModelScope.launch {
         _changePasswordResponse.value = repository.changePassword(changePasswordRequest)
     }
+
+    fun verifyEmail(email: String) = viewModelScope.launch {
+        _verifyEmailResponse.value = repository.verifyEmail(email)
+    }
+
+    fun confirmEmail(email: String, verificationCode: String) = viewModelScope.launch {
+        _confirmEmailResponse.value = repository.confirmEmail(email, verificationCode)
+    }
+
 
 }

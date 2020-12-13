@@ -141,17 +141,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_payment -> {
                 findNavController(R.id.dashboard_activity_nhf).navigate(R.id.paymentHistory)
-                //showToast("Payment")
             }
             R.id.nav_security -> {
-                showToast("Security")
+                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.securityFragment)
             }
             R.id.nav_help -> {
-                showToast("Help")
+
+                findNavController(R.id.dashboard_activity_nhf).navigate(R.id.helpFragment)
+
+//                if (findNavController(R.id.dashboard_activity_nhf).currentDestination?.id == R.id.securityFragment){
+//
+//                } else {
+//                    findNavController(R.id.dashboard_activity_nhf).navigate(R.id.action_agentDashboardFragment_to_helpFragment)
+//                }
+
             }
-            R.id.nav_contact -> {
-                showToast("Contact")
-            }
+
             R.id.nav_logout -> {
 
                 SessionManager.save(this, TOKEN, "")
@@ -161,6 +166,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     finish()
                 }
             }
+
         }
 
         drawer.closeDrawer(GravityCompat.START)

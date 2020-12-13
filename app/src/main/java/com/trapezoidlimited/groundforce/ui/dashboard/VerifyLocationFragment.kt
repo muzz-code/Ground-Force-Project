@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.auth
+package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.Manifest
 import android.app.AlertDialog
@@ -11,12 +11,12 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.MissionsApi
-import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
+import com.trapezoidlimited.groundforce.databinding.FragmentVerifyLocationBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocationsVerificationFragment : Fragment() {
+class VerifyLocationFragment : Fragment() {
 
     @Inject
     lateinit var loginApiService: LoginAuthApi
@@ -49,8 +49,10 @@ class LocationsVerificationFragment : Fragment() {
 
     private lateinit var viewModel: AuthViewModel
 
-    private var _binding: FragmentLocationsVerificationBinding? = null
-    private val binding get() = _binding!!
+    private var _binding: FragmentVerifyLocationBinding? = null
+    private val binding
+        get() = _binding!!
+
     private val LOCATION_PERMISSION_REQUEST = 1
     private val LOCATION_REQUEST_CODE = 1
 
@@ -61,27 +63,26 @@ class LocationsVerificationFragment : Fragment() {
     private var currentLocation: Location? = null
     private var shortAnimationDuration: Int = 0
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentLocationsVerificationBinding.inflate(inflater, container, false)
 
+        _binding = FragmentVerifyLocationBinding.inflate(inflater, container, false)
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         /** setting toolbar text **/
-        binding.fragmentLocationVerificationTb.toolbarTitle.text =
+        binding.fragmentVerifyLocationTb.toolbarTitle.text =
             getString(R.string.location_verification_title_str)
 
-        binding.fragmentLocationVerificationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
+        binding.fragmentVerifyLocationTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
 
         /** set navigation arrow from drawable **/
 
-        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
+        binding.fragmentVerifyLocationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
         /**
          * Get the duration of the animation
@@ -91,22 +92,20 @@ class LocationsVerificationFragment : Fragment() {
         /**
          * Starts the animation for the textview
          */
-        binding.verifyingLocationStatusTv.crossShow(shortAnimationDuration.toLong())
+        binding.verifyLocationStatusTv.crossShow(shortAnimationDuration.toLong())
 
         return binding.root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        DataListener.currentScreen = LOCATION_VERIFICATION_SCREEN
+        DataListener.currentScreen = VERIFY_LOCATION_SCREEN
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
+        binding.fragmentVerifyLocationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-
 
         /** Getting the current location **/
         fusedLocationProviderClient =
@@ -128,7 +127,7 @@ class LocationsVerificationFragment : Fragment() {
                     var long = locationResult.lastLocation.longitude.toString()
                     currentLocation = locationResult.lastLocation
 
-                    binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
+                    binding.verifyLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
 
 
                     /** Saving LAT and LONG in sharedPreference*/
@@ -136,7 +135,9 @@ class LocationsVerificationFragment : Fragment() {
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)
                     saveToSharedPreference(requireActivity(), LONGITUDE, long)
 
+                    /** TO DO */
                     setSuccessDialog()
+
 
                 } else {
                     Log.d("LOCATION", "Location missing in callback.")
@@ -151,14 +152,8 @@ class LocationsVerificationFragment : Fragment() {
         /** requesting location permission **/
         requestLocationPermission()
 
-        /** setting the welcome dialog when user clicks skip for now **/
-
-        binding.fragmentLocationVerificationSkipBtn.setOnClickListener {
-            //showWelcomeDialog()
-            showFailedDialog()
-        }
-
     }
+
 
     /** method to subscribe to location updates **/
     private fun subscribeToLocationUpdates() {
@@ -292,26 +287,11 @@ class LocationsVerificationFragment : Fragment() {
         }
     }
 
-//    fun isLocationEnabled(context: Context): Boolean? {
-//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            // This is new method provided in API 28
-//            val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//            lm.isLocationEnabled
-//        } else {
-//            // This is Deprecated in API 28
-//            val mode = Settings.Secure.getInt(
-//                context.contentResolver,
-//                Settings.Secure.LOCATION_MODE,
-//                Settings.Secure.LOCATION_MODE_OFF
-//            )
-//            mode != Settings.Secure.LOCATION_MODE_OFF
-//        }
-//    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 }
-
-

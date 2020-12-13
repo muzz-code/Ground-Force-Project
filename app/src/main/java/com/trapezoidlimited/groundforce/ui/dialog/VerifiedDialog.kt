@@ -101,43 +101,54 @@ class VerifiedDialog : DialogFragment() {
 
         })
 
-        okTextView.setOnClickListener {
+        if (DataListener.currentScreen == LOCATION_VERIFICATION_SCREEN) {
 
-            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-            val gender = loadFromSharedPreference(requireActivity(), GENDER)
-            val dob = loadFromSharedPreference(requireActivity(), DOB)
-            val email = loadFromSharedPreference(requireActivity(), EMAIL)
-            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
-            val state = loadFromSharedPreference(requireActivity(), STATE)
-            val lga = loadFromSharedPreference(requireActivity(), LGA)
-            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+            Log.i("LOCATION", "LOCATION_VERIFICATION_SCREEN")
 
-            agentData = AgentDataRequest(
-                lastName = lastName,
-                firstName = firstName,
-                phoneNumber = phoneNumber,
-                gender = gender,
-                dob = dob,
-                email = email,
-                password = password,
-                residentialAddress = residentialAddress,
-                state = state,
-                lga = lga,
-                zipCode = zipCode,
-                longitude = longitude,
-                latitude = latitude,
-                roles = listOf("agent")
-            )
+            okTextView.setOnClickListener {
 
-            setVisibility(progressBar)
-            //setInVisibility(okTextView)
+                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+                val gender = loadFromSharedPreference(requireActivity(), GENDER)
+                val dob = loadFromSharedPreference(requireActivity(), DOB)
+                val email = loadFromSharedPreference(requireActivity(), EMAIL)
+                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+                val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+                val state = loadFromSharedPreference(requireActivity(), STATE)
+                val lga = loadFromSharedPreference(requireActivity(), LGA)
+                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
 
-            viewModel.registerAgent(agentData)
+                agentData = AgentDataRequest(
+                    lastName = lastName,
+                    firstName = firstName,
+                    phoneNumber = phoneNumber,
+                    gender = gender,
+                    dob = dob,
+                    email = email,
+                    password = password,
+                    residentialAddress = residentialAddress,
+                    state = state,
+                    lga = lga,
+                    zipCode = zipCode,
+                    longitude = longitude,
+                    latitude = latitude,
+                    roles = listOf("agent")
+                )
+
+                setVisibility(progressBar)
+                //setInVisibility(okTextView)
+
+                viewModel.registerAgent(agentData)
+
+            }
+
+        } else if (DataListener.currentScreen == VERIFY_LOCATION_SCREEN) {
+
+            Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
+
 
         }
 

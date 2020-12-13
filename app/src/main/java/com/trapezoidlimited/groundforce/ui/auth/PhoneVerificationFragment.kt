@@ -25,6 +25,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
 import com.trapezoidlimited.groundforce.model.request.ConfirmPhoneRequest
+import com.trapezoidlimited.groundforce.model.request.VerifyPhoneRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -81,17 +82,26 @@ class PhoneVerificationFragment : Fragment() {
         showStatusBar()
         val view = binding.root
 
-        // Get Test from String Resource
+        /** Get Test from String Resource **/
         val codeText = getText(R.string.phone_verif_didnt_get_code_text_str)
-        // Get an instance of SpannableString
+
+        /** Get an instance of SpannableString **/
         val ssText = SpannableString(codeText)
-        // Implement ClickableSpan
+
+        /** Implement ClickableSpan **/
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
+
+                /** Network call to activate phone number **/
+
+                val phoneNo = VerifyPhoneRequest(phoneNumber)
+                viewModel.verifyPhone(phoneNo)
+
+                setVisibility(binding.phoneVerificationResendPb)
+
             }
 
-            // Change color and remove underline
+            /** Change color and remove underline **/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.color = getColor(requireContext(), R.color.colorBlue)
@@ -108,17 +118,17 @@ class PhoneVerificationFragment : Fragment() {
 
         binding.phoneVerifVerifyTv.text = phoneVerificationText
 
-        // Set the span text
+        /** Set the span text **/
+
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // Make the text spannable and clickable
+
+        /** Make the text spannable and clickable **/
         binding.phoneVerifResendTv.text = ssText
         binding.phoneVerifResendTv.movementMethod = LinkMovementMethod.getInstance()
 
-
-        //Load Email from google shared preference
+        /** Load Email from google shared preference **/
         sign_up_with_google = loadFromSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE)
 
-        // Inflate the layout for this fragment
         return view
     }
 
@@ -135,6 +145,26 @@ class PhoneVerificationFragment : Fragment() {
         val otpField = binding.phoneVerifPinView as EditText
 
         validateFields()
+
+        viewModel.verifyPhoneResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+
+                    setInVisibility(binding.phoneVerificationResendPb)
+
+                    Toast.makeText(requireContext(), "OTP Sent!", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Failure -> {
+
+                    setInVisibility(binding.phoneVerificationResendPb)
+                    val message = "Number is already confirmed"
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne)
+                }
+            }
+
+        })
 
 
         viewModel.confirmPhoneResponse.observe(viewLifecycleOwner, Observer {
@@ -162,7 +192,7 @@ class PhoneVerificationFragment : Fragment() {
             }
         })
 
-        //navigate to create profile fragment
+        /** navigate to create profile fragment */
         binding.phoneVerifConfirmBtn.setOnClickListener {
 
 //            findNavController().navigate(

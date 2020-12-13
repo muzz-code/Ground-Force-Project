@@ -187,6 +187,7 @@ class AgentDashboardFragment : Fragment() {
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
 
                     if (response.errorCode == UNAUTHORIZED) {
+                        saveToSharedPreference(requireActivity(), TOKEN, "")
                         Intent(requireContext(), MainActivity::class.java).also {
                             saveToSharedPreference(requireActivity(), LOG_OUT, "true")
                             startActivity(it)

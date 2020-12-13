@@ -160,6 +160,7 @@ class LoginFragment : Fragment() {
         })
 
 
+
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -263,7 +264,7 @@ class LoginFragment : Fragment() {
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 view.setOnClickListener {
-                    findNavController().navigate(R.id.phoneVerificationFragment)
+                    findNavController().navigate(R.id.phoneActivationFragment)
                 }
             }
 

@@ -1,4 +1,4 @@
-package com.trapezoidlimited.groundforce.ui.dashboard
+package com.trapezoidlimited.groundforce.ui.dashboard.extras
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentPaymentHistoryBinding
+import com.trapezoidlimited.groundforce.ui.dashboard.PaymentHistoryMissions
+import com.trapezoidlimited.groundforce.ui.dashboard.PaymentHistorySurvey
 
 class PaymentHistory : Fragment() {
 

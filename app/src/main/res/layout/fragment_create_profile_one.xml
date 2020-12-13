@@ -161,6 +161,7 @@
             android:id="@+id/fragment_create_profile_one_password_til"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_til"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_til"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_password_tv">
@@ -196,6 +197,7 @@
             android:id="@+id/fragment_create_profile_one_confirm_password_til"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_password_til"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_password_til"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_confirm_pass_tv">

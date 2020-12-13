@@ -9,11 +9,17 @@ const val ONGOING = 1
 const val MISSIONCOMPLETED = 0
 const val SURVEYCOMPLETED = 1
 
+const val LOCATION_VERIFICATION_SCREEN = 0
+const val VERIFY_LOCATION_SCREEN = 1
+
+
 
 object DataListener {
 
     var currentItem = MISSION
     var msCurrentItem = MISSIONCOMPLETED
+
+    var currentScreen = LOCATION_VERIFICATION_SCREEN
 
     var mSetTabIndicator = MutableLiveData<Boolean>()
     val setTabIndicator : LiveData<Boolean>

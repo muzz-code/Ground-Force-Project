@@ -5,7 +5,10 @@ import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
@@ -14,7 +17,9 @@ import retrofit2.Retrofit
 fun Fragment.handleApiError(
     failure: Resource.Failure,
     retrofit: Retrofit,
-    view: View
+    view: View,
+    message: String = "",
+    navDestinationId: Int = 0
 ) {
     val errorUtils = ErrorUtils(retrofit)
 
@@ -25,7 +30,17 @@ fun Fragment.handleApiError(
 
         else -> {
             val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
-            error?.errors?.let { showSnackBar(view, it.message!!) }
+            val errorMessage = error?.errors?.message
+            if (errorMessage == message) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                    .show()
+                if (navDestinationId != null) {
+                    findNavController().navigate(navDestinationId)
+                }
+            } else{
+                error?.errors?.let { showSnackBar(view, it.message!!) }
+            }
+
         }
     }
 }
