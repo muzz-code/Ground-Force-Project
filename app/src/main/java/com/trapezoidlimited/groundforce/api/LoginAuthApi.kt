@@ -74,10 +74,15 @@ interface LoginAuthApi {
         @Part verificationCode: String
     ): GenericResponseClass<ConfirmEmailResponse>
 
-    @POST("Auth/verify-location")
+    @POST("User/verify-account")
+    suspend fun verifyAccount(
+        @Body verifyAccountRequest: VerifyAccountRequest
+    ): GenericResponseClass<VerifyAccountRequest>
+
+    @PATCH("Auth/verify-location")
     suspend fun verifyLocation(
         @Header("Authorization") token: String,
-
-    )
+        @Body verifyLocationRequest: VerifyLocationRequest
+    ): GenericResponseClass<VerifyLocationResponse>
 
 }

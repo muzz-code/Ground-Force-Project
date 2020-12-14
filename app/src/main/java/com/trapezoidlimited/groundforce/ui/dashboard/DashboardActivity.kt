@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,6 +28,9 @@ import com.trapezoidlimited.groundforce.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -100,6 +105,22 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 profileNameTextView.text = name
             }
         })
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.dashboard_activity_nhf) as NavHostFragment
+        val navController = navHostFragment.navController
+
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+            if (destination.id == R.id.verifyLocationFragment || destination.id == R.id.userProfileFragment) {
+                /** hiding bottom navigation bar **/
+                binding.dashboardActivityBnv.visibility = View.GONE
+
+            } else {
+                binding.dashboardActivityBnv.visibility = View.VISIBLE
+            }
+        }
 
 
     }

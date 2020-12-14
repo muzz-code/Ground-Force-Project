@@ -96,10 +96,10 @@ class EmailVerificationOne : Fragment() {
                 is Resource.Failure -> {
 
                     setInVisibility(binding.fragmentEmailVerificationSubmitPb)
+
                     val message = "Email is already confirmed"
 
                     handleApiError(it, retrofit, requireView(), message, R.id.action_emailVerificationOne_to_emailVerificationTwo )
-
                 }
             }
         })
@@ -108,9 +108,15 @@ class EmailVerificationOne : Fragment() {
 
            email = binding.fragmentEmailVerificationEt.text.toString()
 
-            setVisibility(binding.fragmentEmailVerificationSubmitPb)
+//            setVisibility(binding.fragmentEmailVerificationSubmitPb)
+//
+//
+//            viewModel.verifyEmail(email)
 
-            viewModel.verifyEmail(email)
+            /** Saving EMAIL in sharedPreference*/
+            saveToSharedPreference(requireActivity(), EMAIL, email)
+
+            findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
 
         }
 

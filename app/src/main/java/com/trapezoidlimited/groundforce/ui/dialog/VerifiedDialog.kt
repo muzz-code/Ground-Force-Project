@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
+import com.trapezoidlimited.groundforce.model.request.VerifyLocationRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -101,6 +103,34 @@ class VerifiedDialog : DialogFragment() {
 
         })
 
+        viewModel.verifyLocationResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+                    setInVisibility(progressBar)
+
+
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.value.data?.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    findNavController().navigate(R.id.userProfileFragment)
+                    dismiss()
+                }
+                is Resource.Failure -> {
+                    setInVisibility(progressBar)
+                    //setVisibility(okTextView)
+                    handleApiError(it, retrofit, requireView())
+                    dismiss()
+                }
+            }
+
+        })
+
+
+
         if (DataListener.currentScreen == LOCATION_VERIFICATION_SCREEN) {
 
             Log.i("LOCATION", "LOCATION_VERIFICATION_SCREEN")
@@ -138,6 +168,7 @@ class VerifiedDialog : DialogFragment() {
                     roles = listOf("agent")
                 )
 
+
                 setVisibility(progressBar)
                 //setInVisibility(okTextView)
 
@@ -147,8 +178,21 @@ class VerifiedDialog : DialogFragment() {
 
         } else if (DataListener.currentScreen == VERIFY_LOCATION_SCREEN) {
 
-            Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
+            okTextView.setOnClickListener {
 
+                Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
+
+                saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+
+                setVisibility(progressBar)
+
+                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+
+                val verifyLocationRequest = VerifyLocationRequest(longitude, latitude)
+
+                viewModel.verifyLocation(verifyLocationRequest)
+            }
 
         }
 

@@ -9,6 +9,8 @@ import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.SessionManager
 import com.trapezoidlimited.groundforce.utils.TOKEN
 import kotlinx.coroutines.launch
+import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.Part
 
 /**
@@ -90,6 +92,12 @@ class AuthViewModel(
     val confirmEmailResponse: LiveData<Resource<GenericResponseClass<ConfirmEmailResponse>>>
         get() = _confirmEmailResponse
 
+    /** confirm Location response */
+
+    private val _verifyLocationResponse: MutableLiveData<Resource<GenericResponseClass<VerifyLocationResponse>>> =
+        MutableLiveData()
+    val verifyLocationResponse: LiveData<Resource<GenericResponseClass<VerifyLocationResponse>>>
+        get() = _verifyLocationResponse
 
     /** response for agent creation */
 
@@ -143,6 +151,10 @@ class AuthViewModel(
 
     fun confirmEmail(email: String, verificationCode: String) = viewModelScope.launch {
         _confirmEmailResponse.value = repository.confirmEmail(email, verificationCode)
+    }
+
+    fun verifyLocation(verifyLocationRequest: VerifyLocationRequest) = viewModelScope.launch{
+        _verifyLocationResponse.value = repository.verifyLocation(token, verifyLocationRequest)
     }
 
 

@@ -135,16 +135,19 @@ class LocationsVerificationFragment : Fragment() {
 
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)
                     saveToSharedPreference(requireActivity(), LONGITUDE, long)
+                    saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
 
                     setSuccessDialog()
 
                 } else {
                     Log.d("LOCATION", "Location missing in callback.")
+                    showFailedDialog()
                 }
             }
 
             override fun onLocationAvailability(p0: LocationAvailability?) {
                 Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
+
             }
         }
 
@@ -154,8 +157,10 @@ class LocationsVerificationFragment : Fragment() {
         /** setting the welcome dialog when user clicks skip for now **/
 
         binding.fragmentLocationVerificationSkipBtn.setOnClickListener {
-            //showWelcomeDialog()
-            showFailedDialog()
+
+            saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+
+            findNavController().navigate(R.id.waitingFragment)
         }
 
     }

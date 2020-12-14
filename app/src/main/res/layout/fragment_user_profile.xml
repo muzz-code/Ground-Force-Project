@@ -92,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:visibility="gone"
                 android:text="Verify Location"
                 app:layout_constraintStart_toStartOf="@id/fragment_user_profile_user_email_tv"
                 app:layout_constraintEnd_toEndOf="@id/fragment_user_profile_user_email_tv"

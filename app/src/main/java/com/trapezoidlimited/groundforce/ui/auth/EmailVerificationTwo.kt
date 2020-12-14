@@ -125,8 +125,11 @@ class EmailVerificationTwo : Fragment() {
                 }
                 is Resource.Failure -> {
                     setInVisibility(binding.fragmentEmailVerificationTwoPb)
+
                     val message = "Email is already confirmed"
-                    handleApiError(it, retrofit, requireView(), message, R.id.createProfileFragmentOne)
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.createProfileFragmentOne )
+
                 }
             }
         })
@@ -138,10 +141,12 @@ class EmailVerificationTwo : Fragment() {
 
         binding.fragmentEmailVerificationTwoConfirmBtn.setOnClickListener {
 
-            setVisibility(binding.fragmentEmailVerificationTwoPb)
+//            setVisibility(binding.fragmentEmailVerificationTwoPb)
+//
+//            val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
+//            viewModel.confirmEmail(email, code)
 
-            val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
-            viewModel.confirmEmail(email, code)
+            findNavController().navigate(R.id.createProfileFragmentOne)
 
         }
 

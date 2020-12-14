@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -30,16 +31,23 @@ fun Fragment.handleApiError(
 
         else -> {
             val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+
             val errorMessage = error?.errors?.message
+
             if (errorMessage == message) {
+
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
                     .show()
-                if (navDestinationId != null) {
-                    findNavController().navigate(navDestinationId)
+                findNavController().navigate(navDestinationId )
+
+            } else {
+                //error?.errors?.let { showSnackBar(view, it.message!!) }
+                if (errorMessage != null) {
+                    showSnackBar(requireView(), errorMessage)
                 }
-            } else{
-                error?.errors?.let { showSnackBar(view, it.message!!) }
             }
+
+            //Log.i("ERROR", "$errorMessage")
 
         }
     }

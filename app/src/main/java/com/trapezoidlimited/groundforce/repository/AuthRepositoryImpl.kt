@@ -66,9 +66,21 @@ constructor(
             api.putUser(user)
         }
 
+    override suspend fun verifyAccount(verifyAccountRequest: VerifyAccountRequest):
+            Resource<GenericResponseClass<VerifyAccountRequest>> = safeApiCall {
+        api.verifyAccount(verifyAccountRequest)
+    }
+
     override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest)
             : Resource<GenericResponseClass<ChangePasswordResponse>> = safeApiCall {
         api.changePassword(changePasswordRequest)
+    }
+
+    override suspend fun verifyLocation(
+        token: String,
+        verifyLocationRequest: VerifyLocationRequest
+    ): Resource<GenericResponseClass<VerifyLocationResponse>> = safeApiCall {
+        api.verifyLocation(token, verifyLocationRequest)
     }
 
     override suspend fun

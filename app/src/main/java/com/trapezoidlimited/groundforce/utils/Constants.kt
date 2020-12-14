@@ -22,5 +22,6 @@ const val TOKEN: String = "token"
 const val USERID: String = "id"
 const val GROUND_FORCE_IMAGE_NAME = "ground_force_profile_picture.jpg"
 const val UNAUTHORIZED = 401
-
+const val LOCATION_VERIFICATION = ""
+const val COMPLETED_REGISTRATION = ""
 

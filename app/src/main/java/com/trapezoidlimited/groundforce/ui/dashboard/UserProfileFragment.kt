@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
@@ -63,7 +64,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var emailAddressEditText: EditText
     private lateinit var additionalPhoneEditText: EditText
     private lateinit var residenceAddressEditText: EditText
-
+    private lateinit var isLocationVerified: String
 
 
     /** onCreateView over ride function **/
@@ -84,6 +85,16 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         emailAddressEditText = binding.fragmentUserProfileEmailAddressEt
         additionalPhoneEditText = binding.fragmentUserProfileAdditionalNumberEt
         residenceAddressEditText = binding.fragmentUserProfileResidentialAddressEt
+        verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
+
+        isLocationVerified = loadFromSharedPreference(requireActivity(), LOCATION_VERIFICATION)
+
+
+        if (isLocationVerified == "true") {
+            setInVisibility(verifyLocationTextView)
+        } else {
+            setVisibility(verifyLocationTextView)
+        }
 
         /** setting toolbar text **/
         binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
@@ -153,7 +164,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         super.onActivityCreated(savedInstanceState)
         profileImageView = binding.fragmentCreateProfileOneProfileImageIv
         addProfileImageView = binding.fragmentCreateProfileOneProfileAddPhotoIv
-        verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
+
 
         validateFields()
 
@@ -188,12 +199,13 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
         verifyLocationTextView.setOnClickListener {
-            //findNavController().navigate(R.id.locationsVerificationFragment2)
+            findNavController().navigate(R.id.verifyLocationFragment)
         }
 
 
 
     }
+
 
     private fun agentImageIsSaved(): Boolean {
 //        File(requireActivity().getDir() , GROUND_FORCE_IMAGE_NAME)

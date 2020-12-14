@@ -7,15 +7,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.databinding.FragmentUpdateProfileBinding
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UpdateProfileFragment : Fragment() {
+
+    @Inject
+    lateinit var loginApiService: LoginAuthApi
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
 
     private var _binding: FragmentUpdateProfileBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: AuthViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,16 +51,26 @@ class UpdateProfileFragment : Fragment() {
         /** set title of the toolbar **/
         binding.fragmentUpdateProfileIc.toolbarTitle.text = "Additional Information"
 
+        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
+
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+
+
+
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentUpdateProfileIc.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
 
         val religions = listOf("Christian", "Muslim", "Others")
         val adapterReligion = ArrayAdapter(requireContext(), R.layout.list_item, religions)
@@ -54,6 +85,9 @@ class UpdateProfileFragment : Fragment() {
         )
 
         binding.fragmentUpdateProfileBtn.setOnClickListener {
+
+            saveToSharedPreference(requireActivity(), COMPLETED_REGISTRATION, "true")
+
             if (!validateFields()) {
                 showSnackBar(binding.fragmentUpdateProfileBtn, "All fields are required and must contain valid inputs.")
                 return@setOnClickListener

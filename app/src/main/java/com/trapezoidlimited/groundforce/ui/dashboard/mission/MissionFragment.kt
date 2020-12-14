@@ -54,6 +54,8 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
     private lateinit var userId: String
+    private lateinit var missionId: String
+    private var missionPosition: Int = 0
 
 
     override fun onCreateView(
@@ -107,7 +109,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                             val description = mission.description
                             val id = mission.missionId
 
-                            val roomMissionItem = RoomMission( id, title, description)
+                            val roomMissionItem = RoomMission(id, title, description)
 
                             roomViewModel.addMission(roomMissionItem)
 
@@ -151,6 +153,19 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         viewModel.updateMissionStatusResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
+
+                    /** setting the indicator  on the onGoing tab onclick of the accept btn */
+
+                    DataListener.mSetTabIndicator.value = true
+
+                    /** mission data is removed from the missions list
+                    * And then, this mission data is removed from the missions table in Room.
+                     */
+
+                    missionList.removeAt(missionPosition)
+
+                    roomViewModel.deleteByMissionId(missionId)
+
                     it.value.data?.message?.let { it1 -> showSnackBar(requireView(), it1) }
                 }
 
@@ -191,21 +206,16 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     override fun onAcceptClick(mission: MissionItem, position: Int, id: String) {
 
-        /** setting the indicator  on the onGoing tab onclick of the accept btn */
 
-        DataListener.mSetTabIndicator.value = true
+        missionId = id
+        missionPosition = position
 
 
         /** Onclick of the accept btn, a network call is made to update the status of the mission
-         * this mission data is removed from the missions list
-         * And then, this mission data is removed from the missions table in Room.
-         **/
+         */
 
-        viewModel.updateMissionStatus( id, "accepted")
+        viewModel.updateMissionStatus(id, "accepted")
 
-        missionList.removeAt(position)
-
-        roomViewModel.deleteByMissionId(id)
 
         adapter.notifyItemRemoved(position)
 
@@ -226,9 +236,6 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
         viewModel.updateMissionStatus(id, "declined")
 
-        missionList.removeAt(position)
-
-        roomViewModel.deleteByMissionId(id)
 
         adapter.notifyItemRemoved(position)
 
@@ -253,7 +260,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         setInVisibility(binding.fragmentEmptyMission.fragmentMissionPb)
     }
 
-    private fun readMissionsFromRoom(){
+    private fun readMissionsFromRoom() {
         roomViewModel.mission.observe(viewLifecycleOwner, Observer {
 
             missionList.clear()
@@ -267,7 +274,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                 val description = mission.locationSubTitle
                 val missionId = mission.Id
 
-                val missionItem = MissionItem(title,  description, id = missionId)
+                val missionItem = MissionItem(title, description, id = missionId)
 
                 missionList.add(missionItem)
 

@@ -73,8 +73,6 @@ class WelcomeDialog : DialogFragment() {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
-
-
         binding.welcomeDialogOkTv.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
             dismiss()

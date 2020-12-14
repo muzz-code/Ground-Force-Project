@@ -208,5 +208,10 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.FAQFragment"
         android:label="fragment_f_a_q"
         tools:layout="@layout/fragment_f_a_q" />
+    <fragment
+        android:id="@+id/verifyLocationFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.VerifyLocationFragment"
+        android:label="fragment_verify_location"
+        tools:layout="@layout/fragment_verify_location" />
 
 </navigation>

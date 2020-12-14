@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
@@ -46,6 +47,8 @@ class AgentDashboardFragment : Fragment() {
     private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
+    private lateinit var incompleteUserDetailsConstraintLayout: ConstraintLayout
+    private lateinit var userId: String
 
 
     override fun onCreateView(
@@ -58,6 +61,9 @@ class AgentDashboardFragment : Fragment() {
             binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
         }
 
+        /** initializing views **/
+        incompleteUserDetailsConstraintLayout = binding.fragmentAgentDashboardCl
+
         /** Checking and logging user out if user has no authorization **/
 
         logOut()
@@ -68,7 +74,23 @@ class AgentDashboardFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
-        val userId = loadFromSharedPreference(requireActivity(), USERID)
+        userId = loadFromSharedPreference(requireActivity(), USERID)
+
+
+        /** Making Network call to get user object **/
+
+        binding.fragmentAgentDashboardCl.visibility = View.GONE
+        binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
+        viewModel.getUser(userId)
+
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         /** Checking is user object is saved in Room
          *
@@ -91,18 +113,15 @@ class AgentDashboardFragment : Fragment() {
         })
 
 
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
         dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
+
+        if (COMPLETED_REGISTRATION == "true") {
+            setInVisibility(incompleteUserDetailsConstraintLayout)
+        } else {
+            setVisibility(incompleteUserDetailsConstraintLayout)
+        }
 
 
         /** Set firstName from shared preference if isn't present  **/

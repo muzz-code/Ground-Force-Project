@@ -6,6 +6,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -158,9 +159,12 @@ class PhoneVerificationFragment : Fragment() {
                 is Resource.Failure -> {
 
                     setInVisibility(binding.phoneVerificationResendPb)
+
                     val message = "Number is already confirmed"
 
-                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne)
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne )
+
                 }
             }
 

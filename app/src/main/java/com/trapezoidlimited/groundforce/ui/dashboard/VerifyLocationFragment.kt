@@ -22,6 +22,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -73,6 +75,8 @@ class VerifyLocationFragment : Fragment() {
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
+
 
         /** setting toolbar text **/
         binding.fragmentVerifyLocationTb.toolbarTitle.text =
@@ -141,6 +145,7 @@ class VerifyLocationFragment : Fragment() {
 
                 } else {
                     Log.d("LOCATION", "Location missing in callback.")
+                    showFailedDialog()
                 }
             }
 
