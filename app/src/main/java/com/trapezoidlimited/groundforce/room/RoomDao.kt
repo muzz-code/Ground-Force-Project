@@ -57,4 +57,7 @@ interface RoomDao {
     @Query("DELETE FROM ongoing_mission_table WHERE id = :missionId")
     suspend fun deleteByOngoingMissionId(missionId: String)
 
+    @Query("DELETE FROM agent_table")
+    suspend fun deleteAllAgentDetails()
+
 }

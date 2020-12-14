@@ -61,6 +61,10 @@ class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
         dao.deleteByOngoingMissionId(missionId)
     }
 
+    override suspend fun deleteAllAgentDetails() {
+        dao.deleteAllAgentDetails()
+    }
+
     override suspend fun readAgentA(): List<RoomAgent> {
        return dao.readAgentA()
     }

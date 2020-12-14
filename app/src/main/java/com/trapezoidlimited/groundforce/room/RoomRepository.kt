@@ -21,5 +21,6 @@ interface RoomRepository {
     suspend fun addOngoingMission(ongoingMission: RoomOngoingMission)
     suspend fun deleteAllOngoingMissions()
     suspend fun deleteByOngoingMissionId(missionId: String)
+    suspend fun deleteAllAgentDetails()
     suspend fun readAgentA(): List<RoomAgent>
 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
 
@@ -88,10 +89,13 @@ fun ProgressBar.show(button: Button? = null) {
 
 }
 
-fun Fragment.logOut() {
+fun Fragment.logOut(roomViewModel: RoomViewModel) {
     if (loadFromSharedPreference(requireActivity(), TOKEN).isEmpty()) {
         Intent(requireActivity(), MainActivity::class.java).also {
             saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+            roomViewModel.deleteAllMission()
+            roomViewModel.deleteAllOngoingMission()
+            roomViewModel.deleteAllAgentDetails()
             startActivity(it)
             requireActivity().finish()
         }

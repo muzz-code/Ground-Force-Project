@@ -89,4 +89,10 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
         }
     }
 
+    fun deleteAllAgentDetails(){
+        viewModelScope.launch {
+            repository.deleteAllAgentDetails()
+        }
+    }
+
 }

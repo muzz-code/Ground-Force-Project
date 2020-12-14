@@ -183,6 +183,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 SessionManager.save(this, TOKEN, "")
                 Intent(this, MainActivity::class.java).also {
                     saveToSharedPreference(this, LOG_OUT, "true")
+                    roomViewModel.deleteAllMission()
+                    roomViewModel.deleteAllOngoingMission()
+                    roomViewModel.deleteAllAgentDetails()
                     startActivity(it)
                     finish()
                 }

@@ -65,9 +65,9 @@ class AgentDashboardFragment : Fragment() {
         /** initializing views **/
         incompleteUserDetailsConstraintLayout = binding.fragmentAgentDashboardCl
 
-        /** Checking and logging user out if user has no authorization **/
-
-        logOut()
+//        /** Checking and logging user out if user has no authorization **/
+//
+//        logOut(roomViewModel)
 
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
@@ -77,13 +77,30 @@ class AgentDashboardFragment : Fragment() {
 
         userId = loadFromSharedPreference(requireActivity(), USERID)
 
+        roomViewModel.readAgent()
 
-        /** Making Network call to get user object **/
+        /** Checking is user object is saved in Room
+         *
+         * Make network if user object in room is empty **/
 
-        binding.fragmentAgentDashboardCl.visibility = View.GONE
-        binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
-        viewModel.getUser(userId)
+        roomViewModel.agentObjectA.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
 
+                val name = it[it.lastIndex].firstName
+
+                saveToSharedPreference(requireActivity(), FIRSTNAME, name)
+
+                binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
+                binding.fragmentAgentDashboardLl.visibility = View.GONE
+
+            } else {
+
+                binding.fragmentAgentDashboardCl.visibility = View.GONE
+                binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
+                viewModel.getUser(userId)
+            }
+
+        })
 
         // Inflate the layout for this fragment
         return binding.root
@@ -93,25 +110,6 @@ class AgentDashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /** Checking is user object is saved in Room
-         *
-         * Make network if user object in room is empty **/
-
-        roomViewModel.agentObject.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-
-                val name = it[it.lastIndex].firstName
-
-                saveToSharedPreference(requireActivity(), FIRSTNAME, name)
-
-            }else {
-
-                binding.fragmentAgentDashboardCl.visibility = View.GONE
-                binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
-                viewModel.getUser(userId)
-            }
-
-        })
 
 
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
