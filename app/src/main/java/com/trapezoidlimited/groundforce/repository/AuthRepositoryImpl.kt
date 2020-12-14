@@ -67,7 +67,7 @@ constructor(
         }
 
     override suspend fun verifyAccount(verifyAccountRequest: VerifyAccountRequest):
-            Resource<GenericResponseClass<VerifyAccountRequest>> = safeApiCall {
+            Resource<GenericResponseClass<VerifyAccountResponse>> = safeApiCall {
         api.verifyAccount(verifyAccountRequest)
     }
 

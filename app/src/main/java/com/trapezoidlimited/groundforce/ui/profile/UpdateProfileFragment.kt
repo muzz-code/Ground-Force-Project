@@ -5,14 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUpdateProfileBinding
+import com.trapezoidlimited.groundforce.model.request.VerifyAccountRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -36,6 +37,13 @@ class UpdateProfileFragment : Fragment() {
     private var _binding: FragmentUpdateProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewModel
+    private lateinit var progressBar: ProgressBar
+    private lateinit var updateButton: Button
+    private lateinit var bankCodeEditText: EditText
+    private lateinit var accountNumberEditText: EditText
+    private lateinit var religionEditText: EditText
+    private lateinit var additionalPhoneNumberEditText: EditText
+    private lateinit var genderEditText: EditText
 
 
     override fun onCreateView(
@@ -47,6 +55,15 @@ class UpdateProfileFragment : Fragment() {
 
         /** set navigation arrow from drawable **/
         binding.fragmentUpdateProfileIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        /** Initializing views **/
+        progressBar = binding.fragmentUpdateProfilePb
+        updateButton = binding.fragmentUpdateProfileBtn
+        bankCodeEditText = binding.fragmentUpdateProfileBankCodeEt
+        accountNumberEditText = binding.fragmentUpdateProfileAccountNumEt
+        additionalPhoneNumberEditText = binding.fragmentUpdateProfileAdditionalNumEt
+        genderEditText = binding.fragmentUpdateProfileGenderTil.editText!!
+        religionEditText = binding.fragmentUpdateProfileReligionTil.editText!!
 
         /** set title of the toolbar **/
         binding.fragmentUpdateProfileIc.toolbarTitle.text = "Additional Information"
@@ -63,7 +80,28 @@ class UpdateProfileFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
+        /** Observing the results from Verify Account Network Call **/
+        viewModel.verifyAccountResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
 
+                    progressBar.hide(updateButton)
+                    saveToSharedPreference(requireActivity(), COMPLETED_REGISTRATION, "true")
+                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT).show()
+
+                    findNavController().navigate(R.id.agentDashboardFragment)
+
+                }
+
+                is Resource.Failure -> {
+
+                    progressBar.hide(updateButton)
+                    handleApiError(it, retrofit, requireView())
+
+                }
+
+            }
+        })
 
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
@@ -84,15 +122,31 @@ class UpdateProfileFragment : Fragment() {
             adapterGender
         )
 
-        binding.fragmentUpdateProfileBtn.setOnClickListener {
+        updateButton.setOnClickListener {
 
             saveToSharedPreference(requireActivity(), COMPLETED_REGISTRATION, "true")
 
             if (!validateFields()) {
-                showSnackBar(binding.fragmentUpdateProfileBtn, "All fields are required and must contain valid inputs.")
+                showSnackBar(requireView(), "All fields are required and must contain valid inputs.")
                 return@setOnClickListener
             } else {
-                showSnackBar(binding.fragmentUpdateProfileBtn, "Validated")
+                progressBar.show(updateButton)
+
+                val bankCode = bankCodeEditText.text.toString()
+                val accountNumber = accountNumberEditText.text.toString()
+                val religion = religionEditText.text.toString()
+                val additionNumber = additionalPhoneNumberEditText.text.toString()
+                val gender = genderEditText.text.toString()
+
+
+                val verifyAccountRequest = VerifyAccountRequest(
+                    bankCode,
+                    accountNumber,
+                    religion,
+                    additionNumber,
+                    gender )
+
+                viewModel.verifyAccount(verifyAccountRequest)
             }
         }
     }
@@ -101,31 +155,31 @@ class UpdateProfileFragment : Fragment() {
 
         val fields = mutableListOf(
             JDataClass(
-                editText = binding.fragmentUpdateProfileBankCodeEt,
+                editText = bankCodeEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileBankCodeTil,
                 errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
-                editText = binding.fragmentUpdateProfileAccountNumEt,
+                editText = accountNumberEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileAccountNumTil,
                 errorMessage = JDErrorConstants.BANK_ACCOUNT_NUMBER_ERROR,
                 validator = { it.jdValidateAccountNumber(it.text.toString()) }
             ),
             JDataClass(
-                editText = binding.fragmentUpdateProfileAdditionalNumEt,
+                editText = additionalPhoneNumberEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileAdditionalNumTil,
                 errorMessage = JDErrorConstants.INCOMPLETE_PHONE_NUMBER_ERROR,
                 validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
             ),
             JDataClass(
-                editText = binding.fragmentUpdateProfileReligionTil.editText!!,
+                editText = religionEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileReligionTil,
                 errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
-                editText = binding.fragmentUpdateProfileGenderTil.editText!!,
+                editText = genderEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileGenderTil,
                 errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }

@@ -106,11 +106,22 @@ class AuthViewModel(
     val agentCreationResponse: LiveData<Resource<GenericResponseClass<AgentDataResponse>>>
         get() = _agentCreationResponse
 
+
+    /** response for agent creation */
+
+    private val _verifyAccountResponse: MutableLiveData<Resource<GenericResponseClass<VerifyAccountResponse>>> =
+        MutableLiveData()
+    val verifyAccountResponse: LiveData<Resource<GenericResponseClass<VerifyAccountResponse>>>
+        get() = _verifyAccountResponse
+
+
+
+
+
     /** launch coroutine in viewModel scope for forgot password */
     fun forgotPassword(email: String) = viewModelScope.launch {
         _forgotPasswordResponse.value = repository.forgotPassword(email)
     }
-
 
     /** launch coroutine in viewModel scope for login */
     fun login(loginRequest: LoginRequest) = viewModelScope.launch {
@@ -155,6 +166,10 @@ class AuthViewModel(
 
     fun verifyLocation(verifyLocationRequest: VerifyLocationRequest) = viewModelScope.launch{
         _verifyLocationResponse.value = repository.verifyLocation(token, verifyLocationRequest)
+    }
+
+    fun verifyAccount(verifyAccountRequest: VerifyAccountRequest) = viewModelScope.launch {
+        _verifyAccountResponse.value = repository.verifyAccount(verifyAccountRequest)
     }
 
 

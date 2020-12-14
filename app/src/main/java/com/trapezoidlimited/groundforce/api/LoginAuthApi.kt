@@ -77,7 +77,7 @@ interface LoginAuthApi {
     @POST("User/verify-account")
     suspend fun verifyAccount(
         @Body verifyAccountRequest: VerifyAccountRequest
-    ): GenericResponseClass<VerifyAccountRequest>
+    ): GenericResponseClass<VerifyAccountResponse>
 
     @PATCH("Auth/verify-location")
     suspend fun verifyLocation(

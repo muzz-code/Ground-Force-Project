@@ -49,6 +49,7 @@ class AgentDashboardFragment : Fragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var incompleteUserDetailsConstraintLayout: ConstraintLayout
     private lateinit var userId: String
+    private lateinit var isRegistrationCompleted: String
 
 
     override fun onCreateView(
@@ -116,8 +117,9 @@ class AgentDashboardFragment : Fragment() {
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
         dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
+        isRegistrationCompleted = loadFromSharedPreference(requireActivity(), COMPLETED_REGISTRATION)
 
-        if (COMPLETED_REGISTRATION == "true") {
+        if (isRegistrationCompleted == "true") {
             setInVisibility(incompleteUserDetailsConstraintLayout)
         } else {
             setVisibility(incompleteUserDetailsConstraintLayout)
