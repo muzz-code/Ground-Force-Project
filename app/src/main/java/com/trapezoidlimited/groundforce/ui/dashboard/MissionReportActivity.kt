@@ -8,10 +8,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.ActivityMissionReportBinding
@@ -29,7 +28,7 @@ class MissionReportActivity : AppCompatActivity() {
     private val validate = MissionReportValidation()
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -63,7 +62,7 @@ class MissionReportActivity : AppCompatActivity() {
 
         /** initializing missionViewModel **/
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, this)
 
         viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)

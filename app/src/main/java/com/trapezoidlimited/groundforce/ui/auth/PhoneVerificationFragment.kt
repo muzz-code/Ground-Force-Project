@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneVerificationBinding
@@ -42,7 +41,7 @@ class PhoneVerificationFragment : Fragment() {
     private var sign_up_with_google = ""
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var errorUtils: ErrorUtils
@@ -67,7 +66,7 @@ class PhoneVerificationFragment : Fragment() {
 
         phoneNumber = args.phoneNumber
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

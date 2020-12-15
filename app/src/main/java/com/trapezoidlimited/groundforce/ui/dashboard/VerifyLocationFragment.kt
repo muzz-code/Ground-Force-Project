@@ -22,10 +22,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.databinding.FragmentVerifyLocationBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -41,7 +39,7 @@ import javax.inject.Inject
 class VerifyLocationFragment : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -72,7 +70,7 @@ class VerifyLocationFragment : Fragment() {
         // Inflate the layout for this fragment
 
         _binding = FragmentVerifyLocationBinding.inflate(inflater, container, false)
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

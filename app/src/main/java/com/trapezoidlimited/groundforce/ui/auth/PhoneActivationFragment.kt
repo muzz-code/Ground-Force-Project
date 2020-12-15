@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
@@ -37,7 +36,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PhoneActivationFragment : Fragment() {
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var errorUtils: ErrorUtils
@@ -60,7 +59,7 @@ class PhoneActivationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

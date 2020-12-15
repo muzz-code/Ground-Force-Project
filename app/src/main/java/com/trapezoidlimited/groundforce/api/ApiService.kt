@@ -9,7 +9,7 @@ import retrofit2.http.*
 /**
  * Query to make a network call to the login endpoint */
 
-interface LoginAuthApi {
+interface ApiService {
 
     @POST("Auth/login")
     suspend fun login(
@@ -85,5 +85,37 @@ interface LoginAuthApi {
         @Header("Authorization") token: String,
         @Body verifyLocationRequest: VerifyLocationRequest
     ): GenericResponseClass<VerifyLocationResponse>
+
+
+    /**Survey Endpoints*/
+
+    @PATCH("Survey/acceptance-status")
+    suspend fun updateSurveyStatus(
+        @Header("Authorization") token: String,
+        @Body updateSurveyStatusRequest: UpdateSurveyStatusRequest
+    ): GenericResponseClass<UpdateMissionStatusResponse>
+
+    @POST("Survey/submit-survey")
+    suspend fun submitSurvey(
+        @Header("Authorization") token: String,
+        @Body submitSurveyRequest: SubmitSurveyRequest
+    ): GenericResponseClass<UpdateMissionStatusResponse>
+
+    @GET("Survey/{agentId}/{status}/{page}")
+    suspend fun getSurvey(
+        @Header("Authorization") token: String,
+        @Path("agentId") agentId: String,
+        @Path("status") status: String,
+        @Path("page") page: String
+    ): GenericResponseClass<UpdateMissionStatusResponse>
+
+    /**Notifications Endpoints*/
+
+    @GET("Notification/{userId}/notifications/{page}")
+    suspend fun getNotificationsByUserId(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String,
+        @Path("page") page: String
+    ): GenericResponseClass<GetNotificationsResponse>
 
 }

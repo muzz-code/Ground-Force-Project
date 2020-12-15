@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class EmailVerificationTwo : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var errorUtils: ErrorUtils
@@ -54,7 +54,7 @@ class EmailVerificationTwo : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEmailVerificationTwoBinding.inflate(layoutInflater, container, false)
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

@@ -25,7 +25,7 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
@@ -44,7 +44,7 @@ import javax.inject.Inject
 class LocationsVerificationFragment : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -77,7 +77,7 @@ class LocationsVerificationFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentLocationsVerificationBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 

@@ -32,12 +32,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
-import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.model.response.LoginResponse
 import com.trapezoidlimited.groundforce.databinding.FragmentLoginBinding
 import com.trapezoidlimited.groundforce.model.request.LoginRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -53,7 +51,7 @@ import javax.inject.Inject
 class LoginFragment : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -131,7 +129,7 @@ class LoginFragment : Fragment() {
         handleSpannable()
         validateFields()
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
 
         //Instantiate View Model

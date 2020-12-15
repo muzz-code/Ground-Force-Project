@@ -2,7 +2,6 @@ package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingItemClickListener
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentOngoingBinding
@@ -33,7 +32,7 @@ import javax.inject.Inject
 class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -66,7 +65,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentOngoingBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)

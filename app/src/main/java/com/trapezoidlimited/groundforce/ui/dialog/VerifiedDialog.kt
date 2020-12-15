@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
@@ -32,7 +32,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class VerifiedDialog : DialogFragment() {
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -56,7 +56,7 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         _binding = VerificationResultPageBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)

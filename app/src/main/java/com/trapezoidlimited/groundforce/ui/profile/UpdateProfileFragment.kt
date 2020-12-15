@@ -9,7 +9,7 @@ import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUpdateProfileBinding
@@ -26,7 +26,7 @@ import javax.inject.Inject
 class UpdateProfileFragment : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -68,7 +68,7 @@ class UpdateProfileFragment : Fragment() {
         /** set title of the toolbar **/
         binding.fragmentUpdateProfileIc.toolbarTitle.text = "Additional Information"
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)

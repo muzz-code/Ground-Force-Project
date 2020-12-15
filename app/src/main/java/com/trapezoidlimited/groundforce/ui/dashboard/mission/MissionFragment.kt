@@ -10,12 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.adapters.mission.MissionAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OnMissionItemClickListener
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentMissionBinding
@@ -24,7 +23,6 @@ import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.room.RoomMission
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
-import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.MissionsViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +33,7 @@ import javax.inject.Inject
 class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -64,7 +62,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     ): View? {
         // Inflate the layout for this fragment
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)

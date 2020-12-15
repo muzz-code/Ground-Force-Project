@@ -1,6 +1,6 @@
 package com.trapezoidlimited.groundforce.repository
 
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
@@ -8,80 +8,80 @@ import com.trapezoidlimited.groundforce.model.response.*
 import javax.inject.Inject
 
 /**
- * implements the AuthRepository Interface and overrides the methods to make api call */
+ * implements the AuthRepository Interface and overrides the methods to make apiService call */
 
 class AuthRepositoryImpl
 @Inject
 constructor(
-    private val api: LoginAuthApi,
+    private val apiService: ApiService,
     private val missionsApi: MissionsApi
 ) : BaseRepository(), AuthRepository {
 
     override suspend fun login(loginRequest: LoginRequest): Resource<GenericResponseClass<LoginResponse>> =
         safeApiCall {
-            api.login(loginRequest)
+            apiService.login(loginRequest)
         }
 
     override suspend fun forgotPassword(email: String) = safeApiCall {
-        api.forgotPassword(email)
+        apiService.forgotPassword(email)
     }
 
     override suspend fun verifyPhone(phone: VerifyPhoneRequest): Resource<GenericResponseClass<VerifyPhoneResponse>> =
         safeApiCall {
-            api.verifyPhone(phone)
+            apiService.verifyPhone(phone)
         }
 
     override suspend fun confirmPhone(confirmPhone: ConfirmPhoneRequest): Resource<GenericResponseClass<ConfirmOtpResponse>> =
         safeApiCall {
-            api.confirmPhone(confirmPhone)
+            apiService.confirmPhone(confirmPhone)
         }
 
     override suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>> =
         safeApiCall {
-            api.registerUser(agent)
+            apiService.registerUser(agent)
         }
 
     override suspend fun verifyEmail(email: String): Resource<GenericResponseClass<VerifyEmailResponse>> = safeApiCall {
-        api.verifyEmail(email)
+        apiService.verifyEmail(email)
     }
 
     override suspend fun confirmEmail(email: String, verificationCode: String):
             Resource<GenericResponseClass<ConfirmEmailResponse>> = safeApiCall {
-        api.confirmEmail(email, verificationCode)
+        apiService.confirmEmail(email, verificationCode)
     }
 
     override suspend fun getUser(id: String): Resource<GenericResponseClass<UserResponse>> =
         safeApiCall {
-            api.getUser(id)
+            apiService.getUser(id)
         }
 
 
     override suspend fun getUser(token: String, id: String): Resource<GenericResponseClass<UserResponse>> =
         safeApiCall {
-            api.getUser(token, id)
+            apiService.getUser(token, id)
         }
 
     override suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>> =
         safeApiCall {
-            api.putUser(user)
+            apiService.putUser(user)
         }
 
     override suspend fun verifyAccount(token: String,
         verifyAccountRequest: VerifyAccountRequest):
             Resource<GenericResponseClass<VerifyAccountResponse>> = safeApiCall {
-        api.verifyAccount(token, verifyAccountRequest)
+        apiService.verifyAccount(token, verifyAccountRequest)
     }
 
     override suspend fun changePassword(changePasswordRequest: ChangePasswordRequest)
             : Resource<GenericResponseClass<ChangePasswordResponse>> = safeApiCall {
-        api.changePassword(changePasswordRequest)
+        apiService.changePassword(changePasswordRequest)
     }
 
     override suspend fun verifyLocation(
         token: String,
         verifyLocationRequest: VerifyLocationRequest
     ): Resource<GenericResponseClass<VerifyLocationResponse>> = safeApiCall {
-        api.verifyLocation(token, verifyLocationRequest)
+        apiService.verifyLocation(token, verifyLocationRequest)
     }
 
     override suspend fun
