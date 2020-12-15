@@ -169,7 +169,7 @@ class AuthViewModel(
     }
 
     fun verifyAccount(verifyAccountRequest: VerifyAccountRequest) = viewModelScope.launch {
-        _verifyAccountResponse.value = repository.verifyAccount(verifyAccountRequest)
+        _verifyAccountResponse.value = repository.verifyAccount(token, verifyAccountRequest)
     }
 
 

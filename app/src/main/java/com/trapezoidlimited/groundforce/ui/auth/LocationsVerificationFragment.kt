@@ -14,6 +14,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -25,12 +27,15 @@ import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.LoginAuthApi
 import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
+import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_locations_verification.*
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -60,6 +65,9 @@ class LocationsVerificationFragment : Fragment() {
     private lateinit var locationCallback: LocationCallback
     private var currentLocation: Location? = null
     private var shortAnimationDuration: Int = 0
+    private lateinit var skipProgressBar: ProgressBar
+    private lateinit var skipButton: Button
+    private lateinit var agentData: AgentDataRequest
 
 
     override fun onCreateView(
@@ -72,6 +80,10 @@ class LocationsVerificationFragment : Fragment() {
         val repository = AuthRepositoryImpl(loginApiService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
+        /** initializing views */
+        skipProgressBar = binding.fragmentLocationSkipPg
+        skipButton = binding.fragmentLocationVerificationSkipBtn
 
         /** setting toolbar text **/
         binding.fragmentLocationVerificationTb.toolbarTitle.text =
@@ -106,6 +118,39 @@ class LocationsVerificationFragment : Fragment() {
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+
+        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
+
+            when (it) {
+                is Resource.Success -> {
+
+                    val userId = it.value.data?.loginToken?.id
+                    val userToken = it.value.data?.loginToken?.token
+
+                    /**Saving user's id to sharedPreference */
+                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+
+                    /** Saving token to sharedPreference */
+
+                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+
+                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
+
+                    skipProgressBar.hide(skipButton)
+
+                    findNavController().navigate(R.id.waitingFragment)
+
+                }
+                is Resource.Failure -> {
+                    //setVisibility(okTextView)
+                    skipProgressBar.hide(skipButton)
+                    handleApiError(it, retrofit, requireActivity().view)
+                }
+            }
+
+        })
+
 
 
         /** Getting the current location **/
@@ -156,9 +201,47 @@ class LocationsVerificationFragment : Fragment() {
 
         /** setting the welcome dialog when user clicks skip for now **/
 
-        binding.fragmentLocationVerificationSkipBtn.setOnClickListener {
+        skipButton.setOnClickListener {
+
+            skipProgressBar.show(skipButton)
 
             saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+
+            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+            val gender = loadFromSharedPreference(requireActivity(), GENDER)
+            val dob = loadFromSharedPreference(requireActivity(), DOB)
+            val email = loadFromSharedPreference(requireActivity(), EMAIL)
+            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+            val state = loadFromSharedPreference(requireActivity(), STATE)
+            val lga = loadFromSharedPreference(requireActivity(), LGA)
+            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+
+            agentData = AgentDataRequest(
+                lastName = lastName,
+                firstName = firstName,
+                phoneNumber = phoneNumber,
+                gender = gender,
+                dob = dob,
+                email = email,
+                password = password,
+                residentialAddress = residentialAddress,
+                state = state,
+                lga = lga,
+                zipCode = zipCode,
+                longitude = longitude,
+                latitude = latitude,
+                roles = listOf("agent")
+            )
+
+
+            viewModel.registerAgent(agentData)
+
+
 
             findNavController().navigate(R.id.waitingFragment)
         }

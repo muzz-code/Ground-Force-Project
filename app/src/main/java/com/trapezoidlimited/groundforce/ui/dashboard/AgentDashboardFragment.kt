@@ -222,7 +222,7 @@ class AgentDashboardFragment : Fragment() {
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            findNavController().navigate(R.id.updateProfileFragment)
+            findNavController().navigate(R.id.uploadImageFragment)
         }
 
         // Navigate to Home on Back Press

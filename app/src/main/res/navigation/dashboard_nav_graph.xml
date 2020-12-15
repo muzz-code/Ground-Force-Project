@@ -213,5 +213,10 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.VerifyLocationFragment"
         android:label="fragment_verify_location"
         tools:layout="@layout/fragment_verify_location" />
+    <fragment
+        android:id="@+id/uploadImageFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.profile.UploadImageFragment"
+        android:label="fragment_upload_image"
+        tools:layout="@layout/fragment_upload_image" />
 
 </navigation>

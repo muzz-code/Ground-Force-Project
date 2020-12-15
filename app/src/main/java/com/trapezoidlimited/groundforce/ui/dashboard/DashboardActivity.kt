@@ -113,14 +113,33 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
 
-            if (destination.id == R.id.verifyLocationFragment || destination.id == R.id.userProfileFragment) {
-                /** hiding bottom navigation bar **/
-                binding.dashboardActivityBnv.visibility = View.GONE
+//            if (destination.id == R.id.verifyLocationFragment || destination.id == R.id.userProfileFragment) {
+//                /** hiding bottom navigation bar **/
+//                binding.dashboardActivityBnv.visibility = View.GONE
+//
+//            } else if(destination.id == R.id.uploadImageFragment){
+//                binding.dashboardActivityBnv.visibility = View.GONE
+//            }else {
+//                binding.dashboardActivityBnv.visibility = View.VISIBLE
+//            }
 
-            } else {
-                binding.dashboardActivityBnv.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.verifyLocationFragment -> {
+                    binding.dashboardActivityBnv.visibility = View.GONE
+                }
+                R.id.userProfileFragment -> {
+                    binding.dashboardActivityBnv.visibility = View.GONE
+                }
+                R.id.uploadImageFragment -> {
+                    binding.dashboardActivityBnv.visibility = View.GONE
+                }
+                else -> {
+                    binding.dashboardActivityBnv.visibility = View.VISIBLE
+                }
             }
+
         }
+
 
 
     }

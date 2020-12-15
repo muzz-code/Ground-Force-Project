@@ -137,6 +137,19 @@ class UpdateProfileFragment : Fragment() {
                 val religion = religionEditText.text.toString()
                 val additionNumber = additionalPhoneNumberEditText.text.toString()
                 val gender = genderEditText.text.toString()
+                val agentGender = if (gender == "Male") {
+                    "m"
+                } else if ( gender == "Female") {
+                    "f"
+                } else {
+                    "o"
+                }
+
+                saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
+                saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNumber)
+                saveToSharedPreference(requireActivity(), RELIGION, religion)
+                saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
+                saveToSharedPreference(requireActivity(), GENDER, agentGender)
 
 
                 val verifyAccountRequest = VerifyAccountRequest(
@@ -144,10 +157,12 @@ class UpdateProfileFragment : Fragment() {
                     accountNumber,
                     religion,
                     additionNumber,
-                    gender )
+                    agentGender )
 
                 viewModel.verifyAccount(verifyAccountRequest)
             }
+
+
         }
     }
 

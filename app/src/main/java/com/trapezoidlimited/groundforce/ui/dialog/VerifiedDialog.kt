@@ -182,7 +182,7 @@ class VerifiedDialog : DialogFragment() {
 
                 Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
 
-                saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+                saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
 
                 setVisibility(progressBar)
 

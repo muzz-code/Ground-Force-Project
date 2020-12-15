@@ -74,8 +74,9 @@ interface LoginAuthApi {
         @Part verificationCode: String
     ): GenericResponseClass<ConfirmEmailResponse>
 
-    @POST("User/verify-account")
+    @PATCH("User/verify-account")
     suspend fun verifyAccount(
+        @Header("Authorization") token: String,
         @Body verifyAccountRequest: VerifyAccountRequest
     ): GenericResponseClass<VerifyAccountResponse>
 
