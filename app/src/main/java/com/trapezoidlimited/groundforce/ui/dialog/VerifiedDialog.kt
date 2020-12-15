@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.databinding.VerificationResultPageBinding
+import com.trapezoidlimited.groundforce.model.request.VerifyLocationRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -30,7 +32,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class VerifiedDialog : DialogFragment() {
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -54,8 +56,8 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         _binding = VerificationResultPageBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
@@ -101,43 +103,96 @@ class VerifiedDialog : DialogFragment() {
 
         })
 
-        okTextView.setOnClickListener {
+        viewModel.verifyLocationResponse.observe(viewLifecycleOwner, {
 
-            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-            val gender = loadFromSharedPreference(requireActivity(), GENDER)
-            val dob = loadFromSharedPreference(requireActivity(), DOB)
-            val email = loadFromSharedPreference(requireActivity(), EMAIL)
-            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
-            val state = loadFromSharedPreference(requireActivity(), STATE)
-            val lga = loadFromSharedPreference(requireActivity(), LGA)
-            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+            when (it) {
+                is Resource.Success -> {
+                    setInVisibility(progressBar)
 
-            agentData = AgentDataRequest(
-                lastName = lastName,
-                firstName = firstName,
-                phoneNumber = phoneNumber,
-                gender = gender,
-                dob = dob,
-                email = email,
-                password = password,
-                residentialAddress = residentialAddress,
-                state = state,
-                lga = lga,
-                zipCode = zipCode,
-                longitude = longitude,
-                latitude = latitude,
-                roles = listOf("agent")
-            )
 
-            setVisibility(progressBar)
-            //setInVisibility(okTextView)
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.value.data?.message}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    findNavController().navigate(R.id.userProfileFragment)
+                    dismiss()
+                }
+                is Resource.Failure -> {
+                    setInVisibility(progressBar)
+                    //setVisibility(okTextView)
+                    handleApiError(it, retrofit, requireView())
+                    dismiss()
+                }
+            }
 
-            viewModel.registerAgent(agentData)
+        })
+
+
+
+        if (DataListener.currentScreen == LOCATION_VERIFICATION_SCREEN) {
+
+            Log.i("LOCATION", "LOCATION_VERIFICATION_SCREEN")
+
+            okTextView.setOnClickListener {
+
+                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+                val gender = loadFromSharedPreference(requireActivity(), GENDER)
+                val dob = loadFromSharedPreference(requireActivity(), DOB)
+                val email = loadFromSharedPreference(requireActivity(), EMAIL)
+                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+                val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+                val state = loadFromSharedPreference(requireActivity(), STATE)
+                val lga = loadFromSharedPreference(requireActivity(), LGA)
+                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+
+                agentData = AgentDataRequest(
+                    lastName = lastName,
+                    firstName = firstName,
+                    phoneNumber = phoneNumber,
+                    gender = gender,
+                    dob = dob,
+                    email = email,
+                    password = password,
+                    residentialAddress = residentialAddress,
+                    state = state,
+                    lga = lga,
+                    zipCode = zipCode,
+                    longitude = longitude,
+                    latitude = latitude,
+                    roles = listOf("agent")
+                )
+
+
+                setVisibility(progressBar)
+                //setInVisibility(okTextView)
+
+                viewModel.registerAgent(agentData)
+
+            }
+
+        } else if (DataListener.currentScreen == VERIFY_LOCATION_SCREEN) {
+
+            okTextView.setOnClickListener {
+
+                Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
+
+                saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+
+                setVisibility(progressBar)
+
+                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+
+                val verifyLocationRequest = VerifyLocationRequest(longitude, latitude)
+
+                viewModel.verifyLocation(verifyLocationRequest)
+            }
 
         }
 

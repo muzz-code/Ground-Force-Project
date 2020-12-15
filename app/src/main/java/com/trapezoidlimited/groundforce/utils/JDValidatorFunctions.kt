@@ -13,7 +13,10 @@ fun EditText.jdValidatePassword(password: String): Boolean {
     return password.length >= 6
 }
 
-fun EditText.jdValidateConfirmPassword(password: EditText, confirmPassword: String): Boolean {
+fun EditText.jdValidateConfirmPassword(password: EditText, confirmPasswordEditText: EditText): Boolean {
+
+    val confirmPassword = confirmPasswordEditText.text.toString().trim()
+
     return password.text.toString().trim() == confirmPassword
 }
 
@@ -33,6 +36,11 @@ fun EditText.jdValidateOTP(string: String): Boolean {
 /** Validating Name field */
 fun EditText.jdValidateName(name: String): Boolean {
     return name.trim().length > 1
+}
+
+/** Validating Name field */
+fun EditText.jdValidateLongText(text: String): Boolean {
+    return text.trim().length > 3
 }
 
 /** Validating DateOfBirth field */

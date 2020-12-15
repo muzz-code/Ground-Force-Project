@@ -11,24 +11,26 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.SpannableStringBuilder
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import java.io.File
 import java.util.*
@@ -48,8 +50,22 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var googleAccount: GoogleSignInAccount? = null
 
     private lateinit var profileImageView: ImageView
+    private lateinit var addProfileImageView: ImageView
+
+    private lateinit var verifyLocationTextView: TextView
 
     private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+
+    private lateinit var userNameTextView: TextView
+    private lateinit var userEmailAddressTextView: TextView
+    private lateinit var firstNameEditText: EditText
+    private lateinit var lastNameEditText: EditText
+    private lateinit var dateOfBirthEditText: EditText
+    private lateinit var emailAddressEditText: EditText
+    private lateinit var additionalPhoneEditText: EditText
+    private lateinit var residenceAddressEditText: EditText
+    private lateinit var isLocationVerified: String
+
 
     /** onCreateView over ride function **/
     override fun onCreateView(
@@ -58,6 +74,27 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+
+        /** Initializing views */
+
+        userNameTextView = binding.fragmentUserProfileUserNameTv
+        userEmailAddressTextView = binding.fragmentUserProfileUserEmailTv
+        firstNameEditText = binding.fragmentUserProfileFirstNameEt
+        lastNameEditText = binding.fragmentUserProfileLastNameEt
+        dateOfBirthEditText = binding.fragmentUserProfileDateBirthEt
+        emailAddressEditText = binding.fragmentUserProfileEmailAddressEt
+        additionalPhoneEditText = binding.fragmentUserProfileAdditionalNumberEt
+        residenceAddressEditText = binding.fragmentUserProfileResidentialAddressEt
+        verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
+
+        isLocationVerified = loadFromSharedPreference(requireActivity(), LOCATION_VERIFICATION)
+
+
+        if (isLocationVerified == "true") {
+            setInVisibility(verifyLocationTextView)
+        } else {
+            setVisibility(verifyLocationTextView)
+        }
 
         /** setting toolbar text **/
         binding.fragmentUserProfileTb.toolbarTitle.text = getString(R.string.profile_str)
@@ -68,7 +105,15 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentUserProfileTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.agentDashboardFragment)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback{
+            if (findNavController().currentDestination?.id == R.id.userProfileFragment) {
+                findNavController().navigate(R.id.agentDashboardFragment)
+            } else {
+                findNavController().popBackStack()
+            }
         }
 
         roomViewModel.agentObject.observe(viewLifecycleOwner, {
@@ -78,9 +123,32 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val lastName = it[it.lastIndex].lastName
                 val name = "$firstName $lastName"
                 val email = it[it.lastIndex].email
+                val dob = it[it.lastIndex].dob
+                val gender = it[it.lastIndex].gender
+                val residentialAddress = it[it.lastIndex].residentialAddress
 
-                binding.fragmentUserProfileUserNameTv.text = name
-                binding.fragmentUserProfileUserEmailTv.text = email
+                val firstNameEt = SpannableStringBuilder(firstName)
+                val lastNameEt = SpannableStringBuilder(lastName)
+                val emailEt = SpannableStringBuilder(email)
+                val dobEt = SpannableStringBuilder(dob)
+                val residentAddressEt = SpannableStringBuilder(residentialAddress)
+
+                userNameTextView.text = name
+                userEmailAddressTextView.text = email
+                firstNameEditText.text = firstNameEt
+                lastNameEditText.text = lastNameEt
+                emailAddressEditText.text = emailEt
+                dateOfBirthEditText.text = dobEt
+                residenceAddressEditText.text = residentAddressEt
+
+
+                when (gender) {
+                    "m" -> binding.fragmentUserProfileGenderSp.setSelection(1)
+                    "f" -> binding.fragmentUserProfileGenderSp.setSelection(2)
+                    "o" -> binding.fragmentUserProfileGenderSp.setSelection(3)
+                    else -> binding.fragmentUserProfileGenderSp.setSelection(0)
+                }
+
 
             }
         })
@@ -95,6 +163,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         profileImageView = binding.fragmentCreateProfileOneProfileImageIv
+        addProfileImageView = binding.fragmentCreateProfileOneProfileAddPhotoIv
+
 
         validateFields()
 
@@ -112,7 +182,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         //Open Camera and capture Image
-        profileImageView.setOnClickListener {
+        addProfileImageView.setOnClickListener {
             if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
 
@@ -126,7 +196,16 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         } else {
             genericRepository.getImageFromStorage(requireActivity(), profileImageView)
         }
+
+
+        verifyLocationTextView.setOnClickListener {
+            findNavController().navigate(R.id.verifyLocationFragment)
+        }
+
+
+
     }
+
 
     private fun agentImageIsSaved(): Boolean {
 //        File(requireActivity().getDir() , GROUND_FORCE_IMAGE_NAME)

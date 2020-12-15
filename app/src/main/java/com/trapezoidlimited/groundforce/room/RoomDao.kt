@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.room
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
 
@@ -24,6 +25,9 @@ interface RoomDao {
     //Select Agent from Room
     @Query("SELECT * FROM agent_table")
     fun readAgent(): LiveData<List<RoomAgent>>
+
+    @Query("SELECT * FROM agent_table")
+    suspend fun readAgentA(): List<RoomAgent>
 
     //Select Additional Detail
     @Query("SELECT * FROM additional_agent_table")
@@ -52,5 +56,8 @@ interface RoomDao {
 
     @Query("DELETE FROM ongoing_mission_table WHERE id = :missionId")
     suspend fun deleteByOngoingMissionId(missionId: String)
+
+    @Query("DELETE FROM agent_table")
+    suspend fun deleteAllAgentDetails()
 
 }

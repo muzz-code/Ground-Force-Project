@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentPhoneActivationBinding
@@ -36,7 +36,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PhoneActivationFragment : Fragment() {
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var errorUtils: ErrorUtils
@@ -59,8 +59,8 @@ class PhoneActivationFragment : Fragment() {
     ): View? {
         _binding = FragmentPhoneActivationBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
@@ -74,7 +74,7 @@ class PhoneActivationFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.landingFragment)
         }
 
         /**show status bar**/
@@ -147,7 +147,11 @@ class PhoneActivationFragment : Fragment() {
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
                     binding.phoneActivationPb.hide(binding.phoneActivContinueBtn)
-                    handleApiError(it, retrofit, requireView())
+
+                    val message = "Number is already confirmed"
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne )
+
                 }
             }
         })

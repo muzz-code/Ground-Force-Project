@@ -12,15 +12,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.ApiService
+import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Retrofit
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class EmailVerificationTwo : Fragment() {
+
+    @Inject
+    lateinit var loginApiServiceService: ApiService
+
+    @Inject
+    lateinit var errorUtils: ErrorUtils
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
 
     private var _binding: FragmentEmailVerificationTwoBinding? = null
     private val binding get() = _binding!!
+    private val args: EmailVerificationTwoArgs by navArgs()
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +54,9 @@ class EmailVerificationTwo : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentEmailVerificationTwoBinding.inflate(layoutInflater, container, false)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
         /** setting toolbar text **/
@@ -51,22 +80,26 @@ class EmailVerificationTwo : Fragment() {
 
         validateFields()
 
+        val verificationCode = args.verificationCode
+        binding.fragmentEmailVerificationTwoPinView.setText(verificationCode)
 
         val email = loadFromSharedPreference(requireActivity(), EMAIL)
 
         binding.fragmentEmailVerificationTwoInstructionTv.text = "Please enter the 4 digit code sent to you at $email"
 
-        // Get Test from String Resource
+        /** Get Test from String Resource */
         val codeText = getText(R.string.email_verify_didnt_get_code_text_str)
-        // Get an instance of SpannableString
+
+        /** Get an instance of SpannableString */
         val ssText = SpannableString(codeText)
-        // Implement ClickableSpan
+
+        /** Implement ClickableSpan */
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
             }
 
-            // Change color and remove underline
+            /** Change color and remove underline */
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
@@ -74,20 +107,49 @@ class EmailVerificationTwo : Fragment() {
             }
         }
 
-        // Set the span text
+        /** Set the span text */
         ssText.setSpan(clickableSpan, 21, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        // Make the text spannable and clickable
+
+        /** Make the text spannable and clickable */
         binding.fragmentEmailVerificationTwoResendTv.text = ssText
         binding.fragmentEmailVerificationTwoResendTv.movementMethod =
             LinkMovementMethod.getInstance()
 
+
+
+        viewModel.confirmEmailResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    setInVisibility(binding.fragmentEmailVerificationTwoPb)
+                    findNavController().navigate(R.id.createProfileFragmentOne)
+                }
+                is Resource.Failure -> {
+                    setInVisibility(binding.fragmentEmailVerificationTwoPb)
+
+                    val message = "Email is already confirmed"
+
+                    handleApiError(it, retrofit, requireView(), message, R.id.createProfileFragmentOne )
+
+                }
+            }
+        })
+
+
         binding.fragmentEmailVerificationTwoChangeEmailTv.setOnClickListener {
-            Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.emailVerificationOne)
         }
 
         binding.fragmentEmailVerificationTwoConfirmBtn.setOnClickListener {
+
+//            setVisibility(binding.fragmentEmailVerificationTwoPb)
+//
+//            val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
+//            viewModel.confirmEmail(email, code)
+
             findNavController().navigate(R.id.createProfileFragmentOne)
+
         }
+
 
     }
 

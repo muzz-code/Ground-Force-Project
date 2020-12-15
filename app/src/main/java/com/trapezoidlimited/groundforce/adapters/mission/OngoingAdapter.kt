@@ -24,7 +24,7 @@ class OngoingAdapter(var ongoings: MutableList<OngoingItem>, var clickListener: 
             /** setting the onclick listener to verify text of every ongoing item on the recyclerview list */
 
             itemView.ongoing_verify_tv.setOnClickListener {
-                action.onVerifyBtnClick(ongoing, adapterPosition)
+                ongoing.id?.let { it1 -> action.onVerifyBtnClick(ongoing, adapterPosition, it1) }
             }
         }
     }
@@ -54,5 +54,5 @@ class OngoingAdapter(var ongoings: MutableList<OngoingItem>, var clickListener: 
 }
 
 interface OngoingItemClickListener{
-    fun onVerifyBtnClick(ongoing: OngoingItem, position: Int)
+    fun onVerifyBtnClick(ongoing: OngoingItem, position: Int, id: String)
 }

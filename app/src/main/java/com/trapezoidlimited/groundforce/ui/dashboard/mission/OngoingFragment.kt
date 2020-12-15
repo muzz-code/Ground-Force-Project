@@ -2,7 +2,6 @@ package com.trapezoidlimited.groundforce.ui.dashboard.mission
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OngoingItemClickListener
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentOngoingBinding
@@ -21,6 +20,7 @@ import com.trapezoidlimited.groundforce.model.mission.OngoingItem
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.room.RoomOngoingMission
 import com.trapezoidlimited.groundforce.ui.dashboard.MissionReportActivity
+import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.MissionsViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -32,7 +32,7 @@ import javax.inject.Inject
 class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -65,8 +65,8 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentOngoingBinding.inflate(inflater, container, false)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)
 
@@ -86,16 +86,16 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         userId = loadFromSharedPreference(requireActivity(), USERID)
         token = "Bearer ${loadFromSharedPreference(requireActivity(), TOKEN)}"
 
-        viewModel.getMissions(token, userId, "accepted", "1")
+        viewModel.getMissions(userId, "accepted", "1")
 
         ongoingMissionList = mutableListOf()
 
 
-        viewModel.getMissionResponse.observe(viewLifecycleOwner, {
-            when (it) {
+        viewModel.getMissionResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
                 is Resource.Success -> {
 
-                    val missions = it.value.data?.data
+                    val missions = response.value.data?.data
 
                     /**
                      * onSuccess add ongoing missions to room database
@@ -125,7 +125,15 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
                 is Resource.Failure -> {
 
-                    handleApiError(it, retrofit, requireView())
+                    if (response.errorCode == UNAUTHORIZED) {
+                        Intent(requireContext(), MainActivity::class.java).also {
+                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+                            startActivity(it)
+                            requireActivity().finish()
+                        }
+                    } else {
+                        handleApiError(response, retrofit, requireView())
+                    }
 
                     /**
                      * Read from room database
@@ -151,11 +159,12 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
          */
 
         binding.fragmentOngoingSrl.setOnRefreshListener {
-            viewModel.getMissions(token, userId, "accepted", "1")
+            viewModel.getMissions(userId, "accepted", "1")
             adapter.notifyDataSetChanged()
 
             binding.fragmentOngoingSrl.isRefreshing = false
         }
+
     }
 
 
@@ -167,10 +176,13 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
     /**
      * This method will handle the action onclick of the verify button */
 
-    override fun onVerifyBtnClick(ongoing: OngoingItem, position: Int) {
+    override fun onVerifyBtnClick(ongoing: OngoingItem, position: Int, id: String) {
+
 
         /** navigate to the verification page */
         Intent(requireContext(), MissionReportActivity::class.java).also {
+            it.putExtra("POSITION", position)
+            it.putExtra("MISSIONID", id)
             startActivity(it)
         }
 

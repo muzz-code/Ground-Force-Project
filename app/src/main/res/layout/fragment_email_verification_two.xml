@@ -107,7 +107,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
-            android:id="@+id/phone_verification_pb"
+            android:id="@+id/fragment_email_verification_two_pb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"

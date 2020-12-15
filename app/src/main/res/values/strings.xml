@@ -269,7 +269,7 @@
     <string name="email_instruction_str">Please enter your email address.</string>
     <string name="email_confirm_btn_str">Confirm</string>
     <string name="change_email_str">Change Email</string>
-    <string name="password_str">Password</string>
+    <string name="password_str">Pin</string>
 
     <string name="residential_information_title_str">Residential Information</string>
     <string name="street_title_str">Street</string>
@@ -289,6 +289,21 @@
     <string name="account_number">Account Number</string>
     <string name="bank_code">Bank Code</string>
     <string name="complete_now_str">Complete Now</string>
+    <string name="confirm_password_str_two">Confirm Pin</string>
+    <string name="help_fragment_title_str">Help</string>
+    <string name="we_re_available_now_str">We\'re available now!</string>
+    <string name="monday_fridays_8am_5pm_str">Monday - Fridays, 8am - 5pm</string>
+    <string name="opening_hours_str">Opening Hours</string>
+    <string name="_234_0876543233_str">+234 0876543233</string>
+    <string name="phone_number_s_str">Phone Number(s)</string>
+    <string name="not_available_str">We\'re offline now. Please call during our opening hours.</string>
+    <string name="to_continue_sub_str">to continue</string>
+    <string name="please_enter_current_password_str">Please enter current password</string>
+    <string name="create_new_password_title_str">Create New Password</string>
+    <string name="security_fragment_title_str">Security</string>
+    <string name="faq_dummy_str">Groundforce is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.? \n \nSurveys \n \nSurveys are how we simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
+    <string name="faq_question_str">Have questions about our service? Click on any of the most common questions below to view responses.</string>
+    <string name="call_to_action_reach_us_str">If you are not satisfied, reach us here.</string>
 
 </resources>
 

@@ -21,4 +21,12 @@ const val LATITUDE: String = "latitude"
 const val TOKEN: String = "token"
 const val USERID: String = "id"
 const val GROUND_FORCE_IMAGE_NAME = "ground_force_profile_picture.jpg"
+const val UNAUTHORIZED = 401
+const val LOCATION_VERIFICATION = "location_verification"
+const val COMPLETED_REGISTRATION = "registration_completed"
+const val BANKCODE = "bankcode"
+const val ACCOUNTNUMBER = "account_number"
+const val RELIGION = "religion"
+const val ADDITIONALPHONENUMBER = "additional_phone_number"
+
 

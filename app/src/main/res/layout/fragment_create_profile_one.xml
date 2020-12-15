@@ -148,7 +148,7 @@
         <!--   Text view for sex  -->
 
         <TextView
-            android:id="@+id/fragment_create_profile_one_gender_tv"
+            android:id="@+id/fragment_create_profile_one_password_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,12 +161,49 @@
             android:id="@+id/fragment_create_profile_one_password_til"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_date_birth_til"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_date_birth_til"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_gender_tv">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_password_tv">
 
             <EditText
                 android:id="@+id/fragment_create_profile_one_password_et"
+                style="@style/colorPrimaryBlackSmallText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorWhite"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="482dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--   Text view for sex  -->
+
+        <TextView
+            android:id="@+id/fragment_create_profile_one_confirm_pass_tv"
+            style="@style/colorTertiaryGreyExtraSmallText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/confirm_password_str_two"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_password_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_password_til" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_create_profile_one_confirm_password_til"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_password_til"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_password_til"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_confirm_pass_tv">
+
+            <EditText
+                android:id="@+id/fragment_create_profile_one_confirm_password_et"
                 style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,7 +235,7 @@
             app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_password_til"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_password_til"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_password_til"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_one_confirm_password_til"
             app:layout_constraintVertical_bias="1.0" />
 
 

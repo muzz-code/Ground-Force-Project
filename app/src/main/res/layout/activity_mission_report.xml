@@ -118,14 +118,14 @@
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_yes_one_rb"
+                        style="@style/colorPrimaryBlackSmallText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
                         android:checked="true"
                         android:fontFamily="@font/roboto"
                         android:text="@string/radio_yes_str"
-                        android:textAlignment="viewStart"
-                        style="@style/colorPrimaryBlackSmallText" />
+                        android:textAlignment="viewStart" />
 
                     <RadioButton
                         android:id="@+id/activity_mission_report_no_one_rb"
@@ -470,12 +470,23 @@
                 android:layout_marginRight="@dimen/common_margin_dim"
                 android:background="@drawable/btn_primary_shapes"
                 android:text="@string/submit_str"
+                android:enabled="false"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 style="@style/colorWhiteMediumText"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_comments_til" />
+
+            <ProgressBar
+                android:id="@+id/activity_mission_report_pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/activity_mission_report_submit_btn"
+                app:layout_constraintTop_toTopOf="@id/activity_mission_report_submit_btn"
+                app:layout_constraintEnd_toEndOf="@id/activity_mission_report_submit_btn"
+                app:layout_constraintBottom_toBottomOf="@id/activity_mission_report_submit_btn"/>
 
             <!--            cancel button-->
             <TextView

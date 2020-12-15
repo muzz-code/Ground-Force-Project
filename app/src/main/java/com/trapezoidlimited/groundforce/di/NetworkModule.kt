@@ -1,22 +1,14 @@
 package com.trapezoidlimited.groundforce.di
 
-import android.content.Context
-import android.util.Log
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.OtpAuthService
 import com.trapezoidlimited.groundforce.data.BASE_URL
-import com.trapezoidlimited.groundforce.utils.AuthInterceptor
-import com.trapezoidlimited.groundforce.utils.SessionManager
-import com.trapezoidlimited.groundforce.utils.TOKEN
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -83,8 +75,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoginApiService(retrofit: Retrofit): LoginAuthApi {
-        return retrofit.create(LoginAuthApi::class.java)
+    fun provideLoginApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 
     @Provides

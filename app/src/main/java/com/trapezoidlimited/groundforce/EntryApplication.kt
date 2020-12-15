@@ -1,8 +1,10 @@
 package com.trapezoidlimited.groundforce
 
+import android.app.Activity
 import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import com.trapezoidlimited.groundforce.images.ImageHelper
 import com.trapezoidlimited.groundforce.images.ImageHelperImpl
 import com.trapezoidlimited.groundforce.repository.GroundForceRepository
@@ -33,6 +35,12 @@ class EntryApplication : Application() {
 
         fun viewModel(fragment: Fragment): RoomViewModel {
             return ViewModelProvider(fragment, roomViewModelFactory).get(
+                RoomViewModel::class.java
+            )
+        }
+
+        fun viewModel(viewModelStoreOwner: ViewModelStoreOwner): RoomViewModel {
+            return ViewModelProvider(viewModelStoreOwner, roomViewModelFactory).get(
                 RoomViewModel::class.java
             )
         }

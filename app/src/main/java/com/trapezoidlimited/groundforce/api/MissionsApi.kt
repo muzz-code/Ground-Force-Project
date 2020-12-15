@@ -26,6 +26,7 @@ interface MissionsApi {
 
     @GET("Mission/submit")
     suspend fun submitMission(
+        @Header("Authorization") token: String,
         @Body submitMissionRequest: SubmitMissionRequest
     ): GenericResponseClass<SubmitMissionResponse>
 }

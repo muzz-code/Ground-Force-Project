@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.extras.CallCentreFragment">
+
+    <!--    Include to tool bar -->
+    <include
+        android:id="@+id/fragment_call_centre_ict"
+        layout="@layout/toolbar_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="45dp"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/fragment_call_center_vw"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/custom_round_border_grey_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_customer_support_two"
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_call_center_vw"
+                    app:layout_constraintEnd_toEndOf="@+id/fragment_call_center_vw"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_call_center_vw" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/fragment_call_available_str"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:layout_marginBottom="45dp"
+                style="@style/colorPrimaryLargeText"
+                />
+
+            <TextView
+                android:id="@+id/fragment_call_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number_s_str"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                style="@style/colorPrimaryBlackLargeText"/>
+
+            <TextView
+                android:id="@+id/fragment_call_phone_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_234_0876543233_str"
+                android:layout_marginBottom="8dp"
+                style="@style/colorPrimaryLargeText"
+                />
+
+            <TextView
+                android:id="@+id/fragment_call_phone_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_234_0876543233_str"
+                android:layout_marginBottom="8dp"
+                style="@style/colorPrimaryLargeText"
+                />
+
+            <TextView
+                android:id="@+id/fragment_call_phone_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_234_0876543233_str"
+                android:layout_marginBottom="45dp"
+                style="@style/colorPrimaryLargeText"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/opening_hours_str"
+                android:layout_marginBottom="16dp"
+                style="@style/colorPrimaryBlackLargeText"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/monday_fridays_8am_5pm_str"
+                android:layout_marginBottom="16dp"
+                style="@style/colorPrimaryBlackLargeText"/>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

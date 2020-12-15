@@ -2,7 +2,6 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.api.LoginAuthApi
+import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentAgentDashboardBinding
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.room.RoomAdditionalDetail
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -34,7 +33,7 @@ import com.trapezoidlimited.groundforce.ui.main.MainActivity
 class AgentDashboardFragment : Fragment() {
 
     @Inject
-    lateinit var loginApiService: LoginAuthApi
+    lateinit var loginApiServiceService: ApiService
 
     @Inject
     lateinit var missionsApi: MissionsApi
@@ -48,6 +47,9 @@ class AgentDashboardFragment : Fragment() {
     private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
+    private lateinit var incompleteUserDetailsConstraintLayout: ConstraintLayout
+    private lateinit var userId: String
+    private lateinit var isRegistrationCompleted: String
 
 
     override fun onCreateView(
@@ -60,40 +62,45 @@ class AgentDashboardFragment : Fragment() {
             binding.dashboardToolBarLy.toolbarTitle.text = getString(R.string.home_title_str)
         }
 
-        /** Checking and logging user out if user has no authorization **/
+        /** initializing views **/
+        incompleteUserDetailsConstraintLayout = binding.fragmentAgentDashboardCl
 
-        logOut()
+//        /** Checking and logging user out if user has no authorization **/
+//
+//        logOut(roomViewModel)
 
-        val repository = AuthRepositoryImpl(loginApiService, missionsApi)
-        val factory = ViewModelFactory(repository)
+        val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
 
-        val userId = loadFromSharedPreference(requireActivity(), USERID)
-        val token = SessionManager.load(requireContext(), TOKEN)
+        userId = loadFromSharedPreference(requireActivity(), USERID)
 
+        roomViewModel.readAgent()
 
         /** Checking is user object is saved in Room
          *
          * Make network if user object in room is empty **/
 
-        roomViewModel.agentObject.observe(viewLifecycleOwner, {
+        roomViewModel.agentObjectA.observe(viewLifecycleOwner, {
             if (it.isNotEmpty()) {
 
                 val name = it[it.lastIndex].firstName
 
                 saveToSharedPreference(requireActivity(), FIRSTNAME, name)
 
-            }else {
+                binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
+                binding.fragmentAgentDashboardLl.visibility = View.GONE
+
+            } else {
 
                 binding.fragmentAgentDashboardCl.visibility = View.GONE
                 binding.fragmentAgentDashboardLl.visibility = View.VISIBLE
-                viewModel.getUser("Bearer $token", userId)
+                viewModel.getUser(userId)
             }
 
         })
-
 
         // Inflate the layout for this fragment
         return binding.root
@@ -104,9 +111,17 @@ class AgentDashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
+
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
         dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
+        isRegistrationCompleted = loadFromSharedPreference(requireActivity(), COMPLETED_REGISTRATION)
+
+        if (isRegistrationCompleted == "true") {
+            setInVisibility(incompleteUserDetailsConstraintLayout)
+        } else {
+            setVisibility(incompleteUserDetailsConstraintLayout)
+        }
 
 
         /** Set firstName from shared preference if isn't present  **/
@@ -151,14 +166,14 @@ class AgentDashboardFragment : Fragment() {
         }
 
 
-        viewModel.getUserResponseA.observe(viewLifecycleOwner, {
+        viewModel.getUserDetailsResponse.observe(viewLifecycleOwner, { response ->
 
-            when (it) {
+            when (response) {
                 is Resource.Success -> {
 
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
 
-                    val name = it.value.data?.firstName
+                    val name = response.value.data?.firstName
 
 
                     binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
@@ -167,20 +182,19 @@ class AgentDashboardFragment : Fragment() {
 
                     /** Adding Agent Details to Room Database */
 
-                    Toast.makeText(requireContext(), it.value.data?.firstName!!, Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), response.value.data?.firstName!!, Toast.LENGTH_SHORT)
                         .show()
 
-                    /** TO BE FIXED */
 
                     val roomAgent = RoomAgent(
                         agentId = 1,
-                        id = it.value.data?.id!!,
-                        lastName = it.value.data.lastName,
-                        firstName = it.value.data.firstName,
-                        email = it.value.data.email,
-                        residentialAddress = it.value.data.residentialAddress,
-                        dob = it.value.data.dob,
-                        gender = it.value.data.gender,
+                        id = response.value.data?.id!!,
+                        lastName = response.value.data.lastName,
+                        firstName = response.value.data.firstName,
+                        email = response.value.data.email,
+                        residentialAddress = response.value.data.residentialAddress,
+                        dob = response.value.data.dob,
+                        gender = response.value.data.gender,
                     )
 
                     roomViewModel.addAgent(roomAgent)
@@ -188,16 +202,27 @@ class AgentDashboardFragment : Fragment() {
 
                 }
                 is Resource.Failure -> {
-                    handleApiError(it, retrofit, requireView())
+
+                    binding.fragmentAgentDashboardLl.visibility = View.GONE
+
+                    if (response.errorCode == UNAUTHORIZED) {
+                        saveToSharedPreference(requireActivity(), TOKEN, "")
+                        Intent(requireContext(), MainActivity::class.java).also {
+                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+                            startActivity(it)
+                            requireActivity().finish()
+                        }
+
+                    }else {
+                        handleApiError(response, retrofit, requireView())
+                    }
                 }
             }
         })
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            //findNavController().navigate(R.id.updateProfileFragment)
-            roomViewModel.deleteAllMission()
-            roomViewModel.deleteAllOngoingMission()
+            findNavController().navigate(R.id.uploadImageFragment)
         }
 
         // Navigate to Home on Back Press
