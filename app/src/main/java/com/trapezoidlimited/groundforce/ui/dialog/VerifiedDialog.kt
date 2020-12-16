@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -46,6 +47,7 @@ class VerifiedDialog : DialogFragment() {
     private lateinit var agentData: AgentDataRequest
     private lateinit var progressBar: ProgressBar
     private lateinit var okTextView: TextView
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
 
     override fun onCreateView(
@@ -96,7 +98,7 @@ class VerifiedDialog : DialogFragment() {
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
                     //setVisibility(okTextView)
-                    handleApiError(it, retrofit, requireActivity().view)
+                    handleApiError(roomViewModel, requireActivity(), it, retrofit, requireActivity().view)
                     dismiss()
                 }
             }
@@ -122,7 +124,7 @@ class VerifiedDialog : DialogFragment() {
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
                     //setVisibility(okTextView)
-                    handleApiError(it, retrofit, requireView())
+                    handleApiError(roomViewModel, requireActivity(), it, retrofit, requireView())
                     dismiss()
                 }
             }
@@ -194,6 +196,14 @@ class VerifiedDialog : DialogFragment() {
                 viewModel.verifyLocation(verifyLocationRequest)
             }
 
+        } else if (DataListener.currentScreen == CREATE_NEW_PASSWORD_SCREEN) {
+
+            okTextView.setOnClickListener {
+
+                logOut(roomViewModel, requireActivity())
+
+                dismiss()
+            }
         }
 
     }

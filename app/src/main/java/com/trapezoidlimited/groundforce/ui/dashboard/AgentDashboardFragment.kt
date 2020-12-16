@@ -111,11 +111,11 @@ class AgentDashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
         dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
-        isRegistrationCompleted = loadFromSharedPreference(requireActivity(), COMPLETED_REGISTRATION)
+        isRegistrationCompleted =
+            loadFromSharedPreference(requireActivity(), COMPLETED_REGISTRATION)
 
         if (isRegistrationCompleted == "true") {
             setInVisibility(incompleteUserDetailsConstraintLayout)
@@ -182,7 +182,11 @@ class AgentDashboardFragment : Fragment() {
 
                     /** Adding Agent Details to Room Database */
 
-                    Toast.makeText(requireContext(), response.value.data?.firstName!!, Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        response.value.data?.firstName!!,
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
 
 
@@ -205,17 +209,14 @@ class AgentDashboardFragment : Fragment() {
 
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
 
-                    if (response.errorCode == UNAUTHORIZED) {
-                        saveToSharedPreference(requireActivity(), TOKEN, "")
-                        Intent(requireContext(), MainActivity::class.java).also {
-                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
-                            startActivity(it)
-                            requireActivity().finish()
-                        }
+                    handleApiError(
+                        roomViewModel,
+                        requireActivity(),
+                        response,
+                        retrofit,
+                        requireView()
+                    )
 
-                    }else {
-                        handleApiError(response, retrofit, requireView())
-                    }
                 }
             }
         })

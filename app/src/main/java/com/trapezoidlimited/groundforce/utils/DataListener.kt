@@ -11,6 +11,7 @@ const val SURVEYCOMPLETED = 1
 
 const val LOCATION_VERIFICATION_SCREEN = 0
 const val VERIFY_LOCATION_SCREEN = 1
+const val CREATE_NEW_PASSWORD_SCREEN = 2
 
 
 object DataListener {

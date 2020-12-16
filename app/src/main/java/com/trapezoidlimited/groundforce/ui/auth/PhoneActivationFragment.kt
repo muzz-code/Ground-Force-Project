@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -150,7 +151,7 @@ class PhoneActivationFragment : Fragment() {
 
                     val message = "Number is already confirmed"
 
-                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne )
+                    handleApiError( it, retrofit, requireView(), message, R.id.emailVerificationOne )
 
                 }
             }

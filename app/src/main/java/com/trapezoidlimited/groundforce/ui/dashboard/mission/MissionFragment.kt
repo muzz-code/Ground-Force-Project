@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trapezoidlimited.groundforce.EntryApplication
+import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.mission.MissionAdapter
 import com.trapezoidlimited.groundforce.adapters.mission.OnMissionItemClickListener
 import com.trapezoidlimited.groundforce.api.ApiService
@@ -55,6 +57,8 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     private lateinit var missionId: String
     private var missionPosition: Int = 0
 
+    private lateinit var missionBadgeTextView: TextView
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +82,10 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         super.onActivityCreated(savedInstanceState)
 
         adapter = MissionAdapter(mutableListOf(), this)
+
+        val agentDashboardFragment = layoutInflater.inflate(R.layout.fragment_agent_dashboard, null)
+
+       missionBadgeTextView = agentDashboardFragment.findViewById(R.id.fragment_missions_missions_notif_icon_tv)
 
         /**
          * Network call to get assigned missions
@@ -124,15 +132,9 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
                 is Resource.Failure -> {
 
-                    if (response.errorCode == UNAUTHORIZED) {
-                        Intent(requireContext(), MainActivity::class.java).also {
-                            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
-                            startActivity(it)
-                            requireActivity().finish()
-                        }
-                    } else {
-                        handleApiError(response, retrofit, requireView())
-                    }
+                    Log.i("FAILED", "${response.errorCode}")
+
+                        handleApiError(roomViewModel, requireActivity(), response, retrofit, requireView())
 
                     /**
                      * Read from room database
@@ -168,7 +170,9 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                 }
 
                 is Resource.Failure -> {
-                    handleApiError(it, retrofit, requireView())
+
+                    handleApiError(roomViewModel, requireActivity() ,it, retrofit, requireView())
+
                 }
             }
         })
@@ -289,7 +293,10 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                 setNoMissionViewInVisible()
             }
 
-        })
+            missionBadgeTextView.text = missionList.size.toString()
+        }
+
+        )
     }
 
 }

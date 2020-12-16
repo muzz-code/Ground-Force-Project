@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -24,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -37,6 +39,7 @@ import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_locations_verification.*
 import retrofit2.Retrofit
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -63,11 +66,13 @@ class LocationsVerificationFragment : Fragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
-    private var currentLocation: Location? = null
     private var shortAnimationDuration: Int = 0
     private lateinit var skipProgressBar: ProgressBar
     private lateinit var skipButton: Button
     private lateinit var agentData: AgentDataRequest
+
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
 
     override fun onCreateView(
@@ -113,6 +118,9 @@ class LocationsVerificationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         DataListener.currentScreen = LOCATION_VERIFICATION_SCREEN
+
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
@@ -169,18 +177,26 @@ class LocationsVerificationFragment : Fragment() {
                 super.onLocationResult(locationResult)
 
                 if (locationResult?.lastLocation != null) {
-                    var lat = locationResult.lastLocation.latitude.toString()
-                    var long = locationResult.lastLocation.longitude.toString()
-                    currentLocation = locationResult.lastLocation
+                    val lat = locationResult.lastLocation.latitude.toString()
+                    val long = locationResult.lastLocation.longitude.toString()
+                    latitude = locationResult.lastLocation.latitude
+                    longitude = locationResult.lastLocation.longitude
 
                     binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
 
+
+                    val addresses = geocoder.getFromLocation(latitude, longitude, 5)
+                    val addressLine = addresses[0].getAddressLine(0)
+                    val city = addresses[0].locality
+                    val state = addresses[0].adminArea
+                    val country = addresses[0].countryName
 
                     /** Saving LAT and LONG in sharedPreference*/
 
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)
                     saveToSharedPreference(requireActivity(), LONGITUDE, long)
                     saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+                    
 
                     setSuccessDialog()
 
@@ -198,6 +214,7 @@ class LocationsVerificationFragment : Fragment() {
 
         /** requesting location permission **/
         requestLocationPermission()
+
 
         /** setting the welcome dialog when user clicks skip for now **/
 
@@ -242,8 +259,6 @@ class LocationsVerificationFragment : Fragment() {
             viewModel.registerAgent(agentData)
 
 
-
-            findNavController().navigate(R.id.waitingFragment)
         }
 
     }

@@ -4,6 +4,7 @@ package com.trapezoidlimited.groundforce.api
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.ParentResponse
 import com.trapezoidlimited.groundforce.model.response.*
+import com.trapezoidlimited.groundforce.model.response.UpdateSurveyStatusResponse
 import retrofit2.http.*
 
 /**
@@ -58,6 +59,7 @@ interface ApiService {
 
     @PATCH("User/change-password")
     suspend fun changePassword(
+        @Header("Authorization") token: String,
         @Body changePasswordRequest: ChangePasswordRequest
     ): GenericResponseClass<ChangePasswordResponse>
 
@@ -93,13 +95,13 @@ interface ApiService {
     suspend fun updateSurveyStatus(
         @Header("Authorization") token: String,
         @Body updateSurveyStatusRequest: UpdateSurveyStatusRequest
-    ): GenericResponseClass<UpdateMissionStatusResponse>
+    ): GenericResponseClass<UpdateSurveyStatusResponse>
 
     @POST("Survey/submit-survey")
     suspend fun submitSurvey(
         @Header("Authorization") token: String,
         @Body submitSurveyRequest: SubmitSurveyRequest
-    ): GenericResponseClass<UpdateMissionStatusResponse>
+    ): GenericResponseClass<SubmitSurveyResponse>
 
     @GET("Survey/{agentId}/{status}/{page}")
     suspend fun getSurvey(
@@ -107,7 +109,8 @@ interface ApiService {
         @Path("agentId") agentId: String,
         @Path("status") status: String,
         @Path("page") page: String
-    ): GenericResponseClass<UpdateMissionStatusResponse>
+    ): GenericResponseClass<GetSurveyResponse>
+
 
     /**Notifications Endpoints*/
 

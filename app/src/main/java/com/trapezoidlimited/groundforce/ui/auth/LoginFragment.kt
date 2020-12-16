@@ -32,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -113,7 +114,7 @@ class LoginFragment : Fragment() {
         /** set navigation arrow from drawable **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_white_back)
 
-        /**Hide status bar**/
+        /** Hide status bar**/
         hideStatusBar()
 
         // Build a GoogleSignInClient with the options specified by gso.
@@ -125,6 +126,7 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
 
         handleSpannable()
         validateFields()
@@ -161,7 +163,7 @@ class LoginFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLoginTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.landingFragment)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback {

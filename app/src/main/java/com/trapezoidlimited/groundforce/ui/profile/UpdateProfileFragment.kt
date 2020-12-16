@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -44,6 +45,7 @@ class UpdateProfileFragment : Fragment() {
     private lateinit var religionEditText: EditText
     private lateinit var additionalPhoneNumberEditText: EditText
     private lateinit var genderEditText: EditText
+    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
 
 
     override fun onCreateView(
@@ -96,7 +98,7 @@ class UpdateProfileFragment : Fragment() {
                 is Resource.Failure -> {
 
                     progressBar.hide(updateButton)
-                    handleApiError(it, retrofit, requireView())
+                    handleApiError(roomViewModel, requireActivity(), it, retrofit, requireView())
 
                 }
 

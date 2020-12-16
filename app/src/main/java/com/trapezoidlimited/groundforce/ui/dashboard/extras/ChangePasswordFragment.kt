@@ -11,6 +11,7 @@ import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentChangePasswordBinding
+import com.trapezoidlimited.groundforce.ui.auth.PhoneActivationFragmentDirections
 
 
 class ChangePasswordFragment : Fragment() {
@@ -45,8 +46,10 @@ class ChangePasswordFragment : Fragment() {
         binding.fragmentChangePasswordPushButton8.setOnClickListener { setPin(8) }
         binding.fragmentChangePasswordPushButton9.setOnClickListener { setPin(9) }
 
+        pinText = binding.fragmentChangePasswordPinView.text.toString()
+
         binding.fragmentChangePasswordDeleteIv.setOnClickListener {
-            pinText = binding.fragmentChangePasswordPinView.text.toString()
+
             if (pinText.isNotEmpty()) {
                 pinText = pinText.substring(0, pinText.length - 1)
                 editable = SpannableStringBuilder(pinText)
@@ -55,7 +58,10 @@ class ChangePasswordFragment : Fragment() {
         }
 
         binding.fragmentChangePasswordResetBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_changePasswordFragment_to_createNewPasswordFragment)
+
+            val action = ChangePasswordFragmentDirections.actionChangePasswordFragmentToCreateNewPasswordFragment(pinText)
+            findNavController().navigate(action)
+
         }
 
     }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -39,7 +40,6 @@ class EmailVerificationOne : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: AuthViewModel
     private lateinit var email: String
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,7 +97,8 @@ class EmailVerificationOne : Fragment() {
 
                     val message = "Email is already confirmed"
 
-                    handleApiError(it, retrofit, requireView(), message, R.id.action_emailVerificationOne_to_emailVerificationTwo )
+                    handleApiError(it, retrofit, requireView(),
+                        message, R.id.action_emailVerificationOne_to_emailVerificationTwo )
                 }
             }
         })

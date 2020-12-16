@@ -132,7 +132,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
                             requireActivity().finish()
                         }
                     } else {
-                        handleApiError(response, retrofit, requireView())
+                        handleApiError(roomViewModel, requireActivity(), response, retrofit, requireView())
                     }
 
                     /**

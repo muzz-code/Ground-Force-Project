@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -57,6 +58,7 @@ class PhoneVerificationFragment : Fragment() {
 
     private val args: PhoneVerificationFragmentArgs by navArgs()
     private lateinit var phoneNumber: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -162,7 +164,7 @@ class PhoneVerificationFragment : Fragment() {
                     val message = "Number is already confirmed"
 
 
-                    handleApiError(it, retrofit, requireView(), message, R.id.emailVerificationOne )
+                    handleApiError( it, retrofit, requireView(), message, R.id.emailVerificationOne )
 
                 }
             }
@@ -190,7 +192,7 @@ class PhoneVerificationFragment : Fragment() {
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
                     binding.phoneVerificationPb.hide(binding.phoneVerifConfirmBtn)
-                    handleApiError(it, retrofit, requireView())
+                    handleApiError( it, retrofit, requireView())
                 }
             }
         })

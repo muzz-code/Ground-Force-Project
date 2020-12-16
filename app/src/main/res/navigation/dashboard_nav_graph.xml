@@ -175,6 +175,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.ChangePasswordFragment"
         android:label="ChangePasswordFragment"
         tools:layout="@layout/fragment_change_password">
+
         <action
             android:id="@+id/action_changePasswordFragment_to_createNewPasswordFragment"
             app:destination="@id/createNewPasswordFragment"
@@ -188,7 +189,15 @@
         android:id="@+id/createNewPasswordFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.CreateNewPasswordFragment"
         android:label="fragment_create_new_password"
-        tools:layout="@layout/fragment_create_new_password" />
+        tools:layout="@layout/fragment_create_new_password" >
+        <argument
+            android:name="pin"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/securityFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.extras.SecurityFragment"

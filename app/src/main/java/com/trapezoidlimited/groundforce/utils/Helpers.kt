@@ -14,7 +14,57 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
+import java.lang.Exception
 
+
+fun Fragment.handleApiError(
+    roomViewModel: RoomViewModel,
+    activity: Activity,
+    failure: Resource.Failure,
+    retrofit: Retrofit,
+    view: View,
+    message: String = "",
+    navDestinationId: Int = 0
+) {
+    val errorUtils = ErrorUtils(retrofit)
+
+    when {
+        failure.isNetworkError -> {
+            showSnackBar(view, "Please confirm network connection")
+        }
+
+        else -> {
+            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+
+            val errorMessage = error?.errors?.message
+
+            if (failure.errorCode == UNAUTHORIZED) {
+
+                logOut(roomViewModel, activity)
+            }
+
+            if (errorMessage == message) {
+
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                    .show()
+                findNavController().navigate(navDestinationId)
+
+            } else {
+                //error?.errors?.let { showSnackBar(view, it.message!!) }
+                if (errorMessage != null) {
+                    showSnackBar(requireView(), errorMessage)
+                } else {
+                    Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            }
+
+            //Log.i("ERROR", "$errorMessage")
+
+        }
+    }
+}
 
 fun Fragment.handleApiError(
     failure: Resource.Failure,
@@ -39,7 +89,7 @@ fun Fragment.handleApiError(
 
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
                     .show()
-                findNavController().navigate(navDestinationId )
+                findNavController().navigate(navDestinationId)
 
             } else {
                 //error?.errors?.let { showSnackBar(view, it.message!!) }
@@ -53,6 +103,7 @@ fun Fragment.handleApiError(
         }
     }
 }
+
 
 fun Activity.handleApiError(
     failure: Resource.Failure,
@@ -89,15 +140,16 @@ fun ProgressBar.show(button: Button? = null) {
 
 }
 
-fun Fragment.logOut(roomViewModel: RoomViewModel) {
-    if (loadFromSharedPreference(requireActivity(), TOKEN).isEmpty()) {
-        Intent(requireActivity(), MainActivity::class.java).also {
-            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
-            roomViewModel.deleteAllMission()
-            roomViewModel.deleteAllOngoingMission()
-            roomViewModel.deleteAllAgentDetails()
-            startActivity(it)
-            requireActivity().finish()
-        }
+fun Fragment.logOut(roomViewModel: RoomViewModel, activity: Activity) {
+
+    Intent(activity, MainActivity::class.java).also {
+        saveToSharedPreference(activity, TOKEN, "")
+        saveToSharedPreference(activity, LOG_OUT, "true")
+        roomViewModel.deleteAllMission()
+        roomViewModel.deleteAllOngoingMission()
+        roomViewModel.deleteAllAgentDetails()
+        startActivity(it)
+        requireActivity().finish()
     }
+
 }

@@ -136,7 +136,7 @@
     <string name="agentDashboard_name_str">Hello Kehinde</string>
     <string name="agentDashboard_date_str">Sept 31, 2020</string>
     <string name="agentDashboard_totalearning_str">Total Earnings</string>
-    <string name="agentDashboard_amount_str">NGN 200.00</string>
+    <string name="agentDashboard_amount_str">NGN 0.00</string>
     <string name="agentDashboard_next_pay_day_str">Next Payout Date: Oct 06, 2020</string>
     <string name="agentDashboard_details_str">See Details</string>
     <string name="agentDashboard_tasks_str">Tasks</string>
@@ -145,9 +145,9 @@
     <string name="agentDashboard_active_str">Active</string>
     <string name="agentDashboard_activity_str">Activity</string>
     <string name="agentDashboard_mission_completed_str">Missions Completed</string>
-    <string name="agentDashboard_mission_completed_num_str">2</string>
+    <string name="agentDashboard_mission_completed_num_str">0</string>
     <string name="agentDashboard_view_details_str">View Details</string>
-    <string name="agentDashboard_mission_survey_num_str">5</string>
+    <string name="agentDashboard_mission_survey_num_str">0</string>
     <string name="agentDashboard_survey_completed_str">Surveys Completed</string>
     <string name="agentDashboard_user_name">Kehinde Oladimeji</string>
     <string name="agentDashboard_view_profile">View Profile</string>
