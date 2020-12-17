@@ -23,6 +23,7 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     val agentObjectA: LiveData<List<RoomAgent>>
         get() = _agentObjectA
 
+
     fun addAgent(agent: RoomAgent) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addAgent(agent)
@@ -94,5 +95,6 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
             repository.deleteAllAgentDetails()
         }
     }
+
 
 }

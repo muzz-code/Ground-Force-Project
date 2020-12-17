@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
@@ -50,7 +51,7 @@ fun Fragment.handleApiError(
                 findNavController().navigate(navDestinationId)
 
             } else {
-                //error?.errors?.let { showSnackBar(view, it.message!!) }
+
                 if (errorMessage != null) {
                     showSnackBar(requireView(), errorMessage)
                 } else {
@@ -105,6 +106,8 @@ fun Fragment.handleApiError(
 }
 
 
+
+
 fun Activity.handleApiError(
     failure: Resource.Failure,
     retrofit: Retrofit,
@@ -123,6 +126,8 @@ fun Activity.handleApiError(
         }
     }
 }
+
+
 
 //Hide and Show Progress Bars
 fun ProgressBar.hide(button: Button? = null) {

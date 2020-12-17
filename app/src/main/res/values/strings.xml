@@ -137,7 +137,7 @@
     <string name="agentDashboard_date_str">Sept 31, 2020</string>
     <string name="agentDashboard_totalearning_str">Total Earnings</string>
     <string name="agentDashboard_amount_str">NGN 0.00</string>
-    <string name="agentDashboard_next_pay_day_str">Next Payout Date: Oct 06, 2020</string>
+    <string name="agentDashboard_next_pay_day_str">Next Payout Date: Jan 00, 0000</string>
     <string name="agentDashboard_details_str">See Details</string>
     <string name="agentDashboard_tasks_str">Tasks</string>
     <string name="agentDashboard_mission_str">Missions</string>
@@ -149,7 +149,7 @@
     <string name="agentDashboard_view_details_str">View Details</string>
     <string name="agentDashboard_mission_survey_num_str">0</string>
     <string name="agentDashboard_survey_completed_str">Surveys Completed</string>
-    <string name="agentDashboard_user_name">Kehinde Oladimeji</string>
+    <string name="agentDashboard_user_name">Hello, Trooper</string>
     <string name="agentDashboard_view_profile">View Profile</string>
     <string name="agentDashboard_home_str">Home</string>
     <string name="agentDashboard_payment_str">Payment History</string>

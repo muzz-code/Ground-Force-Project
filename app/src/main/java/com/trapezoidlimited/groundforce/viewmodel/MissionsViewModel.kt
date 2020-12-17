@@ -7,14 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.SubmitMissionRequest
-import com.trapezoidlimited.groundforce.model.response.GenericResponseClass
-import com.trapezoidlimited.groundforce.model.response.GetMissionResponse
-import com.trapezoidlimited.groundforce.model.response.SubmitMissionResponse
-import com.trapezoidlimited.groundforce.model.response.UpdateMissionStatusResponse
+import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.SessionManager
 import com.trapezoidlimited.groundforce.utils.TOKEN
 import kotlinx.coroutines.launch
+import retrofit2.http.Header
+import retrofit2.http.Path
 
 class MissionsViewModel(
     private val repository: AuthRepositoryImpl,
@@ -34,6 +33,10 @@ class MissionsViewModel(
     private val _submitMissionResponse: MutableLiveData<Resource<GenericResponseClass<SubmitMissionResponse>>> = MutableLiveData()
     val submitMissionResponse: LiveData<Resource<GenericResponseClass<SubmitMissionResponse>>>
         get() = _submitMissionResponse
+
+    private val _getBuildingTypeResponse: MutableLiveData<Resource<GenericResponseClass<GetBuildingTypeResponse>>> = MutableLiveData()
+    val getBuildingTypeResponse: LiveData<Resource<GenericResponseClass<GetBuildingTypeResponse>>>
+        get() = _getBuildingTypeResponse
 
 
     fun getMissions(
@@ -55,6 +58,10 @@ class MissionsViewModel(
         submitMissionRequest: SubmitMissionRequest
     ) = viewModelScope.launch {
         _submitMissionResponse.value = repository.submitMission(token, submitMissionRequest)
+    }
+
+    fun getBuildingType(page: Int) = viewModelScope.launch{
+        _getBuildingTypeResponse.value = repository.getBuildingType(token, page)
     }
 
 

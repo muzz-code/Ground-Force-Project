@@ -2,6 +2,8 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.FileUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.util.FileUtil
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
@@ -27,6 +30,8 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 import com.trapezoidlimited.groundforce.room.RoomAgent
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -109,6 +114,15 @@ class AgentDashboardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
+
+        /** Setting date  **/
+
+        val sdf = SimpleDateFormat("MMM d, yyyy")
+        val formattedDate = sdf.format(Calendar.getInstance().time)
+
+        binding.agentDashFragmentDateTv.text = formattedDate
 
 
         val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)

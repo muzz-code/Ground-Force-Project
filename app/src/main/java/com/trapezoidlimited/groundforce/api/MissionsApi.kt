@@ -1,10 +1,7 @@
 package com.trapezoidlimited.groundforce.api
 
 import com.trapezoidlimited.groundforce.model.request.SubmitMissionRequest
-import com.trapezoidlimited.groundforce.model.response.GenericResponseClass
-import com.trapezoidlimited.groundforce.model.response.GetMissionResponse
-import com.trapezoidlimited.groundforce.model.response.SubmitMissionResponse
-import com.trapezoidlimited.groundforce.model.response.UpdateMissionStatusResponse
+import com.trapezoidlimited.groundforce.model.response.*
 import retrofit2.http.*
 
 interface MissionsApi {
@@ -29,4 +26,10 @@ interface MissionsApi {
         @Header("Authorization") token: String,
         @Body submitMissionRequest: SubmitMissionRequest
     ): GenericResponseClass<SubmitMissionResponse>
+
+    @GET("Mission/building-types/{page}")
+    suspend fun getBuildingType(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int
+    ): GenericResponseClass<GetBuildingTypeResponse>
 }

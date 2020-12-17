@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.trapezoidlimited.groundforce.model.mission.MissionItem
+import com.trapezoidlimited.groundforce.model.response.BuildingType
 
 @Dao
 interface RoomDao {
@@ -59,5 +60,6 @@ interface RoomDao {
 
     @Query("DELETE FROM agent_table")
     suspend fun deleteAllAgentDetails()
+
 
 }

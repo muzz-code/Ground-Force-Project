@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -75,6 +77,12 @@ class MissionReportActivity : AppCompatActivity() {
             missionPosition = bundle.getInt("POSITION")
         }
 
+
+        /** Network call to get building type **/
+
+        viewModel.getBuildingType(1)
+
+
         /** validating fields **/
 
         validateFields()
@@ -92,6 +100,37 @@ class MissionReportActivity : AppCompatActivity() {
         binding.fragmentMissionReportToolBarLl.toolbarFragment.setNavigationOnClickListener {
             finish()
         }
+
+
+        val buildingTypeList = mutableListOf<String>()
+
+        viewModel.getBuildingTypeResponse.observe(this, {
+            when (it) {
+                is Resource.Success ->{
+                    val buildingTypeObjectList = it.value.data?.data
+
+                    if (buildingTypeObjectList != null) {
+
+
+                        for (buildingTypeObject in buildingTypeObjectList) {
+
+                            val buildingTypeName = buildingTypeObject.typeName
+
+                            buildingTypeList.add(buildingTypeName)
+
+                        }
+
+                    }
+                }
+                is Resource.Failure -> {
+                   handleApiError(it, retrofit, view)
+                }
+            }
+        })
+
+
+
+
         val addressExists = binding.activityMissionReportNoOneRb.isChecked || binding.activityMissionReportYesOneRb.isChecked
 
 
@@ -130,6 +169,8 @@ class MissionReportActivity : AppCompatActivity() {
 
         })
 
+
+
         viewModel.submitMissionResponse.observe(this, Observer {
             when (it) {
                 is Resource.Success -> {
@@ -155,15 +196,29 @@ class MissionReportActivity : AppCompatActivity() {
         })
 
 
+        /*** Populating the dropdown with list of building type **/
+
+        val adapterBuildingType = ArrayAdapter(this, R.layout.list_item, buildingTypeList)
+
+        (binding.activityMissionReportStructureTil.editText as? AutoCompleteTextView)?.setAdapter(
+            adapterBuildingType
+        )
+
+
+
         binding.activityMissionReportSubmitBtn.setOnClickListener {
 
             binding.activityMissionReportPb.visibility = View.VISIBLE
 
             binding.activityMissionReportSubmitBtn.isEnabled = false
 
+
+
             /*** Making network call to verified mission **/
 
             viewModel.updateMissionStatus(missionId, "verified")
+
+
 
             /*** creating submit mission object **/
 
@@ -175,6 +230,8 @@ class MissionReportActivity : AppCompatActivity() {
 
             latitude = loadFromSharedPreference(this, LATITUDE)
             longitude = loadFromSharedPreference(this, LONGITUDE)
+
+
 
         }
 
@@ -188,6 +245,8 @@ class MissionReportActivity : AppCompatActivity() {
 
 
     }
+
+
 
     private fun validateFields() {
         val fields: MutableList<JDataClass> = mutableListOf(

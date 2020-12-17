@@ -104,6 +104,13 @@ constructor(
         missionsApi.submitMission(token, submitMissionRequest)
     }
 
+    override suspend fun getBuildingType(
+        token: String,
+        page: Int
+    ): Resource<GenericResponseClass<GetBuildingTypeResponse>> = safeApiCall {
+        missionsApi.getBuildingType(token, page)
+    }
+
     /** Survey Requests */
 
     override suspend fun updateSurveyStatus(

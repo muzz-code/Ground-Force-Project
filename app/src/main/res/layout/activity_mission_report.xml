@@ -141,150 +141,150 @@
             </LinearLayout>
 
             <!--        second question layout-->
-            <LinearLayout
-                android:id="@+id/activity_mission_report_second_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/mission_question_selector"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:padding="10dp"
-                app:layout_constraintEnd_toEndOf="@id/container"
-                app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_first_ll">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/activity_mission_report_second_ll"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginTop="21dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:background="@drawable/mission_question_selector"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:orientation="vertical"-->
+<!--                android:padding="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/container"-->
+<!--                app:layout_constraintStart_toStartOf="@id/container"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_first_ll">-->
 
-                <TextView
-                    android:id="@+id/activity_mission_report_second_ques_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/mission_report_first_qus_str"
-                    android:textAlignment="viewStart"
-                    style="@style/colorPrimaryBlackSmallText"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/activity_mission_report_second_ques_tv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/mission_report_first_qus_str"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    style="@style/colorPrimaryBlackSmallText"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/activity_mission_report_second_hint_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/mission_report_first_hint_str"
-                    android:textAlignment="viewStart"
-                    style="@style/colorPrimaryBlackSmallText"
-                    android:textStyle="normal" />
+<!--                <TextView-->
+<!--                    android:id="@+id/activity_mission_report_second_hint_tv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/mission_report_first_hint_str"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    style="@style/colorPrimaryBlackSmallText"-->
+<!--                    android:textStyle="normal" />-->
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:orientation="vertical">
+<!--                <RadioGroup-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <RadioButton
-                        android:id="@+id/activity_mission_report_yes_two_rb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/radio_yes_str"
-                        android:textAlignment="viewStart"
-                        style="@style/colorPrimaryBlackSmallText" />
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/activity_mission_report_yes_two_rb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:buttonTint="@color/colorPrimary"-->
+<!--                        android:checked="true"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="@string/radio_yes_str"-->
+<!--                        android:textAlignment="viewStart"-->
+<!--                        style="@style/colorPrimaryBlackSmallText" />-->
 
-                    <RadioButton
-                        android:id="@+id/activity_mission_report_no_two_rb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/radio_no_str"
-                        android:textAlignment="viewStart"
-                        style="@style/colorPrimaryBlackSmallText" />
-                </RadioGroup>
-            </LinearLayout>
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/activity_mission_report_no_two_rb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:buttonTint="@color/colorPrimary"-->
+<!--                        android:checked="true"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="@string/radio_no_str"-->
+<!--                        android:textAlignment="viewStart"-->
+<!--                        style="@style/colorPrimaryBlackSmallText" />-->
+<!--                </RadioGroup>-->
+<!--            </LinearLayout>-->
 
             <!--            third question layout-->
-            <LinearLayout
-                android:id="@+id/activity_mission_report_third_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginEnd="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@id/container"
-                app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_second_ll">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/activity_mission_report_third_ll"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginTop="21dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/container"-->
+<!--                app:layout_constraintStart_toStartOf="@id/container"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_second_ll">-->
 
-                <TextView
-                    android:id="@+id/activity_mission_report_third_ques_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/mission_report_first_qus_str"
-                    android:textAlignment="viewStart"
-                    style="@style/colorPrimaryBlackSmallText"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/activity_mission_report_third_ques_tv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/mission_report_first_qus_str"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    style="@style/colorPrimaryBlackSmallText"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/activity_mission_report_third_hint_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="@string/mission_report_first_hint_str"
-                    android:textAlignment="viewStart"
-                    style="@style/colorPrimaryBlackSmallText"
-                    android:textStyle="normal" />
+<!--                <TextView-->
+<!--                    android:id="@+id/activity_mission_report_third_hint_tv"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/mission_report_first_hint_str"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    style="@style/colorPrimaryBlackSmallText"-->
+<!--                    android:textStyle="normal" />-->
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="14dp"
-                    android:orientation="vertical">
+<!--                <RadioGroup-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="14dp"-->
+<!--                    android:orientation="vertical">-->
 
-                    <RadioButton
-                        android:id="@+id/activity_mission_report_yes_three_rb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/radio_yes_str"
-                        android:textAlignment="viewStart"
-                        style="@style/colorPrimaryBlackSmallText" />
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/activity_mission_report_yes_three_rb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:buttonTint="@color/colorPrimary"-->
+<!--                        android:checked="true"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="@string/radio_yes_str"-->
+<!--                        android:textAlignment="viewStart"-->
+<!--                        style="@style/colorPrimaryBlackSmallText" />-->
 
-                    <RadioButton
-                        android:id="@+id/activity_mission_report_no_three_rb"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimary"
-                        android:checked="true"
-                        android:fontFamily="@font/roboto"
-                        android:text="@string/radio_no_str"
-                        android:textAlignment="viewStart"
-                        style="@style/colorPrimaryBlackSmallText" />
-                </RadioGroup>
-            </LinearLayout>
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/activity_mission_report_no_three_rb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:buttonTint="@color/colorPrimary"-->
+<!--                        android:checked="true"-->
+<!--                        android:fontFamily="@font/roboto"-->
+<!--                        android:text="@string/radio_no_str"-->
+<!--                        android:textAlignment="viewStart"-->
+<!--                        style="@style/colorPrimaryBlackSmallText" />-->
+<!--                </RadioGroup>-->
+<!--            </LinearLayout>-->
 
             <!--            line-->
             <View
@@ -297,7 +297,7 @@
                 android:background="@color/colorMission"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_third_ll" />
+                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_first_ll" />
 
             <!--            nearest landmark edit text-->
             <com.google.android.material.textfield.TextInputLayout
@@ -306,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
                 android:hint="@string/nearest_landmark_str"
@@ -318,7 +318,7 @@
                 app:hintTextColor="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/activity_mission_report_line2_v"
+                app:layout_constraintTop_toBottomOf="@+id/activity_mission_report_line2_v"
                 app:placeholderText="@string/landmark_hint_str">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -365,33 +365,24 @@
             <!--            type of structure edit text-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/activity_mission_report_structure_til"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="26dp"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/type_of_structure_str"
-                android:textColorHint="@color/colorPrimaryBlack"
-                android:textStyle="bold"
-                app:boxStrokeColor="@color/colorPrimary"
-                app:boxStrokeWidthFocused="2dp"
-                app:expandedHintEnabled="false"
-                app:hintTextColor="@color/colorPrimary"
+                android:hint="@string/label_str"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toBottomOf="@id/activity_mission_report_busstop_til"
-                app:placeholderText="@string/label_str">
+                >
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/activity_mission_report_structure_et"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:textColor="@color/colorPrimaryBlack"
-                    android:textColorHint="@color/colorMission"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--            coordinates-->

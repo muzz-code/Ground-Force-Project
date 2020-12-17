@@ -38,6 +38,10 @@ interface AuthRepository {
         token: String,
         submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
 
+    suspend fun getBuildingType(
+        token: String, page: Int
+    ): Resource<GenericResponseClass<GetBuildingTypeResponse>>
+
 
     /** Survey Requests */
     suspend fun updateSurveyStatus(token: String,
