@@ -1,8 +1,8 @@
 package com.trapezoidlimited.groundforce.utils
 
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+
 const val MISSION = 0
 const val ONGOING = 1
 
@@ -21,7 +21,7 @@ object DataListener {
     var currentScreen = LOCATION_VERIFICATION_SCREEN
 
     var mSetTabIndicator = MutableLiveData<Boolean>()
-    val setTabIndicator : LiveData<Boolean>
+    val setTabIndicator: LiveData<Boolean>
         get() = mSetTabIndicator
 
 

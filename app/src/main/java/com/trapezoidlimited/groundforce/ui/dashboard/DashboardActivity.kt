@@ -43,6 +43,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     lateinit var profileImage: ImageView
 
     private lateinit var profileNameTextView: TextView
+    private val genericRepository by lazy { EntryApplication.groundForceRepository }
 
     private lateinit var binding: ActivityDashboardBinding
     private lateinit var drawerLayout: DrawerLayout
@@ -74,6 +75,10 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         profileNameTextView = navHeaderView.agentDashboardframent_user_name_tv
 
+        //Load Image from file if already saved
+//        if (agentImageIsSaved(this)) {
+//            genericRepository.getImageFromStorage(this, profileImage)
+//        }
 
         //Initialize Drawer Menu Listener
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
@@ -141,8 +146,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
 
 
-
     }
+
 
     /**navigating between different fragment in the bottom navigation**/
 
@@ -197,8 +202,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
             }
 
-            R.id.nav_logout -> {
 
+            R.id.nav_logout -> {
                 SessionManager.save(this, TOKEN, "")
                 Intent(this, MainActivity::class.java).also {
                     saveToSharedPreference(this, LOG_OUT, "true")
@@ -209,9 +214,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     finish()
                 }
             }
-
         }
-
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
@@ -228,7 +231,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
     }
 
-
     /**
      * Change the Selected Menu Icon back to the current fragment
      */
@@ -240,9 +242,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         } else if (currentDestination == R.id.notificationsFragment) {
             dashboardActivity_bnv.checkItem(R.id.agentDashboard_notification)
         }
-
     }
-
 
     //OnClick Listener on View Profile
     fun openProfile(view: View) {

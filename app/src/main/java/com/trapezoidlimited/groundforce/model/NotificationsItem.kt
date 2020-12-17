@@ -5,7 +5,6 @@ class NotificationsItem {
    lateinit var notificationItem: NotificationItem
       private set
 
-
     lateinit var notificationsHeader: NotificationsHeader
     private set
 

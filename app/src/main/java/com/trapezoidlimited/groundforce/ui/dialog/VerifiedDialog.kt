@@ -87,7 +87,11 @@ class VerifiedDialog : DialogFragment() {
                     SessionManager.save(requireContext(), TOKEN, userToken!!)
 
                     //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
+                    val token: String? = it.value.data?.loginToken?.token
 
+                    /**Saving user's id to sharedPreference */
+                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+                    saveToSharedPreference(requireActivity(), TOKEN, token!!)
                     setInVisibility(progressBar)
                     findNavController().navigate(R.id.waitingFragment)
 

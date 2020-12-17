@@ -40,7 +40,7 @@ class WelcomeDialog : DialogFragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var progressBar : ProgressBar
     private lateinit var oKTextView: TextView
-    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

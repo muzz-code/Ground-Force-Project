@@ -1,11 +1,11 @@
 package com.trapezoidlimited.groundforce.repository
 
+import android.app.Activity
+import android.net.Uri
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Part
+import okhttp3.RequestBody
 
 /**
  * manages api queries to the network endpoints */
@@ -17,20 +17,49 @@ interface AuthRepository {
     suspend fun confirmPhone(confirmPhone: ConfirmPhoneRequest): Resource<GenericResponseClass<ConfirmOtpResponse>>
     suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>>
     suspend fun verifyEmail(email: String): Resource<GenericResponseClass<VerifyEmailResponse>>
-    suspend fun confirmEmail( email: String, verificationCode: String): Resource<GenericResponseClass<ConfirmEmailResponse>>
+    suspend fun confirmEmail(
+        email: String,
+        verificationCode: String
+    ): Resource<GenericResponseClass<ConfirmEmailResponse>>
+
     suspend fun getUser(id: String): Resource<GenericResponseClass<UserResponse>>
     suspend fun getUser(token: String, id: String): Resource<GenericResponseClass<UserResponse>>
     suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>>
-    suspend fun verifyAccount(token: String,
-        verifyAccountRequest: VerifyAccountRequest): Resource<GenericResponseClass<VerifyAccountResponse>>
+    suspend fun verifyAccount(
+        token: String,
+        verifyAccountRequest: VerifyAccountRequest
+    ): Resource<GenericResponseClass<VerifyAccountResponse>>
+
     suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): Resource<GenericResponseClass<ChangePasswordResponse>>
-    suspend fun verifyLocation(token: String,
-                               verifyLocationRequest: VerifyLocationRequest): Resource<GenericResponseClass<VerifyLocationResponse>>
-    suspend fun getMissions(token: String, agentId: String, status: String, page: String): Resource<GenericResponseClass<GetMissionResponse>>
-    suspend fun updateMissionStatus(token: String, missionId: String, status: String): Resource<GenericResponseClass<UpdateMissionStatusResponse>>
+    suspend fun verifyLocation(
+        token: String,
+        verifyLocationRequest: VerifyLocationRequest
+    ): Resource<GenericResponseClass<VerifyLocationResponse>>
+
+    suspend fun getMissions(
+        token: String,
+        agentId: String,
+        status: String,
+        page: String
+    ): Resource<GenericResponseClass<GetMissionResponse>>
+
+    suspend fun updateMissionStatus(
+        token: String,
+        missionId: String,
+        status: String
+    ): Resource<GenericResponseClass<UpdateMissionStatusResponse>>
+
     suspend fun submitMission(
         token: String,
-        submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
+        submitMissionRequest: SubmitMissionRequest
+    ): Resource<GenericResponseClass<SubmitMissionResponse>>
+
+    suspend fun submitMission(submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
 
 
+    suspend fun uploadImage(
+        photoPath: Uri,
+        token: String,
+        activity: Activity
+    ): Resource<GenericResponseClass<UploadPictureResponse>>
 }
