@@ -1,9 +1,11 @@
 package com.trapezoidlimited.groundforce.repository
 
+import android.app.Activity
+import android.net.Uri
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
-import retrofit2.http.*
+
 
 /**
  * manages api queries to the network endpoints */
@@ -36,7 +38,8 @@ interface AuthRepository {
     suspend fun updateMissionStatus(token: String, missionId: String, status: String): Resource<GenericResponseClass<UpdateMissionStatusResponse>>
     suspend fun submitMission(
         token: String,
-        submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
+        submitMissionRequest: SubmitMissionRequest
+    ): Resource<GenericResponseClass<SubmitMissionResponse>>
 
     suspend fun getBuildingType(
         token: String, page: Int
@@ -61,5 +64,13 @@ interface AuthRepository {
     suspend fun getNotificationsByUserId(token: String, userId: String,
                                          page: String): Resource<GenericResponseClass<GetNotificationsResponse>>
 
+    suspend fun submitMission(submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
+
+
+    suspend fun uploadImage(
+        photoPath: Uri,
+        token: String,
+        activity: Activity
+    ): Resource<GenericResponseClass<UploadPictureResponse>>
 
 }

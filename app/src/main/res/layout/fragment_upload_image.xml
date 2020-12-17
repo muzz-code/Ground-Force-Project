@@ -72,9 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textAlignment="center"
         android:lineHeight="20dp"
         android:text="Please make sure your \npicture clearly shows your face."
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/fragment_upload_image_profile_next_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +92,7 @@
         android:background="@drawable/curved_primary_fill_button"
         android:enabled="false"
         android:fontFamily="@font/roboto"
-        android:text="@string/next_step_str"
+        android:text="@string/upload_image"
         android:textAllCaps="false"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,6 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

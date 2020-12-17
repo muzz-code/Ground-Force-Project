@@ -44,10 +44,11 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     private var _binding: FragmentOngoingBinding? = null
     private val binding get() = _binding!!
-//    private var locationTitlesList = mutableListOf<OngoingItem>()
+
+    //    private var locationTitlesList = mutableListOf<OngoingItem>()
     private var locationTitlesList = DummyData.ongoingLocationData()
 
-    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
 
     private lateinit var token: String
     private lateinit var userId: String
@@ -55,7 +56,6 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
     private lateinit var ongoingMissionList: MutableList<OngoingItem>
 
     private lateinit var adapter: OngoingAdapter
-
 
 
     override fun onCreateView(
@@ -77,7 +77,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-       adapter = OngoingAdapter(mutableListOf(), this)
+        adapter = OngoingAdapter(mutableListOf(), this)
 
         /**
          * Network call to get ongoing missions
@@ -108,12 +108,10 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
                             val description = mission.description
                             val id = mission.missionId
 
-                            val roomOngoingMissionItem = RoomOngoingMission( id, title, description)
+                            val roomOngoingMissionItem = RoomOngoingMission(id, title, description)
 
                             roomViewModel.addOngoingMission(roomOngoingMissionItem)
-
                         }
-
                     }
 
                     /**
@@ -147,7 +145,6 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
         binding.fragmentOngoingRv.adapter = adapter
         binding.fragmentOngoingRv.layoutManager = LinearLayoutManager(this.context)
-
 
     }
 
@@ -188,7 +185,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
 
     }
 
-    private fun setNoOngoingViewVisible(){
+    private fun setNoOngoingViewVisible() {
         setInVisibility(binding.fragmentOngoingRv)
         setVisibility(binding.fragmentEmptyOngoing.ongoingShoesIv)
         setVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTv)
@@ -196,7 +193,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         setInVisibility(binding.fragmentEmptyOngoing.fragmentOngoingMissionPb)
     }
 
-    private fun setNoOngoingViewInVisible(){
+    private fun setNoOngoingViewInVisible() {
         setVisibility(binding.fragmentOngoingRv)
         setInVisibility(binding.fragmentEmptyOngoing.ongoingShoesIv)
         setInVisibility(binding.fragmentEmptyOngoing.ongoingNoOngoingTv)
@@ -204,7 +201,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
         setInVisibility(binding.fragmentEmptyOngoing.fragmentOngoingMissionPb)
     }
 
-    private fun readOngoingMissionsFromRoom(){
+    private fun readOngoingMissionsFromRoom() {
         roomViewModel.ongoingMission.observe(viewLifecycleOwner, Observer {
 
             ongoingMissionList.clear()
@@ -218,7 +215,7 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
                 val description = ongoingMission.locationSubTitle
                 val ongoingMissionId = ongoingMission.Id
 
-                val ongoingMissionItem = OngoingItem(title,  description, id = ongoingMissionId)
+                val ongoingMissionItem = OngoingItem(title, description, id = ongoingMissionId)
 
                 ongoingMissionList.add(ongoingMissionItem)
 

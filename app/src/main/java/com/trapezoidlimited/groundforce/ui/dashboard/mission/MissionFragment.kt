@@ -51,7 +51,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     private lateinit var adapter: MissionAdapter
 
-    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
 
     private lateinit var userId: String
     private lateinit var missionId: String

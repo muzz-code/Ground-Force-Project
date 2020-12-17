@@ -2,20 +2,17 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
-import java.lang.Exception
+import java.io.File
 
 
 fun Fragment.handleApiError(
@@ -92,6 +89,7 @@ fun Fragment.handleApiError(
                     .show()
                 findNavController().navigate(navDestinationId)
 
+
             } else {
                 //error?.errors?.let { showSnackBar(view, it.message!!) }
                 if (errorMessage != null) {
@@ -104,8 +102,6 @@ fun Fragment.handleApiError(
         }
     }
 }
-
-
 
 
 fun Activity.handleApiError(
@@ -128,7 +124,6 @@ fun Activity.handleApiError(
 }
 
 
-
 //Hide and Show Progress Bars
 fun ProgressBar.hide(button: Button? = null) {
     visibility = View.GONE
@@ -142,8 +137,8 @@ fun ProgressBar.show(button: Button? = null) {
     if (button != null) {
         button.isEnabled = false
     }
-
 }
+
 
 fun Fragment.logOut(roomViewModel: RoomViewModel, activity: Activity) {
 
@@ -155,6 +150,14 @@ fun Fragment.logOut(roomViewModel: RoomViewModel, activity: Activity) {
         roomViewModel.deleteAllAgentDetails()
         startActivity(it)
         requireActivity().finish()
+    }
+
+
+
+    fun agentImageIsSaved(activity: Activity): Boolean {
+        val path = File(activity.filesDir, "GroundForce${File.separator}Images")
+        val file = File(path, GROUND_FORCE_IMAGE_NAME)
+        return file.exists()
     }
 
 }

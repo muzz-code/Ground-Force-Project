@@ -1,6 +1,8 @@
 package com.trapezoidlimited.groundforce.viewmodel
 
+import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.*
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
@@ -9,22 +11,20 @@ import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.SessionManager
 import com.trapezoidlimited.groundforce.utils.TOKEN
 import kotlinx.coroutines.launch
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Part
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 /**
  * AuthViewModel class launches methods in the AuthRepository to make network calls
  * in the background and exposes loginResponse LiveData to be observed in the login fragment
  * to authorize user as appropriate. */
 
-
 class AuthViewModel(
     private val repository: AuthRepositoryImpl,
     private val context: Context
 ) : ViewModel() {
 
-    val token = "Bearer ${ SessionManager.load(context, TOKEN)}"
+    val token = "Bearer ${SessionManager.load(context, TOKEN)}"
 
 
     /** Auth Responses */
@@ -42,19 +42,30 @@ class AuthViewModel(
         get() = _forgotPasswordResponse
 
 
+    /** verify phone number response */
     val _verifyPhoneResponse: MutableLiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>> =
         MutableLiveData()
     val verifyPhoneResponse: LiveData<Resource<GenericResponseClass<VerifyPhoneResponse>>>
         get() = _verifyPhoneResponse
 
 
+    /** confirm phone number response */
     val _confirmPhoneResponse: MutableLiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>> =
         MutableLiveData()
     val confirmPhoneResponse: LiveData<Resource<GenericResponseClass<ConfirmOtpResponse>>>
         get() = _confirmPhoneResponse
 
-    private val _changePasswordResponse:
-            MutableLiveData<Resource<GenericResponseClass<ChangePasswordResponse>>> = MutableLiveData()
+
+    /** get user details response */
+    private val _getUserResponse: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> =
+        MutableLiveData()
+    val getUserResponse: LiveData<Resource<GenericResponseClass<UserResponse>>>
+        get() = _getUserResponse
+
+
+    /** change password response */
+    private val _changePasswordResponse: MutableLiveData<Resource<GenericResponseClass<ChangePasswordResponse>>> =
+        MutableLiveData()
     val changePasswordResponse: LiveData<Resource<GenericResponseClass<ChangePasswordResponse>>>
         get() = _changePasswordResponse
 
@@ -71,11 +82,13 @@ class AuthViewModel(
 
     /** User responses */
 
-    private val _getUserDetailsResponse: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> = MutableLiveData()
+    private val _getUserDetailsResponse: MutableLiveData<Resource<GenericResponseClass<UserResponse>>> =
+        MutableLiveData()
     val getUserDetailsResponse: LiveData<Resource<GenericResponseClass<UserResponse>>>
         get() = _getUserDetailsResponse
 
-    private val _putUserResponse: MutableLiveData<Resource<GenericResponseClass<PutUserResponse>>> = MutableLiveData()
+    private val _putUserResponse: MutableLiveData<Resource<GenericResponseClass<PutUserResponse>>> =
+        MutableLiveData()
     val putUserResponse: LiveData<Resource<GenericResponseClass<PutUserResponse>>>
         get() = _putUserResponse
 
@@ -84,6 +97,7 @@ class AuthViewModel(
     val verifyLocationResponse: LiveData<Resource<GenericResponseClass<VerifyLocationResponse>>>
         get() = _verifyLocationResponse
 
+    /** response for agent creation */
     val _agentCreationResponse: MutableLiveData<Resource<GenericResponseClass<AgentDataResponse>>> =
         MutableLiveData()
     val agentCreationResponse: LiveData<Resource<GenericResponseClass<AgentDataResponse>>>
@@ -99,13 +113,19 @@ class AuthViewModel(
 
     private val _updateSurveyStatusResponse: MutableLiveData<Resource<GenericResponseClass<UpdateSurveyStatusResponse>>> =
         MutableLiveData()
-     val updateSurveyStatusResponse: MutableLiveData<Resource<GenericResponseClass<UpdateSurveyStatusResponse>>>
+    val updateSurveyStatusResponse: MutableLiveData<Resource<GenericResponseClass<UpdateSurveyStatusResponse>>>
         get() = _updateSurveyStatusResponse
 
     private val _submitSurveyResponse: MutableLiveData<Resource<GenericResponseClass<SubmitSurveyResponse>>> =
         MutableLiveData()
     val submitSurveyResponse: MutableLiveData<Resource<GenericResponseClass<SubmitSurveyResponse>>>
         get() = _submitSurveyResponse
+
+    /** Image Url Response **/
+    private val _imageUrl: MutableLiveData<Resource<GenericResponseClass<UploadPictureResponse>>> =
+        MutableLiveData()
+    val imageUrl: LiveData<Resource<GenericResponseClass<UploadPictureResponse>>>
+        get() = _imageUrl
 
     private val _getSurveyResponse: MutableLiveData<Resource<GenericResponseClass<GetSurveyResponse>>> =
         MutableLiveData()
@@ -117,7 +137,6 @@ class AuthViewModel(
         MutableLiveData()
     val getNotificationsResponse: MutableLiveData<Resource<GenericResponseClass<GetNotificationsResponse>>>
         get() = _getNotificationsResponse
-
 
 
     /** Auth Requests */
@@ -167,7 +186,7 @@ class AuthViewModel(
     }
 
 
-    fun verifyLocation(verifyLocationRequest: VerifyLocationRequest) = viewModelScope.launch{
+    fun verifyLocation(verifyLocationRequest: VerifyLocationRequest) = viewModelScope.launch {
         _verifyLocationResponse.value = repository.verifyLocation(token, verifyLocationRequest)
     }
 
@@ -176,17 +195,20 @@ class AuthViewModel(
     }
 
 
-
     /** Survey Requests */
-    fun updateSurveyStatus(updateSurveyStatusRequest: UpdateSurveyStatusRequest) = viewModelScope.launch{
-        _updateSurveyStatusResponse.value = repository.updateSurveyStatus(token, updateSurveyStatusRequest)
-    }
+    fun updateSurveyStatus(updateSurveyStatusRequest: UpdateSurveyStatusRequest) =
+        viewModelScope.launch {
+            _updateSurveyStatusResponse.value =
+                repository.updateSurveyStatus(token, updateSurveyStatusRequest)
+        }
 
-    fun submitSurvey(submitSurveyRequest: SubmitSurveyRequest) = viewModelScope.launch{
+    fun submitSurvey(submitSurveyRequest: SubmitSurveyRequest) = viewModelScope.launch {
         _submitSurveyResponse.value = repository.submitSurvey(token, submitSurveyRequest)
+
     }
 
-    fun getSurvey(agentId: String, status: String, page: String) = viewModelScope.launch{
+
+    fun getSurvey(agentId: String, status: String, page: String) = viewModelScope.launch {
         _getSurveyResponse.value = repository.getSurvey(token, agentId, status, page)
     }
 
@@ -194,8 +216,17 @@ class AuthViewModel(
     fun getNotificationsByUserId(
         userId: String,
         page: String
-    ) = viewModelScope.launch{
-        _getNotificationsResponse.value = repository.getNotificationsByUserId(token, userId, page)
+    ) = viewModelScope.launch {
+        _getNotificationsResponse.value =
+            repository.getNotificationsByUserId(token, userId, page)
+    }
+
+
+    fun uploadImage(
+        photoPath: Uri,
+        activity: Activity
+    ) = viewModelScope.launch {
+        _imageUrl.value = repository.uploadImage(photoPath, token, activity)
     }
 
 

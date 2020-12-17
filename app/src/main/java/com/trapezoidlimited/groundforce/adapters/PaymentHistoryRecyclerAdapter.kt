@@ -34,6 +34,7 @@ class PaymentHistoryRecyclerAdapter(
         var paymentDate: TextView = itemView.single_payment_history_payment_date_tv
 
 
+
         fun initialize(item: PaymentData) {
             paymentAmount.text = item.amount.toString()
             paymentHaveReceived.text = item.haveReceived

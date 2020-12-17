@@ -48,7 +48,7 @@ class AgentDashboardFragment : Fragment() {
 
     private var _binding: FragmentAgentDashboardBinding? = null
     private val binding get() = _binding!!
-    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
     private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
@@ -220,8 +220,8 @@ class AgentDashboardFragment : Fragment() {
 
                 }
                 is Resource.Failure -> {
-
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
+
 
                     handleApiError(
                         roomViewModel,

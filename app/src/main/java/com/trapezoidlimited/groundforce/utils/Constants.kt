@@ -28,7 +28,9 @@ const val BANKCODE = "bankcode"
 const val ACCOUNTNUMBER = "account_number"
 const val RELIGION = "religion"
 const val ADDITIONALPHONENUMBER = "additional_phone_number"
+const val AVATAR_URL = "avatar_url"
 
+const val IMAGE_URL = "image_url"
 
 
 

@@ -1,25 +1,30 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.EditText
+import android.widget.*
 import androidx.navigation.fragment.findNavController
+import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
-import com.trapezoidlimited.groundforce.data.AgentObject
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
+import com.trapezoidlimited.groundforce.model.LocationJson
 import com.trapezoidlimited.groundforce.utils.*
-
+import java.io.InputStream
+import java.lang.Exception
 
 class CreateProfileFragmentTwo : Fragment() {
 
     private var _binding: FragmentCreateProfileTwoBinding? = null
 
     private val binding get() = _binding!!
+
+    private val gson by lazy { EntryApplication.gson }
+    private lateinit var locations: LocationJson
+    private var statePicked = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +43,55 @@ class CreateProfileFragmentTwo : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
+
+
+        //ZipCodes
         val zipCodes = listOf("110000", "102010", "100000", "103040")
         val adapterZipCode = ArrayAdapter(requireContext(), R.layout.list_item, zipCodes)
         (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(
             adapterZipCode
         )
 
-        val lga = listOf("Alimosho", "Ikorodu", "Oshodi-Isolo", "Lagos-Island")
+
+        //States
+        val states: MutableList<String> = mutableListOf()
+        for (data in locations.data) {
+            states.add(data.state)
+        }
+
+        val stateAutoCompleteTextView: AutoCompleteTextView? =
+            (binding.fragmentCreateProfileTwoStateTf.editText as? AutoCompleteTextView)
+
+        val adapterState = ArrayAdapter(requireContext(), R.layout.list_item, states)
+        stateAutoCompleteTextView?.setAdapter(adapterState)
+
+        //LGAS
+        val lga: MutableList<String> = mutableListOf()
         val adapterLGA = ArrayAdapter(requireContext(), R.layout.list_item, lga)
-        (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)?.setAdapter(
+        val lgaAutoCompleteTextView =
+            (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)
+        lgaAutoCompleteTextView?.setAdapter(
             adapterLGA
         )
 
-        val states = listOf("Lagos", "Oyo", "Ogun", "Ondo")
-        val adapterState = ArrayAdapter(requireContext(), R.layout.list_item, states)
-        (binding.fragmentCreateProfileTwoStateTf.editText as? AutoCompleteTextView)?.setAdapter(
-            adapterState
-        )
+        //Get State Picked
+        val adapterStateObject =
+            AdapterView.OnItemClickListener { parent, _, position, _ ->
+                statePicked = parent.getItemAtPosition(position).toString()
+                for (state in locations.data) {
+                    if (state.state == statePicked) {
+//                        lgaAutoCompleteTextView?.text = SpannableStringBuilder(state.lgas[0])
+                        lga.clear()
+                        for (data in state.lgas) {
+                            lga.add(data)
+                        }
+                    }
+                }
+            }
+
+
+        stateAutoCompleteTextView?.onItemClickListener = adapterStateObject
 
 
         /** Navigate to bank detail screen **/
@@ -71,7 +108,7 @@ class CreateProfileFragmentTwo : Fragment() {
 
                 /** Saving USER PROFILE DETAILS in sharedPreference*/
 
-                saveToSharedPreference(requireActivity(), ADDRESS,residentialAddress)
+                saveToSharedPreference(requireActivity(), ADDRESS, residentialAddress)
                 saveToSharedPreference(requireActivity(), ZIPCODE, zipCode)
                 saveToSharedPreference(requireActivity(), LGA, lga)
                 saveToSharedPreference(requireActivity(), STATE, state)
@@ -85,6 +122,32 @@ class CreateProfileFragmentTwo : Fragment() {
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun readJson(context: Context): String? {
+        var inputStream: InputStream? = null
+
+        val jsonString: String
+
+        try {
+            inputStream = context.assets.open("location.json")
+
+            val size = inputStream.available()
+
+            val buffer = ByteArray(size)
+
+            inputStream.read(buffer)
+
+            jsonString = String(buffer)
+
+            return jsonString
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream?.close()
+        }
+
+        return null
     }
 
     private fun validateFields(): Boolean {

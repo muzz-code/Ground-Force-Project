@@ -5,15 +5,14 @@ import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,20 +22,50 @@ import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
+import com.trapezoidlimited.groundforce.api.ApiService
+import com.trapezoidlimited.groundforce.api.MissionsApi
+import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
-import com.trapezoidlimited.groundforce.ui.main.MainActivity
+import com.trapezoidlimited.groundforce.images.BitMapConverter
+import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
+import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
+import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Retrofit
 import java.io.File
 import java.util.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
+
+    @Inject
+    lateinit var apiService: ApiService
+
+    @Inject
+    lateinit var missionsApi: MissionsApi
+
+    @Inject
+    lateinit var retrofit: Retrofit
+
+    private lateinit var viewModel: AuthViewModel
+
+//    private val viewModel by lazy {
+//        EntryApplication.authViewModel(this)
+//    }
 
     private var _binding: FragmentUserProfileBinding? = null
     val binding get() = _binding!!
@@ -54,7 +83,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var verifyLocationTextView: TextView
 
-    private val roomViewModel by lazy { EntryApplication.viewModel(this) }
+    private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
 
     private lateinit var userNameTextView: TextView
     private lateinit var userEmailAddressTextView: TextView
@@ -108,7 +137,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             findNavController().navigate(R.id.agentDashboardFragment)
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback{
+        requireActivity().onBackPressedDispatcher.addCallback {
             if (findNavController().currentDestination?.id == R.id.userProfileFragment) {
                 findNavController().navigate(R.id.agentDashboardFragment)
             } else {
@@ -168,6 +197,32 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         validateFields()
 
+        val repository = AuthRepositoryImpl(apiService, missionsApi)
+        val factory = ViewModelFactory(repository, requireContext())
+        viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
+
+        //Save Image Url in Shared Preference on Success
+        viewModel.imageUrl.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+                    it.value.data?.avatarUrl?.let { urlString ->
+                        saveToSharedPreference(
+                            requireActivity(), IMAGE_URL,
+                            urlString
+                        )
+                    }
+                    genericRepository.saveImageFromServer(
+                        loadFromSharedPreference(requireActivity(), IMAGE_URL),
+                        profileImageView,
+                        requireActivity()
+                    )
+                }
+                is Resource.Failure -> {
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
         val dateButton = binding.fragmentUserProfileDateBirthEt
 
         /** Show the date button on click of date button **/
@@ -186,30 +241,27 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             if (checkPermission()) dispatchTakePictureIntent() else requestPermission()
         }
 
-
+        //load the profile image from internal storage if present, else pull from api
         if (!agentImageIsSaved()) {
-            genericRepository.saveImageFromServer(
-                "https://picsum.photos/id/237/200/300",
-                profileImageView,
-                requireActivity()
-            )
+            val imageUrl = loadFromSharedPreference(requireActivity(), IMAGE_URL)
+            if (imageUrl.isNotEmpty()) {
+                genericRepository.saveImageFromServer(
+                    imageUrl,
+                    profileImageView,
+                    requireActivity()
+                )
+            }
         } else {
             genericRepository.getImageFromStorage(requireActivity(), profileImageView)
         }
 
-
         verifyLocationTextView.setOnClickListener {
             findNavController().navigate(R.id.verifyLocationFragment)
         }
-
-
-
     }
 
 
     private fun agentImageIsSaved(): Boolean {
-//        File(requireActivity().getDir() , GROUND_FORCE_IMAGE_NAME)
-//        val file = File(requireActivity().externalMediaDirs.first(), GROUND_FORCE_IMAGE_NAME)
         val path = File(requireActivity().filesDir, "GroundForce${File.separator}Images")
 
         val file = File(path, GROUND_FORCE_IMAGE_NAME)
@@ -271,10 +323,36 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            profileImageView.setImageBitmap(imageBitmap)
+//            profileImageView.setImageBitmap(imageBitmap)
+            val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
+                Toast.makeText(requireActivity(), "Uploading", Toast.LENGTH_SHORT).show()
+
+                GlobalScope.launch {
+                    val file = BitMapConverter.toJpg(imageBitmap)
+
+                    val requestFile: RequestBody =
+                        file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+                    val requestImage =
+                        MultipartBody.Part.createFormData(
+                            "ground_force",
+                            "profile_image.jpg",
+                            requestFile
+                        )
+
+//                    viewModel.uploadImage(
+//                        requestImage, loadFromSharedPreference(
+//                            requireActivity(),
+//                            USERID
+//                        )
+//                    )
+                }
+
+                dialog.cancel()
+            }
+            showAlertDialog("Update your Profile Image?", "Upload Image", dialogInterface)
         }
     }
-
 
     /** Check for user permission to access phone camera **/
     private fun checkPermission(): Boolean {
@@ -292,7 +370,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             PERMISSION_REQUEST_CODE
         )
     }
-
 
     /** On request permission result grant user permission or show a permission denied message **/
     override fun onRequestPermissionsResult(

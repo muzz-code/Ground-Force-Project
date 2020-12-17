@@ -2,9 +2,9 @@ package com.trapezoidlimited.groundforce.api
 
 
 import com.trapezoidlimited.groundforce.model.request.*
-import com.trapezoidlimited.groundforce.model.response.ParentResponse
 import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.model.response.UpdateSurveyStatusResponse
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 /**
@@ -66,7 +66,7 @@ interface ApiService {
     @Multipart
     @POST("Auth/verify-email")
     suspend fun verifyEmail(
-       @Part email: String
+        @Part email: String
     ): GenericResponseClass<VerifyEmailResponse>
 
     @Multipart
@@ -75,6 +75,12 @@ interface ApiService {
         @Part email: String,
         @Part verificationCode: String
     ): GenericResponseClass<ConfirmEmailResponse>
+
+    @PATCH("User/picture")
+    suspend fun updatePicture(
+        @Header("Authorization") token: String,
+        @Body Photo: RequestBody
+    ): GenericResponseClass<UploadPictureResponse>
 
     @PATCH("User/verify-account")
     suspend fun verifyAccount(

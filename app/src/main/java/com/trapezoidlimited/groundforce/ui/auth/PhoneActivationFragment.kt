@@ -170,6 +170,9 @@ class PhoneActivationFragment : Fragment() {
 //                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
 //            findNavController().navigate(action)
 
+//                        val action = PhoneActivationFragmentDirections
+//                          .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
+//                        findNavController().navigate(action)
 
 
             val phoneNumber = VerifyPhoneRequest(number)

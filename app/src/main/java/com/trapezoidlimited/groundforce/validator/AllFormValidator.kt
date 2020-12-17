@@ -123,7 +123,6 @@ private val globalWatcher: TextWatcher = object : TextWatcher {
 
         }
 
-
         if (globalButtonToEnable != null && globalValidationArray.contains(false)) {
             globalButtonToEnable!!.isEnabled = false
         } else if (globalButtonToEnable != null && !globalValidationArray.contains(false)) {
