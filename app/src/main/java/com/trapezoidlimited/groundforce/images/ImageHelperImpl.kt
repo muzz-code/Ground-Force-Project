@@ -1,17 +1,16 @@
 package com.trapezoidlimited.groundforce.images
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import com.trapezoidlimited.groundforce.utils.GROUND_FORCE_IMAGE_NAME
-import com.trapezoidlimited.groundforce.utils.showSnackBar
-import kotlinx.android.synthetic.main.fragment_locations_verification.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -25,6 +24,7 @@ class ImageHelperImpl : ImageHelper {
         image: ImageView,
         activity: Activity
     ) {
+
 
         Thread {
             val imageUrl = URL(avatarUrl)
@@ -86,4 +86,5 @@ class ImageHelperImpl : ImageHelper {
     private suspend fun loadImageFromFile(imagePath: String) = withContext(Dispatchers.IO) {
         BitmapFactory.decodeFile(imagePath)
     }
+
 }

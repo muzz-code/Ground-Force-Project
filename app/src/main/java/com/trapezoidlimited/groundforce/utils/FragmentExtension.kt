@@ -3,10 +3,8 @@ package com.trapezoidlimited.groundforce.utils
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.DialogInterface
-import android.graphics.Color
 import android.os.Build
 import android.view.View
-import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -31,7 +29,7 @@ fun Fragment.showStatusBar() {
  */
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun Fragment.hideStatusBar(){
+fun Fragment.hideStatusBar() {
     // Hide the status bar.
     activity?.window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
     activity?.actionBar?.hide()
@@ -129,25 +127,21 @@ fun Fragment.showFailedDialog() {
  * Show Dialog
  */
 fun Fragment.showAlertDialog(
-    message: Int,
-
-    listener: View.OnClickListener? = null
+    message: String,
+    title: String,
+    dialogInterface: DialogInterface.OnClickListener
 ) {
     val dialogBuilder = AlertDialog.Builder(requireActivity())
-    dialogBuilder.setMessage(getString(message))
-        // if the dialog is cancelable
-        .setCancelable(false)
-        .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
-            listener
-
-        })
+    dialogBuilder.setMessage(message)
+        .setPositiveButton("Yes", dialogInterface)
+        .setNegativeButton("Cancel", null)
 
     val alert = dialogBuilder.create()
-    alert.setTitle("Test")
+    alert.setTitle(title)
     alert.show()
 }
 
-fun Fragment.showSnackBar(view: View, message: String) {
+fun showSnackBar(view: View, message: String) {
     Snackbar.make(
         view,
         message,

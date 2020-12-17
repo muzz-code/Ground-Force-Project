@@ -10,6 +10,7 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -21,16 +22,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".ui.dashboard.DashboardActivity">
-
+        <activity android:name=".ui.dashboard.DashboardActivity">
         </activity>
 
         <activity android:name=".ui.dashboard.MissionReportActivity">
-
         </activity>
 
         <activity
@@ -50,9 +49,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
-
-                <nav-graph android:value="@navigation/nav"/>
-
+            <nav-graph android:value="@navigation/nav" />
         </activity>
 
     </application>

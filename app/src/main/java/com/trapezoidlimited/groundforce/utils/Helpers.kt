@@ -2,18 +2,17 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
+import java.io.File
 
 
 fun Fragment.handleApiError(
@@ -39,7 +38,7 @@ fun Fragment.handleApiError(
 
                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
                     .show()
-                findNavController().navigate(navDestinationId )
+                findNavController().navigate(navDestinationId)
 
             } else {
                 //error?.errors?.let { showSnackBar(view, it.message!!) }
@@ -86,18 +85,26 @@ fun ProgressBar.show(button: Button? = null) {
     if (button != null) {
         button.isEnabled = false
     }
-
 }
 
 fun Fragment.logOut(roomViewModel: RoomViewModel) {
-    if (loadFromSharedPreference(requireActivity(), TOKEN).isEmpty()) {
-        Intent(requireActivity(), MainActivity::class.java).also {
-            saveToSharedPreference(requireActivity(), LOG_OUT, "true")
-            roomViewModel.deleteAllMission()
-            roomViewModel.deleteAllOngoingMission()
-            roomViewModel.deleteAllAgentDetails()
-            startActivity(it)
-            requireActivity().finish()
+
+    fun Fragment.logOut() {
+        if (loadFromSharedPreference(requireActivity(), TOKEN).isEmpty()) {
+            Intent(requireActivity(), MainActivity::class.java).also {
+                saveToSharedPreference(requireActivity(), LOG_OUT, "true")
+                roomViewModel.deleteAllMission()
+                roomViewModel.deleteAllOngoingMission()
+                roomViewModel.deleteAllAgentDetails()
+                startActivity(it)
+                requireActivity().finish()
+            }
         }
+    }
+
+    fun agentImageIsSaved(activity: Activity): Boolean {
+        val path = File(activity.filesDir, "GroundForce${File.separator}Images")
+        val file = File(path, GROUND_FORCE_IMAGE_NAME)
+        return file.exists()
     }
 }

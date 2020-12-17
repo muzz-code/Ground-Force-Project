@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.repository.BaseRepository
-import com.trapezoidlimited.groundforce.room.RoomRepository
-import com.trapezoidlimited.groundforce.room.RoomRepositoryImpl
-import com.trapezoidlimited.groundforce.room.RoomViewModel
-
 
 class ViewModelFactory(
     private val repository: BaseRepository,

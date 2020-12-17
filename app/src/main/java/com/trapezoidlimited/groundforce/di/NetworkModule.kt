@@ -31,7 +31,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideLogger(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        return HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
     }
 
 
@@ -84,6 +84,8 @@ class NetworkModule {
     fun provideMissionApiService(retrofit: Retrofit): MissionsApi {
         return retrofit.create(MissionsApi::class.java)
     }
+
+
 
 
 }
