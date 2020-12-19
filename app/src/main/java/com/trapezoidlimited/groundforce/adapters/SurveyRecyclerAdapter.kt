@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.data.SurveyData
+import com.trapezoidlimited.groundforce.model.mission.MissionItem
+import com.trapezoidlimited.groundforce.model.mission.SurveyItem
 import kotlinx.android.synthetic.main.single_survey_item.view.*
 
 class SurveyRecyclerAdapter(
@@ -47,21 +49,25 @@ class SurveyRecyclerAdapter(
 
             //Accept Survey Listener
             surveyAccept.setOnClickListener {
-                action.onAcceptClick(adapterPosition)
+                item.id?.let { it1 -> action.onAcceptClick(item, adapterPosition, it1) }
             }
 
             //Decline Survey
             surveyDecline.setOnClickListener {
-                action.onDeleteClick(adapterPosition)
+                item.id?.let { it1 -> action.onDeleteClick(item, adapterPosition, it1) }
             }
         }
     }
 
+    fun setMyList(survey: MutableList<SurveyData>) {
+        this.surveyList = survey
+        notifyDataSetChanged()
+    }
 
     //OnClick Listener Interface
     interface OnSurveyClickListener {
-        fun onAcceptClick(position: Int)
-        fun onDeleteClick(position: Int)
+        fun onAcceptClick(survey: SurveyData, position: Int, id: String)
+        fun onDeleteClick(survey: SurveyData, position: Int, id: String)
     }
 
 }

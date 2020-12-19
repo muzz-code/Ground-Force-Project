@@ -28,16 +28,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/fragment_survey_quest_vp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/survey_questions_next_btn"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/fragment_survey_quest_toolbar" />-->
+
+
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/survey_questions_quest_title_tv"
+            style="@style/colorPrimarySuperLargeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto"
-            android:text="@string/survey_questions_question_str"
-            style="@style/colorPrimarySuperLargeText"
+            android:text=""
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,18 +59,20 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="45dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             android:padding="21dp"
-            android:text="@string/survey_questions_option_one_str"
+            android:text=""
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
             app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/survey_questions_option_two_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/survey_questions_quest_title_tv"
             app:strokeColor="@android:color/black"
             app:strokeWidth="0.5dp" />
 
@@ -70,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="21dp"
-            android:text="@string/survey_questions_option_two_str"
+            android:text=""
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
@@ -88,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="21dp"
-            android:text="@string/survey_questions_option_three_str"
+            android:text=""
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryBlack"
             android:textSize="@dimen/medium_text"
@@ -112,6 +125,7 @@
             android:fontFamily="@font/roboto"
             android:padding="16dp"
             android:text="@string/survey_questions_next_button_str"
+            android:enabled="false"
             android:textStyle="bold"
             style="@style/colorWhiteMediumText"
             app:layout_constraintBottom_toBottomOf="parent"

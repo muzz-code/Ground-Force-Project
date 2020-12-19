@@ -13,10 +13,5 @@ class RoomAdditionalDetail(
     var additionalPhoneNumber: String,
     var gender: String,
     var avatarUrl: String,
-    var publicId: String,
-    var lga: String,
-    var zipCode: String,
-    var longitude: String,
-    var latitude: String,
-    var state: String,
+    var publicId: String
 )

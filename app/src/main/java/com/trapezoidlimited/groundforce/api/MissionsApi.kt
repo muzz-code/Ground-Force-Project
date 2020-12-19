@@ -21,7 +21,7 @@ interface MissionsApi {
         @Path("status") status: String
     ): GenericResponseClass<UpdateMissionStatusResponse>
 
-    @GET("Mission/submit")
+    @POST("Mission/submit")
     suspend fun submitMission(
         @Header("Authorization") token: String,
         @Body submitMissionRequest: SubmitMissionRequest

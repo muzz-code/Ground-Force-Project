@@ -70,6 +70,7 @@
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.mission.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
+
     <fragment
         android:id="@+id/surveyListFragment2"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyListFragment"
@@ -82,7 +83,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
+
+
     <fragment
         android:id="@+id/beginSurveyFragment2"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.BeginSurveyFragment"
@@ -95,12 +99,25 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="surveyId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
     </fragment>
     <fragment
         android:id="@+id/surveyQuestionsFragment2"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.survey.SurveyQuestionsFragment"
         android:label="fragment_survey_questions"
-        tools:layout="@layout/fragment_survey_questions" />
+        tools:layout="@layout/fragment_survey_questions" >
+        <argument
+            android:name="questionId"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.UserProfileFragment"

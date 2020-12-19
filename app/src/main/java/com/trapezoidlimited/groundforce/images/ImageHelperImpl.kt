@@ -27,7 +27,7 @@ class ImageHelperImpl : ImageHelper {
 
 
         Thread {
-            val imageUrl = URL(avatarUrl)
+            val imageUrl = URL("http://res.cloudinary.com/da5sxhdqg/image/upload/v1608286961/n6nlpstuc6ypgqhdlqxs.jpg")
             val connection = imageUrl.openConnection() as HttpURLConnection
             connection.doInput = true
 
@@ -63,8 +63,10 @@ class ImageHelperImpl : ImageHelper {
                 }
             } catch (e: Exception) {
                 //Handle Error in case where there's no internet connection and no profile image saved.
+
                 activity.runOnUiThread {
-                    Toast.makeText(activity, "No profile Picture yet", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, avatarUrl, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(activity, "No profile Picture yet", Toast.LENGTH_SHORT).show()
                 }
             }
         }.start()

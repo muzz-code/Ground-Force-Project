@@ -5,6 +5,7 @@ import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
 import com.trapezoidlimited.groundforce.model.response.UpdateSurveyStatusResponse
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.*
 
 /**
@@ -63,17 +64,16 @@ interface ApiService {
         @Body changePasswordRequest: ChangePasswordRequest
     ): GenericResponseClass<ChangePasswordResponse>
 
-    @Multipart
+
     @POST("Auth/verify-email")
     suspend fun verifyEmail(
-        @Part email: String
+        @Body email: VerifyEmailAddressRequest
     ): GenericResponseClass<VerifyEmailResponse>
 
-    @Multipart
-    @POST("Auth/verify-email")
+
+    @POST("Auth/confirm-email")
     suspend fun confirmEmail(
-        @Part email: String,
-        @Part verificationCode: String
+        @Body confirmEmailAddressRequest: ConfirmEmailAddressRequest
     ): GenericResponseClass<ConfirmEmailResponse>
 
     @PATCH("User/picture")
@@ -114,8 +114,21 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("agentId") agentId: String,
         @Path("status") status: String,
-        @Path("page") page: String
+        @Path("page") page: Int
     ): GenericResponseClass<GetSurveyResponse>
+
+    @GET("Survey/survey-questions/{surveyId}")
+    suspend fun getSurveyById(
+        @Header("Authorization") token: String,
+        @Path("surveyId") surveyId : String,
+    ): GenericResponseClass<GetSurveyByIDResponse>
+
+    @GET("Survey/question/{questionId}")
+    suspend fun getQuestionById(
+        @Header("Authorization") token: String,
+        @Path("questionId") questionId : String,
+    ): GenericResponseClass<GetQuestionByIDResponse>
+
 
 
     /**Notifications Endpoints*/
@@ -126,5 +139,11 @@ interface ApiService {
         @Path("userId") userId: String,
         @Path("page") page: String
     ): GenericResponseClass<GetNotificationsResponse>
+
+    @GET("Notification/{page}/all-notifications")
+    suspend fun getAllNotifications(
+        @Header("Authorization") token: String,
+        @Path("page") page: Int
+    ): GenericResponseClass<GetAllNotificationsResponse>
 
 }

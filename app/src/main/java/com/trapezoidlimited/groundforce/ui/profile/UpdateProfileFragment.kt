@@ -16,6 +16,7 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUpdateProfileBinding
 import com.trapezoidlimited.groundforce.model.request.VerifyAccountRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
+import com.trapezoidlimited.groundforce.room.RoomAdditionalDetail
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
@@ -147,11 +148,28 @@ class UpdateProfileFragment : Fragment() {
                     "o"
                 }
 
+                val avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
+                val publicId = loadFromSharedPreference(requireActivity(), PUBLIC_ID)
+
                 saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
                 saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNumber)
                 saveToSharedPreference(requireActivity(), RELIGION, religion)
                 saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
                 saveToSharedPreference(requireActivity(), GENDER, agentGender)
+
+
+                val roomAdditionalDetail = RoomAdditionalDetail(
+                    agentId = 1,
+                    bankCode = bankCode,
+                    accountNumber = accountNumber,
+                    religion = religion,
+                    additionalPhoneNumber = additionNumber,
+                    gender = agentGender,
+                    avatarUrl = avatarUrl,
+                    publicId = publicId
+                )
+
+                roomViewModel.addAdditionalDetail(roomAdditionalDetail)
 
 
                 val verifyAccountRequest = VerifyAccountRequest(

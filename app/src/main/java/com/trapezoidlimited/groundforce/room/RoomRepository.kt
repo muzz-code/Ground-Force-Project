@@ -23,4 +23,12 @@ interface RoomRepository {
     suspend fun deleteByOngoingMissionId(missionId: String)
     suspend fun deleteAllAgentDetails()
     suspend fun readAgentA(): List<RoomAgent>
+
+    suspend fun addSurvey(survey: RoomSurvey)
+
+    fun readAllSurveys(): LiveData<List<RoomSurvey>>
+
+    suspend fun deleteAllSurveys()
+
+    suspend fun deleteBySurveyId(surveyId: String)
 }

@@ -93,6 +93,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var emailAddressEditText: EditText
     private lateinit var additionalPhoneEditText: EditText
     private lateinit var residenceAddressEditText: EditText
+    private lateinit var bankDetailsEditText: EditText
+    private lateinit var accountNumberEditText: EditText
     private lateinit var isLocationVerified: String
 
 
@@ -115,8 +117,13 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         additionalPhoneEditText = binding.fragmentUserProfileAdditionalNumberEt
         residenceAddressEditText = binding.fragmentUserProfileResidentialAddressEt
         verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
+        accountNumberEditText = binding.fragmentUserProfileAccountNumberEt
 
         isLocationVerified = loadFromSharedPreference(requireActivity(), LOCATION_VERIFICATION)
+
+        if (COMPLETED_REGISTRATION == "true") {
+            binding.fragmentUserProfileHeaderBackgroundCl.visibility = View.GONE
+        }
 
 
         if (isLocationVerified == "true") {
@@ -182,6 +189,14 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
 
+        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()){
+                val accountNumber = it[it.lastIndex].accountNumber
+                val accountNumberEt = SpannableStringBuilder(accountNumber)
+                accountNumberEditText.text = accountNumberEt
+            }
+        })
+
         setArrayAdapters()
 
         return binding.root
@@ -203,6 +218,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         //Save Image Url in Shared Preference on Success
         viewModel.imageUrl.observe(viewLifecycleOwner, {
+
+            val avatarUrl = "http://res.cloudinary.com/da5sxhdqg/image/upload/v1608286961/n6nlpstuc6ypgqhdlqxs.jpg"
+
             when (it) {
                 is Resource.Success -> {
                     it.value.data?.avatarUrl?.let { urlString ->
@@ -212,7 +230,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                         )
                     }
                     genericRepository.saveImageFromServer(
-                        loadFromSharedPreference(requireActivity(), IMAGE_URL),
+                        avatarUrl,
                         profileImageView,
                         requireActivity()
                     )
@@ -243,7 +261,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         //load the profile image from internal storage if present, else pull from api
         if (!agentImageIsSaved()) {
-            val imageUrl = loadFromSharedPreference(requireActivity(), IMAGE_URL)
+            val imageUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
             if (imageUrl.isNotEmpty()) {
                 genericRepository.saveImageFromServer(
                     imageUrl,

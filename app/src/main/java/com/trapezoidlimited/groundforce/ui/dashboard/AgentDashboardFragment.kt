@@ -189,6 +189,11 @@ class AgentDashboardFragment : Fragment() {
 
                     val name = response.value.data?.firstName
 
+                    val avatarUrl = response.value.data?.avatarUrl
+
+                    if (avatarUrl != null) {
+                        saveToSharedPreference(requireActivity(), AVATAR_URL, avatarUrl)
+                    }
 
                     binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
 

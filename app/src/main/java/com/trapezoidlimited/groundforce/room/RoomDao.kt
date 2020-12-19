@@ -61,5 +61,17 @@ interface RoomDao {
     @Query("DELETE FROM agent_table")
     suspend fun deleteAllAgentDetails()
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addSurvey(survey: RoomSurvey)
+
+    @Query("SELECT * FROM survey_table")
+    fun readAllSurveys(): LiveData<List<RoomSurvey>>
+
+    @Query("DELETE FROM survey_table")
+    suspend fun deleteAllSurveys()
+
+    @Query("DELETE FROM survey_table WHERE id = :surveyId")
+    suspend fun deleteBySurveyId(surveyId: String)
+
 
 }

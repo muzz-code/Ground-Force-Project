@@ -1,5 +1,5 @@
 package com.trapezoidlimited.groundforce.model.response
 
 data class SubmitMissionResponse (
-    val message: List<Mission>
+    val id: String
 ): ParentResponse

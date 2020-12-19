@@ -69,5 +69,21 @@ class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
        return dao.readAgentA()
     }
 
+    override suspend fun addSurvey(survey: RoomSurvey) {
+        return dao.addSurvey(survey)
+    }
+
+    override fun readAllSurveys(): LiveData<List<RoomSurvey>> {
+        return dao.readAllSurveys()
+    }
+
+    override suspend fun deleteAllSurveys() {
+        return dao.deleteAllSurveys()
+    }
+
+    override suspend fun deleteBySurveyId(surveyId: String) {
+        return dao.deleteBySurveyId(surveyId)
+    }
+
 
 }

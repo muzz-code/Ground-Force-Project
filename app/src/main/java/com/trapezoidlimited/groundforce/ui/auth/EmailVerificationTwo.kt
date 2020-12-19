@@ -21,6 +21,7 @@ import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
+import com.trapezoidlimited.groundforce.model.request.ConfirmEmailAddressRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -121,15 +122,26 @@ class EmailVerificationTwo : Fragment() {
         viewModel.confirmEmailResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
-                    setInVisibility(binding.fragmentEmailVerificationTwoPb)
+                    binding.fragmentEmailVerificationTwoPb.hide(binding.fragmentEmailVerificationTwoConfirmBtn)
+
+                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT)
+                        .show()
+
                     findNavController().navigate(R.id.createProfileFragmentOne)
                 }
                 is Resource.Failure -> {
-                    setInVisibility(binding.fragmentEmailVerificationTwoPb)
+
+                    binding.fragmentEmailVerificationTwoPb.hide(binding.fragmentEmailVerificationTwoConfirmBtn)
 
                     val message = "Email is already confirmed"
 
-                    handleApiError(it, retrofit, requireView(), message, R.id.createProfileFragmentOne )
+                    handleApiError(
+                        it,
+                        retrofit,
+                        requireView(),
+                        message,
+                        R.id.createProfileFragmentOne
+                    )
 
                 }
             }
@@ -142,12 +154,16 @@ class EmailVerificationTwo : Fragment() {
 
         binding.fragmentEmailVerificationTwoConfirmBtn.setOnClickListener {
 
-//            setVisibility(binding.fragmentEmailVerificationTwoPb)
-//
-//            val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
-//            viewModel.confirmEmail(email, code)
+            binding.fragmentEmailVerificationTwoPb.show(binding.fragmentEmailVerificationTwoConfirmBtn)
 
-            findNavController().navigate(R.id.createProfileFragmentOne)
+            val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
+            val email = loadFromSharedPreference(requireActivity(), EMAIL)
+
+            val confirmEmailAddressRequest = ConfirmEmailAddressRequest(email, code)
+
+            viewModel.confirmEmail(confirmEmailAddressRequest)
+
+            //findNavController().navigate(R.id.createProfileFragmentOne)
 
         }
 

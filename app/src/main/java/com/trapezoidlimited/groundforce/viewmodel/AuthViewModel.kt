@@ -13,6 +13,8 @@ import com.trapezoidlimited.groundforce.utils.TOKEN
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Header
+import retrofit2.http.Path
 
 /**
  * AuthViewModel class launches methods in the AuthRepository to make network calls
@@ -121,6 +123,19 @@ class AuthViewModel(
     val submitSurveyResponse: MutableLiveData<Resource<GenericResponseClass<SubmitSurveyResponse>>>
         get() = _submitSurveyResponse
 
+    private val _getSurveyByIDResponse: MutableLiveData<Resource<GenericResponseClass<GetSurveyByIDResponse>>> =
+        MutableLiveData()
+    val getSurveyByIDResponse: MutableLiveData<Resource<GenericResponseClass<GetSurveyByIDResponse>>>
+        get() = _getSurveyByIDResponse
+
+    private val _getQuestionByIDResponse: MutableLiveData<Resource<GenericResponseClass<GetQuestionByIDResponse>>> =
+        MutableLiveData()
+    val getQuestionByIDResponse: MutableLiveData<Resource<GenericResponseClass<GetQuestionByIDResponse>>>
+        get() = _getQuestionByIDResponse
+
+
+
+
     /** Image Url Response **/
     private val _imageUrl: MutableLiveData<Resource<GenericResponseClass<UploadPictureResponse>>> =
         MutableLiveData()
@@ -137,6 +152,11 @@ class AuthViewModel(
         MutableLiveData()
     val getNotificationsResponse: MutableLiveData<Resource<GenericResponseClass<GetNotificationsResponse>>>
         get() = _getNotificationsResponse
+
+    private val _getAllNotificationsResponse: MutableLiveData<Resource<GenericResponseClass<GetAllNotificationsResponse>>> =
+        MutableLiveData()
+    val getAllNotificationsResponse: MutableLiveData<Resource<GenericResponseClass<GetAllNotificationsResponse>>>
+        get() = _getAllNotificationsResponse
 
 
     /** Auth Requests */
@@ -157,12 +177,12 @@ class AuthViewModel(
         _changePasswordResponse.value = repository.changePassword(token, changePasswordRequest)
     }
 
-    fun verifyEmail(email: String) = viewModelScope.launch {
+    fun verifyEmail(email: VerifyEmailAddressRequest) = viewModelScope.launch {
         _verifyEmailResponse.value = repository.verifyEmail(email)
     }
 
-    fun confirmEmail(email: String, verificationCode: String) = viewModelScope.launch {
-        _confirmEmailResponse.value = repository.confirmEmail(email, verificationCode)
+    fun confirmEmail(confirmEmailAddressRequest: ConfirmEmailAddressRequest) = viewModelScope.launch {
+        _confirmEmailResponse.value = repository.confirmEmail(confirmEmailAddressRequest)
     }
 
     fun forgotPassword(email: String) = viewModelScope.launch {
@@ -208,9 +228,16 @@ class AuthViewModel(
     }
 
 
-    fun getSurvey(agentId: String, status: String, page: String) = viewModelScope.launch {
+    fun getSurvey(agentId: String, status: String, page: Int) = viewModelScope.launch {
         _getSurveyResponse.value = repository.getSurvey(token, agentId, status, page)
     }
+
+    fun getSurveyById(
+        surveyId : String,
+    ) = viewModelScope.launch{
+        _getSurveyByIDResponse.value = repository.getSurveyById(token, surveyId)
+    }
+
 
 
     fun getNotificationsByUserId(
@@ -228,6 +255,18 @@ class AuthViewModel(
     ) = viewModelScope.launch {
         _imageUrl.value = repository.uploadImage(photoPath, token, activity)
     }
+
+    fun getAllNotifications(
+        page: Int
+    ) = viewModelScope.launch {
+       _getAllNotificationsResponse.value = repository.getAllNotifications(token, page)
+    }
+
+   fun getQuestionById(
+        questionId : String,
+    ) = viewModelScope.launch{
+       _getQuestionByIDResponse.value = repository.getQuestionById(token, questionId)
+   }
 
 
 }

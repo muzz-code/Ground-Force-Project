@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.trapezoidlimited.groundforce.data.AgentObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,6 +19,8 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     val additionalDetail: LiveData<List<RoomAdditionalDetail>> = repository.readAdditionalDetail()
 
     var mission: LiveData<List<RoomMission>> = repository.readAllMissions()
+
+    var survey: LiveData<List<RoomSurvey>> = repository.readAllSurveys()
 
     var ongoingMission: LiveData<List<RoomOngoingMission>> = repository.readAllOngoingMissions()
 
@@ -93,6 +98,25 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
     fun deleteAllAgentDetails(){
         viewModelScope.launch {
             repository.deleteAllAgentDetails()
+        }
+    }
+
+    fun addSurvey(survey: RoomSurvey){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addSurvey(survey)
+        }
+    }
+
+
+    fun deleteAllSurveys(){
+        viewModelScope.launch {
+            repository.deleteAllSurveys()
+        }
+    }
+
+    fun deleteBySurveyId(surveyId: String) {
+        viewModelScope.launch {
+            repository.deleteBySurveyId(surveyId)
         }
     }
 

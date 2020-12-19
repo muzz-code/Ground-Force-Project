@@ -7,6 +7,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
+import com.trapezoidlimited.groundforce.utils.EMAIL
 import com.trapezoidlimited.groundforce.utils.USERID
 import com.trapezoidlimited.groundforce.utils.getRealPathFromUri
 import com.trapezoidlimited.groundforce.utils.loadFromSharedPreference
@@ -53,14 +54,14 @@ constructor(
             apiService.registerUser(agent)
         }
 
-    override suspend fun verifyEmail(email: String): Resource<GenericResponseClass<VerifyEmailResponse>> =
+    override suspend fun verifyEmail(email: VerifyEmailAddressRequest): Resource<GenericResponseClass<VerifyEmailResponse>> =
         safeApiCall {
             apiService.verifyEmail(email)
         }
 
-    override suspend fun confirmEmail(email: String, verificationCode: String):
+    override suspend fun confirmEmail(confirmEmailAddressRequest: ConfirmEmailAddressRequest):
             Resource<GenericResponseClass<ConfirmEmailResponse>> = safeApiCall {
-        apiService.confirmEmail(email, verificationCode)
+        apiService.confirmEmail(confirmEmailAddressRequest)
     }
 
     /** User Requests */
@@ -171,9 +172,23 @@ constructor(
         token: String,
         agentId: String,
         status: String,
-        page: String
+        page: Int
     ): Resource<GenericResponseClass<GetSurveyResponse>> = safeApiCall{
         apiService.getSurvey(token, agentId, status, page)
+    }
+
+    override suspend fun getSurveyById(
+        token: String,
+        surveyId: String
+    ): Resource<GenericResponseClass<GetSurveyByIDResponse>> = safeApiCall {
+        apiService.getSurveyById(token, surveyId)
+    }
+
+    override suspend fun getQuestionById(
+        token: String,
+        questionId: String
+    ): Resource<GenericResponseClass<GetQuestionByIDResponse>> = safeApiCall {
+        apiService.getQuestionById(token, questionId)
     }
 
     override suspend fun getNotificationsByUserId(
@@ -183,4 +198,12 @@ constructor(
     ): Resource<GenericResponseClass<GetNotificationsResponse>> = safeApiCall {
         apiService.getNotificationsByUserId(token, userId, page)
     }
+
+    override suspend fun getAllNotifications(
+        token: String,
+        page: Int
+    ): Resource<GenericResponseClass<GetAllNotificationsResponse>> = safeApiCall {
+        apiService.getAllNotifications(token, page)
+    }
+
 }

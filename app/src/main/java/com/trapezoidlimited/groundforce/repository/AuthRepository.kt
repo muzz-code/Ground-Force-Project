@@ -5,6 +5,9 @@ import android.net.Uri
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
+import okhttp3.RequestBody
+import retrofit2.http.Header
+import retrofit2.http.Path
 
 
 /**
@@ -19,8 +22,8 @@ interface AuthRepository {
     suspend fun verifyPhone(phone: VerifyPhoneRequest): Resource<GenericResponseClass<VerifyPhoneResponse>>
     suspend fun confirmPhone(confirmPhone: ConfirmPhoneRequest): Resource<GenericResponseClass<ConfirmOtpResponse>>
     suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>>
-    suspend fun verifyEmail(email: String): Resource<GenericResponseClass<VerifyEmailResponse>>
-    suspend fun confirmEmail( email: String, verificationCode: String): Resource<GenericResponseClass<ConfirmEmailResponse>>
+    suspend fun verifyEmail(email: VerifyEmailAddressRequest): Resource<GenericResponseClass<VerifyEmailResponse>>
+    suspend fun confirmEmail(confirmEmailAddressRequest: ConfirmEmailAddressRequest): Resource<GenericResponseClass<ConfirmEmailResponse>>
 
     /** User Requests */
 
@@ -56,13 +59,23 @@ interface AuthRepository {
                         ): Resource<GenericResponseClass<SubmitSurveyResponse>>
 
     suspend fun getSurvey(token: String, agentId: String, status: String,
-                        page: String
+                        page: Int
                      ): Resource<GenericResponseClass<GetSurveyResponse>>
+
+    suspend fun getSurveyById(token: String, surveyId : String,
+    ): Resource<GenericResponseClass<GetSurveyByIDResponse>>
+
+    suspend fun getQuestionById(token: String, questionId : String,
+    ): Resource<GenericResponseClass<GetQuestionByIDResponse>>
 
 
     /** Notification Request */
     suspend fun getNotificationsByUserId(token: String, userId: String,
                                          page: String): Resource<GenericResponseClass<GetNotificationsResponse>>
+
+    suspend fun getAllNotifications(token: String, page: Int
+    ): Resource<GenericResponseClass<GetAllNotificationsResponse>>
+
 
     suspend fun submitMission(submitMissionRequest: SubmitMissionRequest): Resource<GenericResponseClass<SubmitMissionResponse>>
 

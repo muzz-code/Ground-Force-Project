@@ -293,7 +293,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                 setNoMissionViewInVisible()
             }
 
-            missionBadgeTextView.text = missionList.size.toString()
+            //missionBadgeTextView.text = missionList.size.toString()
         }
 
         )

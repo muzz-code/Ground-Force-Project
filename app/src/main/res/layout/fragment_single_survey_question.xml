@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    >
+
+    <TextView
+        android:id="@+id/survey_questions_quest_title_tv"
+        style="@style/colorPrimarySuperLargeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/survey_questions_question_str"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/survey_questions_option_one_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:padding="21dp"
+        android:text="@string/survey_questions_option_one_str"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryBlack"
+        android:textSize="@dimen/medium_text"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/survey_questions_option_two_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/survey_questions_quest_title_tv"
+        app:strokeColor="@android:color/black"
+        app:strokeWidth="0.5dp" />
+
+    <Button
+        android:id="@+id/survey_questions_option_two_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="21dp"
+        android:text="@string/survey_questions_option_two_str"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryBlack"
+        android:textSize="@dimen/medium_text"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/survey_questions_option_one_btn"
+        app:layout_constraintStart_toStartOf="@+id/survey_questions_option_one_btn"
+        app:layout_constraintTop_toBottomOf="@+id/survey_questions_option_one_btn"
+        app:strokeColor="@android:color/black"
+        app:strokeWidth="0.5dp" />
+
+    <Button
+        android:id="@+id/survey_questions_option_three_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="21dp"
+        android:text="@string/survey_questions_option_three_str"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryBlack"
+        android:textSize="@dimen/medium_text"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/survey_questions_option_two_btn"
+        app:layout_constraintStart_toStartOf="@+id/survey_questions_option_two_btn"
+        app:layout_constraintTop_toBottomOf="@+id/survey_questions_option_two_btn"
+        app:strokeColor="@android:color/black"
+        app:strokeWidth="0.5dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
