@@ -163,6 +163,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
                      */
 
                     missionList.removeAt(missionPosition)
+                    adapter.notifyItemRemoved(missionPosition)
 
                     roomViewModel.deleteByMissionId(missionId)
 

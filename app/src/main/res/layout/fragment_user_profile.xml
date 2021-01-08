@@ -508,6 +508,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_header_background_cl" />
 
+
+    <ProgressBar
+        android:id="@+id/fragment_create_profile_one_profile_image_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_one_profile_image_iv"
+        app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_one_profile_image_iv" />
+
+
     <View
         android:id="@+id/fragment_create_profile_one_profile_add_photo_vw"
         android:layout_width="30dp"

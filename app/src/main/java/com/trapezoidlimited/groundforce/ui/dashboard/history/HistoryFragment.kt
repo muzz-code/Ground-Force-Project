@@ -14,8 +14,9 @@ import com.trapezoidlimited.groundforce.adapters.GenericViewPagerAdapter
 import com.trapezoidlimited.groundforce.databinding.FragmentHistoryBinding
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.utils.MISSIONCOMPLETED
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null

@@ -12,6 +12,16 @@ interface RoomRepository {
     suspend fun updateAgent(agent: RoomAgent)
     suspend fun updateAdditionalDetail(additionalDetail: RoomAdditionalDetail)
     suspend fun addMission(mission: RoomMission)
+    suspend fun addHistoryMission(mission: RoomHistoryMission)
+    fun readAllHistoryMissions(): LiveData<List<RoomHistoryMission>>
+    suspend fun deleteAllHistoryMissions()
+    suspend fun deleteByHistoryMissionId(historyMissionId: String)
+
+    suspend fun addHistorySurvey(survey: RoomHistorySurvey)
+    fun readAllHistorySurveys(): LiveData<List<RoomHistorySurvey>>
+    suspend fun deleteAllHistorySurveys()
+    suspend fun deleteByHistorySurveyId(historySurveyId: String)
+
     fun readAgent(): LiveData<List<RoomAgent>>
     fun readAdditionalDetail(): LiveData<List<RoomAdditionalDetail>>
     fun readAllMissions(): LiveData<List<RoomMission>>

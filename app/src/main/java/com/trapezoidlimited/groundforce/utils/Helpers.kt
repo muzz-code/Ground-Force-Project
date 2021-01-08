@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -13,6 +14,7 @@ import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
 import java.io.File
+import java.lang.StringBuilder
 
 
 fun Fragment.handleApiError(
@@ -58,7 +60,7 @@ fun Fragment.handleApiError(
 
             }
 
-            //Log.i("ERROR", "$errorMessage")
+            Log.i("ERROR", "$errorMessage")
 
         }
     }
@@ -97,7 +99,7 @@ fun Fragment.handleApiError(
                 }
             }
 
-            //Log.i("ERROR", "$errorMessage")
+            Log.i("ERROR", "$errorMessage")
 
         }
     }
@@ -159,5 +161,67 @@ fun Fragment.logOut(roomViewModel: RoomViewModel, activity: Activity) {
         val file = File(path, GROUND_FORCE_IMAGE_NAME)
         return file.exists()
     }
+
+}
+
+fun Fragment.splitDate(date: String): String {
+    val splittedDate = date.split("-")
+    val year = splittedDate[0]
+    val month = splittedDate[1]
+    val day = splittedDate[2].substring(0, 2)
+    var monthInWord = ""
+
+    val stringBuilder = StringBuilder()
+
+    when (month) {
+        "01" -> {
+            monthInWord = "Jan"
+        }
+        "02" -> {
+            monthInWord = "Feb"
+        }
+        "03" -> {
+            monthInWord = "Mar"
+        }
+        "04" -> {
+            monthInWord = "Apr"
+
+        }
+        "05" -> {
+            monthInWord = "May"
+
+        }
+        "06" -> {
+            monthInWord = "Jun"
+
+        }
+        "07" -> {
+            monthInWord = "Jul"
+
+        }
+        "08" -> {
+            monthInWord = "Aug"
+
+        }
+        "09" -> {
+            monthInWord = "Sept"
+
+        }
+        "10" -> {
+            monthInWord = "Oct"
+
+        }
+        "11" -> {
+            monthInWord = "Nov"
+
+        }
+        "12" -> {
+            monthInWord = "Dec"
+
+        }
+
+    }
+
+    return stringBuilder.append(day).append(" ").append(monthInWord).append(",").append(" ").append(year).toString()
 
 }

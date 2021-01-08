@@ -58,6 +58,31 @@ interface RoomDao {
     @Query("DELETE FROM ongoing_mission_table WHERE id = :missionId")
     suspend fun deleteByOngoingMissionId(missionId: String)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addHistoryMission(mission: RoomHistoryMission)
+
+    @Query("SELECT * FROM history_mission_table")
+    fun readAllHistoryMissions(): LiveData<List<RoomHistoryMission>>
+
+    @Query("DELETE FROM mission_table")
+    suspend fun deleteAllHistoryMissions()
+
+    @Query("DELETE FROM mission_table WHERE id = :historyMissionId")
+    suspend fun deleteByHistoryMissionId(historyMissionId: String)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addHistorySurvey(mission: RoomHistorySurvey)
+
+    @Query("SELECT * FROM history_survey_table")
+    fun readAllHistorySurveys(): LiveData<List<RoomHistorySurvey>>
+
+    @Query("DELETE FROM mission_table")
+    suspend fun deleteAllHistorySurveys()
+
+    @Query("DELETE FROM mission_table WHERE id = :historySurveyId")
+    suspend fun deleteByHistorySurveyId(historySurveyId: String)
+
+
     @Query("DELETE FROM agent_table")
     suspend fun deleteAllAgentDetails()
 

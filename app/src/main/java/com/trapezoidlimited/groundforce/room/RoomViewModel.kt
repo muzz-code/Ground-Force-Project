@@ -20,6 +20,10 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
 
     var mission: LiveData<List<RoomMission>> = repository.readAllMissions()
 
+    var historyMission: LiveData<List<RoomHistoryMission>> = repository.readAllHistoryMissions()
+
+    var historySurvey: LiveData<List<RoomHistorySurvey>> = repository.readAllHistorySurveys()
+
     var survey: LiveData<List<RoomSurvey>> = repository.readAllSurveys()
 
     var ongoingMission: LiveData<List<RoomOngoingMission>> = repository.readAllOngoingMissions()
@@ -59,9 +63,45 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
         }
     }
 
+    fun addHistoryMission(historyMission: RoomHistoryMission) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addHistoryMission(historyMission)
+        }
+    }
+
+    fun deleteAllHistoryMission() {
+        viewModelScope.launch {
+            repository.deleteAllHistoryMissions()
+        }
+    }
+
     fun deleteAllMission() {
         viewModelScope.launch {
             repository.deleteAllMissions()
+        }
+    }
+
+    fun deleteByHistoryMissionId(historyMissionId: String) {
+        viewModelScope.launch {
+            repository.deleteByHistoryMissionId(historyMissionId)
+        }
+    }
+
+    fun addHistorySurvey(historySurvey: RoomHistorySurvey) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addHistorySurvey(historySurvey)
+        }
+    }
+
+    fun deleteAllHistorySurvey() {
+        viewModelScope.launch {
+            repository.deleteAllHistoryMissions()
+        }
+    }
+
+    fun deleteByHistorySurveyId(historySurveyId: String) {
+        viewModelScope.launch {
+            repository.deleteByHistoryMissionId(historySurveyId)
         }
     }
 

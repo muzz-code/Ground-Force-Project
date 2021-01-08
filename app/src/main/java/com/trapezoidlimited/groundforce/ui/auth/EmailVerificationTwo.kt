@@ -72,7 +72,7 @@ class EmailVerificationTwo : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentEmailVerificationTwoTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.emailVerificationOne)
         }
 
         return binding.root

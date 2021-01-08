@@ -205,6 +205,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
             R.id.nav_logout -> {
                 SessionManager.save(this, TOKEN, "")
+                SessionManager.save(this, AVATAR_URL, "")
                 Intent(this, MainActivity::class.java).also {
                     saveToSharedPreference(this, LOG_OUT, "true")
                     roomViewModel.deleteAllMission()
