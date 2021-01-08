@@ -22,6 +22,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentEmailVerificationTwoBinding
 import com.trapezoidlimited.groundforce.model.request.ConfirmEmailAddressRequest
+import com.trapezoidlimited.groundforce.model.request.VerifyEmailAddressRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -99,6 +100,12 @@ class EmailVerificationTwo : Fragment() {
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
+
+
+                val verifyEmailAddressRequest = VerifyEmailAddressRequest(email)
+
+                viewModel.verifyEmail(verifyEmailAddressRequest)
+
             }
 
             /** Change color and remove underline */
@@ -148,6 +155,24 @@ class EmailVerificationTwo : Fragment() {
         })
 
 
+        viewModel.verifyEmailResponse.observe(viewLifecycleOwner, {
+            when (it) {
+
+                is Resource.Success -> {
+
+                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT)
+                        .show()
+                    
+                }
+
+                is Resource.Failure -> {
+
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
+
+
         binding.fragmentEmailVerificationTwoChangeEmailTv.setOnClickListener {
             findNavController().navigate(R.id.emailVerificationOne)
         }
@@ -157,7 +182,7 @@ class EmailVerificationTwo : Fragment() {
             binding.fragmentEmailVerificationTwoPb.show(binding.fragmentEmailVerificationTwoConfirmBtn)
 
             val code = binding.fragmentEmailVerificationTwoPinView.text.toString()
-            val email = loadFromSharedPreference(requireActivity(), EMAIL)
+//            val email = loadFromSharedPreference(requireActivity(), EMAIL)
 
             val confirmEmailAddressRequest = ConfirmEmailAddressRequest(email, code)
 

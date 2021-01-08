@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -292,14 +293,15 @@ class LoginFragment : Fragment() {
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 view.setOnClickListener {
-                    findNavController().navigate(R.id.forgetPasswordFragment)
+                    Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+                    //findNavController().navigate(R.id.forgetPasswordFragment)
                 }
             }
 
             /**Change color and remove underline**/
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
-                ds.color = ContextCompat.getColor(requireContext(), R.color.colorPrimaryBlack)
+                ds.color = ContextCompat.getColor(requireContext(), R.color.colorBlue)
                 ds.isUnderlineText = false
             }
         }
@@ -321,6 +323,7 @@ class LoginFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        //android.os.Process.killProcess(android.os.Process.myPid());
         _binding = null
     }
 }

@@ -259,6 +259,9 @@ class AgentDashboardFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        //android.os.Process.killProcess(android.os.Process.myPid());
+
         _binding = null
     }
 }

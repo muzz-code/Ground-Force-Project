@@ -46,12 +46,12 @@ class CreateProfileFragmentTwo : Fragment() {
         locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
 
 
-        //ZipCodes
-        val zipCodes = listOf("110000", "102010", "100000", "103040")
-        val adapterZipCode = ArrayAdapter(requireContext(), R.layout.list_item, zipCodes)
-        (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(
-            adapterZipCode
-        )
+//        //ZipCodes
+//        val zipCodes = listOf("110000", "102010", "100000", "103040")
+//        val adapterZipCode = ArrayAdapter(requireContext(), R.layout.list_item, zipCodes)
+//        (binding.fragmentCreateProfileTwoZipCodeTf.editText as? AutoCompleteTextView)?.setAdapter(
+//            adapterZipCode
+//        )
 
 
         //States
@@ -172,7 +172,7 @@ class CreateProfileFragmentTwo : Fragment() {
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
             JDataClass(
-                editText = binding.fragmentCreateProfileTwoZipCodeTf.editText!!,
+                editText = binding.fragmentCreateProfileTwoZipCodeEt,
                 editTextInputLayout = binding.fragmentCreateProfileTwoZipCodeTf,
                 errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }

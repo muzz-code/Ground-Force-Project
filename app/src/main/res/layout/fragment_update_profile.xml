@@ -27,6 +27,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--   Button to go to next profile page  -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/fragment_update_profile_bank_name_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/bank_name"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_ic">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/fragment_update_profile_bank_code_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
@@ -36,7 +59,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/bank_code"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_ic" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_bank_name_til" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_update_profile_bank_code_til"
@@ -53,10 +76,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:inputType="number"
-                android:maxLength="3" />
+                android:enabled="false"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
 
         <TextView
@@ -130,11 +154,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:hint="@string/religion_str"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_update_profile_bank_code_til"
-            app:layout_constraintStart_toStartOf="@+id/fragment_update_profile_bank_code_til"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_additional_num_til">
 
             <AutoCompleteTextView
@@ -155,9 +181,11 @@
             android:hint="@string/gender"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/fragment_update_profile_btn"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_update_profile_bank_code_til"
-            app:layout_constraintStart_toStartOf="@+id/fragment_update_profile_bank_code_til"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_religion_til"
             app:layout_constraintVertical_bias="0.0">
 

@@ -1,7 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.survey
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.gson.Gson
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.OnQuestionItemClickListener
 import com.trapezoidlimited.groundforce.adapters.ViewPagerAdapter
@@ -25,7 +23,6 @@ import com.trapezoidlimited.groundforce.model.request.Question
 import com.trapezoidlimited.groundforce.model.request.SubmitSurveyRequest
 import com.trapezoidlimited.groundforce.model.request.UpdateSurveyStatusRequest
 import com.trapezoidlimited.groundforce.model.response.GetQuestionByIDResponse
-import com.trapezoidlimited.groundforce.model.response.SubmitSurveyResponse
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.USERID
 import com.trapezoidlimited.groundforce.utils.handleApiError

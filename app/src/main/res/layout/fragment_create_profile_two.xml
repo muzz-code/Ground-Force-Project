@@ -120,7 +120,7 @@
         <!--   Button to go to next profile page  -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/fragment_create_profile_two_zip_code_tf"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -131,10 +131,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_lga_tf">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fragment_create_profile_two_zip_code_et"
+                style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none" />
+                android:backgroundTint="@color/colorWhite"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
