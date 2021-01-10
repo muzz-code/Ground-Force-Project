@@ -96,21 +96,24 @@ class CreateProfileFragmentTwo : Fragment() {
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
+
+            val residentialAddress = binding.fragmentCreateProfileTwoStreetEt.text.toString()
+            val zipCode = binding.fragmentCreateProfileTwoZipCodeTf.editText?.text.toString()
+            val lgaSelected = binding.fragmentCreateProfileTwoLgaTf.editText?.text.toString()
+            val state = binding.fragmentCreateProfileTwoStateTf.editText?.text.toString()
+
             if (!validateFields()) {
                 showSnackBar(binding.fragmentCreateProfileTwoBtn, "Field(s) should not be empty")
                 return@setOnClickListener
+            } else if (!lga.contains(lgaSelected)) {
+                showSnackBar(binding.fragmentCreateProfileTwoBtn, "Selected LGA does not exist in selected state.")
             } else {
-
-                val residentialAddress = binding.fragmentCreateProfileTwoStreetEt.text.toString()
-                val zipCode = binding.fragmentCreateProfileTwoZipCodeTf.editText?.text.toString()
-                val lga = binding.fragmentCreateProfileTwoLgaTf.editText?.text.toString()
-                val state = binding.fragmentCreateProfileTwoStateTf.editText?.text.toString()
 
                 /** Saving USER PROFILE DETAILS in sharedPreference*/
 
                 saveToSharedPreference(requireActivity(), ADDRESS, residentialAddress)
                 saveToSharedPreference(requireActivity(), ZIPCODE, zipCode)
-                saveToSharedPreference(requireActivity(), LGA, lga)
+                saveToSharedPreference(requireActivity(), LGA, lgaSelected)
                 saveToSharedPreference(requireActivity(), STATE, state)
                 saveToSharedPreference(requireActivity(), GENDER, "m")
 
