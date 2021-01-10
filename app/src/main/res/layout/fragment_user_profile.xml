@@ -378,30 +378,55 @@
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_residential_address_til" />
 
-            <TextView
-                android:id="@+id/fragment_user_profile_bank_name_tv"
-                style="@style/colorTertiaryGreyExtraSmallText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/bank_name_str"
-                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"
-                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv" />
+<!--            <TextView-->
+<!--                android:id="@+id/fragment_user_profile_bank_name_tv"-->
+<!--                style="@style/colorTertiaryGreyExtraSmallText"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="@string/bank_name_str"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv" />-->
 
-            <AutoCompleteTextView
-                android:id="@+id/fragment_user_profile_bank_name_at"
-                android:layout_width="0dp"
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/fragment_user_profile_bank_name_at"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clickable="false"-->
+<!--                android:drawableEnd="@drawable/ic_spinner_drop_down"-->
+<!--                android:enabled="false"-->
+<!--                android:inputType="none"-->
+<!--                android:paddingStart="16dp"-->
+<!--                android:paddingEnd="16dp"-->
+<!--                android:textSize="@dimen/small_text"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_residential_address_til"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address_til"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_name_tv" />-->
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fragment_user_profile_bank_name_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="false"
-                android:drawableEnd="@drawable/ic_spinner_drop_down"
-                android:enabled="false"
-                android:inputType="none"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:textSize="@dimen/small_text"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/bank_name_str"
+                android:paddingTop="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_residential_address_til"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_residential_address_til"
-                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_name_tv" />
+                app:layout_constraintTop_toBottomOf="@id/fragment_user_profile_bank_detail_tv">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/fragment_user_profile_account_number_tv"
@@ -410,15 +435,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/account_number"
-                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_tv"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_bank_name_at" />
+                android:layout_marginStart="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_bank_name_til" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/fragment_user_profile_account_number_til"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_bank_name_at"
-                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_at"
+                app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_bank_name_til"
+                app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_bank_name_til"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_user_profile_account_number_tv">
 
                 <EditText

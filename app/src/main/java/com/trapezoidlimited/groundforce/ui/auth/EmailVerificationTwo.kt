@@ -88,7 +88,8 @@ class EmailVerificationTwo : Fragment() {
 
         val email = loadFromSharedPreference(requireActivity(), EMAIL)
 
-        binding.fragmentEmailVerificationTwoInstructionTv.text = "Please enter the 4 digit code sent to you at $email"
+        binding.fragmentEmailVerificationTwoInstructionTv.text =
+            "Please enter the 4 digit code sent to you at $email"
 
         /** Get Test from String Resource */
         val codeText = getText(R.string.email_verify_didnt_get_code_text_str)
@@ -99,8 +100,6 @@ class EmailVerificationTwo : Fragment() {
         /** Implement ClickableSpan */
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                Toast.makeText(requireContext(), "Clicked!", Toast.LENGTH_LONG).show()
-
 
                 val verifyEmailAddressRequest = VerifyEmailAddressRequest(email)
 
@@ -131,7 +130,11 @@ class EmailVerificationTwo : Fragment() {
                 is Resource.Success -> {
                     binding.fragmentEmailVerificationTwoPb.hide(binding.fragmentEmailVerificationTwoConfirmBtn)
 
-                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.value.data?.message}",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
 
                     findNavController().navigate(R.id.createProfileFragmentOne)
@@ -160,9 +163,13 @@ class EmailVerificationTwo : Fragment() {
 
                 is Resource.Success -> {
 
-                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.value.data?.message}",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
-                    
+
                 }
 
                 is Resource.Failure -> {

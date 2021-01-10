@@ -4,10 +4,7 @@ import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
-import android.content.ActivityNotFoundException
-import android.content.ContentValues
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -37,6 +34,7 @@ import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
 import com.trapezoidlimited.groundforce.images.BitMapConverter
+import com.trapezoidlimited.groundforce.model.BankJson
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -50,6 +48,8 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Retrofit
 import java.io.File
+import java.io.InputStream
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -99,6 +99,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var accountNumberEditText: EditText
     private lateinit var isLocationVerified: String
     private lateinit var pictureImageView: ImageView
+
+    private val gson by lazy { EntryApplication.gson }
+    private lateinit var banks: BankJson
 
 
     /** onCreateView over ride function **/
@@ -220,6 +223,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val factory = ViewModelFactory(repository, requireContext())
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
+        banks = gson.fromJson(readJson(requireActivity()), BankJson::class.java)
+
         //Save Image Url in Shared Preference on Success
         viewModel.imageUrl.observe(viewLifecycleOwner, {
 
@@ -278,13 +283,35 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
 
-        if (avatarUrl.trim().isNotEmpty()){
+        if (avatarUrl.trim().isNotEmpty()) {
             genericRepository.saveImageFromServer(avatarUrl, pictureImageView, requireActivity())
         }
 
         verifyLocationTextView.setOnClickListener {
             findNavController().navigate(R.id.verifyLocationFragment)
         }
+
+        //BANKS
+        val bankList: MutableList<String> = mutableListOf()
+
+        for (data in banks.data) {
+            bankList.add(data.name)
+        }
+
+        val bankAutoCompleteTextView =
+            (binding.fragmentUserProfileBankNameTil.editText as? AutoCompleteTextView)
+
+        val adapterBanks = ArrayAdapter(requireContext(), R.layout.list_item, bankList)
+
+        bankAutoCompleteTextView?.setAdapter(adapterBanks)
+
+        val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
+
+        if (bankName.trim().isNotEmpty()) {
+            bankAutoCompleteTextView?.text =
+                SpannableStringBuilder(bankName)
+        }
+
     }
 
 
@@ -486,9 +513,40 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             .build()
     }
 
+    private fun readJson(context: Context): String? {
+        var inputStream: InputStream? = null
+
+        val jsonString: String
+
+        try {
+            inputStream = context.assets.open("bank.json")
+
+            val size = inputStream.available()
+
+            val buffer = ByteArray(size)
+
+            inputStream.read(buffer)
+
+            jsonString = String(buffer)
+
+            return jsonString
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream?.close()
+        }
+
+        return null
+    }
+
 
     override fun onStart() {
         super.onStart()
         googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

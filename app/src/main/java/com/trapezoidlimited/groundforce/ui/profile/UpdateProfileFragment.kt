@@ -210,7 +210,7 @@ class UpdateProfileFragment : Fragment() {
                 if (additionNumber.trim().isEmpty()) {
                     additionNumber = ""
                 }
-
+                println(bankName)
 
                 saveToSharedPreference(requireActivity(), BANKNAME, bankName)
                 saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
@@ -242,8 +242,9 @@ class UpdateProfileFragment : Fragment() {
                     agentGender
                 )
 
-                viewModel.verifyAccount(verifyAccountRequest)
+               viewModel.verifyAccount(verifyAccountRequest)
             }
+
 
         }
     }
