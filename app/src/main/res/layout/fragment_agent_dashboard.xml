@@ -372,6 +372,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/fragment_agent_dashboard_mission_completed_tv"
                         style="@style/colorPrimaryBlackSuperLargeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -419,6 +420,7 @@ tools:context=".ui.dashboard.AgentDashboardFragment">
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/fragment_agent_dashboard_history_completed_tv"
                         style="@style/colorPrimaryBlackSuperLargeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

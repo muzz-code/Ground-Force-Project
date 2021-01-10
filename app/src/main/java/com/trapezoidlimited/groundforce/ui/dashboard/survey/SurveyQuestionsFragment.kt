@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.survey
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -176,8 +177,20 @@ class SurveyQuestionsFragment : Fragment(), OnQuestionItemClickListener {
 
         //binding.fragmentSurveyQuestVp.adapter = adapter
 
+        Log.d("QUESTIONIDLIST", "${questionIdList!!.lastIndex}")
+
+        if (questionIdPosition == questionIdList!!.lastIndex) {
+            // change button text to submit
+            binding.surveyQuestionsNextBtn.text = "Submit"
+        }
+
 
         binding.surveyQuestionsNextBtn.setOnClickListener {
+
+            Log.d("QUESTIONIDPOSITION", "${questionIdPosition}")
+
+            Log.d("QUESTIONIDLIST", "${questionIdList!!.lastIndex}")
+
             if (binding.surveyQuestionsNextBtn.text == "Submit") {
                 // make api call
                 Toast.makeText(requireContext(), "Submitted", Toast.LENGTH_SHORT).show()
@@ -199,6 +212,7 @@ class SurveyQuestionsFragment : Fragment(), OnQuestionItemClickListener {
                 // change button text to submit
                 binding.surveyQuestionsNextBtn.text = "Submit"
             }
+
 
             /** setting toolbar text **/
             binding.fragmentSurveyQuestToolbar.toolbarTitle.text =

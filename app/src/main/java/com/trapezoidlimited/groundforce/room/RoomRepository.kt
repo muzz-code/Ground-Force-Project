@@ -22,6 +22,11 @@ interface RoomRepository {
     suspend fun deleteAllHistorySurveys()
     suspend fun deleteByHistorySurveyId(historySurveyId: String)
 
+    suspend fun addNotification(notification: RoomNotification)
+    fun readAllNotifications(): LiveData<List<RoomNotification>>
+    suspend fun deleteAllNotifications()
+    suspend fun deleteByNotificationId(notificationId: String)
+
     fun readAgent(): LiveData<List<RoomAgent>>
     fun readAdditionalDetail(): LiveData<List<RoomAdditionalDetail>>
     fun readAllMissions(): LiveData<List<RoomMission>>

@@ -8,6 +8,7 @@ data class UserResponse(
     val gender: String,
     val religion: String?,
     val email: String,
+    val isVerified: Boolean,
     val additionalPhoneNumber: String?,
     val residentialAddress: String,
     val bankName: String?,

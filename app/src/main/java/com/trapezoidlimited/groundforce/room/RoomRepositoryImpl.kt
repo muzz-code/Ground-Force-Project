@@ -56,6 +56,22 @@ class RoomRepositoryImpl(private val dao: RoomDao) : RoomRepository {
         dao.deleteByHistorySurveyId(historySurveyId)
     }
 
+    override suspend fun addNotification(notification: RoomNotification) {
+        dao.addNotification(notification)
+    }
+
+    override fun readAllNotifications(): LiveData<List<RoomNotification>> {
+        return dao.readAllAddNotifications()
+    }
+
+    override suspend fun deleteAllNotifications() {
+        dao.deleteAllAddNotifications()
+    }
+
+    override suspend fun deleteByNotificationId(notificationId: String) {
+        dao.deleteByNotificationId(notificationId)
+    }
+
     override fun readAgent(): LiveData<List<RoomAgent>> {
         return dao.readAgent()
     }

@@ -64,10 +64,10 @@ interface RoomDao {
     @Query("SELECT * FROM history_mission_table")
     fun readAllHistoryMissions(): LiveData<List<RoomHistoryMission>>
 
-    @Query("DELETE FROM mission_table")
+    @Query("DELETE FROM history_mission_table")
     suspend fun deleteAllHistoryMissions()
 
-    @Query("DELETE FROM mission_table WHERE id = :historyMissionId")
+    @Query("DELETE FROM history_mission_table WHERE id = :historyMissionId")
     suspend fun deleteByHistoryMissionId(historyMissionId: String)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -76,10 +76,10 @@ interface RoomDao {
     @Query("SELECT * FROM history_survey_table")
     fun readAllHistorySurveys(): LiveData<List<RoomHistorySurvey>>
 
-    @Query("DELETE FROM mission_table")
+    @Query("DELETE FROM history_survey_table")
     suspend fun deleteAllHistorySurveys()
 
-    @Query("DELETE FROM mission_table WHERE id = :historySurveyId")
+    @Query("DELETE FROM history_survey_table WHERE id = :historySurveyId")
     suspend fun deleteByHistorySurveyId(historySurveyId: String)
 
 
@@ -97,6 +97,20 @@ interface RoomDao {
 
     @Query("DELETE FROM survey_table WHERE id = :surveyId")
     suspend fun deleteBySurveyId(surveyId: String)
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addNotification(notification: RoomNotification)
+
+    @Query("SELECT * FROM notification_table")
+    fun readAllAddNotifications(): LiveData<List<RoomNotification>>
+
+    @Query("DELETE FROM notification_table")
+    suspend fun deleteAllAddNotifications()
+
+    @Query("DELETE FROM notification_table WHERE id = :notificationId")
+    suspend fun deleteByNotificationId(notificationId: String)
+
 
 
 }

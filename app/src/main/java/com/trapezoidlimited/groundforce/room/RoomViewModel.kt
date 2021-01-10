@@ -24,6 +24,8 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
 
     var historySurvey: LiveData<List<RoomHistorySurvey>> = repository.readAllHistorySurveys()
 
+    var notifications: LiveData<List<RoomNotification>> = repository.readAllNotifications()
+
     var survey: LiveData<List<RoomSurvey>> = repository.readAllSurveys()
 
     var ongoingMission: LiveData<List<RoomOngoingMission>> = repository.readAllOngoingMissions()
@@ -75,6 +77,27 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
         }
     }
 
+
+    fun addNotification(notification: RoomNotification) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addNotification(notification)
+        }
+    }
+
+
+    fun deleteAllNotifications() {
+        viewModelScope.launch {
+            repository.deleteAllNotifications()
+        }
+    }
+
+    fun deleteByNotificationId(notificationId: String) {
+        viewModelScope.launch {
+            repository.deleteByNotificationId(notificationId)
+        }
+    }
+
+
     fun deleteAllMission() {
         viewModelScope.launch {
             repository.deleteAllMissions()
@@ -95,13 +118,13 @@ class RoomViewModel(private val repository: RoomRepository) : ViewModel() {
 
     fun deleteAllHistorySurvey() {
         viewModelScope.launch {
-            repository.deleteAllHistoryMissions()
+            repository.deleteAllHistorySurveys()
         }
     }
 
     fun deleteByHistorySurveyId(historySurveyId: String) {
         viewModelScope.launch {
-            repository.deleteByHistoryMissionId(historySurveyId)
+            repository.deleteByHistorySurveyId(historySurveyId)
         }
     }
 

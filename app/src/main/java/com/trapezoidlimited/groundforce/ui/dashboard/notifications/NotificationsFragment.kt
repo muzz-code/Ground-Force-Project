@@ -1,7 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.notifications
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -101,6 +100,8 @@ class NotificationsFragment : Fragment() {
 
         viewModel.getAllNotifications(1)
 
+        notificationsList = mutableListOf()
+
         viewModel.getAllNotificationsResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Success -> {
@@ -123,6 +124,23 @@ class NotificationsFragment : Fragment() {
                         }
 
                     }
+
+                    val notificationsItemList = mutableListOf<NotificationsItem>()
+                    val notificationHeaders = mutableListOf("New Notifications", "Older Notifications")
+
+                    notificationHeaders.let {
+                        for (notificationHeader in notificationHeaders) {
+                            notificationsItemList.add(NotificationsItem.withHeader(NotificationsHeader(notificationHeader)))
+                            val filtered = notificationsList.filter { it.isNew == notificationHeader }
+                                .map { NotificationsItem.withMessage(it) }
+
+                            notificationsItemList.addAll(filtered)
+                        }
+                    }
+
+                    adapter.updateNotifications(notificationsItemList)
+
+                    println(notificationResponseResultList?.get(0)?.notifications)
 
                 }
 
@@ -149,80 +167,6 @@ class NotificationsFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }
-    }
-
-
-    private fun returnNotifications(num: Int): List<NotificationsItem> {
-        val notifications = mutableListOf<NotificationsItem>()
-        val isNew = mutableListOf("New Notification", "Older Notifications")
-        val notification = mutableListOf<NotificationItem>()
-
-        val notificationOne = NotificationItem(
-            image = R.drawable.bolt,
-            message = "Hello Trooper Kehinde, a credit transaction of NGN100.00 just occurred in your account. Login to review. If there are any complaints or inquiries, please feel free to contact us.",
-            date = "13 Sept, 2020 10:30 AM",
-            isNew = "New Notification"
-        )
-        val notificationTwo = NotificationItem(
-            image = R.drawable.bolt,
-            message = "Hello Trooper, here's to a happy and fulfilling holiday this season. Have fun. Cheers!",
-            date = "13 Sept, 2020 10:30 AM",
-            isNew = "New Notification"
-        )
-        val notificationFour = NotificationItem(
-            image = R.drawable.bolt,
-            message = "Hello Trooper Kehinde, a credit transaction of NGN100.00 just occurred in your account. Login to review. If there are any complaints or inquiries, please feel free to contact us.",
-            date = "13 Sept, 2020 10:30 AM",
-            isNew = "Older Notifications"
-        )
-        val notificationThree = NotificationItem(
-            image = R.drawable.bolt,
-            message = "Hello Trooper, here's to a happy and fulfilling holiday this season. Have fun. Cheers!",
-            date = "13 Sept, 2020 10:30 AM",
-            isNew = "Older Notifications"
-        )
-
-        for (nu in 0..num) {
-
-            when (nu % 4) {
-                0 -> notification.add(notificationOne)
-                1 -> notification.add(notificationTwo)
-                2 -> notification.add(notificationThree)
-                else -> notification.add(notificationFour)
-            }
-        }
-
-        Log.d("CHECKINGSNotification", "$notification")
-        isNew.let {
-            for (new in isNew) {
-                notifications.add(NotificationsItem.withHeader(NotificationsHeader(new)))
-                val filtered = notification.filter { it.isNew == new }
-                    .map { NotificationsItem.withMessage(it) }
-                Log.d("CHECKINGSFiltered", "$filtered")
-                notifications.addAll(filtered)
-            }
-        }
-
-        Log.d("CHECKINGSMethos", "$notifications")
-
-        return notifications
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        activity?.let {
-            val lists = returnNotifications(5)
-
-            Log.d("CHECKINGSLIST", "$lists")
-            lists.let {
-                adapter.updateNotifications(it)
-            }
-        }
-
-        //adapter.updateNotifications()
-
-
     }
 
 

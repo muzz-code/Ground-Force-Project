@@ -211,6 +211,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                     roomViewModel.deleteAllMission()
                     roomViewModel.deleteAllOngoingMission()
                     roomViewModel.deleteAllAgentDetails()
+                    roomViewModel.deleteAllHistorySurvey()
+                    roomViewModel.deleteAllHistoryMission()
                     startActivity(it)
                     finish()
                 }

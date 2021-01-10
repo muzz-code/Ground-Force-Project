@@ -49,7 +49,6 @@ class HistoryMissionFragment : Fragment(), OnHistoryItemClickListener {
     private var _binding: FragmentHistoryMissionBinding? = null
     private val binding get() = _binding!!
 
-    //private var historyMissionList = DummyData.historyMissionData()
     private lateinit var historyMissionList: MutableList<MissionItem>
     private var adapter = HistoryMissionAdapter(
         mutableListOf(),
@@ -73,6 +72,12 @@ class HistoryMissionFragment : Fragment(), OnHistoryItemClickListener {
 
         _binding = FragmentHistoryMissionBinding.inflate(inflater, container, false)
 
+        /**
+         * Clear all history mission from room
+         */
+
+        roomViewModel.deleteAllHistoryMission()
+
         return binding.root
 
     }
@@ -80,11 +85,6 @@ class HistoryMissionFragment : Fragment(), OnHistoryItemClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /**
-         * Clear all history mission from room
-         */
-
-        roomViewModel.deleteAllHistoryMission()
 
         /**
          * Network call to get assigned missions

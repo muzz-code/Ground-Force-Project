@@ -102,7 +102,15 @@ class UpdateProfileFragment : Fragment() {
 
                     progressBar.hide(updateButton)
                     saveToSharedPreference(requireActivity(), COMPLETED_REGISTRATION, "true")
-                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.value.data?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    /** Saving to shared preference that user is verified **/
+
+                    saveToSharedPreference(requireActivity(), IS_VERIFIED, "true")
 
                     findNavController().navigate(R.id.agentDashboardFragment)
 
@@ -153,14 +161,13 @@ class UpdateProfileFragment : Fragment() {
         bankAutoCompleteTextView?.setAdapter(adapterBanks)
 
 
-
         //Get bank Picked
         val adapterBankObject =
             AdapterView.OnItemClickListener { parent, _, position, _ ->
                 bankPicked = parent.getItemAtPosition(position).toString()
                 for (bank in banks.data) {
                     if (bank.name == bankPicked) {
-                       bankCodeEditText.text = SpannableStringBuilder(bank.code)
+                        bankCodeEditText.text = SpannableStringBuilder(bank.code)
                     }
                 }
             }
@@ -174,7 +181,10 @@ class UpdateProfileFragment : Fragment() {
             saveToSharedPreference(requireActivity(), COMPLETED_REGISTRATION, "true")
 
             if (!validateFields()) {
-                showSnackBar(requireView(), "All fields are required and must contain valid inputs.")
+                showSnackBar(
+                    requireView(),
+                    "All fields are required and must contain valid inputs."
+                )
                 return@setOnClickListener
             } else {
                 progressBar.show(updateButton)
@@ -186,7 +196,7 @@ class UpdateProfileFragment : Fragment() {
                 val gender = genderEditText.text.toString()
                 val agentGender = if (gender == "Male") {
                     "m"
-                } else if ( gender == "Female") {
+                } else if (gender == "Female") {
                     "f"
                 } else {
                     "o"
@@ -221,7 +231,8 @@ class UpdateProfileFragment : Fragment() {
                     accountNumber,
                     religion,
                     additionNumber,
-                    agentGender )
+                    agentGender
+                )
 
                 viewModel.verifyAccount(verifyAccountRequest)
             }
