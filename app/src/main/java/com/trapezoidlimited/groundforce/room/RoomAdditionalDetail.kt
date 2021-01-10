@@ -10,7 +10,7 @@ class RoomAdditionalDetail(
     var bankCode: String,
     var accountNumber: String,
     var religion: String,
-    var additionalPhoneNumber: String,
+    var additionalPhoneNumber: String?,
     var gender: String,
     var avatarUrl: String,
     var publicId: String

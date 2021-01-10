@@ -192,7 +192,7 @@ class UpdateProfileFragment : Fragment() {
                 val bankCode = bankCodeEditText.text.toString()
                 val accountNumber = accountNumberEditText.text.toString()
                 val religion = religionEditText.text.toString()
-                val additionNumber = additionalPhoneNumberEditText.text.toString()
+                var additionNumber = additionalPhoneNumberEditText.text.toString()
                 val gender = genderEditText.text.toString()
                 val agentGender = if (gender == "Male") {
                     "m"
@@ -202,9 +202,17 @@ class UpdateProfileFragment : Fragment() {
                     "o"
                 }
 
+                val bankName = bankNameEditText.text.toString()
+
                 val avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
                 val publicId = loadFromSharedPreference(requireActivity(), PUBLIC_ID)
 
+                if (additionNumber.trim().isEmpty()) {
+                    additionNumber = ""
+                }
+
+
+                saveToSharedPreference(requireActivity(), BANKNAME, bankName)
                 saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
                 saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNumber)
                 saveToSharedPreference(requireActivity(), RELIGION, religion)
@@ -237,7 +245,6 @@ class UpdateProfileFragment : Fragment() {
                 viewModel.verifyAccount(verifyAccountRequest)
             }
 
-
         }
     }
 
@@ -256,12 +263,12 @@ class UpdateProfileFragment : Fragment() {
                 errorMessage = JDErrorConstants.BANK_ACCOUNT_NUMBER_ERROR,
                 validator = { it.jdValidateAccountNumber(it.text.toString()) }
             ),
-            JDataClass(
-                editText = additionalPhoneNumberEditText,
-                editTextInputLayout = binding.fragmentUpdateProfileAdditionalNumTil,
-                errorMessage = JDErrorConstants.INCOMPLETE_PHONE_NUMBER_ERROR,
-                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
-            ),
+//            JDataClass(
+//                editText = additionalPhoneNumberEditText,
+//                editTextInputLayout = binding.fragmentUpdateProfileAdditionalNumTil,
+//                errorMessage = JDErrorConstants.INCOMPLETE_PHONE_NUMBER_ERROR,
+//                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
+//            ),
             JDataClass(
                 editText = religionEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileReligionTil,

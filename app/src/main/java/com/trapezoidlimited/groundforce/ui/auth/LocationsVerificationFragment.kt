@@ -191,6 +191,10 @@ class LocationsVerificationFragment : Fragment() {
                     val state = addresses[0].adminArea
                     val country = addresses[0].countryName
 
+                    println(addressLine)
+                    println(city)
+                    println(state)
+
                     /** Saving LAT and LONG in sharedPreference*/
 
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)

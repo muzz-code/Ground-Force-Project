@@ -140,8 +140,6 @@ class NotificationsFragment : Fragment() {
 
                     adapter.updateNotifications(notificationsItemList)
 
-                    println(notificationResponseResultList?.get(0)?.notifications)
-
                 }
 
                 is Resource.Failure -> {
