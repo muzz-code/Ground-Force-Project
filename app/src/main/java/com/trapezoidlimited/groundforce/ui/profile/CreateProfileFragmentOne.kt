@@ -53,6 +53,12 @@ class CreateProfileFragmentOne : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentCreateProfileOneBinding.inflate(inflater, container, false)
 
+        binding.fragmentCreateProfileOneIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
+
+        binding.fragmentCreateProfileOneIc.toolbarFragment.setNavigationOnClickListener {
+            findNavController().navigate(R.id.emailVerificationTwo)
+        }
+
 
         return binding.root
     }
