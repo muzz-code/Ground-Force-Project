@@ -294,7 +294,7 @@ class LoginFragment : Fragment() {
             override fun onClick(view: View) {
                 view.setOnClickListener {
                     Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
-                    //findNavController().navigate(R.id.forgetPasswordFragment)
+                    findNavController().navigate(R.id.forgetPasswordFragment)
                 }
             }
 

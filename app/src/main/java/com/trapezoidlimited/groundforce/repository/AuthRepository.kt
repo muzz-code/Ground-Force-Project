@@ -6,6 +6,7 @@ import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.model.request.*
 import com.trapezoidlimited.groundforce.model.response.*
 import okhttp3.RequestBody
+import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.Path
 
@@ -18,7 +19,8 @@ interface AuthRepository {
     /** Auth Requests */
 
     suspend fun login(loginRequest: LoginRequest): Resource<GenericResponseClass<LoginResponse>>
-    suspend fun forgotPassword(email: String): Resource<ForgotPasswordResponse>
+    suspend fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): Resource<GenericResponseClass<ForgotPasswordResponse>>
+    suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Resource<GenericResponseClass<ResetPasswordResponse>>
     suspend fun verifyPhone(phone: VerifyPhoneRequest): Resource<GenericResponseClass<VerifyPhoneResponse>>
     suspend fun confirmPhone(confirmPhone: ConfirmPhoneRequest): Resource<GenericResponseClass<ConfirmOtpResponse>>
     suspend fun registerAgent(agent: AgentDataRequest): Resource<GenericResponseClass<AgentDataResponse>>
@@ -34,6 +36,7 @@ interface AuthRepository {
     suspend fun changePassword(token: String,changePasswordRequest: ChangePasswordRequest): Resource<GenericResponseClass<ChangePasswordResponse>>
     suspend fun verifyLocation(token: String,
                                verifyLocationRequest: VerifyLocationRequest): Resource<GenericResponseClass<VerifyLocationResponse>>
+
 
     /** Mission Requests */
 

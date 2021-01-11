@@ -35,8 +35,14 @@ constructor(
             apiService.login(loginRequest)
         }
 
-    override suspend fun forgotPassword(email: String) = safeApiCall {
-        apiService.forgotPassword(email)
+    override suspend fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest): Resource<GenericResponseClass<ForgotPasswordResponse>>
+    = safeApiCall {
+        apiService.forgotPassword(forgotPasswordRequest)
+    }
+
+    override suspend fun resetPassword(resetPasswordRequest: ResetPasswordRequest): Resource<GenericResponseClass<ResetPasswordResponse>>
+    = safeApiCall {
+        apiService.resetPassword(resetPasswordRequest)
     }
 
     override suspend fun verifyPhone(phone: VerifyPhoneRequest): Resource<GenericResponseClass<VerifyPhoneResponse>> =

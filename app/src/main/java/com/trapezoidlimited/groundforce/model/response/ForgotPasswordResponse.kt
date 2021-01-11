@@ -1,5 +1,5 @@
 package com.trapezoidlimited.groundforce.model.response
 
 data class ForgotPasswordResponse(
-    val message : String = ""
+    val message : String
 ): ParentResponse

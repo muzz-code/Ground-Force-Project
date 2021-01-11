@@ -40,11 +40,16 @@ class AuthViewModel(
         get() = _loginResponse
 
 
-    private val _forgotPasswordResponse: MutableLiveData<Resource<ForgotPasswordResponse>> =
+    private val _forgotPasswordResponse: MutableLiveData<Resource<GenericResponseClass<ForgotPasswordResponse>>> =
         MutableLiveData()
 
-    val forgotPasswordResponse: LiveData<Resource<ForgotPasswordResponse>>
+    val forgotPasswordResponse: LiveData<Resource<GenericResponseClass<ForgotPasswordResponse>>>
         get() = _forgotPasswordResponse
+
+    private val _resetPasswordResponse: MutableLiveData<Resource<GenericResponseClass<ResetPasswordResponse>>> =
+        MutableLiveData()
+    val resetPasswordResponse: LiveData<Resource<GenericResponseClass<ResetPasswordResponse>>>
+        get() = _resetPasswordResponse
 
 
     /** verify phone number response */
@@ -187,8 +192,12 @@ class AuthViewModel(
             _confirmEmailResponse.value = repository.confirmEmail(confirmEmailAddressRequest)
         }
 
-    fun forgotPassword(email: String) = viewModelScope.launch {
-        _forgotPasswordResponse.value = repository.forgotPassword(email)
+    fun forgotPassword(forgotPasswordRequest: ForgotPasswordRequest) = viewModelScope.launch {
+        _forgotPasswordResponse.value = repository.forgotPassword(forgotPasswordRequest)
+    }
+
+    fun resetPassword(resetPasswordRequest: ResetPasswordRequest) = viewModelScope.launch {
+        _resetPasswordResponse.value = repository.resetPassword(resetPasswordRequest)
     }
 
 

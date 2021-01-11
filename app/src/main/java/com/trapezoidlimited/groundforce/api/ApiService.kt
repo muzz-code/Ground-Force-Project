@@ -21,16 +21,21 @@ interface ApiService {
 
     /**
      * Query to make a network call to the forgot endpoint */
-    @FormUrlEncoded
-    @POST("endpoint")
+
+    @POST("Auth/forgot-password")
     suspend fun forgotPassword(
-        @Field("email") email: String
-    ): ForgotPasswordResponse
+        @Body forgotPasswordRequest: ForgotPasswordRequest
+    ): GenericResponseClass<ForgotPasswordResponse>
 
     @POST("Auth/verify-phone")
     suspend fun verifyPhone(
         @Body phone: VerifyPhoneRequest
     ): GenericResponseClass<VerifyPhoneResponse>
+
+    @POST("Auth/reset-password")
+    suspend fun resetPassword(
+        @Body resetPasswordRequest: ResetPasswordRequest
+    ): GenericResponseClass<ResetPasswordResponse>
 
     @POST("Auth/confirm-otp")
     suspend fun confirmPhone(

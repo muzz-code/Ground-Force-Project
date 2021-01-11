@@ -257,7 +257,7 @@
     <string name="create_profile_title_str">Create Profile</string>
     <string name="location_verification_title_str">Location Verification</string>
     <string name="email_verification_title_bar_str">Email Verification</string>
-    <string name="password_reset_title_bar_str">PassWord Reset</string>
+    <string name="password_reset_title_bar_str">Reset Password</string>
     <string name="create_pin_title_str">Create Pin</string>
     <string name="mission_report_title_str">Mission Report</string>
     <string name="one_of_ten_title_str">"1 0f 10"</string>
