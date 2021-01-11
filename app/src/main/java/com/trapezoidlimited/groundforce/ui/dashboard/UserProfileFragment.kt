@@ -7,13 +7,13 @@ import android.app.DatePickerDialog
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.SpannableStringBuilder
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +22,8 @@ import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -40,16 +42,10 @@ import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Retrofit
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -103,6 +99,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val gson by lazy { EntryApplication.gson }
     private lateinit var banks: BankJson
 
+    private lateinit var bankAutoCompleteTextView : AutoCompleteTextView
+
 
     /** onCreateView over ride function **/
     override fun onCreateView(
@@ -125,6 +123,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         verifyLocationTextView = binding.fragmentUserProfileVerifyLocationTv
         accountNumberEditText = binding.fragmentUserProfileAccountNumberEt
         pictureImageView = binding.fragmentCreateProfileOneProfileImageIv
+        bankAutoCompleteTextView =
+            (binding.fragmentUserProfileBankNameTil.editText as? AutoCompleteTextView)!!
 
         isLocationVerified = loadFromSharedPreference(requireActivity(), LOCATION_VERIFICATION)
 
@@ -196,13 +196,24 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
 
-        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                val accountNumber = it[it.lastIndex].accountNumber
-                val accountNumberEt = SpannableStringBuilder(accountNumber)
-                accountNumberEditText.text = accountNumberEt
-            }
-        })
+//        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
+//            if (it.isNotEmpty()) {
+//                val accountNumber = it[it.lastIndex].accountNumber
+//                val accountNumberEt = SpannableStringBuilder(accountNumber)
+//                accountNumberEditText.text = accountNumberEt
+//            }
+//        })
+
+        val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
+        val accountNumber = loadFromSharedPreference(requireActivity(), ACCOUNTNUMBER)
+
+        if (bankName.trim().isNotEmpty()) {
+            bankAutoCompleteTextView?.text =
+                SpannableStringBuilder(bankName)
+        }
+
+        val accountNumberEt = SpannableStringBuilder(accountNumber)
+        accountNumberEditText.text = accountNumberEt
 
         setArrayAdapters()
 
@@ -298,19 +309,14 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             bankList.add(data.name)
         }
 
-        val bankAutoCompleteTextView =
-            (binding.fragmentUserProfileBankNameTil.editText as? AutoCompleteTextView)
+//        val bankAutoCompleteTextView =
+//            (binding.fragmentUserProfileBankNameTil.editText as? AutoCompleteTextView)
 
         val adapterBanks = ArrayAdapter(requireContext(), R.layout.list_item, bankList)
 
         bankAutoCompleteTextView?.setAdapter(adapterBanks)
 
-        val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
 
-        if (bankName.trim().isNotEmpty()) {
-            bankAutoCompleteTextView?.text =
-                SpannableStringBuilder(bankName)
-        }
 
     }
 
@@ -373,6 +379,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             values
         )!!
+
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoPath)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
@@ -543,6 +550,17 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onStart() {
         super.onStart()
         googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
+    }
+
+    private fun compressImage(uri: Uri): Uri {
+        val bitmap = BitmapFactory.decodeFile(uri.path)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream)
+        val file = BitMapConverter.toJpg(bitmap)
+
+        Log.i("SIZE", "$bitmap")
+
+        return file.toUri()
     }
 
     override fun onDestroy() {

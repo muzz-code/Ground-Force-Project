@@ -147,6 +147,9 @@ android {
         implementation "androidx.room:room-ktx:2.2.5"
         androidTestImplementation "androidx.room:room-testing:2.2.5"
 
+        //Compressor
+        implementation 'id.zelory:compressor:3.0.0'
+
 
     }
 }

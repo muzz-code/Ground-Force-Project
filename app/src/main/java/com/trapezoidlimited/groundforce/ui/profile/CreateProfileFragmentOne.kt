@@ -99,7 +99,8 @@ class CreateProfileFragmentOne : Fragment() {
 
                 Log.i("DOB", loadFromSharedPreference(requireActivity(), DOB))
 
-                findNavController().navigate(R.id.createProfileFragmentTwo)
+                //findNavController().navigate(R.id.createProfileFragmentTwo)
+                findNavController().navigate(R.id.action_createProfileFragmentOne_to_locationsVerificationFragment)
             }
 
         }

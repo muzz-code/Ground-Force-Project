@@ -66,6 +66,8 @@
                 android:id="@+id/fragment_create_profile_two_street_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:enabled="false"
                 android:background="@color/colorWhite"
                 android:inputType="text" />
 
@@ -89,6 +91,8 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:enabled="false"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -102,7 +106,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:clickable="true"
             android:hint="@string/lga_label_str"
             android:paddingTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +115,8 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="false"
+                android:enabled="false"
                 android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -165,6 +170,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_zip_code_tf"
             app:layout_constraintVertical_bias="1.0" />
+
+
+        <ProgressBar
+            android:id="@+id/fragment_create_profile_two_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_two_btn"
+            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_btn"
+            app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_two_btn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

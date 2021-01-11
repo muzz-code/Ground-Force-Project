@@ -124,40 +124,40 @@ class LocationsVerificationFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.createProfileFragmentOne)
         }
 
 
-        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
-
-            when (it) {
-                is Resource.Success -> {
-
-                    val userId = it.value.data?.loginToken?.id
-                    val userToken = it.value.data?.loginToken?.token
-
-                    /**Saving user's id to sharedPreference */
-                    saveToSharedPreference(requireActivity(), USERID, userId!!)
-
-                    /** Saving token to sharedPreference */
-
-                    SessionManager.save(requireContext(), TOKEN, userToken!!)
-
-                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
-
-                    skipProgressBar.hide(skipButton)
-
-                    findNavController().navigate(R.id.waitingFragment)
-
-                }
-                is Resource.Failure -> {
-                    //setVisibility(okTextView)
-                    skipProgressBar.hide(skipButton)
-                    handleApiError(it, retrofit, requireActivity().view)
-                }
-            }
-
-        })
+//        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
+//
+//            when (it) {
+//                is Resource.Success -> {
+//
+//                    val userId = it.value.data?.loginToken?.id
+//                    val userToken = it.value.data?.loginToken?.token
+//
+//                    /**Saving user's id to sharedPreference */
+//                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+//
+//                    /** Saving token to sharedPreference */
+//
+//                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+//
+//                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
+//
+//                    skipProgressBar.hide(skipButton)
+//
+//                    findNavController().navigate(R.id.waitingFragment)
+//
+//                }
+//                is Resource.Failure -> {
+//                    //setVisibility(okTextView)
+//                    skipProgressBar.hide(skipButton)
+//                    handleApiError(it, retrofit, requireActivity().view)
+//                }
+//            }
+//
+//        })
 
 
 
@@ -200,7 +200,10 @@ class LocationsVerificationFragment : Fragment() {
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)
                     saveToSharedPreference(requireActivity(), LONGITUDE, long)
                     saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
-                    
+                    saveToSharedPreference(requireActivity(), ADDRESS, addressLine)
+                    saveToSharedPreference(requireActivity(), STATE, state)
+                    saveToSharedPreference(requireActivity(), GENDER, "m")
+
 
                     setSuccessDialog()
 
@@ -212,7 +215,6 @@ class LocationsVerificationFragment : Fragment() {
 
             override fun onLocationAvailability(p0: LocationAvailability?) {
                 Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
-
             }
         }
 
@@ -224,43 +226,52 @@ class LocationsVerificationFragment : Fragment() {
 
         skipButton.setOnClickListener {
 
-            skipProgressBar.show(skipButton)
+            //skipProgressBar.show(skipButton)
+
+//            saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+//
+//            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+//            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+//            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+//            val gender = loadFromSharedPreference(requireActivity(), GENDER)
+//            val dob = loadFromSharedPreference(requireActivity(), DOB)
+//            val email = loadFromSharedPreference(requireActivity(), EMAIL)
+//            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+//            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+//            val state = loadFromSharedPreference(requireActivity(), STATE)
+//            val lga = loadFromSharedPreference(requireActivity(), LGA)
+//            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+//            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+//            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+//
+//            agentData = AgentDataRequest(
+//                lastName = lastName,
+//                firstName = firstName,
+//                phoneNumber = phoneNumber,
+//                gender = gender,
+//                dob = dob,
+//                email = email,
+//                password = password,
+//                residentialAddress = residentialAddress,
+//                state = state,
+//                lga = lga,
+//                zipCode = zipCode,
+//                longitude = longitude,
+//                latitude = latitude,
+//                roles = listOf("agent")
+//            )
+
+
+            //viewModel.registerAgent(agentData)
 
             saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+            saveToSharedPreference(requireActivity(), LATITUDE, "0.0000")
+            saveToSharedPreference(requireActivity(), LONGITUDE, "0.0000")
+            saveToSharedPreference(requireActivity(), LGA, "Nil")
+            saveToSharedPreference(requireActivity(), STATE, "Nil")
+            saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
 
-            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-            val gender = loadFromSharedPreference(requireActivity(), GENDER)
-            val dob = loadFromSharedPreference(requireActivity(), DOB)
-            val email = loadFromSharedPreference(requireActivity(), EMAIL)
-            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
-            val state = loadFromSharedPreference(requireActivity(), STATE)
-            val lga = loadFromSharedPreference(requireActivity(), LGA)
-            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
-
-            agentData = AgentDataRequest(
-                lastName = lastName,
-                firstName = firstName,
-                phoneNumber = phoneNumber,
-                gender = gender,
-                dob = dob,
-                email = email,
-                password = password,
-                residentialAddress = residentialAddress,
-                state = state,
-                lga = lga,
-                zipCode = zipCode,
-                longitude = longitude,
-                latitude = latitude,
-                roles = listOf("agent")
-            )
-
-
-            viewModel.registerAgent(agentData)
+            findNavController().navigate(R.id.createProfileFragmentTwo)
 
 
         }
