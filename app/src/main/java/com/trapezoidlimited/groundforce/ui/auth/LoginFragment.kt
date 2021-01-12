@@ -76,6 +76,7 @@ class LoginFragment : Fragment() {
     private var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
+    private var pin = ""
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -149,6 +150,7 @@ class LoginFragment : Fragment() {
                     //On Login Success, Save token to sharedPref and go to dashboard
                     SessionManager.save(requireContext(), TOKEN, successResponse.token)
                     SessionManager.save(requireContext(), USERID, successResponse.id)
+                    SessionManager.save(requireContext(), PASSWORD, pin)
                    //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
                    // Log.i("Login Response", successResponse.token)
                     goToDashboard()
@@ -173,12 +175,15 @@ class LoginFragment : Fragment() {
 
         //Google Sign Up
         binding.loginSignUpGoogleBtn.setOnClickListener {
-            val signInIntent: Intent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+//            val signInIntent: Intent = googleSignInClient.signInIntent
+//            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
         /**This code add clickListener to the login button and it move to a new activity **/
         binding.loginLoginBtn.setOnClickListener {
+
+            pin = pinEt.text.toString()
+
             val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
             binding.fragmentLoginProgressBar.show(it as Button?)
            viewModel.login(loginRequest)

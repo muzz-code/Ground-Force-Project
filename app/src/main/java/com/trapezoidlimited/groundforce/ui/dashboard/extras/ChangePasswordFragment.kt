@@ -12,6 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentChangePasswordBinding
 import com.trapezoidlimited.groundforce.ui.auth.PhoneActivationFragmentDirections
+import com.trapezoidlimited.groundforce.utils.PASSWORD
+import com.trapezoidlimited.groundforce.utils.loadFromSharedPreference
+import com.trapezoidlimited.groundforce.utils.showSnackBar
 
 
 class ChangePasswordFragment : Fragment() {
@@ -59,8 +62,17 @@ class ChangePasswordFragment : Fragment() {
 
         binding.fragmentChangePasswordResetBtn.setOnClickListener {
 
-            val action = ChangePasswordFragmentDirections.actionChangePasswordFragmentToCreateNewPasswordFragment(pinText)
-            findNavController().navigate(action)
+            val currentPassword = loadFromSharedPreference(requireActivity(), PASSWORD)
+            val pin = binding.fragmentChangePasswordPinView.text.toString()
+
+
+            if (currentPassword == pin) {
+                val action = ChangePasswordFragmentDirections.actionChangePasswordFragmentToCreateNewPasswordFragment(pin)
+                findNavController().navigate(action)
+            } else {
+                showSnackBar(binding.fragmentChangePasswordResetBtn, "Incorrect Password!")
+            }
+
 
         }
 
