@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -398,9 +399,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
                 Toast.makeText(requireActivity(), "Uploading", Toast.LENGTH_SHORT).show()
 
-                viewModel.uploadImage(photoPath, requireActivity())
+                //viewModel.uploadImage(photoPath, requireActivity())
 
-                binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
+                //binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
 
                 dialog.cancel()
             }

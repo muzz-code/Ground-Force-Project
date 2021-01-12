@@ -14,6 +14,7 @@ import com.trapezoidlimited.groundforce.room.RoomViewModel
 import com.trapezoidlimited.groundforce.ui.main.MainActivity
 import retrofit2.Retrofit
 import java.io.File
+import java.lang.Exception
 import java.lang.StringBuilder
 
 
@@ -34,33 +35,42 @@ fun Fragment.handleApiError(
         }
 
         else -> {
-            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+            try {
 
-            val errorMessage = error?.errors?.message
+                val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
 
-            if (failure.errorCode == UNAUTHORIZED) {
+                val errorMessage = error?.errors?.message
 
-                logOut(roomViewModel, activity)
-            }
+                if (failure.errorCode == UNAUTHORIZED) {
 
-            if (errorMessage == message) {
-
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
-                    .show()
-                findNavController().navigate(navDestinationId)
-
-            } else {
-
-                if (errorMessage != null) {
-                    showSnackBar(requireView(), errorMessage)
-                } else {
-                    Toast.makeText(requireContext(), "Something went wrong!", Toast.LENGTH_SHORT)
-                        .show()
+                    logOut(roomViewModel, activity)
                 }
 
+                if (errorMessage == message) {
+
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(navDestinationId)
+
+                } else {
+
+                    if (errorMessage != null) {
+                        showSnackBar(requireView(), errorMessage)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Something went wrong!",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+
+                }
+
+            } catch (e: Exception) {
+                showSnackBar(requireView(), "Bad request. Check input again.")
             }
 
-            Log.i("ERROR", "$errorMessage")
 
         }
     }
@@ -81,25 +91,29 @@ fun Fragment.handleApiError(
         }
 
         else -> {
-            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+            try {
 
-            val errorMessage = error?.errors?.message
+                val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
 
-            if (errorMessage == message) {
+                val errorMessage = error?.errors?.message
 
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
-                    .show()
-                findNavController().navigate(navDestinationId)
+                if (errorMessage == message) {
+
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(navDestinationId)
 
 
-            } else {
-                //error?.errors?.let { showSnackBar(view, it.message!!) }
-                if (errorMessage != null) {
-                    showSnackBar(requireView(), errorMessage)
+                } else {
+                    //error?.errors?.let { showSnackBar(view, it.message!!) }
+                    if (errorMessage != null) {
+                        showSnackBar(requireView(), errorMessage)
+                    }
                 }
-            }
 
-            Log.i("ERROR", "$errorMessage")
+            } catch (e: Exception) {
+                showSnackBar(requireView(), "Bad request. Check input again.")
+            }
 
         }
     }
@@ -119,8 +133,12 @@ fun Activity.handleApiError(
         }
 
         else -> {
-            val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
-            error?.errors?.let { showSnackBar(view, it.message!!) }
+            try {
+                val error = failure.errorBody?.let { it1 -> errorUtils.parseError(it1) }
+                error?.errors?.let { showSnackBar(view, it.message!!) }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Bad request. Check input again.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
@@ -222,6 +240,7 @@ fun Fragment.splitDate(date: String): String {
 
     }
 
-    return stringBuilder.append(day).append(" ").append(monthInWord).append(",").append(" ").append(year).toString()
+    return stringBuilder.append(day).append(" ").append(monthInWord).append(",").append(" ")
+        .append(year).toString()
 
 }
