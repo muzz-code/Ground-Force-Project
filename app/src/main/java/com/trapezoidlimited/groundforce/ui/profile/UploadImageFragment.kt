@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,7 +20,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.trapezoidlimited.groundforce.R
@@ -30,15 +31,14 @@ import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUploadImageBinding
-import com.trapezoidlimited.groundforce.images.BitMapConverter
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.launch
 import retrofit2.Retrofit
-import java.io.ByteArrayOutputStream
-import java.io.File
 import javax.inject.Inject
 
 
@@ -146,16 +146,29 @@ class UploadImageFragment : Fragment() {
         })
 
 
-
         nextProfileButton.setOnClickListener {
 
-            binding.fragmentUploadImageProfilePb.show(nextProfileButton)
-
-            viewModel.uploadImage(photoPath, requireActivity())
+            processUri(photoPath).observe(viewLifecycleOwner, {
+                binding.fragmentUploadImageProfilePb.show(nextProfileButton)
+                viewModel.uploadImage(it, requireActivity())
+            })
 
         }
 
+    }
 
+    private fun processUri(uri: Uri): LiveData<Uri> {
+        val mBitmap = uriToBitmap(uri)
+        val mFile = saveBitmap(mBitmap)!!
+        val uriMutableLiveData: MutableLiveData<Uri> = MutableLiveData()
+        val uriLiveData: LiveData<Uri> = uriMutableLiveData
+
+        lifecycleScope.launch {
+            val compressedImageFile = Compressor.compress(requireContext(), mFile)
+            val mUri = compressedImageFile.toUri()
+            uriMutableLiveData.value = mUri
+        }
+        return uriLiveData
     }
 
 

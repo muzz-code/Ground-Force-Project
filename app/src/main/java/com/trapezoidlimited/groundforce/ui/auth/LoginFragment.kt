@@ -151,8 +151,8 @@ class LoginFragment : Fragment() {
                     SessionManager.save(requireContext(), TOKEN, successResponse.token)
                     SessionManager.save(requireContext(), USERID, successResponse.id)
                     SessionManager.save(requireContext(), PASSWORD, pin)
-                   //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
-                   // Log.i("Login Response", successResponse.token)
+                    //saveToSharedPreference(requireActivity(), TOKEN, successResponse.token)
+                    // Log.i("Login Response", successResponse.token)
                     goToDashboard()
                 }
                 is Resource.Failure -> {
@@ -161,7 +161,6 @@ class LoginFragment : Fragment() {
                 }
             }
         })
-
 
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
@@ -186,7 +185,7 @@ class LoginFragment : Fragment() {
 
             val loginRequest = LoginRequest(emailAddressEt.text.toString(), pinEt.text.toString())
             binding.fragmentLoginProgressBar.show(it as Button?)
-           viewModel.login(loginRequest)
+            viewModel.login(loginRequest)
             //goToDashboard()
         }
 
@@ -298,7 +297,6 @@ class LoginFragment : Fragment() {
         val clickableSpan2: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 view.setOnClickListener {
-                    Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.forgetPasswordFragment)
                 }
             }

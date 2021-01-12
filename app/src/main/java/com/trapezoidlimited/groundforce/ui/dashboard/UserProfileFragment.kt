@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -25,7 +24,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -43,6 +45,8 @@ import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -100,7 +104,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val gson by lazy { EntryApplication.gson }
     private lateinit var banks: BankJson
 
-    private lateinit var bankAutoCompleteTextView : AutoCompleteTextView
+    private lateinit var bankAutoCompleteTextView: AutoCompleteTextView
 
 
     /** onCreateView over ride function **/
@@ -318,7 +322,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         bankAutoCompleteTextView?.setAdapter(adapterBanks)
 
 
-
     }
 
 
@@ -399,14 +402,30 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
                 Toast.makeText(requireActivity(), "Uploading", Toast.LENGTH_SHORT).show()
 
-                //viewModel.uploadImage(photoPath, requireActivity())
-
-                //binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
+                processUri(photoPath).observe(viewLifecycleOwner, {
+                    viewModel.uploadImage(it, requireActivity())
+                    binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
+                })
 
                 dialog.cancel()
             }
             showAlertDialog("Update your Profile Image?", "Upload Image", dialogInterface)
         }
+    }
+
+
+    private fun processUri(uri: Uri): LiveData<Uri> {
+        val mBitmap = uriToBitmap(uri)
+        val mFile = saveBitmap(mBitmap)!!
+        val uriMutableLiveData: MutableLiveData<Uri> = MutableLiveData()
+        val uriLiveData: LiveData<Uri> = uriMutableLiveData
+
+        lifecycleScope.launch {
+            val compressedImageFile = Compressor.compress(requireContext(), mFile)
+            val mUri = compressedImageFile.toUri()
+            uriMutableLiveData.value = mUri
+        }
+        return uriLiveData
     }
 
     /** Check for user permission to access phone camera **/
@@ -553,16 +572,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         googleAccount = GoogleSignIn.getLastSignedInAccount(requireContext())
     }
 
-    private fun compressImage(uri: Uri): Uri {
-        val bitmap = BitmapFactory.decodeFile(uri.path)
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream)
-        val file = BitMapConverter.toJpg(bitmap)
-
-        Log.i("SIZE", "$bitmap")
-
-        return file.toUri()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
