@@ -24,10 +24,7 @@ import com.trapezoidlimited.groundforce.model.NotificationItem
 import com.trapezoidlimited.groundforce.model.NotificationsHeader
 import com.trapezoidlimited.groundforce.model.NotificationsItem
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
-import com.trapezoidlimited.groundforce.utils.DividerItemDecoration
-import com.trapezoidlimited.groundforce.utils.checkItem
-import com.trapezoidlimited.groundforce.utils.handleApiError
-import com.trapezoidlimited.groundforce.utils.splitDate
+import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,6 +69,8 @@ class NotificationsFragment : Fragment() {
     private var dateFormatted = ""
     private var dateInString = ""
     private var timeInString = ""
+    private var hourString = ""
+    private var minuteString = ""
     private lateinit var timeToHourMinute: List<String>
     private var hour = 0
     private var minute = 0
@@ -111,9 +110,10 @@ class NotificationsFragment : Fragment() {
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        binding.notificationsFragmentPb.show()
 
         var header = "New Notifications"
         var notificationDate = ""
@@ -127,6 +127,11 @@ class NotificationsFragment : Fragment() {
 
             when (it) {
                 is Resource.Success -> {
+
+                    binding.notificationsFragmentPb.hide()
+                    setInVisibility(binding.notificationsFragmentUnableTv)
+                    setVisibility(binding.notificationsFragmentRecyclerNewNotificationsRv)
+
                     val notificationResponseResultList = it.value.data?.data
 
                     if (notificationResponseResultList != null) {
@@ -141,10 +146,12 @@ class NotificationsFragment : Fragment() {
                             dateInString = date.substring(0, 10)
                             timeInString = date.substring(11, 16)
                             timeToHourMinute = timeInString.split(":")
+                            hourString = timeToHourMinute[0]
+                            minuteString = timeToHourMinute[1]
                             hour = timeToHourMinute[0].toInt()
                             minute = timeToHourMinute[1].toInt()
 
-                            notificationDate = getNotificationDate(hour, minute, dateFormatted)
+                            notificationDate = getNotificationDate(hourString, minuteString, hour, minute, dateFormatted)
 
                             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
                             val formattedDate = sdf.format(Calendar.getInstance().time)
@@ -191,6 +198,10 @@ class NotificationsFragment : Fragment() {
 
                 is Resource.Failure -> {
 
+                    binding.notificationsFragmentPb.hide()
+                    setVisibility(binding.notificationsFragmentUnableTv)
+                    setInVisibility(binding.notificationsFragmentRecyclerNewNotificationsRv)
+
                     handleApiError(roomViewModel, requireActivity(), it, retrofit, requireView())
 
                 }
@@ -211,7 +222,20 @@ class NotificationsFragment : Fragment() {
         }
     }
 
-    private fun getNotificationDate(hour: Int, minute: Int, dateFormatted: String): String {
+    override fun onResume() {
+        super.onResume()
+
+        binding.notificationsFragmentSrl.setOnRefreshListener {
+
+            viewModel.getAllNotifications(1)
+            adapter.notifyDataSetChanged()
+
+            binding.notificationsFragmentSrl.isRefreshing = false
+        }
+
+    }
+
+    private fun getNotificationDate(hourString: String, minuteString: String, hour: Int, minute: Int, dateFormatted: String): String {
 
         val notificationDateBuilder = StringBuilder()
 
@@ -221,7 +245,7 @@ class NotificationsFragment : Fragment() {
             timeLabel = "AM"
         }
         notificationDateBuilder.append(dateFormatted).append("  ")
-            .append(hour).append(" : ").append(minute).append(" ")
+            .append(hourString).append(" : ").append(minuteString).append(" ")
             .append(timeLabel)
 
         return notificationDateBuilder.toString()
