@@ -2,6 +2,7 @@ package com.trapezoidlimited.groundforce.utils
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.Activity
 import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -10,6 +11,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -18,9 +20,13 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.ui.dialog.FailedDialog
 import com.trapezoidlimited.groundforce.ui.dialog.VerifiedDialog
 import com.trapezoidlimited.groundforce.ui.dialog.WelcomeDialog
+import retrofit2.http.Url
 import java.io.File
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 /**
@@ -197,4 +203,6 @@ fun Fragment.saveBitmap(bmp: Bitmap?): File? {
     }
     return file
 }
+
+
 

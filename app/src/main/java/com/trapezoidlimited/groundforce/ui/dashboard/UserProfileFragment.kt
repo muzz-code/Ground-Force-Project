@@ -131,7 +131,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         bankAutoCompleteTextView =
             (binding.fragmentUserProfileBankNameTil.editText as? AutoCompleteTextView)!!
 
-        isLocationVerified = loadFromSharedPreference(requireActivity(), LOCATION_VERIFICATION)
+        isLocationVerified = loadFromSharedPreference(requireActivity(), IS_LOCATION_VERIFIED)
 
         if (COMPLETED_REGISTRATION == "true") {
             binding.fragmentUserProfileHeaderBackgroundCl.visibility = View.GONE

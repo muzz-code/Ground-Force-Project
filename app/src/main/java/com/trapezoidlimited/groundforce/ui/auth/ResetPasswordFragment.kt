@@ -43,7 +43,7 @@ class ResetPasswordFragment : Fragment() {
     private var _binding: FragmentResetPasswordBinding? = null
     private val binding get() = _binding!!
 
-    private val args: ResetPasswordFragmentArgs by navArgs()
+//    private val args: ResetPasswordFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +66,7 @@ class ResetPasswordFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentResetPasswordToolbar.toolbarFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.forgetPasswordFragment)
         }
 
 
@@ -77,8 +77,10 @@ class ResetPasswordFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        val email = args.email
-        val token = args.token
+        val email = loadFromSharedPreference(requireActivity(), EMAIL)
+        val token = DataListener.token
+        println(token)
+        println(email)
 
 
         viewModel.resetPasswordResponse.observe(viewLifecycleOwner, {
@@ -134,7 +136,7 @@ class ResetPasswordFragment : Fragment() {
          binding.forgetResetConfirmPb.show(binding.forgetResetConfirmBtn)
 
           if (email != null && token != null) {
-              val resetPasswordRequest = ResetPasswordRequest(email, token, newPassword )
+              val resetPasswordRequest = ResetPasswordRequest(email = email, token = token, newPassword = newPassword )
               viewModel.resetPassword(resetPasswordRequest)
           }
 

@@ -5,5 +5,6 @@ data class NotificationData(
     val notifications: String,
     val type: String,
     val addedBy: String,
-    val updateBy: String
+    val updateBy: String,
+    val date: String
 )

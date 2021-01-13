@@ -14,5 +14,6 @@ data class UserResponse(
     val bankName: String?,
     val accountNumber: String?,
     val avatarUrl: String?,
-    val publicId: String?
+    val publicId: String?,
+    val isLocationVerified: Boolean
 ): ParentResponse

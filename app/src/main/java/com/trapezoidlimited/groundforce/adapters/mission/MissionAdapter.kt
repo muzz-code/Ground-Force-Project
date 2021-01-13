@@ -57,6 +57,7 @@ class MissionAdapter(var missions: MutableList<MissionItem>, var clickListener: 
         this.missions = missions
         notifyDataSetChanged()
     }
+
 }
 
 interface OnMissionItemClickListener{

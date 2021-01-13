@@ -198,13 +198,16 @@ class AgentDashboardFragment : Fragment() {
 
                     val isVerified = response.value.data?.isVerified.toString()
 
+                    val isLocationVerified = response.value.data?.isLocationVerified.toString()
+
                     if (avatarUrl != null) {
                         saveToSharedPreference(requireActivity(), AVATAR_URL, avatarUrl)
                     }
 
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, isVerified)
 
-                    Log.i("IS_VERIFIED", "$isVerified")
+                    saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, isLocationVerified)
+
 
                     /** Checking if User is verified */
 

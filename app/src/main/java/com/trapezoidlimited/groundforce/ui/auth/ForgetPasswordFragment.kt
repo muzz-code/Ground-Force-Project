@@ -39,6 +39,7 @@ class ForgetPasswordFragment : Fragment() {
 
     private var _binding: FragmentForgetPasswordBinding? = null
     private val binding get() = _binding!!
+    private var email = ""
 
 
     override fun onCreateView(
@@ -83,6 +84,8 @@ class ForgetPasswordFragment : Fragment() {
                     binding.forgetPasswordResetPb.hide(binding.forgetPasswordResetBtn)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
+                    saveToSharedPreference(requireActivity(), EMAIL, email)
+
 //                    findNavController().navigate(R.id.action_forgetPasswordFragment_to_resetPasswordFragment)
                 }
                 is Resource.Failure -> {
@@ -114,7 +117,7 @@ class ForgetPasswordFragment : Fragment() {
 
             binding.forgetPasswordResetPb.show(binding.forgetPasswordResetBtn)
 
-            val email =  binding.fragmentForgetPasswordEmailEt.text.toString()
+            email =  binding.fragmentForgetPasswordEmailEt.text.toString()
 
             println(email)
 

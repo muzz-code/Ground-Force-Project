@@ -30,8 +30,9 @@ const val RELIGION = "religion"
 const val ADDITIONALPHONENUMBER = "additional_phone_number"
 const val AVATAR_URL = "avatar_url"
 const val PUBLIC_ID = "public_url"
-const val IS_VERIFIED = ""
+const val IS_VERIFIED = "is_verified"
 const val BANKNAME = "bankname"
+const val IS_LOCATION_VERIFIED = "is_location_verified"
 
 const val IMAGE_URL = "image_url"
 

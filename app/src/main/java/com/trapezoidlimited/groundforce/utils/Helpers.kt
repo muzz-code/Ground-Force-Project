@@ -97,7 +97,11 @@ fun Fragment.handleApiError(
 
                 val errorMessage = error?.errors?.message
 
+                println("RUNNING")
+
                 if (errorMessage == message) {
+
+                    println("RUNS")
 
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
                         .show()

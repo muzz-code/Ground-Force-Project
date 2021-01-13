@@ -44,7 +44,7 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -57,7 +57,18 @@
             android:screenOrientation="portrait"
             android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="gforceapi-heroku.herokuapp.com"
+                    android:pathPrefix="/api/v1/Auth/reset-password" />
+            </intent-filter>
+
             <nav-graph android:value="@navigation/nav" />
+
         </activity>
 
     </application>

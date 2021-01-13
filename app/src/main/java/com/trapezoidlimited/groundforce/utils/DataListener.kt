@@ -19,6 +19,8 @@ object DataListener {
     var currentItem = MISSION
     var msCurrentItem = MISSIONCOMPLETED
 
+    var token = "token"
+
     var currentScreen = LOCATION_VERIFICATION_SCREEN
 
     var mSetTabIndicator = MutableLiveData<Boolean>()

@@ -102,11 +102,11 @@ class EmailVerificationOne : Fragment() {
 
                     binding.fragmentEmailVerificationSubmitPb.hide(binding.fragmentEmailVerificationSubmitBtn)
 
-                    val message = "Email is already confirmed"
+                    val message = "User is already verified"
 
                     handleApiError(
                         it, retrofit, requireView(),
-                        message, R.id.action_emailVerificationOne_to_emailVerificationTwo
+                        message, R.id.createProfileFragmentOne
                     )
                 }
             }

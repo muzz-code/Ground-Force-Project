@@ -115,6 +115,7 @@ class VerifiedDialog : DialogFragment() {
                 is Resource.Success -> {
                     setInVisibility(progressBar)
 
+                    saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, "true")
 
                     Toast.makeText(
                         requireContext(),
@@ -192,7 +193,7 @@ class VerifiedDialog : DialogFragment() {
 
                 Log.i("LOCATION", "VERIFY_LOCATION_SCREEN")
 
-                saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+                //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
 
                 setVisibility(progressBar)
 

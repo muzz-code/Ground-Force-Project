@@ -1,15 +1,18 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.notifications
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.date.dayOfMonth
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.NotificationsAdapter
@@ -24,11 +27,17 @@ import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.DividerItemDecoration
 import com.trapezoidlimited.groundforce.utils.checkItem
 import com.trapezoidlimited.groundforce.utils.handleApiError
+import com.trapezoidlimited.groundforce.utils.splitDate
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
 import com.trapezoidlimited.groundforce.viewmodel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import retrofit2.Retrofit
+import java.lang.StringBuilder
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 
@@ -57,6 +66,15 @@ class NotificationsFragment : Fragment() {
     private val adapter = NotificationsAdapter(mutableListOf())
 
     private val roomViewModel by lazy { EntryApplication.roomViewModel(this) }
+
+    private var notification = ""
+    private var date = ""
+    private var dateFormatted = ""
+    private var dateInString = ""
+    private var timeInString = ""
+    private lateinit var timeToHourMinute: List<String>
+    private var hour = 0
+    private var minute = 0
 
 
     override fun onCreateView(
@@ -93,31 +111,54 @@ class NotificationsFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
+        var header = "New Notifications"
+        var notificationDate = ""
 
         viewModel.getAllNotifications(1)
 
         notificationsList = mutableListOf()
+        timeToHourMinute = listOf()
 
         viewModel.getAllNotificationsResponse.observe(viewLifecycleOwner, {
+
             when (it) {
                 is Resource.Success -> {
                     val notificationResponseResultList = it.value.data?.data
 
                     if (notificationResponseResultList != null) {
-
+                        notificationsList.clear()
                         for (notificationResponseResult in notificationResponseResultList) {
 
-                            val notification = notificationResponseResult.notifications
+                            notificationDate = ""
+
+                            notification = notificationResponseResult.notifications
+                            date = notificationResponseResult.date
+                            dateFormatted = splitDate(date)
+                            dateInString = date.substring(0, 10)
+                            timeInString = date.substring(11, 16)
+                            timeToHourMinute = timeInString.split(":")
+                            hour = timeToHourMinute[0].toInt()
+                            minute = timeToHourMinute[1].toInt()
+
+                            notificationDate = getNotificationDate(hour, minute, dateFormatted)
+
+                            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                            val formattedDate = sdf.format(Calendar.getInstance().time)
+
+                            if (dateInString != formattedDate) {
+                                header = "Older Notifications"
+                            }
+
 
                             val notificationItem = NotificationItem(
                                 image = R.drawable.bolt,
                                 message = notification,
-                                date = "13 Sept, 2020 10:30 AM",
-                                isNew = "New Notification"
+                                date = notificationDate,
+                                isNew = header
                             )
 
                             notificationsList.add(notificationItem)
@@ -126,20 +167,26 @@ class NotificationsFragment : Fragment() {
                     }
 
                     val notificationsItemList = mutableListOf<NotificationsItem>()
-                    val notificationHeaders = mutableListOf("New Notifications", "Older Notifications")
+                    val notificationHeaders =
+                        mutableListOf("New Notifications", "Older Notifications")
 
                     notificationHeaders.let {
                         for (notificationHeader in notificationHeaders) {
-                            notificationsItemList.add(NotificationsItem.withHeader(NotificationsHeader(notificationHeader)))
-                            val filtered = notificationsList.filter { it.isNew == notificationHeader }
-                                .map { NotificationsItem.withMessage(it) }
+                            notificationsItemList.add(
+                                NotificationsItem.withHeader(
+                                    NotificationsHeader(notificationHeader)
+                                )
+                            )
+                            val filtered =
+                                notificationsList.filter { it.isNew == notificationHeader }
+                                    .map { NotificationsItem.withMessage(it) }
 
                             notificationsItemList.addAll(filtered)
                         }
                     }
 
                     adapter.updateNotifications(notificationsItemList)
-
+                    adapter.notifyDataSetChanged()
                 }
 
                 is Resource.Failure -> {
@@ -149,9 +196,6 @@ class NotificationsFragment : Fragment() {
                 }
             }
         })
-
-
-
 
 
         // Navigate to Home on Back Press
@@ -165,6 +209,22 @@ class NotificationsFragment : Fragment() {
                 findNavController().popBackStack()
             }
         }
+    }
+
+    private fun getNotificationDate(hour: Int, minute: Int, dateFormatted: String): String {
+
+        val notificationDateBuilder = StringBuilder()
+
+        var timeLabel = "PM"
+
+        if (hour in 0..11 && minute in 0..59) {
+            timeLabel = "AM"
+        }
+        notificationDateBuilder.append(dateFormatted).append("  ")
+            .append(hour).append(" : ").append(minute).append(" ")
+            .append(timeLabel)
+
+        return notificationDateBuilder.toString()
     }
 
 

@@ -190,19 +190,22 @@ class LocationsVerificationFragment : Fragment() {
                     val city = addresses[0].locality
                     val state = addresses[0].adminArea
                     val country = addresses[0].countryName
+                    val lga = addresses[0].subLocality
 
                     println(addressLine)
                     println(city)
                     println(state)
+                    println(lga)
 
                     /** Saving LAT and LONG in sharedPreference*/
 
                     saveToSharedPreference(requireActivity(), LATITUDE, lat)
                     saveToSharedPreference(requireActivity(), LONGITUDE, long)
-                    saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+                    //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
                     saveToSharedPreference(requireActivity(), ADDRESS, addressLine)
                     saveToSharedPreference(requireActivity(), STATE, state)
                     saveToSharedPreference(requireActivity(), GENDER, "m")
+                    saveToSharedPreference(requireActivity(), LGA, lga)
 
 
                     setSuccessDialog()
@@ -264,9 +267,9 @@ class LocationsVerificationFragment : Fragment() {
 
             //viewModel.registerAgent(agentData)
 
-            saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
-            saveToSharedPreference(requireActivity(), LATITUDE, "0.0000")
-            saveToSharedPreference(requireActivity(), LONGITUDE, "0.0000")
+            //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
+            saveToSharedPreference(requireActivity(), LATITUDE, "")
+            saveToSharedPreference(requireActivity(), LONGITUDE, "")
             saveToSharedPreference(requireActivity(), LGA, "Nil")
             saveToSharedPreference(requireActivity(), STATE, "Nil")
             saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
