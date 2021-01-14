@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.custom_tab_heading.view.*
 
 
 class TasksFragment : Fragment() {
-    private lateinit var binding: FragmentTasksBinding
+    private var _binding: FragmentTasksBinding? = null
+    private val binding get() = _binding!!
     private lateinit var adapter: GenericViewPagerAdapter
     private lateinit var customTabLinearLayout: LinearLayout
     private lateinit var customTabTextView: TextView
@@ -31,7 +32,7 @@ class TasksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentTasksBinding.inflate(inflater, container, false)
+        _binding = FragmentTasksBinding.inflate(inflater, container, false)
 
         /** setting toolbar text **/
         binding.fragmentTasksToolbar.toolbarTitle.text = getString(R.string.tasks_title_str)
@@ -158,6 +159,12 @@ class TasksFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
     }
 
 

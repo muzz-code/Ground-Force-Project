@@ -195,12 +195,12 @@ class HistoryMissionFragment : Fragment(), OnHistoryItemClickListener {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onVerifyClick(missionItem: MissionItem, position: Int) {
         println("Clicked")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

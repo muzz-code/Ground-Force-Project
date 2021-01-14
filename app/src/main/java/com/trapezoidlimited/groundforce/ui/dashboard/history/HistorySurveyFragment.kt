@@ -165,13 +165,12 @@ class HistorySurveyFragment : Fragment(), OnHistorySurveyItemClickListener {
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        _binding = null
-    }
-
     override fun onCompletedClick(surveyItem: SurveyItem, position: Int) {
         println("Clicked")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

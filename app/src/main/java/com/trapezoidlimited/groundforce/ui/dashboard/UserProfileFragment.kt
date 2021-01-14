@@ -573,8 +573,8 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

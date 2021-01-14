@@ -1,18 +1,15 @@
 package com.trapezoidlimited.groundforce.ui.dashboard.notifications
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.afollestad.date.dayOfMonth
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.adapters.NotificationsAdapter
@@ -32,8 +29,6 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import retrofit2.Retrofit
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.inject.Inject
 
@@ -58,7 +53,8 @@ class NotificationsFragment : Fragment() {
 
     private lateinit var viewModel: AuthViewModel
 
-    private lateinit var binding: FragmentNotificationsBinding
+    private var _binding: FragmentNotificationsBinding? = null
+    private val binding get() = _binding!!
 
     private val adapter = NotificationsAdapter(mutableListOf())
 
@@ -81,7 +77,7 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
 
         val repository = AuthRepositoryImpl(loginApiServiceService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
@@ -113,9 +109,9 @@ class NotificationsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.notificationsFragmentPb.show()
+       binding.notificationsFragmentPb.show()
 
-        var header = "New Notifications"
+        var header = ""
         var notificationDate = ""
 
         viewModel.getAllNotifications(1)
@@ -158,6 +154,8 @@ class NotificationsFragment : Fragment() {
 
                             if (dateInString != formattedDate) {
                                 header = "Older Notifications"
+                            } else {
+                                header = "New Notifications"
                             }
 
 
@@ -249,6 +247,12 @@ class NotificationsFragment : Fragment() {
             .append(timeLabel)
 
         return notificationDateBuilder.toString()
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

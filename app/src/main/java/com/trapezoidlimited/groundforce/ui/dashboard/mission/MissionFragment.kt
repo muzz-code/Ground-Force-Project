@@ -198,10 +198,6 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
 
     /**
@@ -298,6 +294,11 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
         }
 
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

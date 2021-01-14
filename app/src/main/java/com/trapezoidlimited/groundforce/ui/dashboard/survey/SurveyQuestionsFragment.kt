@@ -309,13 +309,14 @@ class SurveyQuestionsFragment : Fragment(), OnQuestionItemClickListener {
         binding.surveyQuestionsOptionThreeBtn.text = question.options[2].option
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
     override fun onOption(option: String, position: Int) {
         Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 

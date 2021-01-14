@@ -248,9 +248,9 @@ class UploadImageFragment : Fragment() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null!!
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

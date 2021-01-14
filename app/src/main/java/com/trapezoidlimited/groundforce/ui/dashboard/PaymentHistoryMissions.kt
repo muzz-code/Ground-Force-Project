@@ -35,10 +35,15 @@ class PaymentHistoryMissions : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        adapter = PaymentHistoryRecyclerAdapter(DummyData.paymentList)
+        adapter = PaymentHistoryRecyclerAdapter(mutableListOf())
 
         binding.fragmentPaymentHistoryMissionsRecyclerView.adapter = adapter
         binding.fragmentPaymentHistoryMissionsRecyclerView.layoutManager =
             LinearLayoutManager(requireContext())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

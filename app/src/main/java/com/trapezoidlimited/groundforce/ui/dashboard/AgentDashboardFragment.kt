@@ -198,6 +198,8 @@ class AgentDashboardFragment : Fragment() {
 
                     val isVerified = response.value.data?.isVerified.toString()
 
+                    println(isVerified)
+
                     val isLocationVerified = response.value.data?.isLocationVerified.toString()
 
                     if (avatarUrl != null) {
@@ -287,11 +289,8 @@ class AgentDashboardFragment : Fragment() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        //android.os.Process.killProcess(android.os.Process.myPid());
-
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }

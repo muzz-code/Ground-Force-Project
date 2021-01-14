@@ -224,4 +224,9 @@ class VerifiedDialog : DialogFragment() {
         dialog!!.window?.setLayout(width, height)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

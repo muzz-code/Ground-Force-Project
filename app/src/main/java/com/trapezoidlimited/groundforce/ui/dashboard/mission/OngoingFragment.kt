@@ -165,11 +165,6 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     /**
      * This method will handle the action onclick of the verify button */
 
@@ -230,5 +225,10 @@ class OngoingFragment : Fragment(), OngoingItemClickListener {
             }
         })
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

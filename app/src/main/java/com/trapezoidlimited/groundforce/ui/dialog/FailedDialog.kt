@@ -49,4 +49,9 @@ class FailedDialog: DialogFragment() {
         dialog!!.window?.setLayout(width, height)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

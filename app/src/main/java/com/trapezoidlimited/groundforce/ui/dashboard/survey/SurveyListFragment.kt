@@ -233,5 +233,10 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
         )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

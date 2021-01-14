@@ -254,4 +254,5 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             .navigate(R.id.userProfileFragment)
     }
 
+
 }

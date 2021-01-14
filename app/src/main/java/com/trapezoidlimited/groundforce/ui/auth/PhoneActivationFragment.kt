@@ -213,6 +213,7 @@ class PhoneActivationFragment : Fragment() {
         super.onDestroyView()
         /** Code under construction: Beware!*/
         viewModel._verifyPhoneResponse.value = null
+        _binding = null
     }
 
 }

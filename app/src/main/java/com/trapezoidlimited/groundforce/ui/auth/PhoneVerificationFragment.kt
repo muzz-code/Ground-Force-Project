@@ -245,10 +245,7 @@ class PhoneVerificationFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel._confirmPhoneResponse.value = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         _binding = null
     }
+
 }
