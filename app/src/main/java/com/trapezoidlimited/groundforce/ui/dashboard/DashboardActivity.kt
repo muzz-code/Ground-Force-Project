@@ -274,6 +274,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         Glide.with(this)
             .load(photoUrl)
+            .placeholder(R.drawable.agent_icon)
             .into(profileImage)
     }
 
