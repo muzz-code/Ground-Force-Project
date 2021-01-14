@@ -510,6 +510,7 @@
                 android:background="@drawable/curved_primary_fill_button"
                 android:fontFamily="@font/roboto"
                 android:text="@string/save_changes_str"
+                android:enabled="true"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
