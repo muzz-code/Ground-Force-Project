@@ -155,6 +155,21 @@ fun Fragment.showAlertDialog(
     alert.show()
 }
 
+fun Activity.showAlertDialog(
+    message: String,
+    title: String,
+    dialogInterface: DialogInterface.OnClickListener
+) {
+    val dialogBuilder = AlertDialog.Builder(this)
+    dialogBuilder.setMessage(message)
+        .setPositiveButton("Yes", dialogInterface)
+        .setNegativeButton("Cancel", null)
+
+    val alert = dialogBuilder.create()
+    alert.setTitle(title)
+    alert.show()
+}
+
 fun showSnackBar(view: View, message: String) {
     Snackbar.make(
         view,

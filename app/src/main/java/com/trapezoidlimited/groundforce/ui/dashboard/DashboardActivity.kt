@@ -1,5 +1,6 @@
 package com.trapezoidlimited.groundforce.ui.dashboard
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -79,6 +81,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 //        if (agentImageIsSaved(this)) {
 //            genericRepository.getImageFromStorage(this, profileImage)
 //        }
+
+        /** Setting user's profile image from network */
+        loadImageFromNetwork()
 
         //Initialize Drawer Menu Listener
         val navigationView: NavigationView = findViewById(R.id.agentDashboard_navigation_view)
@@ -156,15 +161,17 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             var fragment = 0
             when (it.itemId) {
                 R.id.agentDashboard_more_bn -> {
+
                     drawerLayout.openDrawer(binding.agentDashboardNavigationView)
+
+                    loadImageFromNetwork()
+
                 }
                 R.id.agentDashboard_notification -> {
-                    Toast.makeText(this, "Notification", Toast.LENGTH_SHORT).show()
                     fragment = R.id.notificationsFragment
                 }
                 R.id.agentDashboard_home -> {
                     fragment = R.id.agentDashboardFragment
-                    Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     fragment = R.id.agentDashboardFragment
@@ -204,18 +211,26 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
 
             R.id.nav_logout -> {
-                SessionManager.save(this, TOKEN, "")
-                SessionManager.save(this, AVATAR_URL, "")
-                Intent(this, MainActivity::class.java).also {
-                    saveToSharedPreference(this, LOG_OUT, "true")
-                    roomViewModel.deleteAllMission()
-                    roomViewModel.deleteAllOngoingMission()
-                    roomViewModel.deleteAllAgentDetails()
-                    roomViewModel.deleteAllHistorySurvey()
-                    roomViewModel.deleteAllHistoryMission()
-                    startActivity(it)
-                    finish()
+
+                val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
+
+                    SessionManager.save(this, TOKEN, "")
+                    SessionManager.save(this, AVATAR_URL, "")
+                    Intent(this, MainActivity::class.java).also {
+                        saveToSharedPreference(this, LOG_OUT, "true")
+                        roomViewModel.deleteAllMission()
+                        roomViewModel.deleteAllOngoingMission()
+                        roomViewModel.deleteAllAgentDetails()
+                        roomViewModel.deleteAllHistorySurvey()
+                        roomViewModel.deleteAllHistoryMission()
+                        startActivity(it)
+                        finish()
+                    }
+
+                    dialog.cancel()
                 }
+                showAlertDialog("Are you sure you want to log out?", "Log Out", dialogInterface)
+
             }
         }
         drawer.closeDrawer(GravityCompat.START)
@@ -254,5 +269,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             .navigate(R.id.userProfileFragment)
     }
 
+    private fun loadImageFromNetwork() {
+        val photoUrl = loadFromSharedPreference(this, AVATAR_URL)
+
+        Glide.with(this)
+            .load(photoUrl)
+            .into(profileImage)
+    }
 
 }
