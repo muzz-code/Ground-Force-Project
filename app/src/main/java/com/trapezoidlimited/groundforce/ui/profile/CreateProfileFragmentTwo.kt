@@ -116,7 +116,7 @@ class CreateProfileFragmentTwo : Fragment() {
                     binding.fragmentCreateProfileTwoPb.hide(binding.fragmentCreateProfileTwoBtn)
                     binding.fragmentCreateProfileTwoBtn.isEnabled = true
 
-                    handleApiError(it, retrofit, requireActivity().view)
+                    handleApiError(it, retrofit, binding.fragmentCreateProfileTwoBtn)
                 }
             }
 
