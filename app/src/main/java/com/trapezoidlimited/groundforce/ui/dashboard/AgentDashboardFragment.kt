@@ -49,6 +49,7 @@ class AgentDashboardFragment : Fragment() {
     private lateinit var dashBoardCard: CardView
 
     private lateinit var viewModel: AuthViewModel
+    private lateinit var mViewModel: MissionsViewModel
 
     private lateinit var incompleteUserDetailsConstraintLayout: ConstraintLayout
     private lateinit var userId: String
@@ -78,10 +79,14 @@ class AgentDashboardFragment : Fragment() {
         val factory = ViewModelFactory(repository, requireContext())
 
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
-
+        mViewModel = ViewModelProvider(this, factory).get(MissionsViewModel::class.java)
 
 
         userId = loadFromSharedPreference(requireActivity(), USERID)
+
+
+        mViewModel.getMissions(userId, "verified", "1")
+        viewModel.getSurvey(userId, "completed", 1)
 
         roomViewModel.readAgent()
 
@@ -141,16 +146,6 @@ class AgentDashboardFragment : Fragment() {
             binding.agentDashboardFragmentNameTv.text = savedName
         }
 
-        roomViewModel.historyMission.observe(viewLifecycleOwner, {
-            missionCompleted = it.size
-            binding.fragmentAgentDashboardMissionCompletedTv.text = "$missionCompleted"
-        })
-
-        roomViewModel.historySurvey.observe(viewLifecycleOwner, {
-            surveyCompleted = it.size
-            binding.fragmentAgentDashboardHistoryCompletedTv.text = "$surveyCompleted"
-        })
-
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
             DataListener.currentItem = MISSION
@@ -183,6 +178,41 @@ class AgentDashboardFragment : Fragment() {
             DataListener.msCurrentItem = SURVEYCOMPLETED
             findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
+
+        mViewModel.getMissionResponse.observe(viewLifecycleOwner, {
+
+            when(it) {
+                is Resource.Success -> {
+                    val missionCompleted = it.value.data?.data?.size
+
+                    if (it.value.data?.data != null) {
+                        binding.fragmentAgentDashboardMissionCompletedTv.text = "$missionCompleted"
+                    }
+
+                }
+                is Resource.Failure -> {
+                    println(it.errorCode.toString())
+                }
+            }
+        })
+
+        viewModel.getSurveyResponse.observe(viewLifecycleOwner, {
+
+            when(it) {
+                is Resource.Success -> {
+                    val surveyCompleted = it.value.data?.userSurveyToReturn?.size
+
+                    if (it.value.data?.userSurveyToReturn != null) {
+                        binding.fragmentAgentDashboardHistoryCompletedTv.text = "$surveyCompleted"
+                    }
+
+                }
+                is Resource.Failure -> {
+                    println(it.errorCode.toString())
+                }
+            }
+
+        })
 
 
         viewModel.getUserDetailsResponse.observe(viewLifecycleOwner, { response ->

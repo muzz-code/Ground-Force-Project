@@ -59,6 +59,8 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     private lateinit var missionBadgeTextView: TextView
 
+    private var indicatorChecker: Boolean = true
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -156,7 +158,10 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
                     /** setting the indicator  on the onGoing tab onclick of the accept btn */
 
-                    DataListener.mSetTabIndicator.value = true
+
+                    if (indicatorChecker == true) {
+                        DataListener.mSetTabIndicator.value = true
+                    }
 
                     /** mission data is removed from the missions list
                     * And then, this mission data is removed from the missions table in Room.
@@ -172,7 +177,7 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
                 is Resource.Failure -> {
 
-                    handleApiError(roomViewModel, requireActivity() ,it, retrofit, requireView())
+                    handleApiError(roomViewModel, requireActivity() ,it, retrofit, binding.fragmentMissionRv)
 
                 }
             }
@@ -205,10 +210,9 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
 
     override fun onAcceptClick(mission: MissionItem, position: Int, id: String) {
 
-
+        indicatorChecker = true
         missionId = id
         missionPosition = position
-
 
         /** Onclick of the accept btn, a network call is made to update the status of the mission
          */
@@ -232,6 +236,12 @@ class MissionFragment : Fragment(), OnMissionItemClickListener {
          * this mission data is removed from the missions list
          * And then, this mission data is removed from the missions table in Room.
          **/
+
+
+        indicatorChecker = false
+
+        missionId = id
+        missionPosition = position
 
         viewModel.updateMissionStatus(id, "declined")
 

@@ -95,6 +95,7 @@ class UpdateProfileFragment : Fragment() {
         banks = gson.fromJson(readJson(requireActivity()), BankJson::class.java)
 
 
+
         /** Observing the results from Verify Account Network Call **/
         viewModel.verifyAccountResponse.observe(viewLifecycleOwner, {
             when (it) {
@@ -247,7 +248,22 @@ class UpdateProfileFragment : Fragment() {
 
 
         }
+
+
+        binding.constraintLayout.setOnClickListener {
+            hideKeyboard()
+        }
+        binding.fragmentUpdateProfileReligionTilAct.setOnClickListener {
+            hideKeyboard()
+        }
+        binding.fragmentUpdateProfileGenderTilAct.setOnClickListener {
+            hideKeyboard()
+        }
+
+
+
     }
+
 
     private fun validateFields(): Boolean {
 

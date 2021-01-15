@@ -150,7 +150,7 @@ class AuthViewModel(
 
     private val _getSurveyResponse: MutableLiveData<Resource<GenericResponseClass<GetSurveyResponse>>> =
         MutableLiveData()
-    val getSurveyResponse: MutableLiveData<Resource<GenericResponseClass<GetSurveyResponse>>>
+    val getSurveyResponse: LiveData<Resource<GenericResponseClass<GetSurveyResponse>>>
         get() = _getSurveyResponse
 
 
