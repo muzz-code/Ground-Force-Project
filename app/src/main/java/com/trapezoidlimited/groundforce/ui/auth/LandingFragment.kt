@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -131,7 +132,11 @@ class LandingFragment : Fragment() {
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-            showSnackBar(binding.landingSignUpGoogleBtn, "signInResult:failed code=" + e.statusCode)
+            Toast.makeText(
+                requireContext(),
+                "signInResult:failed code=" + e.statusCode,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 

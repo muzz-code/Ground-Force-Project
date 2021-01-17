@@ -40,6 +40,13 @@ fun Fragment.showStatusBar() {
     requireActivity().window.statusBarColor = resources.getColor(R.color.colorPrimaryDark)
 }
 
+fun Activity.showSnackBar(message: String) {
+    Snackbar.make(findViewById(android.R.id.content), message,
+    Snackbar.LENGTH_LONG
+    ).setAction("Ok") {}.show()
+}
+
+
 /**
  * hide status bar
  */

@@ -109,7 +109,7 @@ class NotificationsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-       binding.notificationsFragmentPb.show()
+        binding.notificationsFragmentPb.show()
 
         var header = ""
         var notificationDate = ""
@@ -147,7 +147,8 @@ class NotificationsFragment : Fragment() {
                             hour = timeToHourMinute[0].toInt()
                             minute = timeToHourMinute[1].toInt()
 
-                            notificationDate = getNotificationDate(hourString, minuteString, hour, minute, dateFormatted)
+                            notificationDate =
+                                getNotificationDate(hourString, minuteString, dateFormatted)
 
                             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.US)
                             val formattedDate = sdf.format(Calendar.getInstance().time)
@@ -233,7 +234,13 @@ class NotificationsFragment : Fragment() {
 
     }
 
-    private fun getNotificationDate(hourString: String, minuteString: String, hour: Int, minute: Int, dateFormatted: String): String {
+    private fun getNotificationDate(
+        hourString: String,
+        minuteString: String,
+        hour: Int,
+        minute: Int,
+        dateFormatted: String
+    ): String {
 
         val notificationDateBuilder = StringBuilder()
 
@@ -243,8 +250,21 @@ class NotificationsFragment : Fragment() {
             timeLabel = "AM"
         }
         notificationDateBuilder.append(dateFormatted).append("  ")
-            .append(hourString).append(" : ").append(minuteString).append(" ")
-            .append(timeLabel)
+            .append(hourString).append(" : ").append(minuteString).append(" $timeLabel")
+
+        return notificationDateBuilder.toString()
+    }
+
+    private fun getNotificationDate(
+        hourString: String,
+        minuteString: String,
+        dateFormatted: String
+    ): String {
+
+        val notificationDateBuilder = StringBuilder()
+
+        notificationDateBuilder.append(dateFormatted).append("  ")
+            .append(hourString).append(" : ").append(minuteString)
 
         return notificationDateBuilder.toString()
     }
