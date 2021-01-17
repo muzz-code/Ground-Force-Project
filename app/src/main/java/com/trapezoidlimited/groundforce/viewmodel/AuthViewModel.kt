@@ -213,7 +213,7 @@ class AuthViewModel(
     }
 
     fun putUser(user: PutUserRequest) = viewModelScope.launch {
-        _putUserResponse.value = repository.putUser(user)
+        _putUserResponse.value = repository.putUser(token, user)
     }
 
 

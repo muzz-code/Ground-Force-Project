@@ -6,8 +6,6 @@ import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -32,14 +30,15 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.gson.Gson
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentUserProfileBinding
-import com.trapezoidlimited.groundforce.images.BitMapConverter
 import com.trapezoidlimited.groundforce.model.BankJson
+import com.trapezoidlimited.groundforce.model.request.PutUserRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
 import com.trapezoidlimited.groundforce.utils.*
 import com.trapezoidlimited.groundforce.viewmodel.AuthViewModel
@@ -48,7 +47,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 import java.util.*
@@ -100,6 +98,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var accountNumberEditText: EditText
     private lateinit var isLocationVerified: String
     private lateinit var pictureImageView: ImageView
+    private lateinit var saveChangesBtn: Button
+    private lateinit var religionSpinner: Spinner
+    private lateinit var genderSpinner: Spinner
 
     private val gson by lazy { EntryApplication.gson }
     private lateinit var banks: BankJson
@@ -116,7 +117,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
 
         /** Initializing views */
-
+        genderSpinner = binding.fragmentUserProfileGenderSp
+        religionSpinner = binding.fragmentUserProfileReligiousSp
+        saveChangesBtn = binding.fragmentCreateProfileTwoBtn
         userNameTextView = binding.fragmentUserProfileUserNameTv
         userEmailAddressTextView = binding.fragmentUserProfileUserEmailTv
         firstNameEditText = binding.fragmentUserProfileFirstNameEt
@@ -191,12 +194,26 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
                 when (gender) {
-                    "m" -> binding.fragmentUserProfileGenderSp.setSelection(1)
-                    "f" -> binding.fragmentUserProfileGenderSp.setSelection(2)
-                    "o" -> binding.fragmentUserProfileGenderSp.setSelection(3)
-                    else -> binding.fragmentUserProfileGenderSp.setSelection(0)
+                    "m" -> genderSpinner.setSelection(1)
+                    "f" -> genderSpinner.setSelection(2)
+                    "o" -> genderSpinner.setSelection(3)
+                    else -> genderSpinner.setSelection(0)
                 }
 
+
+            }
+        })
+
+        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                val religion = it[it.lastIndex].religion
+
+                when (religion) {
+                    "christianity" -> binding.fragmentUserProfileReligiousSp.setSelection(1)
+                    "muslim" -> binding.fragmentUserProfileReligiousSp.setSelection(2)
+                    "others" -> binding.fragmentUserProfileReligiousSp.setSelection(3)
+                    else -> binding.fragmentUserProfileReligiousSp.setSelection(0)
+                }
 
             }
         })
@@ -240,6 +257,23 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         viewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
 
         banks = gson.fromJson(readJson(requireActivity()), BankJson::class.java)
+
+
+        viewModel.putUserResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+
+                    binding.fragmentUserProfilePb.hide(saveChangesBtn)
+
+                    val message = it.value.data?.message
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Failure -> {
+                    binding.fragmentUserProfilePb.hide(saveChangesBtn)
+                    handleApiError(it, retrofit, requireView())
+                }
+            }
+        })
 
         //Save Image Url in Shared Preference on Success
         viewModel.imageUrl.observe(viewLifecycleOwner, {
@@ -322,6 +356,81 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         bankAutoCompleteTextView?.setAdapter(adapterBanks)
 
 
+
+        binding.fragmentCreateProfileTwoBtn.setOnClickListener {
+
+            if (!validateReligionField()) {
+                showSnackBar(binding.fragmentCreateProfileTwoBtn, "Selected a valid religion.")
+            } else if (!validateGenderField()) {
+                showSnackBar(binding.fragmentCreateProfileTwoBtn, "Selected a valid gender.")
+            } else {
+
+                val firstNameText = firstNameEditText.text.toString()
+                val lastNameText = lastNameEditText.text.toString()
+                val dobText = lastNameEditText.text.toString()
+                var gender = binding.fragmentUserProfileGenderSp.selectedItem.toString()
+
+                when (gender) {
+                    "Male" -> {
+                        gender = "m"
+                    }
+                    "Female" -> {
+                        gender = "f"
+                    }
+                    "Others" -> {
+                        gender = "o"
+                    }
+                }
+
+                var religion = religionSpinner.selectedItem.toString()
+
+                if (religion == "Christian") {
+                    religion = "christianity"
+                }
+
+                val additionalPhoneNumber = additionalPhoneEditText.text.toString()
+
+                val userId = loadFromSharedPreference(requireActivity(), USERID)
+
+                val putUserRequest = PutUserRequest(
+                    userId,
+                    firstNameText,
+                    lastNameText,
+                    dobText,
+                    gender,
+                    additionalPhoneNumber,
+                    religion
+                )
+
+                val gson = Gson()
+                val putUserRequestStr = gson.toJson(putUserRequest)
+
+                Log.i("putUserRequestStr", putUserRequestStr)
+
+                binding.fragmentUserProfilePb.show(saveChangesBtn)
+
+                viewModel.putUser(putUserRequest)
+
+            }
+        }
+
+
+    }
+
+    private fun validateReligionField(): Boolean {
+        val religionText = religionSpinner.selectedItem.toString()
+        if (religionText == "Choose religion") {
+            return false
+        }
+        return true
+    }
+
+    private fun validateGenderField(): Boolean {
+        val genderText = genderSpinner.selectedItem.toString()
+        if (genderText == "Choose gender") {
+            return false
+        }
+        return true
     }
 
 
@@ -536,6 +645,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         JDFormValidator.Builder()
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
+            .viewsToEnable(mutableListOf(saveChangesBtn))
             .watchWhileTyping(true)
             .build()
     }

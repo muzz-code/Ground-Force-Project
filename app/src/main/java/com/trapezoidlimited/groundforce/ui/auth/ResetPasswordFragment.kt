@@ -43,7 +43,7 @@ class ResetPasswordFragment : Fragment() {
     private var _binding: FragmentResetPasswordBinding? = null
     private val binding get() = _binding!!
 
-//    private val args: ResetPasswordFragmentArgs by navArgs()
+    private val args: ResetPasswordFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +66,7 @@ class ResetPasswordFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentResetPasswordToolbar.toolbarFragment.setNavigationOnClickListener {
-            findNavController().navigate(R.id.forgetPasswordFragment)
+            findNavController().navigate(R.id.loginFragment)
         }
 
 
@@ -78,7 +78,7 @@ class ResetPasswordFragment : Fragment() {
 
 
         val email = loadFromSharedPreference(requireActivity(), EMAIL)
-        val token = DataListener.token
+        val token = args.token
         println(token)
         println(email)
 

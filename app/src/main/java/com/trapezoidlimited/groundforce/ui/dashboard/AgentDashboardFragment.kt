@@ -228,7 +228,10 @@ class AgentDashboardFragment : Fragment() {
 
                     val isVerified = response.value.data?.isVerified.toString()
 
-                    println(isVerified)
+                    val bank = response.value.data?.bankName.toString()
+
+                    val accountNum = response.value.data?.accountNumber.toString()
+
 
                     val isLocationVerified = response.value.data?.isLocationVerified.toString()
 
@@ -239,6 +242,10 @@ class AgentDashboardFragment : Fragment() {
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, isVerified)
 
                     saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, isLocationVerified)
+
+                    saveToSharedPreference(requireActivity(), BANKNAME, bank)
+
+                    saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNum)
 
 
                     /** Checking if User is verified */

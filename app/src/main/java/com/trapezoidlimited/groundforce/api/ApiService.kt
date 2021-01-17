@@ -60,6 +60,7 @@ interface ApiService {
 
     @PUT("User")
     suspend fun putUser(
+        @Header("Authorization") token: String,
         @Body user: PutUserRequest
     ): GenericResponseClass<PutUserResponse>
 

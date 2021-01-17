@@ -11,5 +11,6 @@ object JDErrorConstants {
     val PASSWORD_DOES_NOT_MATCH = "Error: Password does not match!"
     var EMAIL_HAS_BEEN_USED_ERROR = "Error: Email is already used!"
     var BANK_ACCOUNT_NUMBER_ERROR = "Error: Invalid Bank Account Number!"
+    var RELIGION_ERROR = "Error: Invalid Religion!"
 
 }

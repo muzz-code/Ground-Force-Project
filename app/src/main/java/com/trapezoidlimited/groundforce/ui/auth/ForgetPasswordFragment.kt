@@ -63,7 +63,7 @@ class ForgetPasswordFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentForgetPasswordToolbar.toolbarFragment.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.resetPasswordFragment)
         }
 
 

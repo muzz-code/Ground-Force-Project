@@ -81,9 +81,9 @@ constructor(
             apiService.getUser(token, id)
         }
 
-    override suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>> =
+    override suspend fun putUser(token: String, user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>> =
         safeApiCall {
-            apiService.putUser(user)
+            apiService.putUser(token, user)
         }
 
     override suspend fun verifyAccount(

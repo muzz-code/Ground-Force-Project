@@ -30,7 +30,7 @@ interface AuthRepository {
     /** User Requests */
 
     suspend fun getUser(token: String, id: String): Resource<GenericResponseClass<UserResponse>>
-    suspend fun putUser(user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>>
+    suspend fun putUser(token: String, user: PutUserRequest): Resource<GenericResponseClass<PutUserResponse>>
     suspend fun verifyAccount(token: String,
         verifyAccountRequest: VerifyAccountRequest): Resource<GenericResponseClass<VerifyAccountResponse>>
     suspend fun changePassword(token: String,changePasswordRequest: ChangePasswordRequest): Resource<GenericResponseClass<ChangePasswordResponse>>

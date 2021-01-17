@@ -57,6 +57,16 @@ class UpdateProfileFragment : Fragment() {
     private var bankPicked = ""
     private lateinit var bankCodeEditText: EditText
 
+    private var bankCode = ""
+    private var accountNumber = ""
+    private var religion = ""
+    private var additionNumber = ""
+    private var gender = ""
+    private var agentGender = ""
+    private var bankName = ""
+    private var avatarUrl = ""
+    private var publicId = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,7 +105,6 @@ class UpdateProfileFragment : Fragment() {
         banks = gson.fromJson(readJson(requireActivity()), BankJson::class.java)
 
 
-
         /** Observing the results from Verify Account Network Call **/
         viewModel.verifyAccountResponse.observe(viewLifecycleOwner, {
             when (it) {
@@ -112,6 +121,28 @@ class UpdateProfileFragment : Fragment() {
                     /** Saving to shared preference that user is verified **/
 
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, "true")
+
+                    saveToSharedPreference(requireActivity(), BANKNAME, bankName)
+                    saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
+                    saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNumber)
+                    saveToSharedPreference(requireActivity(), RELIGION, religion)
+                    saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
+                    saveToSharedPreference(requireActivity(), GENDER, agentGender)
+
+
+                    val roomAdditionalDetail = RoomAdditionalDetail(
+                        agentId = 1,
+                        bankCode = bankCode,
+                        accountNumber = accountNumber,
+                        religion = religion,
+                        additionalPhoneNumber = additionNumber,
+                        gender = agentGender,
+                        avatarUrl = avatarUrl,
+                        publicId = publicId
+                    )
+
+                    roomViewModel.addAdditionalDetail(roomAdditionalDetail)
+
 
                     findNavController().navigate(R.id.agentDashboardFragment)
 
@@ -190,12 +221,12 @@ class UpdateProfileFragment : Fragment() {
             } else {
                 progressBar.show(updateButton)
 
-                val bankCode = bankCodeEditText.text.toString()
-                val accountNumber = accountNumberEditText.text.toString()
-                val religion = religionEditText.text.toString()
-                var additionNumber = additionalPhoneNumberEditText.text.toString()
-                val gender = genderEditText.text.toString()
-                val agentGender = if (gender == "Male") {
+                bankCode = bankCodeEditText.text.toString()
+                accountNumber = accountNumberEditText.text.toString()
+                religion = religionEditText.text.toString()
+                additionNumber = additionalPhoneNumberEditText.text.toString()
+                gender = genderEditText.text.toString()
+                agentGender = if (gender == "Male") {
                     "m"
                 } else if (gender == "Female") {
                     "f"
@@ -205,34 +236,12 @@ class UpdateProfileFragment : Fragment() {
 
                 val bankName = bankNameEditText.text.toString()
 
-                val avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
-                val publicId = loadFromSharedPreference(requireActivity(), PUBLIC_ID)
+                avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
+                publicId = loadFromSharedPreference(requireActivity(), PUBLIC_ID)
 
                 if (additionNumber.trim().isEmpty()) {
                     additionNumber = ""
                 }
-                println(bankName)
-
-                saveToSharedPreference(requireActivity(), BANKNAME, bankName)
-                saveToSharedPreference(requireActivity(), BANKCODE, bankCode)
-                saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNumber)
-                saveToSharedPreference(requireActivity(), RELIGION, religion)
-                saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
-                saveToSharedPreference(requireActivity(), GENDER, agentGender)
-
-
-                val roomAdditionalDetail = RoomAdditionalDetail(
-                    agentId = 1,
-                    bankCode = bankCode,
-                    accountNumber = accountNumber,
-                    religion = religion,
-                    additionalPhoneNumber = additionNumber,
-                    gender = agentGender,
-                    avatarUrl = avatarUrl,
-                    publicId = publicId
-                )
-
-                roomViewModel.addAdditionalDetail(roomAdditionalDetail)
 
 
                 val verifyAccountRequest = VerifyAccountRequest(
@@ -243,7 +252,7 @@ class UpdateProfileFragment : Fragment() {
                     agentGender
                 )
 
-               viewModel.verifyAccount(verifyAccountRequest)
+                viewModel.verifyAccount(verifyAccountRequest)
             }
 
 
@@ -259,7 +268,6 @@ class UpdateProfileFragment : Fragment() {
         binding.fragmentUpdateProfileGenderTilAct.setOnClickListener {
             hideKeyboard()
         }
-
 
 
     }

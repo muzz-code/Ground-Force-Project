@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!--Nested scroll view wrap all view and view group -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -510,13 +513,25 @@
                 android:background="@drawable/curved_primary_fill_button"
                 android:fontFamily="@font/roboto"
                 android:text="@string/save_changes_str"
-                android:enabled="true"
+                android:enabled="false"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/fragment_user_profile_account_number_til"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/fragment_user_profile_account_number_til" />
+
+            <ProgressBar
+                android:id="@+id/fragment_user_profile_pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@id/fragment_create_profile_two_btn"
+                app:layout_constraintEnd_toEndOf="@id/fragment_create_profile_two_btn"
+                app:layout_constraintTop_toTopOf="@id/fragment_create_profile_two_btn"
+                app:layout_constraintBottom_toBottomOf="@id/fragment_create_profile_two_btn"
+
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
