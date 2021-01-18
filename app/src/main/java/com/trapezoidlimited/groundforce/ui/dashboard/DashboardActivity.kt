@@ -216,6 +216,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
                     SessionManager.save(this, TOKEN, "")
                     SessionManager.save(this, AVATAR_URL, "")
+                    SessionManager.save(this, FIRSTNAME, "")
+                    SessionManager.save(this, LASTNAME, "")
                     Intent(this, MainActivity::class.java).also {
                         saveToSharedPreference(this, LOG_OUT, "true")
                         roomViewModel.deleteAllMission()
