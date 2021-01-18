@@ -83,10 +83,9 @@ class EmailVerificationOne : Fragment() {
         val signInWithGoogleChecker = loadFromSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE)
 
         if (signInWithGoogleChecker == "true") {
-            val emailFromGoogle = loadFromSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE)
+            val emailFromGoogle = loadFromSharedPreference(requireActivity(), EMAIL)
 
             binding.fragmentEmailVerificationEt.text = SpannableStringBuilder(emailFromGoogle)
-
         }
 
         viewModel.verifyEmailResponse.observe(viewLifecycleOwner, {
