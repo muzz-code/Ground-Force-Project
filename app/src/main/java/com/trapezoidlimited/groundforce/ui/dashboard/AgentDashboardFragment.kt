@@ -136,6 +136,8 @@ class AgentDashboardFragment : Fragment() {
 
         checkUserVerified(isVerified)
 
+        println("Hello World")
+
 
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
