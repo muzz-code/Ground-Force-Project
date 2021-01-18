@@ -177,17 +177,21 @@ class PhoneVerificationFragment : Fragment() {
 
                 is Resource.Success -> {
 
-                    /** Navigating to create profile fragment onSuccess*/
-                    if (sign_up_with_google != "true") {
-                        findNavController().navigate(
-                            R.id.action_phoneVerificationFragment_to_emailVerificationOne
-                        )
-                    } else {
-                        findNavController().navigate(
-                            R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
-                        )
-                        saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
-                    }
+                    findNavController().navigate(
+                        R.id.action_phoneVerificationFragment_to_emailVerificationOne
+                    )
+
+//                    /** Navigating to create profile fragment onSuccess*/
+//                    if (sign_up_with_google != "true") {
+//                        findNavController().navigate(
+//                            R.id.action_phoneVerificationFragment_to_emailVerificationOne
+//                        )
+//                    } else {
+//                        findNavController().navigate(
+//                            R.id.action_phoneVerificationFragment_to_createProfileFragmentOne
+//                        )
+//                        saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
+//                    }
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */

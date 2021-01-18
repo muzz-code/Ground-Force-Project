@@ -124,7 +124,7 @@ class LandingFragment : Fragment() {
 
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
 
-            saveToSharedPreference(requireActivity(), EMAIL_FROM_GOOGLE, account?.email!!)
+            saveToSharedPreference(requireActivity(), EMAIL, account?.email!!)
             saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "true")
 
             findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)

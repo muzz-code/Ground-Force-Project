@@ -123,13 +123,11 @@ class AgentDashboardFragment : Fragment() {
 
         /** Setting date  **/
 
-        val sdf = SimpleDateFormat("MMM d, yyyy")
+        val sdf = SimpleDateFormat("MMM d, yyyy", Locale.US)
         val formattedDate = sdf.format(Calendar.getInstance().time)
 
         binding.agentDashFragmentDateTv.text = formattedDate
 
-
-        val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
 
         dashBoardCard = binding.agentDashboardFragmentSummaryContainerCv
         isVerified = loadFromSharedPreference(requireActivity(), IS_VERIFIED)
@@ -138,13 +136,6 @@ class AgentDashboardFragment : Fragment() {
 
         checkUserVerified(isVerified)
 
-        /** Set firstName from shared preference if isn't present  **/
-
-
-        if (firstName.isNotEmpty()) {
-            val savedName = "Hello $firstName"
-            binding.agentDashboardFragmentNameTv.text = savedName
-        }
 
 
         binding.fragmentAgentDashboardMissionsButtonIb.setOnClickListener {
@@ -222,7 +213,9 @@ class AgentDashboardFragment : Fragment() {
 
                     binding.fragmentAgentDashboardLl.visibility = View.GONE
 
-                    val name = response.value.data?.firstName
+                    val firstName = response.value.data?.firstName.toString()
+
+                    val lastName = response.value.data?.lastName
 
                     val avatarUrl = response.value.data?.avatarUrl
 
@@ -239,6 +232,12 @@ class AgentDashboardFragment : Fragment() {
                         saveToSharedPreference(requireActivity(), AVATAR_URL, avatarUrl)
                     }
 
+                    if (lastName != null) {
+                        saveToSharedPreference(requireActivity(), LASTNAME, lastName)
+                    }
+
+                    saveToSharedPreference(requireActivity(), FIRSTNAME, firstName)
+
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, isVerified)
 
                     saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, isLocationVerified)
@@ -252,9 +251,8 @@ class AgentDashboardFragment : Fragment() {
 
                     checkUserVerified(isVerified)
 
-                    binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
 
-                    binding.agentDashboardFragmentNameTv.text = "Hello $name"
+                    binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
 
                     /** Adding Agent Details to Room Database */
 
@@ -297,6 +295,12 @@ class AgentDashboardFragment : Fragment() {
             }
         })
 
+
+        /** Setting firstName  **/
+
+        val name = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+
+        binding.agentDashboardFragmentNameTv.text = "Hello $name"
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {

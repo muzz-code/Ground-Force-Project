@@ -76,6 +76,7 @@ class PhoneActivationFragment : Fragment() {
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentPhoneActivationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().navigate(R.id.landingFragment)
+            saveToSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE, "false")
         }
 
         /**show status bar**/

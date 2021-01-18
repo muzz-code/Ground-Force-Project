@@ -15,15 +15,31 @@
       },
       "oauth_client": [
         {
+          "client_id": "952735585250-9qkgs50f16fmi9kh1oj2gkgicj4f2jrg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trapezoidlimited.groundforce",
+            "certificate_hash": "8d99172d9525d435be4cfed734cd713a58162b9e"
+          }
+        },
+        {
           "client_id": "952735585250-eqovuts7qb2f5odoehns4hu4jctmijcf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.trapezoidlimited.groundforce",
-            "certificate_hash": "82659b1411eb065186613c14b73f1dac2b3701a1"
+            "certificate_hash": "e928e3d9779ad992c7166cfb2a71dce23768a14b"
           }
         },
         {
-          "client_id": "952735585250-pdh23eg61rsr8v16dnkv3n1v48g8epgp.apps.googleusercontent.com",
+          "client_id": "952735585250-nn0d82ithvtlobb8f1djrr174dakpgve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trapezoidlimited.groundforce",
+            "certificate_hash": "ffda8256edd854932b3e858e9aad4938aa291d02"
+          }
+        },
+        {
+          "client_id": "952735585250-6h1g6obeveqfvr81hdo7861j3clt8n0e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -36,7 +52,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "952735585250-pdh23eg61rsr8v16dnkv3n1v48g8epgp.apps.googleusercontent.com",
+              "client_id": "952735585250-6h1g6obeveqfvr81hdo7861j3clt8n0e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
