@@ -59,6 +59,7 @@ class LandingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         binding.landingCreateAccBtn.setOnClickListener {
             it.findNavController().navigate(R.id.action_landingFragment_to_phoneActivationFragment2)
             //findNavController().navigate(R.id.createProfileFragmentOne)

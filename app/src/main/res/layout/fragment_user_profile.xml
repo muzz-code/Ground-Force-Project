@@ -60,6 +60,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_height="0dp"
             android:background="@android:color/white"
             tools:context=".ui.dashboard.UserProfileFragment">
@@ -328,6 +330,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
                     android:paddingStart="16dp"
+                    android:inputType="phone"
                     android:paddingEnd="16dp"
                     android:textSize="@dimen/small_text" />
 

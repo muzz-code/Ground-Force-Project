@@ -272,12 +272,21 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     }
 
     private fun loadImageFromNetwork() {
+
         val photoUrl = loadFromSharedPreference(this, AVATAR_URL)
 
-        Glide.with(this)
-            .load(photoUrl)
-            .placeholder(R.drawable.agent_icon)
-            .into(profileImage)
+        try {
+            if (photoUrl != "null") {
+                Glide.with(this)
+                    .load(photoUrl)
+                    .placeholder(R.drawable.agent_icon)
+                    .into(profileImage)
+            }
+        } catch (e: Exception) {
+            println(photoUrl)
+        }
+
+
     }
 
 }

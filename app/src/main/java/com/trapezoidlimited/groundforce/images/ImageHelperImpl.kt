@@ -25,51 +25,55 @@ class ImageHelperImpl : ImageHelper {
         activity: Activity
     ) {
 
+        if (avatarUrl != "null") {
 
-        Thread {
-            val imageUrl = URL(avatarUrl)
-            val connection = imageUrl.openConnection() as HttpURLConnection
-            connection.doInput = true
-
-            try {
-                connection.connect()
-                val inputStream = connection.inputStream
-
-                val path = File(activity.filesDir, "GroundForce${File.separator}Images")
-                if (!path.exists()) {
-                    path.mkdirs();
-                }
-
-                val outFile = File(path, GROUND_FORCE_IMAGE_NAME)
-                val outputStream = FileOutputStream(outFile)
+            Thread {
+                val imageUrl = URL(avatarUrl)
+                val connection = imageUrl.openConnection() as HttpURLConnection
+                connection.doInput = true
 
                 try {
-                    outputStream.use { output ->
-                        val buffer = ByteArray(4 * 1024)
-                        var byteCount = inputStream.read(buffer)
-                        while (byteCount > 0) {
-                            output.write(buffer, 0, byteCount)
-                            byteCount = inputStream.read(buffer)
-                        }
-                        output.flush()
-                        output.close()
-                    }
-                    //Load The Image from internal storage into View when it's done
-                    getImageFromInternalStorage(activity, image)
-                } catch (e: FileNotFoundException) {
-                    activity.runOnUiThread {
-                        Toast.makeText(activity, e.message.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } catch (e: Exception) {
-                //Handle Error in case where there's no internet connection and no profile image saved.
+                    connection.connect()
+                    val inputStream = connection.inputStream
 
-                activity.runOnUiThread {
+                    val path = File(activity.filesDir, "GroundForce${File.separator}Images")
+                    if (!path.exists()) {
+                        path.mkdirs();
+                    }
+
+                    val outFile = File(path, GROUND_FORCE_IMAGE_NAME)
+                    val outputStream = FileOutputStream(outFile)
+
+                    try {
+                        outputStream.use { output ->
+                            val buffer = ByteArray(4 * 1024)
+                            var byteCount = inputStream.read(buffer)
+                            while (byteCount > 0) {
+                                output.write(buffer, 0, byteCount)
+                                byteCount = inputStream.read(buffer)
+                            }
+                            output.flush()
+                            output.close()
+                        }
+                        //Load The Image from internal storage into View when it's done
+                        getImageFromInternalStorage(activity, image)
+                    } catch (e: FileNotFoundException) {
+                        activity.runOnUiThread {
+                            Toast.makeText(activity, e.message.toString(), Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    //Handle Error in case where there's no internet connection and no profile image saved.
+
+                    activity.runOnUiThread {
 //                    Toast.makeText(activity, avatarUrl, Toast.LENGTH_SHORT).show()
-                    Toast.makeText(activity, "No profile Picture yet", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "No profile Picture yet", Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
-            }
-        }.start()
+            }.start()
+        }
     }
 
     override fun getImageFromInternalStorage(activity: Activity, imageView: ImageView) {

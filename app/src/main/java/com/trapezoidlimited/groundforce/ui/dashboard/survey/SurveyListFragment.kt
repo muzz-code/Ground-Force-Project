@@ -105,7 +105,7 @@ class SurveyListFragment : Fragment(), SurveyRecyclerAdapter.OnSurveyClickListen
 
                         for (userSurveyToReturnListOfObject in userSurveyToReturnListOfObjects) {
 
-                            val title = "Human Resource Survey, 2020"
+                            val title = userSurveyToReturnListOfObject.surveyType
                             val topic = userSurveyToReturnListOfObject.topic
                             val surveyId = userSurveyToReturnListOfObject.surveyId
 

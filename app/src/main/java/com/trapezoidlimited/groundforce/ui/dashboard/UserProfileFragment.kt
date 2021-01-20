@@ -209,9 +209,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val religion = it[it.lastIndex].religion
 
                 when (religion) {
-                    "christianity" -> binding.fragmentUserProfileReligiousSp.setSelection(1)
-                    "muslim" -> binding.fragmentUserProfileReligiousSp.setSelection(2)
-                    "others" -> binding.fragmentUserProfileReligiousSp.setSelection(3)
+                    "Christian" -> binding.fragmentUserProfileReligiousSp.setSelection(1)
+                    "Muslim" -> binding.fragmentUserProfileReligiousSp.setSelection(2)
+                    "Others" -> binding.fragmentUserProfileReligiousSp.setSelection(3)
                     else -> binding.fragmentUserProfileReligiousSp.setSelection(0)
                 }
 
@@ -249,8 +249,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         profileImageView = binding.fragmentCreateProfileOneProfileImageIv
         addProfileImageView = binding.fragmentCreateProfileOneProfileAddPhotoIv
 
-
+        /** Validating fields **/
         validateFields()
+        validateAdditionalPhone()
 
         val repository = AuthRepositoryImpl(apiService, missionsApi)
         val factory = ViewModelFactory(repository, requireContext())
@@ -384,9 +385,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
                 var religion = religionSpinner.selectedItem.toString()
 
-                if (religion == "Christian") {
-                    religion = "christianity"
-                }
 
                 val additionalPhoneNumber = additionalPhoneEditText.text.toString()
 
@@ -402,10 +400,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     religion
                 )
 
-                val gson = Gson()
-                val putUserRequestStr = gson.toJson(putUserRequest)
-
-                Log.i("putUserRequestStr", putUserRequestStr)
 
                 binding.fragmentUserProfilePb.show(saveChangesBtn)
 
@@ -622,18 +616,14 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 errorMessage = JDErrorConstants.INVALID_EMAIL_ERROR,
                 validator = { it.jdValidateEmail(it.text.toString()) }
             ),
-            JDataClass(
-                editText = binding.fragmentUserProfileAdditionalNumberEt,
-                editTextInputLayout = binding.fragmentUserProfileAdditionalNumberTil,
-                errorMessage = JDErrorConstants.INVALID_PHONE_NUMBER_ERROR,
-                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
-            ),
+
             JDataClass(
                 editText = binding.fragmentUserProfileResidentialAddressEt,
                 editTextInputLayout = binding.fragmentUserProfileResidentialAddressTil,
                 errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
                 validator = { it.jdValidateName(it.text.toString()) }
             ),
+
             JDataClass(
                 editText = binding.fragmentUserProfileAccountNumberEt,
                 editTextInputLayout = binding.fragmentUserProfileAccountNumberTil,
@@ -646,6 +636,22 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
             .viewsToEnable(mutableListOf(saveChangesBtn))
+            .watchWhileTyping(true)
+            .build()
+    }
+
+    private fun validateAdditionalPhone() {
+        val fields: MutableList<JDataClass> = mutableListOf(
+            JDataClass(
+                editText = binding.fragmentUserProfileAdditionalNumberEt,
+                editTextInputLayout = binding.fragmentUserProfileAdditionalNumberTil,
+                errorMessage = JDErrorConstants.INCOMPLETE_PHONE_NUMBER_ERROR,
+                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
+            ),
+        )
+        JDFormValidator.Builder()
+            .addFieldsToValidate(fields)
+            .removeErrorIcon(true)
             .watchWhileTyping(true)
             .build()
     }
