@@ -30,6 +30,7 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
+import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding.bind
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -73,6 +74,16 @@ class LocationsVerificationFragment : Fragment() {
 
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
+
+    private lateinit var ui: FragmentLocationsVerificationBinding
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+       ui = FragmentLocationsVerificationBinding.bind(view)
+
+    }
 
 
     override fun onCreateView(

@@ -215,7 +215,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
 
                     SessionManager.save(this, TOKEN, "")
-                    SessionManager.save(this, AVATAR_URL, "")
+                    SessionManager.save(this, AVATAR_URL, "null")
                     SessionManager.save(this, FIRSTNAME, "")
                     SessionManager.save(this, LASTNAME, "")
                     Intent(this, MainActivity::class.java).also {

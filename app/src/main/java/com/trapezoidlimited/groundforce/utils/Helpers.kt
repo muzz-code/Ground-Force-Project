@@ -248,3 +248,65 @@ fun Fragment.splitDate(date: String): String {
         .append(year).toString()
 
 }
+
+
+fun Fragment.formattingDateToMMDDYYYY(date: String): String{
+    val dateList = date.split(" ")
+
+    val month = dateList[1]
+    val day = dateList[0]
+    val year = dateList[2]
+    var monthInDigit = ""
+
+    val dateBuilder = StringBuilder()
+
+    when(month) {
+        "Jan" -> {
+            monthInDigit = "01"
+        }
+        "Feb" -> {
+            monthInDigit = "02"
+        }
+        "Mar" -> {
+            monthInDigit = "03"
+        }
+        "Apr" -> {
+            monthInDigit = "04"
+        }
+
+        "May" -> {
+            monthInDigit = "05"
+        }
+
+        "Jun" -> {
+            monthInDigit = "06"
+        }
+
+        "Jul" -> {
+            monthInDigit = "07"
+        }
+
+        "Aug" -> {
+            monthInDigit = "08"
+        }
+
+        "Sep" -> {
+            monthInDigit = "09"
+        }
+
+        "Oct" -> {
+            monthInDigit = "10"
+        }
+
+        "Nov" -> {
+            monthInDigit = "11"
+        }
+
+        "Dec" -> {
+            monthInDigit = "12"
+        }
+
+    }
+
+    return dateBuilder.append(monthInDigit).append("/").append(day).append("/").append(year).toString()
+}

@@ -120,6 +120,8 @@ class UpdateProfileFragment : Fragment() {
 
                     /** Saving to shared preference that user is verified **/
 
+
+
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, "true")
 
                     saveToSharedPreference(requireActivity(), BANKNAME, bankName)
@@ -221,6 +223,10 @@ class UpdateProfileFragment : Fragment() {
             } else {
                 progressBar.show(updateButton)
 
+                bankName = bankNameEditText.text.toString()
+
+                println(bankName)
+
                 bankCode = bankCodeEditText.text.toString()
                 accountNumber = accountNumberEditText.text.toString()
                 religion = religionEditText.text.toString()
@@ -234,7 +240,7 @@ class UpdateProfileFragment : Fragment() {
                     "o"
                 }
 
-                val bankName = bankNameEditText.text.toString()
+
 
                 avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
                 publicId = loadFromSharedPreference(requireActivity(), PUBLIC_ID)

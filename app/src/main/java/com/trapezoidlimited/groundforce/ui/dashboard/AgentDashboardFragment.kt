@@ -233,7 +233,7 @@ class AgentDashboardFragment : Fragment() {
 
                     var bank = response.value.data?.bankName.toString()
 
-                    val accountNum = response.value.data?.accountNumber.toString()
+                    var accountNum = response.value.data?.accountNumber.toString()
 
                     val gender = response.value.data?.gender.toString()
 
@@ -259,6 +259,17 @@ class AgentDashboardFragment : Fragment() {
                         }
 
                     }
+
+                    println(bank)
+
+                    if (accountNum == "null") {
+                        accountNum = "0000000000"
+                    }
+
+                    if (bank == "null") {
+                        bank = "Bank Name"
+                    }
+
                     saveToSharedPreference(requireActivity(), AVATAR_URL, avatarUrl)
 
                     saveToSharedPreference(requireActivity(), LASTNAME, lastName)
@@ -349,7 +360,12 @@ class AgentDashboardFragment : Fragment() {
 
 
         binding.agentDashboardUpdateNowBtn.setOnClickListener {
-            findNavController().navigate(R.id.uploadImageFragment)
+            val avatarUrl = loadFromSharedPreference(requireActivity(), AVATAR_URL)
+            if ( avatarUrl == "null") {
+                findNavController().navigate(R.id.uploadImageFragment)
+            } else {
+                findNavController().navigate(R.id.updateProfileFragment)
+            }
         }
 
         // Navigate to Home on Back Press

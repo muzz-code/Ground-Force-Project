@@ -131,7 +131,6 @@ class UploadImageFragment : Fragment() {
 
                     if (avatarUrl != null) {
                         saveToSharedPreference(requireActivity(), AVATAR_URL, avatarUrl)
-                        Toast.makeText(requireContext(), avatarUrl, Toast.LENGTH_SHORT).show()
                     }
 
                     if (publicId != null) {
