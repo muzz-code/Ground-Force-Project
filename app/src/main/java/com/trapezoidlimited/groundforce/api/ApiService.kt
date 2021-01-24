@@ -32,7 +32,7 @@ interface ApiService {
         @Body phone: VerifyPhoneRequest
     ): GenericResponseClass<VerifyPhoneResponse>
 
-    @POST("Auth/reset-password")
+    @PATCH("Auth/reset-password")
     suspend fun resetPassword(
         @Body resetPasswordRequest: ResetPasswordRequest
     ): GenericResponseClass<ResetPasswordResponse>

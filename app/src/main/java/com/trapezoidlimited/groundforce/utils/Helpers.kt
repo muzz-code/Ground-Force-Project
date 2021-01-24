@@ -251,10 +251,10 @@ fun Fragment.splitDate(date: String): String {
 
 
 fun Fragment.formattingDateToMMDDYYYY(date: String): String{
-    val dateList = date.split(" ")
+    val dateList = date.filter { it != ',' }.split(" ")
 
-    val month = dateList[1]
-    val day = dateList[0]
+    val month = dateList[0]
+    val day = dateList[1]
     val year = dateList[2]
     var monthInDigit = ""
 

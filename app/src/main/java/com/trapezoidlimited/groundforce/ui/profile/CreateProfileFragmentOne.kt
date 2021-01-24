@@ -139,6 +139,7 @@ class CreateProfileFragmentOne : Fragment() {
             val year = splitDate[2]
             yearPicked = year.toInt()
 
+            println(date)
 
             val dateSelected = formattingDateToMMDDYYYY(date)
 

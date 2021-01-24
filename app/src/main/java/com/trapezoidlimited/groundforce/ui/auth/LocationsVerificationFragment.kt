@@ -30,7 +30,6 @@ import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
-import com.trapezoidlimited.groundforce.databinding.ActivityDashboardBinding.bind
 import com.trapezoidlimited.groundforce.databinding.FragmentLocationsVerificationBinding
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -62,8 +61,6 @@ class LocationsVerificationFragment : Fragment() {
     private val binding get() = _binding!!
     private val LOCATION_PERMISSION_REQUEST = 1
     private val LOCATION_REQUEST_CODE = 1
-
-
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
@@ -71,19 +68,8 @@ class LocationsVerificationFragment : Fragment() {
     private lateinit var skipProgressBar: ProgressBar
     private lateinit var skipButton: Button
     private lateinit var agentData: AgentDataRequest
-
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
-
-    private lateinit var ui: FragmentLocationsVerificationBinding
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-       ui = FragmentLocationsVerificationBinding.bind(view)
-
-    }
 
 
     override fun onCreateView(
@@ -139,39 +125,6 @@ class LocationsVerificationFragment : Fragment() {
         }
 
 
-//        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
-//
-//            when (it) {
-//                is Resource.Success -> {
-//
-//                    val userId = it.value.data?.loginToken?.id
-//                    val userToken = it.value.data?.loginToken?.token
-//
-//                    /**Saving user's id to sharedPreference */
-//                    saveToSharedPreference(requireActivity(), USERID, userId!!)
-//
-//                    /** Saving token to sharedPreference */
-//
-//                    SessionManager.save(requireContext(), TOKEN, userToken!!)
-//
-//                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
-//
-//                    skipProgressBar.hide(skipButton)
-//
-//                    findNavController().navigate(R.id.waitingFragment)
-//
-//                }
-//                is Resource.Failure -> {
-//                    //setVisibility(okTextView)
-//                    skipProgressBar.hide(skipButton)
-//                    handleApiError(it, retrofit, requireActivity().view)
-//                }
-//            }
-//
-//        })
-
-
-
         /** Getting the current location **/
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -187,48 +140,56 @@ class LocationsVerificationFragment : Fragment() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 super.onLocationResult(locationResult)
 
-                if (locationResult?.lastLocation != null) {
-                    val lat = locationResult.lastLocation.latitude.toString()
-                    val long = locationResult.lastLocation.longitude.toString()
-                    latitude = locationResult.lastLocation.latitude
-                    longitude = locationResult.lastLocation.longitude
+                try{
 
-                    binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
+                    if (locationResult?.lastLocation != null) {
+                        val lat = locationResult.lastLocation.latitude.toString()
+                        val long = locationResult.lastLocation.longitude.toString()
+                        latitude = locationResult.lastLocation.latitude
+                        longitude = locationResult.lastLocation.longitude
 
-
-                    val addresses = geocoder.getFromLocation(latitude, longitude, 5)
-                    val addressLine = addresses[0].getAddressLine(0)
-                    val city = addresses[0].locality
-                    val state = addresses[0].adminArea
-                    val country = addresses[0].countryName
-                    val lga = addresses[0].subLocality
-
-                    println(addressLine)
-                    println(city)
-                    println(state)
-                    println(lga)
-
-                    /** Saving LAT and LONG in sharedPreference*/
-
-                    saveToSharedPreference(requireActivity(), LATITUDE, lat)
-                    saveToSharedPreference(requireActivity(), LONGITUDE, long)
-                    //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
-                    saveToSharedPreference(requireActivity(), ADDRESS, addressLine)
-                    saveToSharedPreference(requireActivity(), STATE, state)
-                    saveToSharedPreference(requireActivity(), GENDER, "m")
-                    saveToSharedPreference(requireActivity(), LGA, lga)
+                        binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
 
 
-                    setSuccessDialog()
+                        val addresses = geocoder.getFromLocation(latitude, longitude, 5)
+                        val addressLine = addresses[0].getAddressLine(0)
+                        val city = addresses[0].locality
+                        val state = addresses[0].adminArea
+                        val country = addresses[0].countryName
+                        val lga = addresses[0].subLocality
 
-                } else {
-                    Log.d("LOCATION", "Location missing in callback.")
+                        /** Saving LAT and LONG in sharedPreference*/
+
+                        saveToSharedPreference(requireActivity(), LATITUDE, lat)
+                        saveToSharedPreference(requireActivity(), LONGITUDE, long)
+                        //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+                        saveToSharedPreference(requireActivity(), ADDRESS, addressLine)
+                        saveToSharedPreference(requireActivity(), STATE, state)
+                        saveToSharedPreference(requireActivity(), GENDER, "m")
+                        saveToSharedPreference(requireActivity(), LGA, lga)
+
+
+                        setSuccessDialog()
+
+                    } else {
+                        Log.d("LOCATION", "Location missing in callback.")
+                        unsubscribeToLocationUpdates()
+                        showFailedDialog()
+                    }
+
+                } catch (e: Exception) {
+                    unsubscribeToLocationUpdates()
                     showFailedDialog()
                 }
             }
 
             override fun onLocationAvailability(p0: LocationAvailability?) {
-                Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
+//                Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
+                Toast.makeText(
+                    requireContext(),
+                    "location service available",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -240,45 +201,7 @@ class LocationsVerificationFragment : Fragment() {
 
         skipButton.setOnClickListener {
 
-            //skipProgressBar.show(skipButton)
 
-//            saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
-//
-//            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-//            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-//            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-//            val gender = loadFromSharedPreference(requireActivity(), GENDER)
-//            val dob = loadFromSharedPreference(requireActivity(), DOB)
-//            val email = loadFromSharedPreference(requireActivity(), EMAIL)
-//            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-//            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
-//            val state = loadFromSharedPreference(requireActivity(), STATE)
-//            val lga = loadFromSharedPreference(requireActivity(), LGA)
-//            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-//            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-//            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
-//
-//            agentData = AgentDataRequest(
-//                lastName = lastName,
-//                firstName = firstName,
-//                phoneNumber = phoneNumber,
-//                gender = gender,
-//                dob = dob,
-//                email = email,
-//                password = password,
-//                residentialAddress = residentialAddress,
-//                state = state,
-//                lga = lga,
-//                zipCode = zipCode,
-//                longitude = longitude,
-//                latitude = latitude,
-//                roles = listOf("agent")
-//            )
-
-
-            //viewModel.registerAgent(agentData)
-
-            //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
             saveToSharedPreference(requireActivity(), LATITUDE, "")
             saveToSharedPreference(requireActivity(), LONGITUDE, "")
             saveToSharedPreference(requireActivity(), LGA, "Nil")
@@ -423,22 +346,6 @@ class LocationsVerificationFragment : Fragment() {
             }
         }
     }
-
-//    fun isLocationEnabled(context: Context): Boolean? {
-//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            // This is new method provided in API 28
-//            val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//            lm.isLocationEnabled
-//        } else {
-//            // This is Deprecated in API 28
-//            val mode = Settings.Secure.getInt(
-//                context.contentResolver,
-//                Settings.Secure.LOCATION_MODE,
-//                Settings.Secure.LOCATION_MODE_OFF
-//            )
-//            mode != Settings.Secure.LOCATION_MODE_OFF
-//        }
-//    }
 
 
     override fun onDestroyView() {

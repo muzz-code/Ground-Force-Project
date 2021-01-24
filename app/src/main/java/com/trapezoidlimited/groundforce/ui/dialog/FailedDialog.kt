@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FailedDialogBinding
 import com.trapezoidlimited.groundforce.ui.dashboard.DashboardActivity
+import com.trapezoidlimited.groundforce.utils.*
 
 
 class FailedDialog: DialogFragment() {
@@ -27,10 +28,18 @@ class FailedDialog: DialogFragment() {
 
 
         binding.failedDialogOkTv.setOnClickListener {
-            Intent(requireContext(), DashboardActivity::class.java).also {
-                startActivity(it)
-                requireActivity().finish()
-            }
+//            Intent(requireContext(), DashboardActivity::class.java).also {
+//                startActivity(it)
+//                requireActivity().finish()
+//            }
+
+            saveToSharedPreference(requireActivity(), LATITUDE, "")
+            saveToSharedPreference(requireActivity(), LONGITUDE, "")
+            saveToSharedPreference(requireActivity(), LGA, "Nil")
+            saveToSharedPreference(requireActivity(), STATE, "Nil")
+            saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
+
+            findNavController().navigate(R.id.createProfileFragmentTwo)
 
             dismiss()
         }
