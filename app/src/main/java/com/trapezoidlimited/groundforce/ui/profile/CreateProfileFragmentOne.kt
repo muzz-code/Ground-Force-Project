@@ -141,7 +141,11 @@ class CreateProfileFragmentOne : Fragment() {
 
             println(date)
 
-            val dateSelected = formattingDateToMMDDYYYY(date)
+           val dateSelected = if (Build.VERSION.SDK_INT >= 29 ) {
+                formattingDateToMMDDYYYYV10(date)
+            } else {
+                formattingDateToMMDDYYYY(date)
+            }
 
             dateButton.setText(dateSelected)
             dateOfBirth.error = null

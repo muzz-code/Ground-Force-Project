@@ -177,6 +177,8 @@ class LocationsVerificationFragment : Fragment() {
                         showFailedDialog()
                     }
 
+                    unsubscribeToLocationUpdates()
+
                 } catch (e: Exception) {
                     unsubscribeToLocationUpdates()
                     showFailedDialog()

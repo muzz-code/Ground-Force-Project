@@ -179,7 +179,7 @@
     <string name="nearest_landmark_str">Nearest Landmark</string>
     <string name="type_of_structure_str">Type Of Structure</string>
     <string name="absolute_coordinates_str">Absolute Coordinates</string>
-    <string name="coord_str">6° 27\' 55.5192\'\' N and 3° 24\' 23.2128\'\' E</string>
+    <string name="coord_str">Finding Coordinates…</string>
     <string name="additional_comments_str">Additional Comments</string>
     <string name="submit_str">submit</string>
     <string name="cancel_str">Cancel</string>
