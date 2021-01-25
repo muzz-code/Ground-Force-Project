@@ -168,13 +168,13 @@ class AgentDashboardFragment : Fragment() {
             findNavController().navigate(R.id.action_agentDashboardFragment_to_paymentHistory)
         }
 
-        binding.fragmentAgentViewDetailsTv.setOnClickListener {
+        binding.agentDashboardFragmentCompletedTaskCv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = MISSIONCOMPLETED
             findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
         }
 
-        binding.fragmentAgentSurveyViewDetailsTv.setOnClickListener {
+        binding.agentDashboardFragmentSurveyCv.setOnClickListener {
             // Setting currentItem value for mission-survey-history viewpager
             DataListener.msCurrentItem = SURVEYCOMPLETED
             findNavController().navigate(R.id.action_agentDashboardFragment_to_historyFragment)
