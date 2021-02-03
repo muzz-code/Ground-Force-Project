@@ -72,8 +72,13 @@ class EmailVerificationTwo : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentEmailVerificationTwoTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().navigate(R.id.emailVerificationOne)
+
+//            DataListener.observerChecker = false
+            //findNavController().popBackStack()
+            findNavController().navigate(R.id.action_emailVerificationTwo_to_emailVerificationOne)
         }
+
+
 
         return binding.root
     }
@@ -126,6 +131,9 @@ class EmailVerificationTwo : Fragment() {
 
 
         viewModel.confirmEmailResponse.observe(viewLifecycleOwner, {
+
+            println("VIEWMODEL RUNNING")
+
             when (it) {
                 is Resource.Success -> {
                     binding.fragmentEmailVerificationTwoPb.hide(binding.fragmentEmailVerificationTwoConfirmBtn)
@@ -137,7 +145,7 @@ class EmailVerificationTwo : Fragment() {
                     )
                         .show()
 
-                    findNavController().navigate(R.id.createProfileFragmentOne)
+                    findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
                 }
                 is Resource.Failure -> {
 
@@ -150,7 +158,7 @@ class EmailVerificationTwo : Fragment() {
                         retrofit,
                         requireView(),
                         message,
-                        R.id.createProfileFragmentOne
+                        R.id.action_emailVerificationOne_to_createProfileFragmentOne
                     )
 
                 }
@@ -192,6 +200,8 @@ class EmailVerificationTwo : Fragment() {
 //            val email = loadFromSharedPreference(requireActivity(), EMAIL)
 
             val confirmEmailAddressRequest = ConfirmEmailAddressRequest(email, code)
+
+            println(confirmEmailAddressRequest)
 
             viewModel.confirmEmail(confirmEmailAddressRequest)
 

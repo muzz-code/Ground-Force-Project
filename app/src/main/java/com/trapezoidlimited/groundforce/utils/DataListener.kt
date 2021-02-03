@@ -21,6 +21,8 @@ object DataListener {
 
     var token = "token"
 
+    var observerChecker = true
+
     var currentScreen = LOCATION_VERIFICATION_SCREEN
 
     var mSetTabIndicator = MutableLiveData<Boolean>()

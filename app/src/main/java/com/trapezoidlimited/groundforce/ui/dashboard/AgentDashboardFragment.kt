@@ -227,6 +227,10 @@ class AgentDashboardFragment : Fragment() {
 
                     val lastName = response.value.data?.lastName.toString()
 
+                    val email = response.value.data?.email.toString()
+
+                    val residentialAddress = response.value.data?.residentialAddress.toString()
+
                     val avatarUrl = response.value.data?.avatarUrl.toString()
 
                     val isVerified = response.value.data?.isVerified.toString()
@@ -245,6 +249,8 @@ class AgentDashboardFragment : Fragment() {
 
                     val religion = response.value.data?.religion.toString()
 
+                    val dob = response.value.data?.religion.toString()
+
                     binding.agentDashboardFragmentNameTv.text = "Hello $firstName"
 
 
@@ -260,7 +266,6 @@ class AgentDashboardFragment : Fragment() {
 
                     }
 
-                    println(bank)
 
                     if (accountNum == "null") {
                         accountNum = "0000000000"
@@ -278,15 +283,23 @@ class AgentDashboardFragment : Fragment() {
 
                     saveToSharedPreference(requireActivity(), IS_VERIFIED, isVerified)
 
-                    saveToSharedPreference(
-                        requireActivity(),
-                        IS_LOCATION_VERIFIED,
-                        isLocationVerified
-                    )
+                    saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, isLocationVerified)
 
                     saveToSharedPreference(requireActivity(), BANKNAME, bank)
 
                     saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, accountNum)
+
+                    saveToSharedPreference(requireActivity(), EMAIL, email)
+
+                    saveToSharedPreference(requireActivity(), ADDRESS, residentialAddress )
+
+                    saveToSharedPreference(requireActivity(), RELIGION, religion )
+
+                    saveToSharedPreference(requireActivity(), GENDER, gender )
+
+                    saveToSharedPreference(requireActivity(), DOB, dob )
+
+                    saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
 
 
                     /** Checking if User is verified */
@@ -297,24 +310,17 @@ class AgentDashboardFragment : Fragment() {
                     binding.fragmentAgentDashboardCl.visibility = View.VISIBLE
 
                     /** Adding Agent Details to Room Database */
-//
-//                    Toast.makeText(
-//                        requireContext(),
-//                        response.value.data?.firstName!!,
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
 
 
                     val roomAgent = RoomAgent(
                         agentId = 1,
                         id = response.value.data?.id!!,
-                        lastName = response.value.data.lastName,
-                        firstName = response.value.data.firstName,
-                        email = response.value.data.email,
-                        residentialAddress = response.value.data.residentialAddress,
-                        dob = response.value.data.dob,
-                        gender = response.value.data.gender,
+                        lastName = lastName,
+                        firstName = firstName,
+                        email = email,
+                        residentialAddress = residentialAddress,
+                        dob = dob,
+                        gender = gender,
                     )
 
                     roomViewModel.addAgent(roomAgent)

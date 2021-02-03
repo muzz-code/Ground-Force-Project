@@ -126,6 +126,7 @@
             android:padding="16dp"
             android:text="@string/survey_questions_next_button_str"
             android:enabled="false"
+            android:textAllCaps="false"
             android:textStyle="bold"
             style="@style/colorWhiteMediumText"
             app:layout_constraintBottom_toBottomOf="parent"

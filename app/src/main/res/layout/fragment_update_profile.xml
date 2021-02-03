@@ -158,29 +158,29 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!--   Button to go to next profile page  -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/fragment_update_profile_religion_til"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:hint="@string/religion_str"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_additional_num_til">
+<!--            &lt;!&ndash;   Button to go to next profile page  &ndash;&gt;-->
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/fragment_update_profile_religion_til"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:hint="@string/religion_str"-->
+<!--                android:paddingTop="5dp"-->
+<!--                android:paddingBottom="5dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_additional_num_til">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/fragment_update_profile_religion_til_act"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none" />
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/fragment_update_profile_religion_til_act"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="none" />-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 
             <!--   Button to go to next profile page  -->
@@ -192,14 +192,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="48dp"
                 android:hint="@string/gender"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_update_profile_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_religion_til"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_update_profile_additional_num_til"
                 app:layout_constraintVertical_bias="0.0">
 
                 <AutoCompleteTextView
@@ -216,8 +216,8 @@
                 style="@style/colorWhiteSmallText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="37dp"
-                android:layout_marginEnd="37dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="21dp"
                 android:background="@drawable/curved_primary_fill_button"
                 android:enabled="true"

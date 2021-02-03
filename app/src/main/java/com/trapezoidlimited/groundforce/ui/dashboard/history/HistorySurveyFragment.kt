@@ -100,7 +100,7 @@ class HistorySurveyFragment : Fragment(), OnHistorySurveyItemClickListener {
                     if (historySurveys != null) {
                         for (historySurvey in historySurveys) {
 
-                            val title = "Human Resource Survey, 2020"
+                            val title = historySurvey.surveyType
                             val topic = historySurvey.topic
                             val id = historySurvey.surveyId
 

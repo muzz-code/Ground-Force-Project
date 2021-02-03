@@ -1,15 +1,17 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -44,6 +46,8 @@ class EmailVerificationOne : Fragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var email: String
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +67,6 @@ class EmailVerificationOne : Fragment() {
 
         /** set navigation arrow from drawable **/
         binding.fragmentEmailVerificationTb.toolbarTransparentFragment.setNavigationIcon(R.drawable.ic_arrow_back)
-
 
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
@@ -88,40 +91,51 @@ class EmailVerificationOne : Fragment() {
             binding.fragmentEmailVerificationEt.text = SpannableStringBuilder(emailFromGoogle)
         }
 
-        viewModel.verifyEmailResponse.observe(viewLifecycleOwner, {
-            when (it) {
 
-                is Resource.Success -> {
+            viewModel.verifyEmailResponse.observe(viewLifecycleOwner, {
+                when (it) {
 
-                    /** Saving EMAIL in sharedPreference*/
-                    saveToSharedPreference(requireActivity(), EMAIL, email)
+                    is Resource.Success -> {
 
-                    binding.fragmentEmailVerificationSubmitPb.hide(binding.fragmentEmailVerificationSubmitBtn)
+                        /** Saving EMAIL in sharedPreference*/
+                        saveToSharedPreference(requireActivity(), EMAIL, email)
 
-                    Toast.makeText(requireContext(), "${it.value.data?.message}", Toast.LENGTH_SHORT)
-                        .show()
+                        binding.fragmentEmailVerificationSubmitPb.hide(binding.fragmentEmailVerificationSubmitBtn)
 
-                    findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
+                        Toast.makeText(
+                            requireContext(),
+                            "${it.value.data?.message}",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
 
+//                        if (DataListener.observerChecker) {
+//                            findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
+//                        }
+
+                        findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
+
+                    }
+
+                    is Resource.Failure -> {
+
+                        setInVisibility(binding.fragmentEmailVerificationSubmitPb)
+
+                        binding.fragmentEmailVerificationSubmitPb.hide(binding.fragmentEmailVerificationSubmitBtn)
+
+                        val message = "User is already verified"
+
+                        handleApiError(
+                            it, retrofit, requireView(),
+                            message, R.id.createProfileFragmentOne
+                        )
+                    }
                 }
+            })
 
-                is Resource.Failure -> {
-
-                    setInVisibility(binding.fragmentEmailVerificationSubmitPb)
-
-                    binding.fragmentEmailVerificationSubmitPb.hide(binding.fragmentEmailVerificationSubmitBtn)
-
-                    val message = "User is already verified"
-
-                    handleApiError(
-                        it, retrofit, requireView(),
-                        message, R.id.createProfileFragmentOne
-                    )
-                }
-            }
-        })
 
         binding.fragmentEmailVerificationSubmitBtn.setOnClickListener {
+
 
            email = binding.fragmentEmailVerificationEt.text.toString()
 
@@ -132,7 +146,9 @@ class EmailVerificationOne : Fragment() {
 
             val verifyEmailAddressRequest = VerifyEmailAddressRequest(email)
 
+            //DataListener.observerChecker = true
             viewModel.verifyEmail(verifyEmailAddressRequest)
+
 
             //findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
 

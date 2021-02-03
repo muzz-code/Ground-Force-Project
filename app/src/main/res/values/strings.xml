@@ -181,7 +181,7 @@
     <string name="absolute_coordinates_str">Absolute Coordinates</string>
     <string name="coord_str">Finding Coordinates…</string>
     <string name="additional_comments_str">Additional Comments</string>
-    <string name="submit_str">submit</string>
+    <string name="submit_str">Submit</string>
     <string name="cancel_str">Cancel</string>
     <string name="label_str">Label</string>
     <string name="mission_error_str">Field cannot be empty</string>
@@ -214,7 +214,7 @@
 
 
     <!--    location verified dialog fragment-->
-    <string name="location_verified_dialog_ok_str">OK</string>
+    <string name="location_verified_dialog_ok_str">Ok</string>
     <string name="location_verified_dialog_congratulations_str">Congratulations</string>
     <string name="location_verified_dialog_success_str">Success</string>
     <string name="permission_denied_explanation">You do not have the required permission</string>

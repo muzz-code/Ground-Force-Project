@@ -4,6 +4,7 @@ package com.trapezoidlimited.groundforce.ui.profile
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,16 @@ class CreateProfileFragmentOne : Fragment() {
     private var googleAccount: GoogleSignInAccount? = null
     private val args: CreateProfileFragmentOneArgs by navArgs()
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        saveToSharedPreference(requireActivity(), FIRSTNAME, "")
+        saveToSharedPreference(requireActivity(), LASTNAME, "")
+        saveToSharedPreference(requireActivity(), DOB, "")
+        saveToSharedPreference(requireActivity(), PASSWORD, "")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,7 +132,11 @@ class CreateProfileFragmentOne : Fragment() {
         /** Show the date button on click of date button **/
         dateButton.setOnClickListener {
 //            showDatePickerDialog(requireView())
-            picker.show(parentFragmentManager, picker.toString())
+            try {
+                picker.show(parentFragmentManager, picker.toString())
+            } catch (e: Exception) {
+                Log.i("EXCEPTION", e.message.toString())
+            }
         }
 
         /** Date set listener **/
@@ -155,6 +170,25 @@ class CreateProfileFragmentOne : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val firstNameFromSharedPref = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+        val lastNameFromSharedPref = loadFromSharedPreference(requireActivity(), LASTNAME)
+        val dobFromSharedPref = loadFromSharedPreference(requireActivity(), DOB)
+        val passwordFromSharedPref = loadFromSharedPreference(requireActivity(), PASSWORD)
+
+        if (firstNameFromSharedPref.isNotEmpty() && lastNameFromSharedPref.isNotEmpty()
+            && dobFromSharedPref.isNotEmpty() && passwordFromSharedPref.isNotEmpty()
+        ){
+            binding.fragmentCreateProfileFirstNamePlaceholderEt.setText(SpannableString(firstNameFromSharedPref))
+            binding.fragmentCreateProfileOneLastNameEt.setText(SpannableString(lastNameFromSharedPref))
+            binding.fragmentCreateProfileOneDateBirthEt.setText(SpannableString(dobFromSharedPref))
+            binding.fragmentCreateProfileOnePasswordEt.setText(SpannableString(passwordFromSharedPref))
+            binding.fragmentCreateProfileOneConfirmPasswordEt.setText(SpannableString(passwordFromSharedPref))
+        }
+
+    }
 
 
     /** Show Date picker Dialog Function **/

@@ -214,10 +214,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
                 val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
 
-                    SessionManager.save(this, TOKEN, "")
-                    SessionManager.save(this, AVATAR_URL, "null")
-                    SessionManager.save(this, FIRSTNAME, "")
-                    SessionManager.save(this, LASTNAME, "")
+                    SessionManager.clearSharedPref(this)
+                    saveToSharedPreference(this, ONBOARD, "true")
+
                     Intent(this, MainActivity::class.java).also {
                         saveToSharedPreference(this, LOG_OUT, "true")
                         roomViewModel.deleteAllMission()

@@ -110,7 +110,7 @@ class LoginFragment : Fragment() {
         loginProgress = binding.fragmentLoginProgressBar
 
         /** setting toolbar text **/
-        binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
+//        binding.fragmentLoginTb.toolbarTitle.text = getString(R.string.login_str)
         binding.fragmentLoginTb.toolbarTitle.setTextColor(resources.getColor(R.color.colorWhite))
 
         /** set navigation arrow from drawable **/

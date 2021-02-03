@@ -121,7 +121,8 @@ class LocationsVerificationFragment : Fragment() {
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
-            findNavController().navigate(R.id.createProfileFragmentOne)
+            //findNavController().navigate(R.id.createProfileFragmentOne)
+            findNavController().popBackStack()
         }
 
 

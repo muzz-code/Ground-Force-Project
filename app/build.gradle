@@ -153,6 +153,9 @@ android {
         //Compressor
         implementation 'id.zelory:compressor:3.0.0'
 
+        //Machine Learning for Face Detection
+        implementation 'com.google.android.gms:play-services-mlkit-face-detection:16.1.3'
+
 
     }
 }

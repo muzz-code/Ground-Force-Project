@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
+import android.text.SpannableString
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,8 +84,8 @@ class ForgetPasswordFragment : Fragment() {
                     val message = it.value.data?.message
                     binding.forgetPasswordResetPb.hide(binding.forgetPasswordResetBtn)
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-
                     saveToSharedPreference(requireActivity(), EMAIL, email)
+
 
 //                    findNavController().navigate(R.id.action_forgetPasswordFragment_to_resetPasswordFragment)
                 }
@@ -119,12 +120,22 @@ class ForgetPasswordFragment : Fragment() {
 
             email =  binding.fragmentForgetPasswordEmailEt.text.toString()
 
-            println(email)
 
             val forgotPasswordRequest = ForgotPasswordRequest(email)
 
             viewModel.forgotPassword(forgotPasswordRequest)
 
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val emailFromSharedPref = loadFromSharedPreference(requireActivity(), EMAIL)
+
+        if (emailFromSharedPref.isNotEmpty()){
+            binding.fragmentForgetPasswordEmailEt.setText(SpannableString(emailFromSharedPref))
         }
 
     }

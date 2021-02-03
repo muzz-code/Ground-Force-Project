@@ -21,5 +21,14 @@ object SessionManager {
         editor.apply()
     }
 
+    fun clearSharedPref(context: Context) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+
 }
 

@@ -6,11 +6,13 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -53,6 +55,14 @@ class PhoneActivationFragment : Fragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var phoneNumberTil: TextInputLayout
     private lateinit var number: String
+    private lateinit var phoneEditText: EditText
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        saveToSharedPreference(requireActivity(), PHONE, "")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -131,9 +141,10 @@ class PhoneActivationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
+
         /** Validating the phone number field**/
 
-        val phoneEditText = binding.phoneActivPhoneNoEt
+        phoneEditText = binding.phoneActivPhoneNoEt
         phoneNumberTil = binding.phoneActivPhoneNoTil
 
         validateFields()
@@ -167,15 +178,6 @@ class PhoneActivationFragment : Fragment() {
 
             number = "+234" + phoneEditText.text.toString()
 
-//            val action = PhoneActivationFragmentDirections
-//                .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-//            findNavController().navigate(action)
-
-//                        val action = PhoneActivationFragmentDirections
-//                          .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
-//                        findNavController().navigate(action)
-
-
             val phoneNumber = VerifyPhoneRequest(number)
 
             /** Saving phone in sharedPreference*/
@@ -187,6 +189,18 @@ class PhoneActivationFragment : Fragment() {
             /** Setting Progress bar to visible and disabling button*/
             binding.phoneActivationPb.show(it as Button?)
 
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val numberFromSharedPref = loadFromSharedPreference(requireActivity(), PHONE)
+
+        if (numberFromSharedPref.isNotEmpty()){
+            val phoneNumber = numberFromSharedPref.substring(4)
+            phoneEditText.setText(SpannableString(phoneNumber))
         }
 
     }
@@ -212,6 +226,7 @@ class PhoneActivationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         /** Code under construction: Beware!*/
         viewModel._verifyPhoneResponse.value = null
         _binding = null

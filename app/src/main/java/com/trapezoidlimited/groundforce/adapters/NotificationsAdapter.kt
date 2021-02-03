@@ -12,9 +12,8 @@ import com.trapezoidlimited.groundforce.model.NotificationsItem
 import kotlinx.android.synthetic.main.notification_header_recycler_item.view.*
 import kotlinx.android.synthetic.main.notification_item_recycler_item.view.*
 
-class NotificationsAdapter(private val notificationsItem: MutableList<NotificationsItem>): RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
-
-
+class NotificationsAdapter(private val notificationsItem: MutableList<NotificationsItem>):
+    RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): View.OnClickListener, RecyclerView.ViewHolder(itemView) {
         private lateinit var notificationsGotten: NotificationItem
 
@@ -35,6 +34,7 @@ class NotificationsAdapter(private val notificationsItem: MutableList<Notificati
                  if (notification.notificationsHeader.status == "Older Notifications"){
                      var s = itemView.resources.getColor(R.color.colorWhite)
                      itemView.notification_header_recycler_item_root_layout.setBackgroundColor(s)
+
                  }
              } else{
                  if (notificationsGotten.isNew == "Older Notifications"){

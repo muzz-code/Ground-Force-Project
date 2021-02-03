@@ -90,6 +90,8 @@ class CreateProfileFragmentTwo : Fragment() {
 
 
 
+
+
         viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
 
             when (it) {

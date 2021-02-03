@@ -3,9 +3,11 @@ package com.trapezoidlimited.groundforce.ui.dashboard
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.*
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -31,6 +33,10 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.gson.Gson
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
@@ -118,7 +124,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         /** Initializing views */
         genderSpinner = binding.fragmentUserProfileGenderSp
-        religionSpinner = binding.fragmentUserProfileReligiousSp
         saveChangesBtn = binding.fragmentCreateProfileTwoBtn
         userNameTextView = binding.fragmentUserProfileUserNameTv
         userEmailAddressTextView = binding.fragmentUserProfileUserEmailTv
@@ -204,19 +209,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         })
 
-        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                val religion = it[it.lastIndex].religion
-
-                when (religion) {
-                    "Christian" -> binding.fragmentUserProfileReligiousSp.setSelection(1)
-                    "Muslim" -> binding.fragmentUserProfileReligiousSp.setSelection(2)
-                    "Others" -> binding.fragmentUserProfileReligiousSp.setSelection(3)
-                    else -> binding.fragmentUserProfileReligiousSp.setSelection(0)
-                }
-
-            }
-        })
 
 //        roomViewModel.additionalDetail.observe(viewLifecycleOwner, {
 //            if (it.isNotEmpty()) {
@@ -450,17 +442,6 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         }
 
-        /** Array adapter for spinner drop down for religion **/
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.religion,
-            android.R.layout.simple_spinner_item
-        ).also { religionAdapter ->
-            // Specify the layout to use when the list of choices appears
-            religionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            binding.fragmentUserProfileReligiousSp.adapter = religionAdapter
-        }
 
         /** listener for sex option **/
         binding.fragmentUserProfileGenderSp.onItemSelectedListener = this
@@ -478,6 +459,9 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     /** Take picture function **/
     private fun dispatchTakePictureIntent() {
+
+        addProfileImageView.isEnabled = false
+
         val fileName = "ground_force_name.jpg"
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, fileName)
@@ -492,27 +476,101 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
+
+    private fun runFaceContourDetection() {
+        // Replace with code from the codelab to run face contour detection.
+
+        val image = InputImage.fromFilePath(requireContext(), photoPath)
+
+        val options = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .build()
+
+        val detector = FaceDetection.getClient(options)
+
+        detector.process(image)
+            .addOnSuccessListener { faces ->
+
+                val result = processFaceContourDetectionResult(faces)
+
+                if (result == "Face found") {
+
+                    binding.fragmentCreateProfileOneProfileImagePb.hide(binding.fragmentCreateProfileTwoBtn)
+
+                    Glide.with(this)
+                        .load(photoPath)
+                        .into(pictureImageView)
+
+                    addProfileImageView.isEnabled = true
+
+                    val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
+                        Toast.makeText(requireActivity(), "Uploading", Toast.LENGTH_SHORT).show()
+
+                        processUri(photoPath).observe(viewLifecycleOwner, {
+                            viewModel.uploadImage(it, requireActivity())
+                            binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
+                        })
+
+                        dialog.cancel()
+                    }
+                    showAlertDialog("Update your Profile Image?", "Upload Image", dialogInterface)
+
+
+                } else {
+
+                    addProfileImageView.isEnabled = true
+
+                    binding.fragmentCreateProfileOneProfileImagePb.hide(binding.fragmentCreateProfileTwoBtn)
+
+
+                    val pictureDialog = AlertDialog.Builder(requireContext())
+                    pictureDialog.setTitle("Make sure your face is showing clearly")
+                    pictureDialog.setPositiveButton(
+                        "Recapture",
+                        DialogInterface.OnClickListener { _, _ ->
+                            dispatchTakePictureIntent()
+                        })
+                        .setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
+                            pictureDialog.create().dismiss()
+                        })
+                        .show()
+                }
+
+
+            }
+            .addOnFailureListener { e -> // Task failed with an exception
+                e.printStackTrace()
+            }
+
+    }
+
+    private fun processFaceContourDetectionResult(faces: List<Face>): String {
+        // Replace with code from the codelab to process the face contour detection result.
+        return if (faces.isEmpty()) {
+            showToast("No face found")
+            "No face found"
+        } else {
+            showToast("Face found")
+            "Face found"
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
     /** onActivityResult function place the captured image on the image view place holder **/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             //  val imageBitmap = data?.extras?.get("data") as Bitmap
 //            profileImageView.setImageBitmap(imageBitmap)
 
-            Glide.with(this)
-                .load(photoPath)
-                .into(pictureImageView)
+            binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
 
-            val dialogInterface = DialogInterface.OnClickListener { dialog, _ ->
-                Toast.makeText(requireActivity(), "Uploading", Toast.LENGTH_SHORT).show()
+            runFaceContourDetection()
 
-                processUri(photoPath).observe(viewLifecycleOwner, {
-                    viewModel.uploadImage(it, requireActivity())
-                    binding.fragmentCreateProfileOneProfileImagePb.show(binding.fragmentCreateProfileTwoBtn)
-                })
-
-                dialog.cancel()
-            }
-            showAlertDialog("Update your Profile Image?", "Upload Image", dialogInterface)
         }
     }
 

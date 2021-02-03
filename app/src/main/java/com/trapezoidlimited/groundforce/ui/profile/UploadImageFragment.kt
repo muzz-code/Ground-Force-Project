@@ -2,9 +2,12 @@ package com.trapezoidlimited.groundforce.ui.profile
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,6 +29,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -118,8 +125,6 @@ class UploadImageFragment : Fragment() {
 
 
 
-
-
         viewModel.imageUrl.observe(viewLifecycleOwner, { response ->
             when (response) {
                 is Resource.Success -> {
@@ -178,6 +183,9 @@ class UploadImageFragment : Fragment() {
 
     /** Take picture function **/
     private fun dispatchTakePictureIntent() {
+
+        addPhotoImageView.isEnabled = false
+
         val fileName = "ground_force_name.jpg"
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, fileName)
@@ -191,16 +199,82 @@ class UploadImageFragment : Fragment() {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
+    private fun runFaceContourDetection(){
+        // Replace with code from the codelab to run face contour detection.
+
+        val image = InputImage.fromFilePath(requireContext(), photoPath)
+        val options = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_FAST)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .build()
+
+        val detector = FaceDetection.getClient(options)
+
+        detector.process(image)
+            .addOnSuccessListener { faces ->
+
+                val result =  processFaceContourDetectionResult(faces)
+
+                if (result == "Face found") {
+
+                    binding.fragmentUploadImageProfileViewPb.hide(nextProfileButton)
+
+                    Glide.with(this)
+                        .load(photoPath)
+                        .into(pictureImageView)
+
+                    addPhotoImageView.isEnabled = true
+                    nextProfileButton.isEnabled = true
+
+
+                } else {
+
+                    binding.fragmentUploadImageProfileViewPb.hide(nextProfileButton)
+                    addPhotoImageView.isEnabled = true
+
+                    val pictureDialog = AlertDialog.Builder(requireContext())
+                    pictureDialog.setTitle("Make sure your face is showing clearly.")
+                    pictureDialog.setPositiveButton("Recapture", DialogInterface.OnClickListener { _, _ ->
+                        dispatchTakePictureIntent()
+                    })
+                        .setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
+                            pictureDialog.create().dismiss()
+                        } )
+                        .show()
+                }
+
+            }
+            .addOnFailureListener { e -> // Task failed with an exception
+                e.printStackTrace()
+            }
+
+    }
+
+    private fun processFaceContourDetectionResult(faces: List<Face>): String {
+        // Replace with code from the codelab to process the face contour detection result.
+        return if (faces.isEmpty()) {
+            showToast("No face found")
+            "No face found"
+        } else {
+            showToast("Face found")
+            "Face found"
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+
 
     /** onActivityResult function place the captured image on the image view place holder **/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
 
-            Glide.with(this)
-                .load(photoPath)
-                .into(pictureImageView)
+            binding.fragmentUploadImageProfileViewPb.show(nextProfileButton)
 
-            nextProfileButton.isEnabled = true
+            runFaceContourDetection()
+
         }
     }
 

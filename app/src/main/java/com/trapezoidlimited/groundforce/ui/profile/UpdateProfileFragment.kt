@@ -85,7 +85,6 @@ class UpdateProfileFragment : Fragment() {
         accountNumberEditText = binding.fragmentUpdateProfileAccountNumEt
         additionalPhoneNumberEditText = binding.fragmentUpdateProfileAdditionalNumEt
         genderEditText = binding.fragmentUpdateProfileGenderTil.editText!!
-        religionEditText = binding.fragmentUpdateProfileReligionTil.editText!!
         bankCodeEditText = binding.fragmentUpdateProfileBankCodeEt
 
         /** set title of the toolbar **/
@@ -167,11 +166,6 @@ class UpdateProfileFragment : Fragment() {
         }
 
 
-        val religions = listOf("Christian", "Muslim", "Others")
-        val adapterReligion = ArrayAdapter(requireContext(), R.layout.list_item, religions)
-        (binding.fragmentUpdateProfileReligionTil.editText as? AutoCompleteTextView)?.setAdapter(
-            adapterReligion
-        )
 
         val genders = listOf("Male", "Female", "Others")
         val adapterGender = ArrayAdapter(requireContext(), R.layout.list_item, genders)
@@ -268,9 +262,7 @@ class UpdateProfileFragment : Fragment() {
         binding.constraintLayout.setOnClickListener {
             hideKeyboard()
         }
-        binding.fragmentUpdateProfileReligionTilAct.setOnClickListener {
-            hideKeyboard()
-        }
+
         binding.fragmentUpdateProfileGenderTilAct.setOnClickListener {
             hideKeyboard()
         }
@@ -300,12 +292,6 @@ class UpdateProfileFragment : Fragment() {
 //                errorMessage = JDErrorConstants.INCOMPLETE_PHONE_NUMBER_ERROR,
 //                validator = { it.jdValidateAdditionalPhone(it.text.toString()) }
 //            ),
-            JDataClass(
-                editText = religionEditText,
-                editTextInputLayout = binding.fragmentUpdateProfileReligionTil,
-                errorMessage = JDErrorConstants.NAME_FIELD_ERROR,
-                validator = { it.jdValidateName(it.text.toString()) }
-            ),
             JDataClass(
                 editText = genderEditText,
                 editTextInputLayout = binding.fragmentUpdateProfileGenderTil,
