@@ -1,9 +1,13 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.content.IntentSender
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.provider.Settings
 import android.text.SpannableStringBuilder
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +17,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
@@ -32,6 +39,7 @@ import retrofit2.Retrofit
 import java.io.InputStream
 import java.lang.Exception
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -64,6 +72,8 @@ class CreateProfileFragmentTwo : Fragment() {
     private lateinit var addresses: List<Address>
     private var locationLat: Double = 0.0
     private var locationLong: Double = 0.0
+    private lateinit var locationRequest: LocationRequest
+    private val LOCATION_REQUEST_CODE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,6 +103,16 @@ class CreateProfileFragmentTwo : Fragment() {
 
         locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
         geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+        locationRequest = LocationRequest().apply {
+            interval = TimeUnit.SECONDS.toMillis(1000)
+            fastestInterval = TimeUnit.SECONDS.toMillis(2000)
+            maxWaitTime = TimeUnit.MINUTES.toMillis(1)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        /** method to check if GPS is enabled and request user to turn on gps **/
+        checkGPSEnabled(LOCATION_REQUEST_CODE, locationRequest)
 
 //        street = loadFromSharedPreference(requireActivity(), ADDRESS)
 //        localGovtArea = loadFromSharedPreference(requireActivity(), LGA)
@@ -355,6 +375,20 @@ class CreateProfileFragmentTwo : Fragment() {
             .build()
 
         return validator.areAllFieldsValidated
+    }
+
+
+    /** if the GPS is turned on, location update is subscribed to **/
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == LOCATION_REQUEST_CODE) {
+
+            Toast.makeText(requireContext(), "GPS is on.", Toast.LENGTH_SHORT).show()
+
+        } else {
+            showSnackBar(requireView(), "Something is wrong! GPS is off.")
+        }
     }
 
 

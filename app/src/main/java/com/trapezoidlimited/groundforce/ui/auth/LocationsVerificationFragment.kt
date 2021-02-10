@@ -338,50 +338,6 @@ class LocationsVerificationFragment : Fragment() {
         )
     }
 
-    /** method to check if GPS is enabled and request user to turn on gps **/
-
-    private fun checkGPSEnabled() {
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
-
-
-        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())
-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
-
-        task.addOnSuccessListener { locationSettingsResponse ->
-            subscribeToLocationUpdates()
-        }
-
-        task.addOnFailureListener { exception ->
-            if (exception is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    /** Make alert dialog to request user to turn on GPS**/
-                    AlertDialog.Builder(requireContext())
-                        .setTitle("GPS Settings")
-                        .setMessage("GPS is off. App requires location turned on for verification.")
-                        .setPositiveButton(
-                            "SETTINGS"
-                        ) { dialogInterface, i ->
-                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                            startActivityForResult(intent, LOCATION_REQUEST_CODE)
-                        }
-                        .setNegativeButton(
-                            "Cancel"
-                        ) { dialogInterface, i ->
-                            dialogInterface.cancel()
-                        }
-                        .create()
-                        .show()
-
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
-            }
-        }
-
-    }
 
     /** if the GPS is turned on, location update is subscribed to **/
 
@@ -412,7 +368,7 @@ class LocationsVerificationFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
                 grantResults[0] == PackageManager.PERMISSION_GRANTED -> {
-                    checkGPSEnabled()
+                    checkGPSEnabled(LOCATION_REQUEST_CODE, locationRequest)
                 }
                 else -> {
 

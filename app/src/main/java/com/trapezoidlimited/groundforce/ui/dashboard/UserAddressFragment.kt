@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.LocationRequest
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.databinding.FragmentUserAddressBinding
@@ -24,6 +25,7 @@ import com.trapezoidlimited.groundforce.utils.*
 import java.io.InputStream
 import java.lang.Exception
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class UserAddressFragment : Fragment() {
@@ -40,6 +42,8 @@ class UserAddressFragment : Fragment() {
     private lateinit var addresses: List<Address>
     private var locationLat: Double = 0.0
     private var locationLong: Double = 0.0
+    private lateinit var locationRequest: LocationRequest
+    private val LOCATION_REQUEST_CODE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +69,15 @@ class UserAddressFragment : Fragment() {
 
         locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
         geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+        locationRequest = LocationRequest().apply {
+            interval = TimeUnit.SECONDS.toMillis(1000)
+            fastestInterval = TimeUnit.SECONDS.toMillis(2000)
+            maxWaitTime = TimeUnit.MINUTES.toMillis(1)
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        checkGPSEnabled(LOCATION_REQUEST_CODE, locationRequest)
 
 
         //States
