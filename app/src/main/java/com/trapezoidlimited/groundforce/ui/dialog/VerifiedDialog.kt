@@ -73,41 +73,36 @@ class VerifiedDialog : DialogFragment() {
         okTextView = binding.locationVerifiedDialogTv
 
 
-//        viewModel.agentCreationResponse.observe(viewLifecycleOwner, Observer {
-//
-//            when (it) {
-//                is Resource.Success -> {
-//
-//                    val userId = it.value.data?.loginToken?.id
-//                    val userToken = it.value.data?.loginToken?.token
-//
-//                    /**Saving user's id to sharedPreference */
-//                    saveToSharedPreference(requireActivity(), USERID, userId!!)
-//
-//                    /** Saving token to sharedPreference */
-//
-//                    SessionManager.save(requireContext(), TOKEN, userToken!!)
-//
-//                    //saveToSharedPreference(requireActivity(), TOKEN, userToken!! )
-//                    val token: String? = it.value.data?.loginToken?.token
-//
-//                    /**Saving user's id to sharedPreference */
-//                    saveToSharedPreference(requireActivity(), USERID, userId!!)
-//                    saveToSharedPreference(requireActivity(), TOKEN, token!!)
-//                    setInVisibility(progressBar)
-//                    findNavController().navigate(R.id.waitingFragment)
-//
-//                    dismiss()
-//                }
-//                is Resource.Failure -> {
-//                    setInVisibility(progressBar)
-//                    //setVisibility(okTextView)
-//                    handleApiError(roomViewModel, requireActivity(), it, retrofit, requireActivity().view)
-//                    dismiss()
-//                }
-//            }
-//
-//        })
+        viewModel.agentCreationResponse.observe(viewLifecycleOwner, Observer {
+
+            when (it) {
+                is Resource.Success -> {
+
+                    val userId = it.value.data?.loginToken?.id
+                    val userToken = it.value.data?.loginToken?.token
+
+                    /**Saving user's id to sharedPreference */
+                    SessionManager.save(requireContext(), USERID, userId!!)
+
+                    /** Saving token to sharedPreference */
+
+                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+                    saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, "true")
+
+                    setInVisibility(progressBar)
+                    findNavController().navigate(R.id.waitingFragment)
+
+                    dismiss()
+                }
+                is Resource.Failure -> {
+                    setInVisibility(progressBar)
+                    okTextView.isEnabled = true
+                    handleApiError(roomViewModel, requireActivity(), it, retrofit, requireActivity().view)
+                    dismiss()
+                }
+            }
+
+        })
 
         viewModel.verifyLocationResponse.observe(viewLifecycleOwner, {
 
@@ -128,7 +123,8 @@ class VerifiedDialog : DialogFragment() {
                 }
                 is Resource.Failure -> {
                     setInVisibility(progressBar)
-                    //setVisibility(okTextView)
+
+                    okTextView.isEnabled = true
                     handleApiError(roomViewModel, requireActivity(), it, retrofit, requireView())
                     dismiss()
                 }
@@ -144,46 +140,51 @@ class VerifiedDialog : DialogFragment() {
 
             okTextView.setOnClickListener {
 
-//                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-//                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-//                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-//                val gender = loadFromSharedPreference(requireActivity(), GENDER)
-//                val dob = loadFromSharedPreference(requireActivity(), DOB)
-//                val email = loadFromSharedPreference(requireActivity(), EMAIL)
-//                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-//                val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
-//                val state = loadFromSharedPreference(requireActivity(), STATE)
-//                val lga = loadFromSharedPreference(requireActivity(), LGA)
-//                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-//                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-//                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
-//
-//                agentData = AgentDataRequest(
-//                    lastName = lastName,
-//                    firstName = firstName,
-//                    phoneNumber = phoneNumber,
-//                    gender = gender,
-//                    dob = dob,
-//                    email = email,
-//                    password = password,
-//                    residentialAddress = residentialAddress,
-//                    state = state,
-//                    lga = lga,
-//                    zipCode = zipCode,
-//                    longitude = longitude,
-//                    latitude = latitude,
-//                    roles = listOf("agent")
-//                )
-//
-//
-//                setVisibility(progressBar)
-//                //setInVisibility(okTextView)
-//
-//                viewModel.registerAgent(agentData)
+                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+                val gender = loadFromSharedPreference(requireActivity(), GENDER)
+                val dob = loadFromSharedPreference(requireActivity(), DOB)
+                val email = loadFromSharedPreference(requireActivity(), EMAIL)
+                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+                val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+                val state = loadFromSharedPreference(requireActivity(), STATE)
+                val lga = loadFromSharedPreference(requireActivity(), LGA)
+                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
 
-                findNavController().navigate(R.id.createProfileFragmentTwo)
 
-                dismiss()
+
+                println(dob)
+
+                agentData = AgentDataRequest(
+                    lastName = lastName,
+                    firstName = firstName,
+                    phoneNumber = phoneNumber,
+                    gender = gender,
+                    dob = dob,
+                    email = email,
+                    password = password,
+                    residentialAddress = residentialAddress,
+                    state = state,
+                    lga = lga,
+                    zipCode = zipCode,
+                    longitude = longitude,
+                    latitude = latitude,
+                    roles = listOf("agent")
+                )
+
+
+                setVisibility(progressBar)
+
+                okTextView.isEnabled = false
+
+                viewModel.registerAgent(agentData)
+
+                //findNavController().navigate(R.id.createProfileFragmentTwo)
+
+                //dismiss()
 
             }
 

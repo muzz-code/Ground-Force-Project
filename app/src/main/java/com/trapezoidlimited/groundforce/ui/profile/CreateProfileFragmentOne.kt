@@ -105,6 +105,7 @@ class CreateProfileFragmentOne : Fragment() {
                 val dob = binding.fragmentCreateProfileOneDateBirthEt.text.toString()
                 val password = binding.fragmentCreateProfileOnePasswordEt.text.toString()
 
+
                 /** Saving USER PROFILE Details in sharedPreference*/
 
                 saveToSharedPreference(requireActivity(), FIRSTNAME, firstName)
@@ -115,8 +116,8 @@ class CreateProfileFragmentOne : Fragment() {
 
                 Log.i("DOB", loadFromSharedPreference(requireActivity(), DOB))
 
-                //findNavController().navigate(R.id.createProfileFragmentTwo)
-                findNavController().navigate(R.id.action_createProfileFragmentOne_to_locationsVerificationFragment)
+                findNavController().navigate(R.id.createProfileFragmentTwo)
+                //findNavController().navigate(R.id.action_createProfileFragmentOne_to_locationsVerificationFragment)
             }
 
         }

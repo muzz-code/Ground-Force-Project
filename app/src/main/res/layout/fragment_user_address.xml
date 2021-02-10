@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".ui.profile.CreateProfileFragmentTwo">
+    tools:context=".ui.dashboard.UserAddressFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
 
         <!--    Include to tool bar -->
         <include
-            android:id="@+id/fragment_create_profile_two_ic"
+            android:id="@+id/fragment_user_address_ic"
             layout="@layout/toolbar_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
 
         <!--  Contact detail text view details  -->
         <TextView
-            android:id="@+id/fragment_create_profile_two_contact_details_tv"
+            android:id="@+id/fragment_user_address_contact_details_tv"
             style="@style/colorPrimaryBlackMediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,33 +37,33 @@
             android:text="@string/residential_information_title_str"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_ic" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_ic" />
 
         <!--  Email text text view   -->
         <TextView
-            android:id="@+id/fragment_create_profile_two_street_tv"
+            android:id="@+id/fragment_user_address_street_tv"
             style="@style/colorTertiaryGreyExtraSmallText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="22.88dp"
             android:text="@string/street_title_str"
-            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_contact_details_tv"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_contact_details_tv" />
+            app:layout_constraintStart_toStartOf="@+id/fragment_user_address_contact_details_tv"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_contact_details_tv" />
 
 
         <!--    Edit text for email address -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_create_profile_two_street_til"
+            android:id="@+id/fragment_user_address_street_til"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_tv">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_street_tv">
 
             <EditText
-                android:id="@+id/fragment_create_profile_two_street_et"
+                android:id="@+id/fragment_user_address_street_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
@@ -74,7 +74,7 @@
 
         <!--   Button to go to next profile page  -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_create_profile_two_state_tf"
+            android:id="@+id/fragment_user_address_state_tf"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -82,9 +82,9 @@
             android:hint="@string/state_label_str"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_two_street_til"
-            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_street_til"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_street_til">
+            app:layout_constraintEnd_toEndOf="@+id/fragment_user_address_street_til"
+            app:layout_constraintStart_toStartOf="@+id/fragment_user_address_street_til"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_street_til">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
 
         <!--   Button to go to next profile page  -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_create_profile_two_lga_tf"
+            android:id="@+id/fragment_user_address_lga_tf"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
             android:paddingTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_state_tf">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_state_tf">
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -118,7 +118,7 @@
 
         <!--   Button to go to next profile page  -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_create_profile_two_zip_code_tf"
+            android:id="@+id/fragment_user_address_zip_code_tf"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,10 +128,10 @@
             android:hint="@string/zipcode_str"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_lga_tf">
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_lga_tf">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_create_profile_two_zip_code_et"
+                android:id="@+id/fragment_user_address_zip_code_et"
                 style="@style/colorPrimaryBlackSmallText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
 
 
         <Button
-            android:id="@+id/fragment_create_profile_two_btn"
+            android:id="@+id/fragment_user_address_btn"
             style="@style/colorWhiteSmallText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -162,18 +162,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_create_profile_two_zip_code_tf"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_user_address_zip_code_tf"
             app:layout_constraintVertical_bias="1.0" />
 
-
-        <ProgressBar
-            android:id="@+id/fragment_create_profile_two_pb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/fragment_create_profile_two_btn"
-            app:layout_constraintStart_toStartOf="@+id/fragment_create_profile_two_btn"
-            app:layout_constraintTop_toTopOf="@+id/fragment_create_profile_two_btn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

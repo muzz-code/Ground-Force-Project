@@ -238,11 +238,26 @@
         android:id="@+id/verifyLocationFragment"
         android:name="com.trapezoidlimited.groundforce.ui.dashboard.VerifyLocationFragment"
         android:label="fragment_verify_location"
-        tools:layout="@layout/fragment_verify_location" />
+        tools:layout="@layout/fragment_verify_location" >
+        <argument
+            android:name="geopoints"
+            app:argType="com.trapezoidlimited.groundforce.model.GeoPoints"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/uploadImageFragment"
         android:name="com.trapezoidlimited.groundforce.ui.profile.UploadImageFragment"
         android:label="fragment_upload_image"
         tools:layout="@layout/fragment_upload_image" />
+    <fragment
+        android:id="@+id/userAddressFragment"
+        android:name="com.trapezoidlimited.groundforce.ui.dashboard.UserAddressFragment"
+        android:label="fragment_user_address"
+        tools:layout="@layout/fragment_user_address" >
+        <action
+            android:id="@+id/action_userAddressFragment_to_verifyLocationFragment"
+            app:destination="@id/verifyLocationFragment" />
+    </fragment>
 
 </navigation>

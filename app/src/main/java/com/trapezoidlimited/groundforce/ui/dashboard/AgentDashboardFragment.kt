@@ -249,7 +249,8 @@ class AgentDashboardFragment : Fragment() {
 
                     val religion = response.value.data?.religion.toString()
 
-                    val dob = response.value.data?.religion.toString()
+                    val dob = response.value.data?.dob.toString()
+
 
                     binding.agentDashboardFragmentNameTv.text = "Hello $firstName"
 

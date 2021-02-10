@@ -1,6 +1,7 @@
 package com.trapezoidlimited.groundforce.ui.auth
 
 import android.os.Bundle
+import android.os.PatternMatcher
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -82,6 +84,7 @@ class EmailVerificationOne : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         validateFields()
+
 
         val signInWithGoogleChecker = loadFromSharedPreference(requireActivity(), SIGN_UP_WITH_GGOGLE)
 

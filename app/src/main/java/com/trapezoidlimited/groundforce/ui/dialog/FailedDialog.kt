@@ -39,8 +39,7 @@ class FailedDialog: DialogFragment() {
             saveToSharedPreference(requireActivity(), STATE, "Nil")
             saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
 
-            findNavController().navigate(R.id.createProfileFragmentTwo)
-
+            //findNavController().navigate(R.id.createProfileFragmentTwo)
             dismiss()
         }
 

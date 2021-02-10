@@ -1,8 +1,11 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +19,7 @@ import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
 import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
+import com.trapezoidlimited.groundforce.model.GeoPoints
 import com.trapezoidlimited.groundforce.model.LocationJson
 import com.trapezoidlimited.groundforce.model.request.AgentDataRequest
 import com.trapezoidlimited.groundforce.repository.AuthRepositoryImpl
@@ -27,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_locations_verification.*
 import retrofit2.Retrofit
 import java.io.InputStream
 import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,7 +59,11 @@ class CreateProfileFragmentTwo : Fragment() {
     private var street = ""
     private var localGovtArea = ""
     private var state = ""
-
+    private lateinit var geoPoints: GeoPoints
+    private lateinit var geocoder: Geocoder
+    private lateinit var addresses: List<Address>
+    private var locationLat: Double = 0.0
+    private var locationLong: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +79,11 @@ class CreateProfileFragmentTwo : Fragment() {
         /** set navigation arrow from drawable **/
         binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationIcon(R.drawable.ic_arrow_back)
 
+        /** set navigation to go to the previous screen on click of navigation arrow **/
+        binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
+            findNavController().navigate(R.id.createProfileFragmentOne)
+        }
+
         return binding.root
     }
 
@@ -78,51 +92,49 @@ class CreateProfileFragmentTwo : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
+        geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-        street = loadFromSharedPreference(requireActivity(), ADDRESS)
-        localGovtArea = loadFromSharedPreference(requireActivity(), LGA)
-        state = loadFromSharedPreference(requireActivity(), STATE)
-
-
-        binding.fragmentCreateProfileTwoStreetEt.text = SpannableStringBuilder(street)
-        binding.fragmentCreateProfileTwoLgaTf.editText?.text = SpannableStringBuilder(localGovtArea)
-        binding.fragmentCreateProfileTwoStateTf.editText?.text = SpannableStringBuilder(state)
-
-
-
+//        street = loadFromSharedPreference(requireActivity(), ADDRESS)
+//        localGovtArea = loadFromSharedPreference(requireActivity(), LGA)
+//        state = loadFromSharedPreference(requireActivity(), STATE)
+//
+//
+//        binding.fragmentCreateProfileTwoStreetEt.text = SpannableStringBuilder(street)
+//        binding.fragmentCreateProfileTwoLgaTf.editText?.text = SpannableStringBuilder(localGovtArea)
+//        binding.fragmentCreateProfileTwoStateTf.editText?.text = SpannableStringBuilder(state)
 
 
-        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
-
-            when (it) {
-                is Resource.Success -> {
-
-                    val userId = it.value.data?.loginToken?.id
-                    val userToken = it.value.data?.loginToken?.token
-
-                    /**Saving user's id to sharedPreference */
-                    saveToSharedPreference(requireActivity(), USERID, userId!!)
-
-                    /** Saving token to sharedPreference */
-
-                    SessionManager.save(requireContext(), TOKEN, userToken!!)
-
-                    binding.fragmentCreateProfileTwoPb.hide(binding.fragmentCreateProfileTwoBtn)
-                    binding.fragmentCreateProfileTwoBtn.isEnabled = true
-
-                    findNavController().navigate(R.id.waitingFragment)
-
-                }
-                is Resource.Failure -> {
-
-                    binding.fragmentCreateProfileTwoPb.hide(binding.fragmentCreateProfileTwoBtn)
-                    binding.fragmentCreateProfileTwoBtn.isEnabled = true
-
-                    handleApiError(it, retrofit, binding.fragmentCreateProfileTwoBtn)
-                }
-            }
-
-        })
+//        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
+//
+//            when (it) {
+//                is Resource.Success -> {
+//
+//                    val userId = it.value.data?.loginToken?.id
+//                    val userToken = it.value.data?.loginToken?.token
+//
+//                    /**Saving user's id to sharedPreference */
+//                    saveToSharedPreference(requireActivity(), USERID, userId!!)
+//
+//                    /** Saving token to sharedPreference */
+//
+//                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+//
+//                    binding.fragmentCreateProfileTwoPb.hide(binding.fragmentCreateProfileTwoBtn)
+//                    binding.fragmentCreateProfileTwoBtn.isEnabled = true
+//
+//                    findNavController().navigate(R.id.waitingFragment)
+//
+//                }
+//                is Resource.Failure -> {
+//
+//                    binding.fragmentCreateProfileTwoPb.hide(binding.fragmentCreateProfileTwoBtn)
+//                    binding.fragmentCreateProfileTwoBtn.isEnabled = true
+//
+//                    handleApiError(it, retrofit, binding.fragmentCreateProfileTwoBtn)
+//                }
+//            }
+//
+//        })
 
 
         //States
@@ -152,7 +164,7 @@ class CreateProfileFragmentTwo : Fragment() {
                 statePicked = parent.getItemAtPosition(position).toString()
                 for (state in locations.data) {
                     if (state.state == statePicked) {
-//                        lgaAutoCompleteTextView?.text = SpannableStringBuilder(state.lgas[0])
+                        //lgaAutoCompleteTextView?.text = SpannableStringBuilder(state.lgas[0])
                         lga.clear()
                         for (data in state.lgas) {
                             lga.add(data)
@@ -179,12 +191,23 @@ class CreateProfileFragmentTwo : Fragment() {
                 return@setOnClickListener
             } else {
 
-                binding.fragmentCreateProfileTwoBtn.isEnabled = false
-                binding.fragmentCreateProfileTwoPb.show(binding.fragmentCreateProfileTwoBtn)
+//                binding.fragmentCreateProfileTwoBtn.isEnabled = false
+//                binding.fragmentCreateProfileTwoPb.show(binding.fragmentCreateProfileTwoBtn)
+
+
+                val fullAddress = "$residentialAddress, $lgaSelected, $stateText, Nigeria"
+
+                println(fullAddress)
+
+                geoPoints = getLocationFromAddress(fullAddress)
+
+                println(geoPoints)
 
                 /** Saving USER PROFILE DETAILS in sharedPreference*/
-
+                saveToSharedPreference(requireActivity(), ADDRESS, residentialAddress)
                 saveToSharedPreference(requireActivity(), ZIPCODE, zipCode)
+                saveToSharedPreference(requireActivity(), STATE, stateText)
+                saveToSharedPreference(requireActivity(), LGA, lgaSelected)
                 saveToSharedPreference(requireActivity(), BANKNAME, "Nil")
                 saveToSharedPreference(requireActivity(), BANKCODE, "Nil")
                 saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, "0000000000")
@@ -192,46 +215,83 @@ class CreateProfileFragmentTwo : Fragment() {
                 saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, "Nil")
                 saveToSharedPreference(requireActivity(), GENDER, "m")
 
+                val action =
+                    CreateProfileFragmentTwoDirections.actionCreateProfileFragmentTwoToLocationsVerificationFragment(
+                        geoPoints
+                    )
+
+                findNavController().navigate(action)
+
+//                saveToSharedPreference(requireActivity(), ZIPCODE, zipCode)
+//                saveToSharedPreference(requireActivity(), BANKNAME, "Nil")
+//                saveToSharedPreference(requireActivity(), BANKCODE, "Nil")
+//                saveToSharedPreference(requireActivity(), ACCOUNTNUMBER, "0000000000")
+//                saveToSharedPreference(requireActivity(), RELIGION, "Nil")
+//                saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, "Nil")
+//                saveToSharedPreference(requireActivity(), GENDER, "m")
+//                saveToSharedPreference(requireActivity(), ADDRESS, residentialAddress)
+//                saveToSharedPreference(requireActivity(), STATE, stateText)
+//                saveToSharedPreference(requireActivity(), LGA, lgaSelected)
+
                 //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "false")
 
-                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
-                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
-                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
-                val gender = loadFromSharedPreference(requireActivity(), GENDER)
-                val dob = loadFromSharedPreference(requireActivity(), DOB)
-                val email = loadFromSharedPreference(requireActivity(), EMAIL)
-                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
-                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
-                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
-
-                agentData = AgentDataRequest(
-                    lastName = lastName,
-                    firstName = firstName,
-                    phoneNumber = phoneNumber,
-                    gender = gender,
-                    dob = dob,
-                    email = email,
-                    password = password,
-                    residentialAddress = street,
-                    state = state,
-                    lga = localGovtArea,
-                    zipCode = zipCode,
-                    longitude = longitude,
-                    latitude = latitude,
-                    roles = listOf("agent")
-                )
-
-                viewModel.registerAgent(agentData)
+//                val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+//                val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+//                val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+//                val gender = loadFromSharedPreference(requireActivity(), GENDER)
+//                val dob = loadFromSharedPreference(requireActivity(), DOB)
+//                val email = loadFromSharedPreference(requireActivity(), EMAIL)
+//                val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+//                val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+//                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+//                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+//                val lga = loadFromSharedPreference(requireActivity(), LGA)
+//                val state = loadFromSharedPreference(requireActivity(), STATE)
+//                val street = loadFromSharedPreference(requireActivity(), ADDRESS)
+//
+//
+//                agentData = AgentDataRequest(
+//                    lastName = lastName,
+//                    firstName = firstName,
+//                    phoneNumber = phoneNumber,
+//                    gender = gender,
+//                    dob = dob,
+//                    email = email,
+//                    password = password,
+//                    residentialAddress = street,
+//                    state = state,
+//                    lga = lga,
+//                    zipCode = zipCode,
+//                    longitude = longitude,
+//                    latitude = latitude,
+//                    roles = listOf("agent")
+//                )
+//
+//                viewModel.registerAgent(agentData)
 
             }
         }
 
-        /** set navigation to go to the previous screen on click of navigation arrow **/
-        binding.fragmentCreateProfileTwoIc.toolbarFragment.setNavigationOnClickListener {
-            findNavController().navigate(R.id.locationsVerificationFragment)
-        }
     }
+
+
+    private fun getLocationFromAddress(address: String): GeoPoints {
+
+        try {
+            addresses = geocoder.getFromLocationName(address, 5)
+
+            val location = addresses[0]
+            locationLat = location.latitude
+            locationLong = location.longitude
+
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Address does not exist.", Toast.LENGTH_SHORT).show()
+        }
+
+        return GeoPoints(latitude = locationLat, longitude = locationLong)
+
+    }
+
 
     private fun readJson(context: Context): String? {
         var inputStream: InputStream? = null

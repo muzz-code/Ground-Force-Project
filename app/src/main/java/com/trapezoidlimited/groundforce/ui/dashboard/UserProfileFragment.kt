@@ -187,7 +187,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val lastNameEt = SpannableStringBuilder(lastName)
                 val emailEt = SpannableStringBuilder(email)
                 val dobEt = SpannableStringBuilder(dob)
-                val residentAddressEt = SpannableStringBuilder(residentialAddress)
+//                val residentAddressEt = SpannableStringBuilder(residentialAddress)
 
                 userNameTextView.text = name
                 userEmailAddressTextView.text = email
@@ -195,7 +195,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 lastNameEditText.text = lastNameEt
                 emailAddressEditText.text = emailEt
                 dateOfBirthEditText.text = dobEt
-                residenceAddressEditText.text = residentAddressEt
+//                residenceAddressEditText.text = residentAddressEt
 
 
                 when (gender) {
@@ -218,16 +218,26 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 //            }
 //        })
 
+        /** Setting the user's details to their fields from sharedPreference   **/
+
         val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
         val accountNumber = loadFromSharedPreference(requireActivity(), ACCOUNTNUMBER)
+        val additionalDetail = loadFromSharedPreference(requireActivity(), ADDITIONALPHONENUMBER)
+        val fullAddress = "${SessionManager.load(requireContext(), ADDRESS)}, ${SessionManager.load(requireContext(), LGA)}, " +
+                SessionManager.load(requireContext(), STATE)
+
+        val fullAddressEt = SpannableStringBuilder(fullAddress)
 
         if (bankName.trim().isNotEmpty()) {
             bankAutoCompleteTextView?.text =
                 SpannableStringBuilder(bankName)
         }
 
-        val accountNumberEt = SpannableStringBuilder(accountNumber)
-        accountNumberEditText.text = accountNumberEt
+        additionalPhoneEditText.text = SpannableStringBuilder(additionalDetail)
+
+        accountNumberEditText.text = SpannableStringBuilder(accountNumber)
+
+        residenceAddressEditText.text = fullAddressEt
 
         setArrayAdapters()
 
@@ -331,7 +341,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         verifyLocationTextView.setOnClickListener {
-            findNavController().navigate(R.id.verifyLocationFragment)
+
+            findNavController().navigate(R.id.userAddressFragment)
+
+            //findNavController().navigate(R.id.verifyLocationFragment)
         }
 
         //BANKS

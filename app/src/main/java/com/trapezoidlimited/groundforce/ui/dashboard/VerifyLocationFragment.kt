@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -34,6 +35,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class VerifyLocationFragment : Fragment() {
@@ -62,6 +65,11 @@ class VerifyLocationFragment : Fragment() {
     private lateinit var locationCallback: LocationCallback
     private var currentLocation: Location? = null
     private var shortAnimationDuration: Int = 0
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+    private var geoPointLat: Double = 0.0
+    private var geoPointLong: Double = 0.0
+    private val args: VerifyLocationFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -104,6 +112,11 @@ class VerifyLocationFragment : Fragment() {
 
         DataListener.currentScreen = VERIFY_LOCATION_SCREEN
 
+        val geoPoints = args.geopoints
+
+        geoPointLat = geoPoints?.latitude!!
+        geoPointLong = geoPoints.longitude!!
+
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentVerifyLocationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -124,31 +137,59 @@ class VerifyLocationFragment : Fragment() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 super.onLocationResult(locationResult)
 
-                if (locationResult?.lastLocation != null) {
-                    var lat = locationResult.lastLocation.latitude.toString()
-                    var long = locationResult.lastLocation.longitude.toString()
-                    currentLocation = locationResult.lastLocation
+                try {
 
-                    binding.verifyLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
-
-
-                    /** Saving LAT and LONG in sharedPreference*/
-
-                    saveToSharedPreference(requireActivity(), LATITUDE, lat)
-                    saveToSharedPreference(requireActivity(), LONGITUDE, long)
-
-                    /** TO DO */
-                    setSuccessDialog()
+                    if (locationResult?.lastLocation != null) {
+                        val lat = locationResult.lastLocation.latitude.toString()
+                        val long = locationResult.lastLocation.longitude.toString()
+                        latitude = locationResult.lastLocation.latitude
+                        longitude = locationResult.lastLocation.longitude
 
 
-                } else {
-                    Log.d("LOCATION", "Location missing in callback.")
+                        binding.verifyLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
+
+
+                        if ((geoPointLat - latitude).absoluteValue < 0.1 && (geoPointLong - longitude).absoluteValue < 0.1) {
+
+                            SessionManager.save(requireContext(), LATITUDE, latitude.toString())
+                            SessionManager.save(requireContext(), LONGITUDE, longitude.toString())
+
+                            setSuccessDialog()
+
+                        } else {
+
+                            Toast.makeText(
+                                requireContext(),
+                                "Address Mismatch. Check address input.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            showFailedDialog()
+                        }
+
+
+
+                    } else {
+                        Log.d("LOCATION", "Location missing in callback.")
+                        unsubscribeToLocationUpdates()
+                        showFailedDialog()
+                    }
+
+                    unsubscribeToLocationUpdates()
+
+                } catch (e: Exception) {
+                    unsubscribeToLocationUpdates()
                     showFailedDialog()
                 }
             }
 
             override fun onLocationAvailability(p0: LocationAvailability?) {
-                Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
+//                Log.i("GPSSTATUSCHANGE", "GPS is ${p0?.isLocationAvailable ?: false}")
+                Toast.makeText(
+                    requireContext(),
+                    "location service available",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 

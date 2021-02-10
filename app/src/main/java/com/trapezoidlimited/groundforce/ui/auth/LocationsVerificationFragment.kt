@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
@@ -22,10 +21,10 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
-import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
@@ -42,6 +41,8 @@ import retrofit2.Retrofit
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class LocationsVerificationFragment : Fragment() {
@@ -70,6 +71,11 @@ class LocationsVerificationFragment : Fragment() {
     private lateinit var agentData: AgentDataRequest
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
+    private var geoPointLat: Double = 0.0
+    private var geoPointLong: Double = 0.0
+
+
+    private val args: LocationsVerificationFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -116,7 +122,12 @@ class LocationsVerificationFragment : Fragment() {
 
         DataListener.currentScreen = LOCATION_VERIFICATION_SCREEN
 
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+        val geoPoints = args.geopoints
+
+        geoPointLat = geoPoints?.latitude!!
+        geoPointLong = geoPoints.longitude!!
+
 
 
         /** set navigation to go to the previous screen on click of navigation arrow **/
@@ -124,6 +135,42 @@ class LocationsVerificationFragment : Fragment() {
             //findNavController().navigate(R.id.createProfileFragmentOne)
             findNavController().popBackStack()
         }
+
+        /** Observing results from agent creation network call**/
+
+        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Resource.Success -> {
+
+                    val userId = it.value.data?.loginToken?.id
+                    val userToken = it.value.data?.loginToken?.token
+
+                    /**Saving user's id to sharedPreference */
+                    SessionManager.save(requireContext(), USERID, userId!!)
+
+                    /** Saving token to sharedPreference */
+
+                    SessionManager.save(requireContext(), TOKEN, userToken!!)
+
+                    /** Saving LAT and LONG in sharedPreference*/
+                    saveToSharedPreference(requireActivity(), LATITUDE, latitude.toString())
+                    saveToSharedPreference(requireActivity(), LONGITUDE, longitude.toString())
+//                    saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
+                    saveToSharedPreference(requireActivity(), IS_LOCATION_VERIFIED, "false")
+
+
+                    setInVisibility(skipProgressBar)
+                    findNavController().navigate(R.id.waitingFragment)
+
+                }
+                is Resource.Failure -> {
+
+                    setInVisibility(skipProgressBar)
+                    skipButton.isEnabled = true
+                    handleApiError(it, retrofit, skipButton)
+                }
+            }
+        })
 
 
         /** Getting the current location **/
@@ -141,7 +188,7 @@ class LocationsVerificationFragment : Fragment() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 super.onLocationResult(locationResult)
 
-                try{
+                try {
 
                     if (locationResult?.lastLocation != null) {
                         val lat = locationResult.lastLocation.latitude.toString()
@@ -149,28 +196,23 @@ class LocationsVerificationFragment : Fragment() {
                         latitude = locationResult.lastLocation.latitude
                         longitude = locationResult.lastLocation.longitude
 
+
                         binding.verifyingLocationStatusTv.text = "Latitude: $lat, Longitude: $long"
 
 
-                        val addresses = geocoder.getFromLocation(latitude, longitude, 5)
-                        val addressLine = addresses[0].getAddressLine(0)
-                        val city = addresses[0].locality
-                        val state = addresses[0].adminArea
-                        val country = addresses[0].countryName
-                        val lga = addresses[0].subLocality
+                        if ((geoPointLat - latitude).absoluteValue < 0.1 && (geoPointLong - longitude).absoluteValue < 0.1) {
+                            setSuccessDialog()
+                        } else {
 
-                        /** Saving LAT and LONG in sharedPreference*/
+                            Toast.makeText(
+                                requireContext(),
+                                "Address Mismatch. Check address input.",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                        saveToSharedPreference(requireActivity(), LATITUDE, lat)
-                        saveToSharedPreference(requireActivity(), LONGITUDE, long)
-                        //saveToSharedPreference(requireActivity(), LOCATION_VERIFICATION, "true")
-                        saveToSharedPreference(requireActivity(), ADDRESS, addressLine)
-                        saveToSharedPreference(requireActivity(), STATE, state)
-                        saveToSharedPreference(requireActivity(), GENDER, "m")
-                        saveToSharedPreference(requireActivity(), LGA, lga)
+                            showFailedDialog()
+                        }
 
-
-                        setSuccessDialog()
 
                     } else {
                         Log.d("LOCATION", "Location missing in callback.")
@@ -211,12 +253,53 @@ class LocationsVerificationFragment : Fragment() {
             saveToSharedPreference(requireActivity(), STATE, "Nil")
             saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
 
-            findNavController().navigate(R.id.createProfileFragmentTwo)
+            //findNavController().navigate(R.id.createProfileFragmentTwo)
 
+
+
+            val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)
+            val firstName = loadFromSharedPreference(requireActivity(), FIRSTNAME)
+            val phoneNumber = loadFromSharedPreference(requireActivity(), PHONE)
+            val gender = loadFromSharedPreference(requireActivity(), GENDER)
+            val dob = loadFromSharedPreference(requireActivity(), DOB)
+            val email = loadFromSharedPreference(requireActivity(), EMAIL)
+            val password = loadFromSharedPreference(requireActivity(), PASSWORD)
+            val residentialAddress = loadFromSharedPreference(requireActivity(), ADDRESS)
+            val state = loadFromSharedPreference(requireActivity(), STATE)
+            val lga = loadFromSharedPreference(requireActivity(), LGA)
+            val zipCode = loadFromSharedPreference(requireActivity(), ZIPCODE)
+            val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
+            val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+
+
+            agentData = AgentDataRequest(
+                lastName = lastName,
+                firstName = firstName,
+                phoneNumber = phoneNumber,
+                gender = gender,
+                dob = dob,
+                email = email,
+                password = password,
+                residentialAddress = residentialAddress,
+                state = state,
+                lga = lga,
+                zipCode = zipCode,
+                longitude = longitude,
+                latitude = latitude,
+                roles = listOf("agent")
+            )
+
+
+            setVisibility(skipProgressBar)
+
+            skipButton.isEnabled = false
+
+            viewModel.registerAgent(agentData)
 
         }
 
     }
+
 
     /** method to subscribe to location updates **/
     private fun subscribeToLocationUpdates() {

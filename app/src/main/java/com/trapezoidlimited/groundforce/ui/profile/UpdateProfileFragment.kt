@@ -223,7 +223,7 @@ class UpdateProfileFragment : Fragment() {
 
                 bankCode = bankCodeEditText.text.toString()
                 accountNumber = accountNumberEditText.text.toString()
-                religion = religionEditText.text.toString()
+                religion = "Christian"
                 additionNumber = additionalPhoneNumberEditText.text.toString()
                 gender = genderEditText.text.toString()
                 agentGender = if (gender == "Male") {

@@ -156,6 +156,10 @@ class PhoneActivationFragment : Fragment() {
                     val action = PhoneActivationFragmentDirections
                         .actionPhoneActivationFragmentToPhoneVerificationFragment(number)
                     findNavController().navigate(action)
+
+                    /** Saving phone in sharedPreference*/
+                    saveToSharedPreference(requireActivity(), PHONE, number)
+
                 }
                 is Resource.Failure -> {
                     /** Hiding progressbar and enabling button */
@@ -179,9 +183,6 @@ class PhoneActivationFragment : Fragment() {
             number = "+234" + phoneEditText.text.toString()
 
             val phoneNumber = VerifyPhoneRequest(number)
-
-            /** Saving phone in sharedPreference*/
-            saveToSharedPreference(requireActivity(), PHONE, number)
 
             /** Making network call*/
             viewModel.verifyPhone(phoneNumber)

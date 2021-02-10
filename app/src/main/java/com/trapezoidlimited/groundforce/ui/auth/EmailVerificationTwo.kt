@@ -132,8 +132,6 @@ class EmailVerificationTwo : Fragment() {
 
         viewModel.confirmEmailResponse.observe(viewLifecycleOwner, {
 
-            println("VIEWMODEL RUNNING")
-
             when (it) {
                 is Resource.Success -> {
                     binding.fragmentEmailVerificationTwoPb.hide(binding.fragmentEmailVerificationTwoConfirmBtn)
@@ -145,7 +143,7 @@ class EmailVerificationTwo : Fragment() {
                     )
                         .show()
 
-                    findNavController().navigate(R.id.action_emailVerificationOne_to_emailVerificationTwo)
+                    findNavController().navigate(R.id.createProfileFragmentOne)
                 }
                 is Resource.Failure -> {
 
