@@ -13,5 +13,6 @@ class RoomAdditionalDetail(
     var additionalPhoneNumber: String?,
     var gender: String,
     var avatarUrl: String,
-    var publicId: String
+    var publicId: String,
+    var accountName: String? = null
 )

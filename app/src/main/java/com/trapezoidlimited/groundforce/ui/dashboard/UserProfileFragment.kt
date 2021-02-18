@@ -102,6 +102,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var residenceAddressEditText: EditText
     private lateinit var bankDetailsEditText: EditText
     private lateinit var accountNumberEditText: EditText
+    private lateinit var accountNameEditText: EditText
     private lateinit var isLocationVerified: String
     private lateinit var pictureImageView: ImageView
     private lateinit var saveChangesBtn: Button
@@ -129,6 +130,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         userEmailAddressTextView = binding.fragmentUserProfileUserEmailTv
         firstNameEditText = binding.fragmentUserProfileFirstNameEt
         lastNameEditText = binding.fragmentUserProfileLastNameEt
+        accountNameEditText = binding.fragmentUserProfileHolderNameEt
         dateOfBirthEditText = binding.fragmentUserProfileDateBirthEt
         emailAddressEditText = binding.fragmentUserProfileEmailAddressEt
         additionalPhoneEditText = binding.fragmentUserProfileAdditionalNumberEt
@@ -223,6 +225,7 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
         val accountNumber = loadFromSharedPreference(requireActivity(), ACCOUNTNUMBER)
         val additionalDetail = loadFromSharedPreference(requireActivity(), ADDITIONALPHONENUMBER)
+        val accountName = SessionManager.load(requireContext(), ACCOUNTNAME)
         val fullAddress = "${SessionManager.load(requireContext(), ADDRESS)}, ${SessionManager.load(requireContext(), LGA)}, " +
                 SessionManager.load(requireContext(), STATE)
 
@@ -231,6 +234,10 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         if (bankName.trim().isNotEmpty()) {
             bankAutoCompleteTextView?.text =
                 SpannableStringBuilder(bankName)
+        }
+
+        if (accountName.trim().isNotEmpty()) {
+            accountNameEditText.text = SpannableStringBuilder(accountName)
         }
 
         additionalPhoneEditText.text = SpannableStringBuilder(additionalDetail)

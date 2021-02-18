@@ -12,6 +12,7 @@ data class UserResponse(
     val additionalPhoneNumber: String?,
     val residentialAddress: String,
     val bankName: String?,
+    val accountName: String?,
     val accountNumber: String?,
     val avatarUrl: String?,
     val publicId: String?,

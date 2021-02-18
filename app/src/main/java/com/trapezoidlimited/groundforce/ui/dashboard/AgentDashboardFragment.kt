@@ -251,6 +251,8 @@ class AgentDashboardFragment : Fragment() {
 
                     val dob = response.value.data?.dob.toString()
 
+                    val accountName = response.value.data?.accountName.toString()
+
 
                     binding.agentDashboardFragmentNameTv.text = "Hello $firstName"
 
@@ -302,6 +304,8 @@ class AgentDashboardFragment : Fragment() {
 
                     saveToSharedPreference(requireActivity(), ADDITIONALPHONENUMBER, additionNumber)
 
+                    saveToSharedPreference(requireActivity(), ACCOUNTNAME, accountName)
+
 
                     /** Checking if User is verified */
 
@@ -335,7 +339,8 @@ class AgentDashboardFragment : Fragment() {
                         additionalPhoneNumber = additionNumber,
                         gender = gender,
                         avatarUrl = avatarUrl,
-                        publicId = publicId
+                        publicId = publicId,
+                        accountName = accountName
                     )
 
                     roomViewModel.addAdditionalDetail(roomAdditionalDetail)
