@@ -223,7 +223,6 @@ class UpdateProfileFragment : Fragment() {
 
                 bankCode = bankCodeEditText.text.toString()
                 accountNumber = accountNumberEditText.text.toString()
-                religion = "Christian"
                 additionNumber = additionalPhoneNumberEditText.text.toString()
                 gender = genderEditText.text.toString()
                 agentGender = if (gender == "Male") {
@@ -247,7 +246,6 @@ class UpdateProfileFragment : Fragment() {
                 val verifyAccountRequest = VerifyAccountRequest(
                     bankCode,
                     accountNumber,
-                    religion,
                     additionNumber,
                     agentGender
                 )

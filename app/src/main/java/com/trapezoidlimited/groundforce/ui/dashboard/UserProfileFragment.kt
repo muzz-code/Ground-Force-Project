@@ -224,25 +224,39 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         val bankName = loadFromSharedPreference(requireActivity(), BANKNAME)
         val accountNumber = loadFromSharedPreference(requireActivity(), ACCOUNTNUMBER)
-        val additionalDetail = loadFromSharedPreference(requireActivity(), ADDITIONALPHONENUMBER)
+        val additionalPhone = loadFromSharedPreference(requireActivity(), ADDITIONALPHONENUMBER)
         val accountName = SessionManager.load(requireContext(), ACCOUNTNAME)
-        val fullAddress = "${SessionManager.load(requireContext(), ADDRESS)}, ${SessionManager.load(requireContext(), LGA)}, " +
-                SessionManager.load(requireContext(), STATE)
+        val fullAddress = SessionManager.load(requireContext(), ADDRESS)
 
-        val fullAddressEt = SpannableStringBuilder(fullAddress)
+        var fullAddressEt = SpannableStringBuilder(" ")
+
+        if (fullAddress != "Nil") {
+            fullAddressEt = SpannableStringBuilder(fullAddress)
+        }
+
 
         if (bankName.trim().isNotEmpty()) {
             bankAutoCompleteTextView?.text =
                 SpannableStringBuilder(bankName)
         }
 
-        if (accountName.trim().isNotEmpty()) {
+        if (accountName == "null") {
+            accountNameEditText.text = SpannableStringBuilder(" ")
+        } else {
             accountNameEditText.text = SpannableStringBuilder(accountName)
         }
 
-        additionalPhoneEditText.text = SpannableStringBuilder(additionalDetail)
+        if (additionalPhone == "null") {
+            additionalPhoneEditText.text = SpannableStringBuilder(" ")
+        } else {
+            additionalPhoneEditText.text = SpannableStringBuilder(additionalPhone)
+        }
 
-        accountNumberEditText.text = SpannableStringBuilder(accountNumber)
+        if (accountNumber == "0000000000") {
+            accountNumberEditText.text = SpannableStringBuilder(" ")
+        } else {
+            accountNumberEditText.text = SpannableStringBuilder(accountNumber)
+        }
 
         residenceAddressEditText.text = fullAddressEt
 

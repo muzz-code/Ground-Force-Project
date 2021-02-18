@@ -392,6 +392,12 @@ class AgentDashboardFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getUser(userId)
+    }
+
     private fun checkUserVerified(isVerified: String) {
 
         if (isVerified == "true") {

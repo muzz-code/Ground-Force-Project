@@ -198,10 +198,11 @@ class VerifiedDialog : DialogFragment() {
 
                 setVisibility(progressBar)
 
-                val longitude = loadFromSharedPreference(requireActivity(), LONGITUDE)
-                val latitude = loadFromSharedPreference(requireActivity(), LATITUDE)
+                val longitude = SessionManager.load(requireContext(), LONGITUDE)
+                val latitude = SessionManager.load(requireContext(), LATITUDE)
+                val address = SessionManager.load(requireContext(), ADDRESS)
 
-                val verifyLocationRequest = VerifyLocationRequest(longitude, latitude)
+                val verifyLocationRequest = VerifyLocationRequest(address, longitude, latitude)
 
                 viewModel.verifyLocation(verifyLocationRequest)
             }
