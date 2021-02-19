@@ -201,8 +201,11 @@ class VerifiedDialog : DialogFragment() {
                 val longitude = SessionManager.load(requireContext(), LONGITUDE)
                 val latitude = SessionManager.load(requireContext(), LATITUDE)
                 val address = SessionManager.load(requireContext(), ADDRESS)
+                val state = SessionManager.load(requireContext(), STATE)
+                val lga = SessionManager.load(requireContext(), LGA)
+                val zipCode = SessionManager.load(requireContext(), ZIPCODE)
 
-                val verifyLocationRequest = VerifyLocationRequest(address, longitude, latitude)
+                val verifyLocationRequest = VerifyLocationRequest(address, state, lga, zipCode, longitude, latitude)
 
                 viewModel.verifyLocation(verifyLocationRequest)
             }
