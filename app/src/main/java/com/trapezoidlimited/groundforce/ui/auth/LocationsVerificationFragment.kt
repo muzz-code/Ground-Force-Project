@@ -129,7 +129,6 @@ class LocationsVerificationFragment : Fragment() {
         geoPointLong = geoPoints.longitude!!
 
 
-
         /** set navigation to go to the previous screen on click of navigation arrow **/
         binding.fragmentLocationVerificationTb.toolbarTransparentFragment.setNavigationOnClickListener {
             //findNavController().navigate(R.id.createProfileFragmentOne)
@@ -258,7 +257,6 @@ class LocationsVerificationFragment : Fragment() {
             saveToSharedPreference(requireActivity(), ADDRESS, "Nil")
 
             //findNavController().navigate(R.id.createProfileFragmentTwo)
-
 
 
             val lastName = loadFromSharedPreference(requireActivity(), LASTNAME)

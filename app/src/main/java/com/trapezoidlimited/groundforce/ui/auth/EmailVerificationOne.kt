@@ -130,7 +130,7 @@ class EmailVerificationOne : Fragment() {
 
                         handleApiError(
                             it, retrofit, requireView(),
-                            message, R.id.createProfileFragmentOne
+                            message, R.id.createProfileFragmentOne, email, EMAIL
                         )
                     }
                 }
@@ -142,8 +142,8 @@ class EmailVerificationOne : Fragment() {
 
            email = binding.fragmentEmailVerificationEt.text.toString()
 
-//            /** Saving EMAIL in sharedPreference*/
-//            saveToSharedPreference(requireActivity(), EMAIL, email)
+            /** Saving EMAIL in sharedPreference*/
+            saveToSharedPreference(requireActivity(), EMAIL, email)
 
             binding.fragmentEmailVerificationSubmitPb.show(binding.fragmentEmailVerificationSubmitBtn)
 

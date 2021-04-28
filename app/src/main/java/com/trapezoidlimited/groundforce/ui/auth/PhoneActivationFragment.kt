@@ -167,7 +167,10 @@ class PhoneActivationFragment : Fragment() {
 
                     val message = "Number is already confirmed"
 
-                    handleApiError( it, retrofit, requireView(), message, R.id.emailVerificationOne )
+                    /** Saving phone in sharedPreference*/
+                    saveToSharedPreference(requireActivity(), PHONE, number)
+
+                    handleApiError( it, retrofit, requireView(), message, R.id.emailVerificationOne, number, PHONE )
 
                 }
             }

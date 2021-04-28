@@ -227,13 +227,11 @@ class UserProfileFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val additionalPhone = loadFromSharedPreference(requireActivity(), ADDITIONALPHONENUMBER)
         val accountName = SessionManager.load(requireContext(), ACCOUNTNAME)
         val address = SessionManager.load(requireContext(), ADDRESS)
-        val lga = SessionManager.load(requireContext(), LGA)
-        val state = SessionManager.load(requireContext(), STATE)
 
         var fullAddressEt = SpannableStringBuilder(" ")
 
-        if (address != "Nil" && lga != "Nil" && state != "Nil" ) {
-            fullAddressEt = SpannableStringBuilder("$address, $lga, $state")
+        if (address != "Nil" ) {
+            fullAddressEt = SpannableStringBuilder(address)
         }
 
         if (bankName.trim().isNotEmpty()) {

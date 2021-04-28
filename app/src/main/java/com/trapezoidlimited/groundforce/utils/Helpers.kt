@@ -31,7 +31,7 @@ fun Fragment.handleApiError(
 
     when {
         failure.isNetworkError -> {
-            showSnackBar(view, "Please confirm network connection")
+            showSnackBar(view, "Connection time out or bad network connection. Try again")
         }
 
         else -> {
@@ -54,8 +54,16 @@ fun Fragment.handleApiError(
 
                 } else {
 
+                    println(errorMessage)
+
                     if (errorMessage != null) {
-                        showSnackBar(requireView(), errorMessage)
+
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT)
+                            .show()
+
+                       // showSnackBar(requireView(), errorMessage)
+
+
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -81,13 +89,15 @@ fun Fragment.handleApiError(
     retrofit: Retrofit,
     view: View,
     message: String = "",
-    navDestinationId: Int = 0
+    navDestinationId: Int = 0,
+    data: String? = null,
+    dataType: String? = null
 ) {
     val errorUtils = ErrorUtils(retrofit)
 
     when {
         failure.isNetworkError -> {
-            showSnackBar(view, "Please confirm network connection")
+            showSnackBar(view, "Connection time out or bad network connection. Try again")
         }
 
         else -> {
@@ -102,6 +112,12 @@ fun Fragment.handleApiError(
                 if (errorMessage == message) {
 
                     println("RUNS")
+                    /** Saving EMAIL in sharedPreference*/
+                    if (data != null) {
+                        if (dataType != null) {
+                            saveToSharedPreference(requireActivity(), dataType, data)
+                        }
+                    }
 
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
                         .show()
@@ -110,6 +126,9 @@ fun Fragment.handleApiError(
 
                 } else {
                     //error?.errors?.let { showSnackBar(view, it.message!!) }
+
+                        println(errorMessage)
+
                     if (errorMessage != null) {
                         showSnackBar(requireView(), errorMessage)
                     }
@@ -133,7 +152,7 @@ fun Activity.handleApiError(
 
     when {
         failure.isNetworkError -> {
-            showSnackBar(view, "Please confirm network connection")
+            showSnackBar(view, "Connection time out or bad network connection. Try again")
         }
 
         else -> {
