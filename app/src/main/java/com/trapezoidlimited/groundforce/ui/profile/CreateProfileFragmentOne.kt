@@ -58,7 +58,7 @@ class CreateProfileFragmentOne : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         //Get Google Account Details from Landing Fragment via navigation argument
         googleAccount = args.googleAccount

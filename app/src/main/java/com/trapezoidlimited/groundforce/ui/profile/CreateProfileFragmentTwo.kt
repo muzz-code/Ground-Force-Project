@@ -1,15 +1,11 @@
 package com.trapezoidlimited.groundforce.ui.profile
 
-import android.app.AlertDialog
+import android.app.Fragment
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.provider.Settings
-import android.text.SpannableStringBuilder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,14 +13,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
 import com.trapezoidlimited.groundforce.EntryApplication
 import com.trapezoidlimited.groundforce.R
 import com.trapezoidlimited.groundforce.api.ApiService
 import com.trapezoidlimited.groundforce.api.MissionsApi
-import com.trapezoidlimited.groundforce.api.Resource
 import com.trapezoidlimited.groundforce.databinding.FragmentCreateProfileTwoBinding
 import com.trapezoidlimited.groundforce.model.GeoPoints
 import com.trapezoidlimited.groundforce.model.LocationJson
@@ -43,7 +36,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CreateProfileFragmentTwo : Fragment() {
+class CreateProfileFragmentTwo : androidx.fragment.app.Fragment() {
 
     @Inject
     lateinit var loginApiServiceService: ApiService
@@ -61,24 +54,26 @@ class CreateProfileFragmentTwo : Fragment() {
     private val binding get() = _binding!!
 
     private val gson by lazy { EntryApplication.gson }
+
+
     private lateinit var locations: LocationJson
     private var statePicked = ""
     private lateinit var agentData: AgentDataRequest
     private var street = ""
     private var localGovtArea = ""
     private var state = ""
-    private lateinit var geoPoints: GeoPoints
-    private lateinit var geocoder: Geocoder
-    private lateinit var addresses: List<Address>
-    private var locationLat: Double = 0.0
-    private var locationLong: Double = 0.0
-    private lateinit var locationRequest: LocationRequest
+    private lateinit var geoPoints: GeoPoints          // -------- //
+    private lateinit var geocoder: Geocoder               // -------- //
+    private lateinit var addresses: List<Address>               // -------- //
+    private var locationLat: Double = 0.0                     // -------- //
+    private var locationLong: Double = 0.0                    // -------- //
+    private lateinit var locationRequest: LocationRequest        // -------- //
     private val LOCATION_REQUEST_CODE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentCreateProfileTwoBinding.inflate(inflater, container, false)
 
@@ -95,13 +90,16 @@ class CreateProfileFragmentTwo : Fragment() {
         }
 
         return binding.root
+
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
 
         locations = gson.fromJson(readJson(requireActivity()), LocationJson::class.java)
+
         geocoder = Geocoder(requireContext(), Locale.getDefault())
 
         locationRequest = LocationRequest().apply {
@@ -112,7 +110,7 @@ class CreateProfileFragmentTwo : Fragment() {
         }
 
         /** method to check if GPS is enabled and request user to turn on gps **/
-        checkGPSEnabled(LOCATION_REQUEST_CODE, locationRequest)
+        checkGPSEnabled(LOCATION_REQUEST_CODE, locationRequest)                         // -------- //
 
 //        street = loadFromSharedPreference(requireActivity(), ADDRESS)
 //        localGovtArea = loadFromSharedPreference(requireActivity(), LGA)
@@ -122,7 +120,6 @@ class CreateProfileFragmentTwo : Fragment() {
 //        binding.fragmentCreateProfileTwoStreetEt.text = SpannableStringBuilder(street)
 //        binding.fragmentCreateProfileTwoLgaTf.editText?.text = SpannableStringBuilder(localGovtArea)
 //        binding.fragmentCreateProfileTwoStateTf.editText?.text = SpannableStringBuilder(state)
-
 
 //        viewModel.agentCreationResponse.observe(viewLifecycleOwner, {
 //
@@ -158,8 +155,8 @@ class CreateProfileFragmentTwo : Fragment() {
 
 
         //States
-        val states: MutableList<String> = mutableListOf()
-        for (data in locations.data) {
+        val states: MutableList<String> = mutableListOf()             // -------- //
+        for (data in locations.data) {                                // -------- //
             states.add(data.state)
         }
 
@@ -172,11 +169,8 @@ class CreateProfileFragmentTwo : Fragment() {
         //LGAS
         val lga: MutableList<String> = mutableListOf()
         val adapterLGA = ArrayAdapter(requireContext(), R.layout.list_item, lga)
-        val lgaAutoCompleteTextView =
-            (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)
-        lgaAutoCompleteTextView?.setAdapter(
-            adapterLGA
-        )
+        val lgaAutoCompleteTextView = (binding.fragmentCreateProfileTwoLgaTf.editText as? AutoCompleteTextView)
+        lgaAutoCompleteTextView?.setAdapter(adapterLGA)
 
         //Get State Picked
         val adapterStateObject =
@@ -193,18 +187,15 @@ class CreateProfileFragmentTwo : Fragment() {
                 }
             }
 
-
         stateAutoCompleteTextView?.onItemClickListener = adapterStateObject
-
 
         /** Navigate to bank detail screen **/
         binding.fragmentCreateProfileTwoBtn.setOnClickListener {
 
-
             val residentialAddress = binding.fragmentCreateProfileTwoStreetEt.text.toString()
-            val zipCode = binding.fragmentCreateProfileTwoZipCodeTf.editText?.text.toString()
-            val lgaSelected = binding.fragmentCreateProfileTwoLgaTf.editText?.text.toString()
-            val stateText = binding.fragmentCreateProfileTwoStateTf.editText?.text.toString()
+            val zipCode = binding.fragmentCreateProfileTwoZipCodeTf.editText?.text.toString()             // -------- //
+            val lgaSelected = binding.fragmentCreateProfileTwoLgaTf.editText?.text.toString()              // -------- //
+            val stateText = binding.fragmentCreateProfileTwoStateTf.editText?.text.toString()               // -------- //
 
             if (!validateFields()) {
                 showSnackBar(binding.fragmentCreateProfileTwoBtn, "Field(s) should not be empty")
@@ -215,11 +206,11 @@ class CreateProfileFragmentTwo : Fragment() {
 //                binding.fragmentCreateProfileTwoPb.show(binding.fragmentCreateProfileTwoBtn)
 
 
-                val fullAddress = "$residentialAddress, $lgaSelected, $stateText, Nigeria"
+                val fullAddress = "$residentialAddress, $lgaSelected, $stateText, Nigeria"                // -------- //
 
                 println(fullAddress)
 
-                geoPoints = getLocationFromAddress(fullAddress)
+                geoPoints = getLocationFromAddress(fullAddress)                                     // -------- //
 
                 println(geoPoints)
 
@@ -286,19 +277,17 @@ class CreateProfileFragmentTwo : Fragment() {
 //                    latitude = latitude,
 //                    roles = listOf("agent")
 //                )
-//
 //                viewModel.registerAgent(agentData)
-
             }
         }
 
     }
 
 
-    private fun getLocationFromAddress(address: String): GeoPoints {
+    private fun getLocationFromAddress(address: String): GeoPoints {                     // -------- //
 
         try {
-            addresses = geocoder.getFromLocationName(address, 5)
+            addresses = geocoder.getFromLocationName(address, 5)            // -------- //
 
             val location = addresses[0]
             locationLat = location.latitude
@@ -308,17 +297,18 @@ class CreateProfileFragmentTwo : Fragment() {
             Toast.makeText(requireContext(), "Address does not exist.", Toast.LENGTH_SHORT).show()
         }
 
-        return GeoPoints(latitude = locationLat, longitude = locationLong)
+        return GeoPoints(latitude = locationLat, longitude = locationLong)               // -------- //
 
     }
 
 
-    private fun readJson(context: Context): String? {
+    private fun      readJson(context: Context): String? {                               // -------- //
         var inputStream: InputStream? = null
 
         val jsonString: String
 
         try {
+
             inputStream = context.assets.open("location.json")
 
             val size = inputStream.available()
@@ -330,6 +320,7 @@ class CreateProfileFragmentTwo : Fragment() {
             jsonString = String(buffer)
 
             return jsonString
+
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -337,7 +328,8 @@ class CreateProfileFragmentTwo : Fragment() {
         }
 
         return null
-    }
+
+    }                                       // -------- //
 
     private fun validateFields(): Boolean {
 
@@ -368,7 +360,6 @@ class CreateProfileFragmentTwo : Fragment() {
             )
         )
 
-
         val validator = JDFormValidator.Builder()
             .addFieldsToValidate(fields)
             .removeErrorIcon(true)
@@ -377,12 +368,10 @@ class CreateProfileFragmentTwo : Fragment() {
         return validator.areAllFieldsValidated
     }
 
-
     /** if the GPS is turned on, location update is subscribed to **/
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {                // -------- //
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (requestCode == LOCATION_REQUEST_CODE) {
+        if (requestCode == LOCATION_REQUEST_CODE) {                                                    // -------- //
 
             Toast.makeText(requireContext(), "GPS is on.", Toast.LENGTH_SHORT).show()
 
